@@ -12,6 +12,7 @@ out/
 # production
 build
 dist
+test-ledger/
 
 # debug
 npm-debug.log*
@@ -36,6 +37,10 @@ canister_ids.json
 
 # testing
 coverage
+
+# solana
+test-ledger/
+~temp-wallet.json
 
 # misc
 .DS_Store
