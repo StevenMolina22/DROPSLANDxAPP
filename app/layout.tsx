@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { AuthProvider } from "@/hooks/use-auth"
 import { MusicPlayerProvider } from "@/contexts/music-player-context"
+import { SolanaWalletProvider } from "@/contexts/solana-wallet-context"
 import MiniPlayerWrapper from "@/components/mini-player-wrapper"
 import ExpandedPlayer from "@/components/expanded-player"
 
@@ -24,14 +25,16 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className="dark">
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          <AuthProvider>
-            <MusicPlayerProvider>
-              {children}
-              <MiniPlayerWrapper />
-              <ExpandedPlayer />
-            </MusicPlayerProvider>
-          </AuthProvider>
-          <Toaster />
+          <SolanaWalletProvider>
+            <AuthProvider>
+              <MusicPlayerProvider>
+                {children}
+                <MiniPlayerWrapper />
+                <ExpandedPlayer />
+              </MusicPlayerProvider>
+            </AuthProvider>
+            <Toaster />
+          </SolanaWalletProvider>
         </ThemeProvider>
       </body>
     </html>

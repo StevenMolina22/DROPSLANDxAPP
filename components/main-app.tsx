@@ -16,6 +16,7 @@ import { useAuth } from "@/hooks/use-auth"
 import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import LoginScreen from "@/components/login-screen"
+import { SolanaWalletButton } from "@/components/solana-wallet-button"
 
 export default function MainApp() {
   const [activeTab, setActiveTab] = useState("home")
@@ -121,8 +122,9 @@ export default function MainApp() {
       {/* App Header - Solo se muestra cuando el usuario está autenticado */}
       {user && (
         <header className="bg-gray-900 px-4 py-4 border-b border-gray-800 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <img src="/images/dropsland-logo.png" alt="DROPSLAND" className="h-12 max-w-[180px] object-contain" />
+            <SolanaWalletButton />
           </div>
           <div className="flex items-center gap-2">
             {userData && isArtist() && activeTab === "profile" && (
