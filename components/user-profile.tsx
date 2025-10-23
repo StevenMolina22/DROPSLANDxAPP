@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { useAuth } from "@/hooks/use-auth"
+import { useAuth } from "@/features/authentication"
 import { Edit, Camera } from "lucide-react"
 import ProfileEditor from "./profile-editor"
 

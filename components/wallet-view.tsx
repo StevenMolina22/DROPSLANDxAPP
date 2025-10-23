@@ -4,7 +4,7 @@ import { TrendingUp, Users } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useAuth } from "@/hooks/use-auth"
+import { useAuth } from "@/features/authentication"
 import { BanknoteIcon } from "@/components/icons/banknote-icon"
 
 interface WalletViewProps {

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { useAuth } from "@/hooks/use-auth"
+import { useAuth } from "@/features/authentication"
 import UserProfile from "@/components/user-profile"
 import { Button } from "@/components/ui/button"
 

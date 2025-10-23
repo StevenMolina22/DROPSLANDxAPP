@@ -10,7 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Textarea } from "@/components/ui/textarea"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { BanknoteIcon } from "@/components/icons/banknote-icon"
-import { useAuth } from "@/hooks/use-auth"
+import { useAuth } from "@/features/authentication"
 import { userDataService } from "@/lib/user-data-service"
 import { Post, Activity, FeedItem, UserData } from "@/lib/types"
 import MusicPlayer from "@/components/music-player"
@@ -95,7 +95,7 @@ export default function HomeView({ onSelectArtist, onNavigateToExplore }: HomeVi
 
   const handleLike = (postId: string) => {
     if (!user) return
-    
+
     const success = userDataService.likePost(user, postId)
     if (success) {
       // Refresh feed
@@ -125,12 +125,12 @@ export default function HomeView({ onSelectArtist, onNavigateToExplore }: HomeVi
     if (!newPostContent.trim() || !user || !userData) return
 
     let content = newPostContent
-    
+
     // Add location if selected
     if (selectedLocation) {
       content += ` 📍 ${selectedLocation}`
     }
-    
+
     // Add poll if created
     if (pollOptions.some(option => option.trim())) {
       content += `\n\n📊 Poll:\n${pollOptions.filter(option => option.trim()).map((option, index) => `${index + 1}. ${option}`).join('\n')}`
@@ -234,16 +234,16 @@ export default function HomeView({ onSelectArtist, onNavigateToExplore }: HomeVi
     const date = new Date(dateString)
     const now = new Date()
     const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60))
-    
+
     if (diffInMinutes < 1) return 'Just now'
     if (diffInMinutes < 60) return `${diffInMinutes}m ago`
-    
+
     const diffInHours = Math.floor(diffInMinutes / 60)
     if (diffInHours < 24) return `${diffInHours}h ago`
-    
+
     const diffInDays = Math.floor(diffInHours / 24)
     if (diffInDays < 7) return `${diffInDays}d ago`
-    
+
     return date.toLocaleDateString()
   }
 
@@ -265,7 +265,7 @@ export default function HomeView({ onSelectArtist, onNavigateToExplore }: HomeVi
     if (item.type === 'post') {
       const post = item.data as Post
       const isLiked = user ? post.likes.includes(user) : false
-      
+
       return (
         <Card key={item.id} className="bg-gray-800 border-gray-700">
           <CardContent className="p-4">
@@ -288,8 +288,8 @@ export default function HomeView({ onSelectArtist, onNavigateToExplore }: HomeVi
               </div>
             )}
             <div className="flex items-center justify-between text-gray-400 text-sm">
-              <button 
-                className="flex items-center" 
+              <button
+                className="flex items-center"
                 onClick={() => handleLike(post.id)}
                 disabled={!user}
               >
@@ -298,8 +298,8 @@ export default function HomeView({ onSelectArtist, onNavigateToExplore }: HomeVi
                 />
                 {post.likes.length}
               </button>
-              <button 
-                className="flex items-center" 
+              <button
+                className="flex items-center"
                 onClick={() => handleOpenComments(post.id)}
                 disabled={!user}
               >
@@ -316,7 +316,7 @@ export default function HomeView({ onSelectArtist, onNavigateToExplore }: HomeVi
       )
     } else if (item.type === 'activity') {
       const activity = item.data as Activity
-      
+
       return (
         <Card key={item.id} className="bg-gray-800 border-gray-700">
           <CardContent className="p-3">
@@ -351,7 +351,7 @@ export default function HomeView({ onSelectArtist, onNavigateToExplore }: HomeVi
         </Card>
       )
     }
-    
+
     return null
   }
 
@@ -397,9 +397,9 @@ export default function HomeView({ onSelectArtist, onNavigateToExplore }: HomeVi
                       <BanknoteIcon className="h-5 w-5 mr-1" />
                       Buy Tokens
                     </Button>
-                    <Button 
-                      size="sm" 
-                      variant="outline" 
+                    <Button
+                      size="sm"
+                      variant="outline"
                       className="bg-gray-700 text-white border-gray-600"
                       onClick={onNavigateToExplore}
                     >
@@ -437,9 +437,9 @@ export default function HomeView({ onSelectArtist, onNavigateToExplore }: HomeVi
                   <CardContent className="p-4">
                     <div className="flex items-start gap-3">
                       <Avatar className="h-10 w-10">
-                        <AvatarImage 
-                          src={userData?.profilePhoto && userData.profilePhoto.trim() !== '' ? userData.profilePhoto : '/avatars/user.jpg'} 
-                          alt="Your profile" 
+                        <AvatarImage
+                          src={userData?.profilePhoto && userData.profilePhoto.trim() !== '' ? userData.profilePhoto : '/avatars/user.jpg'}
+                          alt="Your profile"
                           onError={(e) => {
                             e.currentTarget.src = '/avatars/user.jpg'
                           }}
@@ -473,7 +473,7 @@ export default function HomeView({ onSelectArtist, onNavigateToExplore }: HomeVi
                 </Card>
               </div>
             )}
-            
+
             <div className="space-y-3">
               {feedItems.length > 0 ? (
                 feedItems.map(renderFeedItem)
@@ -488,6 +488,7 @@ export default function HomeView({ onSelectArtist, onNavigateToExplore }: HomeVi
                 </Card>
               )}
             </div>
+            
           </TabsContent>
 
           <TabsContent value="music" className="mt-4">
@@ -550,15 +551,15 @@ export default function HomeView({ onSelectArtist, onNavigateToExplore }: HomeVi
               className="bg-gray-700 border-gray-600 text-white"
             />
             <div className="flex gap-2">
-              <Button 
-                onClick={() => setShowLocationPicker(false)} 
-                variant="outline" 
+              <Button
+                onClick={() => setShowLocationPicker(false)}
+                variant="outline"
                 className="bg-gray-700 border-gray-600 text-white"
               >
                 Cancel
               </Button>
-              <Button 
-                onClick={() => setShowLocationPicker(false)} 
+              <Button
+                onClick={() => setShowLocationPicker(false)}
                 className="bg-teal-600 hover:bg-teal-700"
               >
                 Add
@@ -585,23 +586,23 @@ export default function HomeView({ onSelectArtist, onNavigateToExplore }: HomeVi
                 className="bg-gray-700 border-gray-600 text-white"
               />
             ))}
-            <Button 
-              onClick={handleAddPollOption} 
-              variant="outline" 
+            <Button
+              onClick={handleAddPollOption}
+              variant="outline"
               className="bg-gray-700 border-gray-600 text-white"
             >
               Add Option
             </Button>
             <div className="flex gap-2">
-              <Button 
-                onClick={() => setShowPollCreator(false)} 
-                variant="outline" 
+              <Button
+                onClick={() => setShowPollCreator(false)}
+                variant="outline"
                 className="bg-gray-700 border-gray-600 text-white"
               >
                 Cancel
               </Button>
-              <Button 
-                onClick={() => setShowPollCreator(false)} 
+              <Button
+                onClick={() => setShowPollCreator(false)}
                 className="bg-teal-600 hover:bg-teal-700"
               >
                 Create Poll
@@ -624,15 +625,15 @@ export default function HomeView({ onSelectArtist, onNavigateToExplore }: HomeVi
               className="bg-gray-700 border-gray-600 text-white p-2 rounded"
             />
             <div className="flex gap-2">
-              <Button 
-                onClick={() => setShowFileUpload(false)} 
-                variant="outline" 
+              <Button
+                onClick={() => setShowFileUpload(false)}
+                variant="outline"
                 className="bg-gray-700 border-gray-600 text-white"
               >
                 Cancel
               </Button>
-              <Button 
-                onClick={() => setShowFileUpload(false)} 
+              <Button
+                onClick={() => setShowFileUpload(false)}
                 className="bg-teal-600 hover:bg-teal-700"
               >
                 Attach
@@ -672,4 +673,3 @@ const featuredArtists = [
     avatar: "/avatars/axs.jpg",
   },
 ]
-

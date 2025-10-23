@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { ArrowLeft, Banknote } from "lucide-react"
 import Image from "next/image"
-import { useAuth } from "@/hooks/use-auth"
+import { useAuth } from "@/features/authentication"
 
 export default function DonateScreen({ creator, onBack }) {
   const [amount, setAmount] = useState(5)

@@ -2,7 +2,7 @@
 
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
-import { AuthProvider } from "@/hooks/use-auth"
+import { AuthProvider } from "@/features/authentication"
 import { MusicPlayerProvider } from "@/contexts/music-player-context"
 import { useEffect, useState } from "react"
 

@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 // Importar el hook useAuth
-import { useAuth } from "@/hooks/use-auth"
+import { useAuth } from "@/features/authentication"
 
 // Mock data for activity
 const ACTIVITIES = [

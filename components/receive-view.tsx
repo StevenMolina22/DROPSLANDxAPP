@@ -5,7 +5,7 @@ import { ArrowLeft, Copy, Check, Share2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { useToast } from "@/hooks/use-toast"
-import { useAuth } from "@/hooks/use-auth"
+import { useAuth } from "@/features/authentication"
 import { BanknoteIcon } from "@/components/icons/banknote-icon"
 
 interface ReceiveViewProps {

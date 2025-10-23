@@ -34,7 +34,7 @@ import Image from "next/image"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 
 // Import the useAuth hook and UserProfile component
-import { useAuth } from "@/hooks/use-auth"
+import { useAuth } from "@/features/authentication"
 import UserProfile from "@/components/user-profile"
 import { useMusicPlayer } from "@/hooks/use-music-player"
 import { musicTracks } from "@/lib/music-data"

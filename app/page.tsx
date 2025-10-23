@@ -1,7 +1,6 @@
 "use client"
 import MainApp from "@/components/main-app"
-import LoginScreen from "@/components/login-screen"
-import { useAuth } from "@/hooks/use-auth"
+import { LoginScreen, useAuth } from "@/features/authentication"
 
 export default function BeansApp() {
   const { login, isAuthenticated } = useAuth()
@@ -16,4 +15,3 @@ export default function BeansApp() {
     </div>
   )
 }
-

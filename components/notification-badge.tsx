@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Bell } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
-import { useAuth } from '@/hooks/use-auth'
+import { useAuth } from '@/features/authentication'
 import { userDataService } from '@/lib/user-data-service'
 
 interface NotificationBadgeProps {

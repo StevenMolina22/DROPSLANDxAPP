@@ -7,8 +7,8 @@ import { Label } from "@/components/ui/label"
 import { useToast } from "@/hooks/use-toast"
 import Image from "next/image"
 import { User, Lock } from "lucide-react"
-import { NFIDButton } from "@/components/nfid-button"
-import { useAuth } from "@/hooks/use-auth"
+import { NFIDButton } from "./nfid-button"
+import { useAuth } from "../hooks/use-auth"
 import { Identity } from "@dfinity/agent"
 
 interface LoginScreenProps {
@@ -164,4 +164,3 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
     </div>
   )
 }
-

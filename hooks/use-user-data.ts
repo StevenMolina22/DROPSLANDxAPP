@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { userDataService } from '@/lib/user-data-service'
 import { UserData, Post, Activity, Notification, UserStats, FeedItem } from '@/lib/types'
-import { useAuth } from './use-auth'
+import { useAuth } from '@/features/authentication'
 
 export function useUserData() {
   const { user } = useAuth()

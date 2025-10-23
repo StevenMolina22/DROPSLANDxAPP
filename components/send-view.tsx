@@ -12,7 +12,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { BanknoteIcon } from "@/components/icons/banknote-icon"
 
 // Import the useAuth hook
-import { useAuth } from "@/hooks/use-auth"
+import { useAuth } from "@/features/authentication"
 
 interface SendViewProps {
   onBack: () => void

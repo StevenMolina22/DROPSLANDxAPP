@@ -12,10 +12,9 @@ import BuyView from "@/components/buy-view"
 import SendView from "@/components/send-view"
 import ReceiveView from "@/components/receive-view"
 import ArtistProfile from "@/components/artist-profile"
-import { useAuth } from "@/hooks/use-auth"
+import { LoginScreen, useAuth } from "@/features/authentication"
 import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
-import LoginScreen from "@/components/login-screen"
 import { SolanaWalletButton } from "@/components/solana-wallet-button"
 
 export default function MainApp() {
@@ -216,4 +215,3 @@ export default function MainApp() {
     </>
   )
 }
-
