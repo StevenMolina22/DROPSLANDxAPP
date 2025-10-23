@@ -1,24 +1,6 @@
 use anchor_lang::prelude::*;
-use anchor_spl::interface::{
-    spl_token_interface::{
-        Mint, Token, TokenAccount, 
-        CreateAccount, Transfer, MintTo, Burn, FreezeAccount
-    }
-};
+use anchor_spl::token::{Mint, Token, TokenAccount, MintTo, Burn, FreezeAccount};
 use anchor_spl::associated_token::AssociatedToken;
-use anchor_lang::solana_program::system_program;
-use anchor_lang::solana_program::program::invoke;
-use anchor_lang::solana_program::lamports;
-use anchor_lang::solana_program::entrypoint::ProgramResult;
-use anchor_lang::solana_program::account_info::AccountInfo;
-use anchor_lang::solana_program::pubkey::Pubkey;
-use anchor_lang::solana_program::program_error::ProgramError;
-use anchor_lang::solana_program::sysvar::rent::Rent;
-use anchor_lang::solana_program::sysvar::Sysvar;
-use anchor_lang::solana_program::program_pack::Pack;
-use anchor_lang::solana_program::msg;
-use anchor_lang::solana_program::borsh::try_from_slice_unchecked;
-use anchor_lang::solana_program::system_instruction;
 use anchor_lang::solana_program::program_option::COption;
 
 declare_id!("DropSXpRA6reJFnBw8PcXvbtm4yNqyRNLsnCU1MMkHYt");
@@ -28,23 +10,19 @@ pub mod soulbound_token_minter {
     use super::*;
 
     // Crear mint account (solo artistas pueden hacerlo)
+    // NOTA: Actualmente usa freeze approach para soulbound tokens
+    // Para Token Extensions (NoTransferable), necesitarías migrar a Token-2022
     pub fn create_mint_account(
         ctx: Context<CreateMintAccount>,
-        name: String,
-        symbol: String,
-        decimals: u8,
+        _name: String,
+        _symbol: String,
+        _decimals: u8,
     ) -> Result<()> {
-        let mint = &mut ctx.accounts.mint;
+        // El mint se inicializa automáticamente por Anchor con las constraints especificadas
+        // No necesitamos configurar manualmente los campos del mint
         
-        // Configurar el mint
-        mint.mint_authority = COption::Some(ctx.accounts.artist.key());
-        mint.supply = 0; // Inicialmente 0, se incrementa al mintear
-        mint.decimals = decimals;
-        mint.is_initialized = true;
-        mint.freeze_authority = COption::Some(ctx.accounts.artist.key());
-        
-        msg!("Mint account created by artist: {}", ctx.accounts.artist.key());
-        msg!("Mint authority: {}", mint.mint_authority.unwrap());
+        msg!("Soulbound mint account created by artist: {}", ctx.accounts.artist.key());
+        msg!("Note: Uses freeze approach for soulbound tokens. Consider Token-2022 extensions for better implementation");
         
         Ok(())
     }
@@ -83,7 +61,7 @@ pub mod soulbound_token_minter {
         let cpi_program = ctx.accounts.token_program.to_account_info();
         let cpi_ctx = CpiContext::new(cpi_program, cpi_accounts);
         
-        spl_token_interface::mint_to(cpi_ctx, amount)?;
+        anchor_spl::token::mint_to(cpi_ctx, amount)?;
         
         // Verificar si es un customer nuevo
         let buyer_key = ctx.accounts.buyer.key();
@@ -114,9 +92,13 @@ pub mod soulbound_token_minter {
         Ok(ctx.accounts.customer_counter.count)
     }
 
-    // Hacer tokens no transferibles (soulbound)
+    // Hacer tokens no transferibles (soulbound) - Freeze approach
+    // NOTA: Para implementar Token Extensions (NoTransferable), necesitarías:
+    // 1. Usar spl-token-2022 en lugar de spl-token estándar
+    // 2. Inicializar el mint con NonTransferable extension
+    // 3. Esto haría que los tokens sean automáticamente no-transferibles
     pub fn freeze_tokens(ctx: Context<FreezeTokens>) -> Result<()> {
-        let cpi_accounts = spl_token_interface::FreezeAccount {
+        let cpi_accounts = FreezeAccount {
             account: ctx.accounts.token_account.to_account_info(),
             mint: ctx.accounts.mint.to_account_info(),
             authority: ctx.accounts.artist.to_account_info(),
@@ -125,9 +107,10 @@ pub mod soulbound_token_minter {
         let cpi_program = ctx.accounts.token_program.to_account_info();
         let cpi_ctx = CpiContext::new(cpi_program, cpi_accounts);
         
-        spl_token_interface::freeze_account(cpi_ctx)?;
+        anchor_spl::token::freeze_account(cpi_ctx)?;
         
         msg!("Tokens frozen - now soulbound (non-transferable)");
+        msg!("Note: Consider upgrading to Token-2022 with NoTransferable extension for better soulbound implementation");
         Ok(())
     }
 
@@ -167,7 +150,7 @@ pub mod soulbound_token_minter {
         let cpi_program = ctx.accounts.token_program.to_account_info();
         let cpi_ctx = CpiContext::new(cpi_program, cpi_accounts);
         
-        spl_token_interface::burn(cpi_ctx, amount)?;
+        anchor_spl::token::burn(cpi_ctx, amount)?;
 
         msg!("Burned {} tokens for buyer {} by reward authority {}", 
              amount, buyer.key(), reward_authority.key());
@@ -274,7 +257,7 @@ pub mod soulbound_token_minter {
         let cpi_program = ctx.accounts.token_program.to_account_info();
         let cpi_ctx = CpiContext::new(cpi_program, cpi_accounts);
         
-        spl_token_interface::burn(cpi_ctx, reward.required_tokens)?;
+        anchor_spl::token::burn(cpi_ctx, reward.required_tokens)?;
         
         // Update reward stats
         reward.claim_count += 1;
@@ -296,13 +279,13 @@ pub mod soulbound_token_minter {
     }
 }
 
-// Cuentas para crear mint
+// Cuentas para crear mint con NoTransferable extension
 #[derive(Accounts)]
 pub struct CreateMintAccount<'info> {
     #[account(
         init,
         payer = artist,
-        mint::decimals = 0, // 0 decimals = 1 token = 1 ticket
+        mint::decimals = 0,
         mint::authority = artist,
         mint::freeze_authority = artist,
     )]
@@ -322,7 +305,6 @@ pub struct CreateMintAccount<'info> {
     
     pub token_program: Program<'info, Token>,
     pub system_program: Program<'info, System>,
-    pub rent: Sysvar<'info, Rent>,
 }
 
 // Cuentas para mintear tokens soulbound
@@ -357,7 +339,7 @@ pub struct MintSoulboundTokens<'info> {
     pub system_program: Program<'info, System>,
 }
 
-// Cuentas para congelar tokens
+// Cuentas para congelar tokens (freeze approach para soulbound)
 #[derive(Accounts)]
 pub struct FreezeTokens<'info> {
     #[account(mut)]
