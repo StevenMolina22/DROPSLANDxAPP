@@ -6,8 +6,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/icp/features/authentication";
 import { MusicPlayerProvider } from "@/contexts/music-player-context";
 import { SolanaWalletProvider } from "@/contexts/solana-wallet-context";
-import MiniPlayerWrapper from "@/components/mini-player-wrapper";
-import ExpandedPlayer from "@/components/expanded-player";
+import MiniPlayerWrapper from "@/components/music-player/mini-player-wrapper";
+import ExpandedPlayer from "@/components/music-player/expanded-player";
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -1,419 +1,9 @@
-"use client";
-
-import { useState } from "react";
-import {
-  ArrowLeft,
-  Heart,
-  MessageCircle,
-  Share2,
-  Lock,
-  Disc,
-  Video,
-  Users,
-  Award,
-} from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useToast } from "@/hooks/use-toast";
-import { useAuth } from "@/icp/features/authentication";
-import { BanknoteIcon } from "@/components/icons/banknote-icon";
-
-interface ArtistProfileProps {
-  artistId: string;
-  onBack: () => void;
-}
-
-export default function ArtistProfile({
-  artistId,
-  onBack,
-}: ArtistProfileProps) {
-  const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
-  const { addToBalance, isArtist } = useAuth();
-
-  // Find artist by ID with better error handling
-  const artist = artists.find((a) => a.id === artistId);
-
-  console.log("Artist Profile - ID received:", artistId);
-  console.log("Artist Profile - Artist found:", artist);
-
-  // If artist not found, show an error message
-  if (!artist) {
-    return (
-      <div className="p-4 text-center">
-        <Button
-          variant="outline"
-          size="sm"
-          className="mb-4 bg-gray-800 text-white border-gray-700"
-          onClick={onBack}
-        >
-          <ArrowLeft className="h-4 w-4 mr-1" />
-          Back
-        </Button>
-        <p className="text-white">Artist not found. Please try again.</p>
-      </div>
-    );
-  }
-
-  // Simulate network delay
-  const handleBuyToken = () => {
-    setIsLoading(true);
-
-    // Simulate network delay
-    setTimeout(() => {
-      addToBalance(-10); // Subtract DROPS
-
-      toast({
-        title: "Purchase successful!",
-        description: `You've bought 10 $${artist.tokenName} from ${artist.name}`,
-      });
-      setIsLoading(false);
-    }, 1500);
-  };
-
-  return (
-    <div className="pb-6 bg-gray-950">
-      {/* Back button at the top */}
-
-      {/* Cover Image */}
-      <div className="relative h-36 bg-gradient-to-r from-gray-800 to-black">
-        {artist.coverImage && (
-          <img
-            src={artist.coverImage || "/placeholder.svg"}
-            alt={`${artist.name}'s cover`}
-            className="w-full h-full object-cover"
-          />
-        )}
-        <div className="absolute inset-0 bg-black/30"></div>
-      </div>
-
-      {/* Artist Info */}
-      <div className="px-4 relative">
-        <div className="flex items-start mt-[-40px]">
-          <Avatar className="h-20 w-20 border-4 border-gray-900">
-            <img
-              src={artist.avatar}
-              alt={artist.name}
-              className="h-full w-full rounded-full object-cover"
-            />
-            <AvatarFallback>
-              {artist.name.substring(0, 2).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
-        </div>
-
-        <div className="mt-3">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="font-bold text-xl text-white">{artist.name}</h1>
-              <p className="text-gray-400 text-sm">{artist.handle}</p>
-            </div>
-            <Button
-              className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
-              onClick={handleBuyToken}
-              disabled={isLoading}
-            >
-              <BanknoteIcon className="h-4 w-4 mr-1" />
-              Buy ${artist.tokenName}
-            </Button>
-          </div>
-
-          <Badge
-            variant="outline"
-            className="mt-2 bg-gray-800 text-gray-300 border-gray-700"
-          >
-            {artist.genre}
-          </Badge>
-
-          <p className="mt-3 text-sm text-gray-300">{artist.description}</p>
-
-          <div className="flex mt-3 space-x-4 text-sm">
-            <div>
-              <span className="font-bold text-white">{artist.supporters}</span>
-              <span className="text-gray-400 ml-1">followers</span>
-            </div>
-            <div>
-              <span className="font-bold text-white">{artist.blgReceived}</span>
-              <span className="text-gray-400 ml-1">$DROPS received</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Token Info */}
-        <Card className="mt-4 bg-gray-800 border-gray-700">
-          <CardContent className="p-4">
-            <div className="flex justify-between items-center">
-              <div>
-                <h3 className="font-semibold text-white">
-                  ${artist.tokenName}
-                </h3>
-                <p className="text-xs text-gray-400">
-                  {artist.name}'s personal token
-                </p>
-              </div>
-              <div className="text-right">
-                <p className="text-bright-yellow font-bold">
-                  ${artist.tokenPrice} USD
-                </p>
-                <p className="text-xs text-gray-400">Current price</p>
-              </div>
-            </div>
-            <Button
-              className="w-full mt-3 bg-bright-yellow hover:bg-bright-yellow-700 text-black"
-              onClick={handleBuyToken}
-              disabled={isLoading}
-            >
-              {isLoading ? "Processing..." : `Buy $${artist.tokenName}`}
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* Tabs for Posts and Exclusive Content */}
-        <div className="mt-6">
-          <Tabs defaultValue="posts">
-            <TabsList className="grid w-full grid-cols-3 bg-gray-800">
-              <TabsTrigger
-                value="posts"
-                className="data-[state=active]:bg-gray-700"
-              >
-                Posts
-              </TabsTrigger>
-              <TabsTrigger
-                value="rewards"
-                className="data-[state=active]:bg-gray-700"
-              >
-                Rewards
-              </TabsTrigger>
-              <TabsTrigger
-                value="certifications"
-                className="data-[state=active]:bg-gray-700"
-              >
-                Certifications
-              </TabsTrigger>
-            </TabsList>
-
-            {/* Posts Tab */}
-            <TabsContent value="posts" className="mt-4 space-y-4">
-              {artist.posts.map((post, index) => (
-                <Card key={index} className="bg-gray-800 border-gray-700">
-                  <CardContent className="p-4">
-                    <div className="flex items-center mb-3">
-                      <Avatar className="h-8 w-8 mr-2">
-                        <AvatarImage src={artist.avatar} alt={artist.name} />
-                        <AvatarFallback>
-                          {artist.name.substring(0, 2).toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <p className="font-medium text-white">{artist.name}</p>
-                        <p className="text-gray-400 text-xs">{post.time}</p>
-                      </div>
-                    </div>
-                    <p className="text-sm text-gray-300 mb-3">{post.content}</p>
-                    {post.image && (
-                      <div className="mb-3 rounded-lg overflow-hidden">
-                        <img
-                          src={post.image || "/placeholder.svg"}
-                          alt="Post image"
-                          className="w-full h-auto"
-                        />
-                      </div>
-                    )}
-                    <div className="flex items-center justify-between text-gray-400 text-sm">
-                      <button className="flex items-center">
-                        <Heart className="h-4 w-4 mr-1" />
-                        {post.likes}
-                      </button>
-                      <button className="flex items-center">
-                        <MessageCircle className="h-4 w-4 mr-1" />
-                        {post.comments}
-                      </button>
-                      <button className="flex items-center">
-                        <Share2 className="h-4 w-4 mr-1" />
-                        Share
-                      </button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </TabsContent>
-
-            {/* Rewards Tab */}
-            <TabsContent value="rewards" className="mt-4 space-y-3">
-              <div className="mb-3">
-                <h3 className="text-white font-medium">Artist Rewards</h3>
-                <p className="text-sm text-gray-400">
-                  Exclusive rewards for {artist.name}'s token holders
-                </p>
-              </div>
-
-              {artist.rewards ? (
-                artist.rewards.map((reward, index) => (
-                  <Card key={index} className="bg-gray-800 border-gray-700">
-                    <CardContent className="p-3">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-bright-yellow/20 flex items-center justify-center">
-                          <BanknoteIcon className="h-5 w-5 text-bright-yellow" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-sm text-white font-medium">
-                            {reward.title}
-                          </p>
-                          <p className="text-xs text-gray-400 mt-1">
-                            {reward.description}
-                          </p>
-                          <div className="flex items-center mt-1">
-                            <Badge
-                              variant="outline"
-                              className="text-xs bg-gray-700 text-gray-300 border-gray-600"
-                            >
-                              {reward.minTokens} $DROPS required
-                            </Badge>
-                          </div>
-                        </div>
-                        <Button
-                          size="sm"
-                          className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
-                        >
-                          Get
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))
-              ) : (
-                <div className="text-center py-8 bg-gray-800 rounded-lg border border-gray-700">
-                  <Lock className="h-12 w-12 text-gray-600 mx-auto mb-3" />
-                  <p className="text-gray-300 font-medium">
-                    No rewards available yet
-                  </p>
-                  <p className="text-gray-400 text-sm mt-1">
-                    {artist.name} hasn't created any rewards yet
-                  </p>
-                </div>
-              )}
-            </TabsContent>
-
-            {/* Certifications Tab */}
-            <TabsContent value="certifications" className="mt-4 space-y-3">
-              <div className="mb-3">
-                <h3 className="text-white font-medium">
-                  Artist Certifications
-                </h3>
-                <p className="text-sm text-gray-400">
-                  Achievements and certifications earned by {artist.name}
-                </p>
-              </div>
-
-              {artist.certifications ? (
-                artist.certifications.map((cert, index) => (
-                  <Card key={index} className="bg-gray-800 border-gray-700">
-                    <CardContent className="p-3">
-                      <div className="flex items-start gap-3">
-                        <div className="w-12 h-12 rounded-full bg-bright-yellow/20 flex items-center justify-center">
-                          {cert.type === "gold" && (
-                            <Disc className="h-6 w-6 text-bright-yellow" />
-                          )}
-                          {cert.type === "platinum" && (
-                            <Disc className="h-6 w-6 text-gray-300" />
-                          )}
-                          {cert.type === "views" && (
-                            <Video className="h-6 w-6 text-bright-yellow" />
-                          )}
-                          {cert.type === "soldout" && (
-                            <Users className="h-6 w-6 text-bright-yellow" />
-                          )}
-                          {cert.type === "award" && (
-                            <Award className="h-6 w-6 text-bright-yellow" />
-                          )}
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between mb-1">
-                            <p className="text-sm text-white font-medium">
-                              {cert.title}
-                            </p>
-                            <Button
-                              size="sm"
-                              className={`${
-                                cert.type === "gold"
-                                  ? "bg-[#F9BF15] hover:bg-[#e0ab13] text-black" // Changed from #082479 to #F9BF15 with black text
-                                  : cert.type === "platinum"
-                                    ? "bg-gray-400 hover:bg-gray-500"
-                                    : cert.type === "views"
-                                      ? "bg-red-600 hover:bg-red-700"
-                                      : cert.type === "soldout"
-                                        ? "bg-green-600 hover:bg-green-700"
-                                        : "bg-blue-600 hover:bg-blue-700"
-                              } text-white rounded-full`}
-                            >
-                              {cert.type === "gold" || cert.type === "platinum"
-                                ? "Stream"
-                                : cert.type === "views"
-                                  ? "Watch"
-                                  : cert.type === "soldout"
-                                    ? "Tour Dates"
-                                    : "Award"}
-                            </Button>
-                          </div>
-                          <p className="text-xs text-gray-400">
-                            {cert.description}
-                          </p>
-                          <p className="text-xs text-gray-500 mt-1">
-                            {cert.date}
-                          </p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))
-              ) : (
-                <div className="text-center py-8 bg-gray-800 rounded-lg border border-gray-700">
-                  <Award className="h-12 w-12 text-gray-600 mx-auto mb-3" />
-                  <p className="text-gray-300 font-medium">
-                    No certifications yet
-                  </p>
-                  <p className="text-gray-400 text-sm mt-1">
-                    {artist.name} hasn't earned any certifications yet
-                  </p>
-                </div>
-              )}
-            </TabsContent>
-          </Tabs>
-        </div>
-
-        {/* Fan-only section */}
-        {!isArtist() && (
-          <Card className="mt-6 bg-gray-800 border-gray-700">
-            <CardContent className="p-4">
-              <div className="flex items-center">
-                <Lock className="h-5 w-5 text-bright-yellow mr-2" />
-                <div className="flex-1">
-                  <h3 className="text-white font-medium">
-                    Want to create content?
-                  </h3>
-                  <p className="text-sm text-gray-400">
-                    Apply to become an artist on DROPSLAND
-                  </p>
-                </div>
-                <Button className="bg-bright-yellow hover:bg-bright-yellow-700 text-black">
-                  Apply
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-      </div>
-    </div>
-  );
-}
-
 // Vamos a actualizar los datos de los artistas para que cada uno tenga contenido único
 // Reemplazaremos la constante artists con datos más personalizados
 
-const artists = [
+import { Artist } from "@/types/artist";
+
+export const artists: Artist[] = [
   {
     id: "iamjuampi",
     name: "iamjuampi",
@@ -443,6 +33,7 @@ const artists = [
         time: "1 day ago",
         likes: 65,
         comments: 23,
+        image: "/images/dj-mixer.png",
       },
       {
         content:
@@ -458,6 +49,7 @@ const artists = [
         time: "1 week ago",
         likes: 94,
         comments: 17,
+        image: "/images/dj-mixer.png",
       },
     ],
     exclusiveContent: [
@@ -571,6 +163,7 @@ const artists = [
         time: "1 day ago",
         likes: 124,
         comments: 35,
+        image: "/images/dj-mixer.png",
       },
       {
         content:
@@ -586,6 +179,7 @@ const artists = [
         time: "5 days ago",
         likes: 187,
         comments: 42,
+        image: "/images/dj-mixer.png",
       },
     ],
     exclusiveContent: [
@@ -691,6 +285,7 @@ const artists = [
         time: "2 days ago",
         likes: 167,
         comments: 29,
+        image: "/images/dj-mixer.png",
       },
       {
         content:
@@ -706,6 +301,7 @@ const artists = [
         time: "1 week ago",
         likes: 178,
         comments: 35,
+        image: "/images/dj-mixer.png",
       },
     ],
     exclusiveContent: [
@@ -811,6 +407,7 @@ const artists = [
         time: "2 days ago",
         likes: 98,
         comments: 23,
+        image: "/images/dj-mixer.png",
       },
       {
         content:
@@ -826,6 +423,7 @@ const artists = [
         time: "1 week ago",
         likes: 215,
         comments: 67,
+        image: "/images/dj-mixer.png",
       },
     ],
     exclusiveContent: [
@@ -931,6 +529,7 @@ const artists = [
         time: "2 days ago",
         likes: 87,
         comments: 19,
+        image: "/images/dj-mixer.png",
       },
       {
         content:
@@ -946,6 +545,7 @@ const artists = [
         time: "1 week ago",
         likes: 96,
         comments: 27,
+        image: "/images/dj-mixer.png",
       },
     ],
     exclusiveContent: [
@@ -1051,6 +651,7 @@ const artists = [
         time: "3 days ago",
         likes: 112,
         comments: 31,
+        image: "/images/dj-mixer.png",
       },
       {
         content:
@@ -1066,6 +667,7 @@ const artists = [
         time: "1 week ago",
         likes: 76,
         comments: 19,
+        image: "/images/dj-mixer.png",
       },
     ],
     exclusiveContent: [
@@ -1171,6 +773,7 @@ const artists = [
         time: "2 days ago",
         likes: 123,
         comments: 38,
+        image: "/images/dj-mixer.png",
       },
       {
         content:
@@ -1186,6 +789,7 @@ const artists = [
         time: "1 week ago",
         likes: 109,
         comments: 31,
+        image: "/images/dj-mixer.png",
       },
     ],
     exclusiveContent: [
@@ -1291,6 +895,7 @@ const artists = [
         time: "3 days ago",
         likes: 92,
         comments: 27,
+        image: "/images/dj-mixer.png",
       },
       {
         content:
@@ -1306,6 +911,7 @@ const artists = [
         time: "1 week ago",
         likes: 65,
         comments: 19,
+        image: "/images/dj-mixer.png",
       },
     ],
     exclusiveContent: [

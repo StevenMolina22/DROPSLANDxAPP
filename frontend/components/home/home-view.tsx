@@ -6,9 +6,7 @@ import {
   MessageCircle,
   Share2,
   Send,
-  Plus,
   ImageIcon,
-  Video,
   MapPin,
   Hash,
   BarChart2,
@@ -30,9 +28,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
 import { useAuth } from "@/icp/features/authentication";
 import { userDataService } from "@/lib/user-data-service";
-import { Post, Activity, FeedItem, UserData } from "@/lib/types";
-import MusicPlayer from "@/components/music-player";
-import MusicCard from "@/components/music-card";
+import { Post, Activity, FeedItem } from "@/lib/types";
+import MusicPlayer from "@/components/music-player/music-player";
 
 interface HomeViewProps {
   onSelectArtist: (artistId: string) => void;
@@ -68,46 +65,6 @@ export default function HomeView({
       setFeedItems(feed);
     }
   }, [user]);
-
-  // Sample tracks for the popular section
-  const popularTracks = [
-    {
-      id: "1",
-      title: "The Less I Know the Better",
-      artist: "Tame Impala",
-      album: "Currents",
-      duration: 219,
-      cover: "/avatars/juampi.jpg",
-      isLiked: false,
-    },
-    {
-      id: "2",
-      title: "Pieces",
-      artist: "Villagers",
-      album: "Becoming a Jackal",
-      duration: 325,
-      cover: "/avatars/banger.jpg",
-      isLiked: true,
-    },
-    {
-      id: "3",
-      title: "Cola",
-      artist: "Arlo Parks",
-      album: "Super Sad Generation",
-      duration: 230,
-      cover: "/avatars/nicola.jpg",
-      isLiked: false,
-    },
-    {
-      id: "4",
-      title: "Do the Astral Plane",
-      artist: "Flying Lotus",
-      album: "Cosmogramma",
-      duration: 238,
-      cover: "/avatars/axs.jpg",
-      isLiked: true,
-    },
-  ];
 
   const handleSelectArtist = (artistId: string) => {
     console.log("Home view - Selected artist:", artistId);

@@ -1,12 +1,31 @@
-"use client"
+"use client";
 
-import { Search, Filter } from "lucide-react"
-import Image from "next/image"
+import { Search, Filter } from "lucide-react";
+import Image from "next/image";
 
 // Mock data for categories and creators
-const CATEGORIES = ["All", "Art", "Music", "Tech", "Gaming", "Writing", "Cooking"]
+const CATEGORIES = [
+  "All",
+  "Art",
+  "Music",
+  "Tech",
+  "Gaming",
+  "Writing",
+  "Cooking",
+];
 
-const CREATORS = [
+type Creator = {
+  id: string;
+  name: string;
+  handle: string;
+  avatar: string;
+  category: string;
+  description: string;
+  blgReceived: number;
+  featured: boolean;
+};
+
+const CREATORS: Creator[] = [
   {
     id: "1",
     name: "Elena Rodriguez",
@@ -67,9 +86,13 @@ const CREATORS = [
     blgReceived: 7120,
     featured: true,
   },
-]
+];
 
-export default function ExploreScreen({ onSelectCreator }) {
+interface ExploreScreenProps {
+  onSelectCreator: (creator: Creator) => void;
+}
+
+export default function ExploreScreen({ onSelectCreator }: ExploreScreenProps) {
   return (
     <div className="h-full overflow-auto pb-20">
       <div className="bg-primary p-4">
@@ -128,7 +151,9 @@ export default function ExploreScreen({ onSelectCreator }) {
                     <div className="flex items-center justify-between">
                       <h3 className="font-medium">{creator.name}</h3>
                       {creator.featured && (
-                        <span className="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded-full">Featured</span>
+                        <span className="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded-full">
+                          Featured
+                        </span>
                       )}
                     </div>
                     <p className="text-gray-500 text-xs">{creator.handle}</p>
@@ -136,22 +161,31 @@ export default function ExploreScreen({ onSelectCreator }) {
                 </div>
                 <p className="text-sm mt-2">{creator.description}</p>
                 <div className="flex items-center justify-between mt-3">
-                  <span className="text-xs bg-gray-100 px-2 py-1 rounded-full">{creator.category}</span>
+                  <span className="text-xs bg-gray-100 px-2 py-1 rounded-full">
+                    {creator.category}
+                  </span>
                   <span className="text-xs text-gray-600 flex items-center">
-                    <Image src="/beans-logo.svg" alt="BLG" width={12} height={12} className="mr-1" />
+                    <Image
+                      src="/beans-logo.svg"
+                      alt="BLG"
+                      width={12}
+                      height={12}
+                      className="mr-1"
+                    />
                     {creator.blgReceived.toLocaleString()} BLG received
                   </span>
                 </div>
               </div>
               <div className="border-t px-4 py-2 flex justify-between items-center">
                 <span className="text-xs text-gray-500">View profile</span>
-                <button className="bg-primary text-white text-xs font-medium px-3 py-1.5 rounded-full">Support</button>
+                <button className="bg-primary text-white text-xs font-medium px-3 py-1.5 rounded-full">
+                  Support
+                </button>
               </div>
             </div>
           ))}
         </div>
       </div>
     </div>
-  )
+  );
 }
-

@@ -1,42 +1,47 @@
-"use client"
+"use client";
 
-import { Play, Heart, MoreHorizontal } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useMusicPlayer } from "@/hooks/use-music-player"
+import { Play, Heart, MoreHorizontal } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useMusicPlayer } from "@/hooks/use-music-player";
 
 interface Track {
-  id: string
-  title: string
-  artist: string
-  album: string
-  duration: number
-  cover: string
-  audioUrl?: string
-  isLiked?: boolean
+  id: string;
+  title: string;
+  artist: string;
+  album: string;
+  duration: number;
+  cover: string;
+  audioUrl?: string;
+  isLiked?: boolean;
 }
 
 interface MusicCardProps {
-  track: Track
-  onLike?: (trackId: string) => void
-  isLiked?: boolean
+  track: Track;
+  onLike?: (trackId: string) => void;
+  isLiked?: boolean;
 }
 
-export default function MusicCard({ track, onLike, isLiked = false }: MusicCardProps) {
-  const musicPlayer = useMusicPlayer()
-  
-  const isCurrentTrackPlaying = musicPlayer.currentTrack?.id === track.id && musicPlayer.isPlaying
+export default function MusicCard({
+  track,
+  onLike,
+  isLiked = false,
+}: MusicCardProps) {
+  const musicPlayer = useMusicPlayer();
+
+  const isCurrentTrackPlaying =
+    musicPlayer.currentTrack?.id === track.id && musicPlayer.isPlaying;
 
   const handlePlay = () => {
-    musicPlayer.playTrack(track)
-  }
+    musicPlayer.playTrack(track);
+  };
 
   const handleLike = () => {
     if (onLike) {
-      onLike(track.id)
+      onLike(track.id);
     }
-  }
+  };
 
   return (
     <Card className="bg-gray-800 border-gray-700 hover:bg-gray-750 transition-colors">
@@ -50,7 +55,7 @@ export default function MusicCard({ track, onLike, isLiked = false }: MusicCardP
                 {track.artist.substring(0, 2).toUpperCase()}
               </AvatarFallback>
             </Avatar>
-            
+
             {/* Play Button Overlay */}
             <Button
               onClick={handlePlay}
@@ -83,11 +88,11 @@ export default function MusicCard({ track, onLike, isLiked = false }: MusicCardP
               variant="ghost"
               size="sm"
               onClick={handleLike}
-              className={`text-gray-400 hover:text-white p-1 ${isLiked ? 'text-red-500' : ''}`}
+              className={`text-gray-400 hover:text-white p-1 ${isLiked ? "text-red-500" : ""}`}
             >
-              <Heart className={`h-4 w-4 ${isLiked ? 'fill-current' : ''}`} />
+              <Heart className={`h-4 w-4 ${isLiked ? "fill-current" : ""}`} />
             </Button>
-            
+
             <Button
               variant="ghost"
               size="sm"
@@ -99,5 +104,5 @@ export default function MusicCard({ track, onLike, isLiked = false }: MusicCardP
         </div>
       </CardContent>
     </Card>
-  )
-} 
+  );
+}

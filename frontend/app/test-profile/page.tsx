@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useAuth } from "@/icp/features/authentication";
-import UserProfile from "@/components/user-profile";
+
 import { Button } from "@/components/ui/button";
+import UserProfile from "@/components/artist-profile/user-profile";
+import { useAuth } from "@/icp/features/authentication/hooks/use-auth";
 
 export default function TestProfilePage() {
   const { user, userData, isNFIDUser, loginWithNFID } = useAuth();

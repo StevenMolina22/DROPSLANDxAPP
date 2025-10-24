@@ -1,16 +1,16 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
-import { useWallet } from '@solana/wallet-adapter-react'
+import { useEffect, useState } from "react";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 export function SolanaWalletButton() {
-  const { publicKey, connected } = useWallet()
-  const [mounted, setMounted] = useState(false)
+  const { publicKey, connected } = useWallet();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   if (!mounted) {
     return (
@@ -19,7 +19,7 @@ export function SolanaWalletButton() {
           Loading...
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -27,10 +27,10 @@ export function SolanaWalletButton() {
       <WalletMultiButton className="!bg-primary/80 hover:!bg-primary/90 !text-primary-foreground !rounded-md !px-4 !py-2 !text-sm !font-medium !transition-colors" />
       {connected && publicKey && (
         <div className="mt-2 text-xs text-muted-foreground text-center">
-          Connected: {publicKey.toBase58().slice(0, 4)}...{publicKey.toBase58().slice(-4)}
+          Connected: {publicKey.toBase58().slice(0, 4)}...
+          {publicKey.toBase58().slice(-4)}
         </div>
       )}
     </div>
-  )
+  );
 }
-
