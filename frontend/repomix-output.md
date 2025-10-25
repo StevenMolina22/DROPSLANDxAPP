@@ -3,21 +3,25 @@ This file is a merged representation of the entire codebase, combined into a sin
 # File Summary
 
 ## Purpose
+
 This file contains a packed representation of the entire repository's contents.
 It is designed to be easily consumable by AI systems for analysis, code review,
 or other automated processes.
 
 ## File Format
+
 The content is organized as follows:
+
 1. This summary section
 2. Repository information
 3. Directory structure
 4. Repository files (if enabled)
 5. Multiple file entries, each consisting of:
-  a. A header with the file path (## File: path/to/file)
-  b. The full contents of the file in a code block
+   a. A header with the file path (## File: path/to/file)
+   b. The full contents of the file in a code block
 
 ## Usage Guidelines
+
 - This file should be treated as read-only. Any changes should be made to the
   original repository files, not this packed version.
 - When processing this file, use the file path to distinguish
@@ -26,6 +30,7 @@ The content is organized as follows:
   the same level of security as you would the original repository.
 
 ## Notes
+
 - Some files may have been excluded based on .gitignore rules and Repomix's configuration
 - Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
 - Files matching patterns in .gitignore are excluded
@@ -33,6 +38,7 @@ The content is organized as follows:
 - Files are sorted by Git change count (files with more changes are at the bottom)
 
 # Directory Structure
+
 ```
 app/
   creator/
@@ -201,6 +207,7 @@ tsconfig.json
 # Files
 
 ## File: app/creator/[id]/page.tsx
+
 ```typescript
 import Image from "next/image";
 import Link from "next/link";
@@ -566,13 +573,14 @@ export async function generateStaticParams() {
 ```
 
 ## File: app/test-profile/page.tsx
+
 ```typescript
 "use client";
 
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import UserProfile from "@/components/artist-profile/user-profile";
+import UserProfile from "@/components/profile/user-profile";
 import { useAuth } from "@/hooks/use-auth";
 
 export default function TestProfilePage() {
@@ -667,7 +675,8 @@ export default function TestProfilePage() {
 }
 ```
 
-## File: app/_document.tsx
+## File: app/\_document.tsx
+
 ```typescript
 export default function Document() {
   return null;
@@ -675,6 +684,7 @@ export default function Document() {
 ```
 
 ## File: app/error.tsx
+
 ```typescript
 "use client";
 
@@ -704,6 +714,7 @@ export default function Error({
 ```
 
 ## File: app/globals.css
+
 ```css
 @tailwind base;
 @tailwind components;
@@ -791,6 +802,7 @@ body {
 ```
 
 ## File: app/layout.tsx
+
 ```typescript
 import type React from "react";
 import "@/app/globals.css";
@@ -842,6 +854,7 @@ export default function RootLayout({
 ```
 
 ## File: app/loading.tsx
+
 ```typescript
 export default function Loading() {
   return (
@@ -853,6 +866,7 @@ export default function Loading() {
 ```
 
 ## File: app/not-found.tsx
+
 ```typescript
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -871,6 +885,7 @@ export default function NotFound() {
 ```
 
 ## File: app/page.tsx
+
 ```typescript
 "use client";
 import MainApp from "@/components/main-app";
@@ -885,6 +900,7 @@ export default function MainPage() {
 ```
 
 ## File: app/providers.tsx
+
 ```typescript
 "use client";
 
@@ -923,7 +939,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
 }
 ```
 
-## File: components/artist-profile/artist-certifications-tab.tsx
+## File: components/profile/artist-certifications-tab.tsx
+
 ```typescript
 import { Artist } from "@/types/artist";
 import { Disc, Video, Users, Award } from "lucide-react";
@@ -1012,7 +1029,8 @@ export function ArtistCertificationsTab({ artist }: { artist: Artist }) {
 }
 ```
 
-## File: components/artist-profile/artist-posts-tab.tsx
+## File: components/profile/artist-posts-tab.tsx
+
 ```typescript
 import { Artist } from "@/types/artist";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
@@ -1070,7 +1088,8 @@ export function ArtistPostsTab({ artist }: { artist: Artist }) {
 }
 ```
 
-## File: components/artist-profile/artist-profile.tsx
+## File: components/profile/artist-profile.tsx
+
 ```typescript
 "use client";
 import { useState } from "react";
@@ -1272,7 +1291,8 @@ export default function ArtistProfile({
 }
 ```
 
-## File: components/artist-profile/artist-rewards-tab.tsx
+## File: components/profile/artist-rewards-tab.tsx
+
 ```typescript
 import { Artist } from "@/types/artist";
 import { TabsContent } from "@radix-ui/react-tabs";
@@ -1340,7 +1360,8 @@ export function ArtistRewardsTab({ artist }: { artist: Artist }) {
 }
 ```
 
-## File: components/artist-profile/artist-token-info.tsx
+## File: components/profile/artist-token-info.tsx
+
 ```typescript
 import { Artist } from "@/types/artist";
 import { Card, CardContent } from "../ui/card";
@@ -1385,7 +1406,8 @@ export function ArtistTokenInfo({
 }
 ```
 
-## File: components/artist-profile/legacy-profile-info.tsx
+## File: components/profile/legacy-profile-info.tsx
+
 ```typescript
 import { Badge } from "../ui/badge";
 import { Input } from "../ui/input";
@@ -1499,7 +1521,8 @@ export const LegacyProfileInfo: React.FC<LegacyProfileInfoProps> = ({
 );
 ```
 
-## File: components/artist-profile/legacy-profile-settings.tsx
+## File: components/profile/legacy-profile-settings.tsx
+
 ```typescript
 // --- 7. Legacy Profile Settings ---
 import {
@@ -1611,7 +1634,8 @@ export const LegacyProfileSettings: React.FC<LegacyProfileSettingsProps> = ({
 );
 ```
 
-## File: components/artist-profile/profile-comment-dialog.tsx
+## File: components/profile/profile-comment-dialog.tsx
+
 ```typescript
 // --- 17. Comment Dialog Component ---
 
@@ -1717,7 +1741,8 @@ export const ProfileCommentDialog: React.FC<ProfileCommentDialogProps> = ({
 };
 ```
 
-## File: components/artist-profile/profile-create-post-form.tsx
+## File: components/profile/profile-create-post-form.tsx
+
 ```typescript
 import { UserData } from "@/lib/types";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
@@ -1790,7 +1815,8 @@ export const CreatePostForm: React.FC<CreatePostFormProps> = ({
 };
 ```
 
-## File: components/artist-profile/profile-editor.tsx
+## File: components/profile/profile-editor.tsx
+
 ```typescript
 "use client";
 
@@ -2142,7 +2168,8 @@ export default function ProfileEditor({
 }
 ```
 
-## File: components/artist-profile/profile-post-list.tsx
+## File: components/profile/profile-post-list.tsx
+
 ```typescript
 import { userPosts } from "@/data/profile-view";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
@@ -2254,7 +2281,8 @@ export const PostCard: React.FC<PostCardProps> = ({
 );
 ```
 
-## File: components/artist-profile/profile-screen.tsx
+## File: components/profile/profile-screen.tsx
+
 ```typescript
 "use client";
 
@@ -2469,7 +2497,8 @@ export default function ProfileScreen({
 }
 ```
 
-## File: components/artist-profile/profile-tabs.tsx
+## File: components/profile/profile-tabs.tsx
+
 ```typescript
 import { Track } from "@/lib/music-data";
 import { UserData } from "@/lib/types";
@@ -2944,7 +2973,8 @@ const TracksTab: React.FC<TracksTabProps> = ({
 );
 ```
 
-## File: components/artist-profile/profile-view.tsx
+## File: components/profile/profile-view.tsx
+
 ```typescript
 "use client";
 
@@ -2956,7 +2986,7 @@ import Image from "next/image";
 
 // Import the useAuth hook and UserProfile component
 import { useAuth } from "@/hooks/use-auth";
-import UserProfile from "@/components/artist-profile/user-profile";
+import UserProfile from "@/components/profile/user-profile";
 import { useMusicPlayer } from "@/hooks/use-music-player";
 import { musicTracks } from "@/lib/music-data";
 import { LegacyProfileInfo } from "./legacy-profile-info";
@@ -3337,7 +3367,8 @@ const LegacyProfileHeader: React.FC<LegacyProfileHeaderProps> = ({
 );
 ```
 
-## File: components/artist-profile/user-profile.tsx
+## File: components/profile/user-profile.tsx
+
 ```typescript
 "use client";
 
@@ -3495,6 +3526,7 @@ export default function UserProfile({
 ```
 
 ## File: components/authentication/solana-wallet-button.tsx
+
 ```typescript
 "use client";
 
@@ -3535,6 +3567,7 @@ export function SolanaWalletButton() {
 ```
 
 ## File: components/explore/creators-list.tsx
+
 ```typescript
 "use client"
 
@@ -3696,6 +3729,7 @@ export default function ArtistsList() {
 ```
 
 ## File: components/explore/explore-screen.tsx
+
 ```typescript
 "use client";
 
@@ -3891,6 +3925,7 @@ export default function ExploreScreen({ onSelectCreator }: ExploreScreenProps) {
 ```
 
 ## File: components/explore/explore-view.tsx
+
 ```typescript
 import { useState, useEffect } from "react";
 import {
@@ -4192,6 +4227,7 @@ export function ExploreView() {
 ```
 
 ## File: components/explore/loading-creators.tsx
+
 ```typescript
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -4230,6 +4266,7 @@ export default function LoadingCreators() {
 ```
 
 ## File: components/home/activity-screen.tsx
+
 ```typescript
 "use client";
 
@@ -4541,6 +4578,7 @@ export default function ActivityScreen() {
 ```
 
 ## File: components/home/activity-view.tsx
+
 ```typescript
 "use client";
 
@@ -4683,6 +4721,7 @@ function ActivityCard({
 ```
 
 ## File: components/home/home-view.tsx
+
 ```typescript
 "use client";
 
@@ -5446,6 +5485,7 @@ const featuredArtists = [
 ```
 
 ## File: components/icons/banknote-icon.tsx
+
 ```typescript
 interface BanknoteIconProps {
   className?: string
@@ -5483,6 +5523,7 @@ export function BanknoteIcon({ className = "", size = 24 }: BanknoteIconProps) {
 ```
 
 ## File: components/icons/banknote-svg.tsx
+
 ```typescript
 interface BanknoteSvgProps {
   className?: string
@@ -5515,16 +5556,17 @@ export function BanknoteSvg({ className = "" }: BanknoteSvgProps) {
 ```
 
 ## File: components/music-player/expanded-player.tsx
+
 ```typescript
 "use client"
 
 import { useState } from "react"
-import { 
-  Play, 
-  Pause, 
-  SkipBack, 
-  SkipForward, 
-  Volume2, 
+import {
+  Play,
+  Pause,
+  SkipBack,
+  SkipForward,
+  Volume2,
   VolumeX,
   Repeat,
   Shuffle,
@@ -5622,8 +5664,8 @@ export default function ExpandedPlayer() {
             <div className="flex justify-center mb-6">
               <div className="relative">
                 <Avatar className="h-32 w-32">
-                  <AvatarImage 
-                    src={musicPlayer.currentTrack.cover} 
+                  <AvatarImage
+                    src={musicPlayer.currentTrack.cover}
                     alt={`${musicPlayer.currentTrack.album} cover`}
                   />
                   <AvatarFallback className="bg-gray-700 text-white text-lg">
@@ -5646,7 +5688,7 @@ export default function ExpandedPlayer() {
               <p className="text-gray-400 text-sm mb-2">
                 {musicPlayer.currentTrack.artist} • {musicPlayer.currentTrack.album}
               </p>
-              
+
               {/* Progress Bar */}
               <div className="mb-4">
                 <Slider
@@ -5673,7 +5715,7 @@ export default function ExpandedPlayer() {
               >
                 <Shuffle className="h-4 w-4" />
               </Button>
-              
+
               <Button
                 variant="ghost"
                 size="sm"
@@ -5682,14 +5724,14 @@ export default function ExpandedPlayer() {
               >
                 <SkipBack className="h-5 w-5" />
               </Button>
-              
+
               <Button
                 onClick={musicPlayer.togglePlay}
                 className="bg-teal-600 hover:bg-teal-700 text-white rounded-full h-12 w-12 p-0"
               >
                 {musicPlayer.isPlaying ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}
               </Button>
-              
+
               <Button
                 variant="ghost"
                 size="sm"
@@ -5698,7 +5740,7 @@ export default function ExpandedPlayer() {
               >
                 <SkipForward className="h-5 w-5" />
               </Button>
-              
+
               <Button
                 variant="ghost"
                 size="sm"
@@ -5721,7 +5763,7 @@ export default function ExpandedPlayer() {
                   <Heart className={`h-4 w-4 ${likedTracks.has(musicPlayer.currentTrack.id) ? 'fill-current' : ''}`} />
                 </Button>
               </div>
-              
+
               <div className="flex items-center gap-2">
                 <Button
                   variant="ghost"
@@ -5731,7 +5773,7 @@ export default function ExpandedPlayer() {
                 >
                   {musicPlayer.isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
                 </Button>
-                
+
                 <div className="w-20">
                   <Slider
                     value={[musicPlayer.isMuted ? 0 : musicPlayer.volume]}
@@ -5754,8 +5796,8 @@ export default function ExpandedPlayer() {
                 <div
                   key={track.id}
                   className={`flex items-center gap-3 p-2 rounded cursor-pointer transition-colors ${
-                    index === musicPlayer.currentTrackIndex 
-                      ? 'bg-teal-600/20 border border-teal-500/30' 
+                    index === musicPlayer.currentTrackIndex
+                      ? 'bg-teal-600/20 border border-teal-500/30'
                       : 'hover:bg-gray-700'
                   }`}
                   onClick={() => playTrackFromPlaylist(track, index)}
@@ -5807,6 +5849,7 @@ export default function ExpandedPlayer() {
 ```
 
 ## File: components/music-player/mini-player-wrapper.tsx
+
 ```typescript
 "use client"
 
@@ -5840,6 +5883,7 @@ export default function MiniPlayerWrapper() {
 ```
 
 ## File: components/music-player/mini-player.tsx
+
 ```typescript
 "use client"
 
@@ -5918,14 +5962,14 @@ export default function MiniPlayer({
             >
               <SkipBack className="h-4 w-4" />
             </Button>
-            
+
             <Button
               onClick={onPlayPause}
               className="bg-teal-600 hover:bg-teal-700 text-white rounded-full h-7 w-7 p-0"
             >
               {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
             </Button>
-            
+
             <Button
               variant="ghost"
               size="icon"
@@ -5969,6 +6013,7 @@ export default function MiniPlayer({
 ```
 
 ## File: components/music-player/music-card.tsx
+
 ```typescript
 "use client";
 
@@ -6081,16 +6126,17 @@ export default function MusicCard({
 ```
 
 ## File: components/music-player/music-player.tsx
+
 ```typescript
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { 
-  Play, 
-  Pause, 
-  SkipBack, 
-  SkipForward, 
-  Volume2, 
+import {
+  Play,
+  Pause,
+  SkipBack,
+  SkipForward,
+  Volume2,
   VolumeX,
   Repeat,
   Shuffle,
@@ -6157,8 +6203,8 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
 
   // Handle next track
   const nextTrack = () => {
-    const nextIndex = isRepeated 
-      ? currentTrackIndex 
+    const nextIndex = isRepeated
+      ? currentTrackIndex
       : (currentTrackIndex + 1) % tracks.length
     setCurrentTrackIndex(nextIndex)
     if (onTrackChange) {
@@ -6217,8 +6263,8 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
           <div className="flex justify-center mb-6">
             <div className="relative">
               <Avatar className="h-32 w-32">
-                <AvatarImage 
-                  src={currentTrack.cover} 
+                <AvatarImage
+                  src={currentTrack.cover}
                   alt={`${currentTrack.album} cover`}
                 />
                 <AvatarFallback className="bg-gray-700 text-white text-lg">
@@ -6241,7 +6287,7 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
             <p className="text-gray-400 text-sm mb-2">
               {currentTrack.artist} • {currentTrack.album}
             </p>
-            
+
             {/* Progress Bar */}
             <div className="mb-4">
               <Slider
@@ -6268,7 +6314,7 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
             >
               <Shuffle className="h-4 w-4" />
             </Button>
-            
+
             <Button
               variant="ghost"
               size="sm"
@@ -6277,14 +6323,14 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
             >
               <SkipBack className="h-5 w-5" />
             </Button>
-            
+
             <Button
               onClick={togglePlay}
               className="bg-teal-600 hover:bg-teal-700 text-white rounded-full h-12 w-12 p-0"
             >
               {isCurrentTrackPlaying ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}
             </Button>
-            
+
             <Button
               variant="ghost"
               size="sm"
@@ -6293,7 +6339,7 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
             >
               <SkipForward className="h-5 w-5" />
             </Button>
-            
+
             <Button
               variant="ghost"
               size="sm"
@@ -6315,7 +6361,7 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
               >
                 <Heart className={`h-4 w-4 ${likedTracks.has(currentTrack.id) ? 'fill-current' : ''}`} />
               </Button>
-              
+
               <Button
                 variant="ghost"
                 size="sm"
@@ -6325,7 +6371,7 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
                 <List className="h-4 w-4" />
               </Button>
             </div>
-            
+
             <div className="flex items-center gap-2">
               <Button
                 variant="ghost"
@@ -6335,7 +6381,7 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
               >
                 {musicPlayer.isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
               </Button>
-              
+
               <div className="w-20">
                 <Slider
                   value={[musicPlayer.isMuted ? 0 : musicPlayer.volume]}
@@ -6344,7 +6390,7 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
                   className="w-full"
                 />
               </div>
-              
+
               <Button
                 variant="ghost"
                 size="sm"
@@ -6368,8 +6414,8 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
                 <div
                   key={track.id}
                   className={`flex items-center gap-3 p-2 rounded cursor-pointer transition-colors ${
-                    index === currentTrackIndex 
-                      ? 'bg-teal-600/20 border border-teal-500/30' 
+                    index === currentTrackIndex
+                      ? 'bg-teal-600/20 border border-teal-500/30'
                       : 'hover:bg-gray-700'
                   }`}
                   onClick={() => playTrackFromPlaylist(track, index)}
@@ -6421,6 +6467,7 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
 ```
 
 ## File: components/ui/accordion.tsx
+
 ```typescript
 "use client"
 
@@ -6483,6 +6530,7 @@ export { Accordion, AccordionItem, AccordionTrigger, AccordionContent }
 ```
 
 ## File: components/ui/alert-dialog.tsx
+
 ```typescript
 "use client"
 
@@ -6628,6 +6676,7 @@ export {
 ```
 
 ## File: components/ui/alert.tsx
+
 ```typescript
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -6691,17 +6740,19 @@ export { Alert, AlertTitle, AlertDescription }
 ```
 
 ## File: components/ui/aspect-ratio.tsx
+
 ```typescript
-"use client"
+"use client";
 
-import * as AspectRatioPrimitive from "@radix-ui/react-aspect-ratio"
+import * as AspectRatioPrimitive from "@radix-ui/react-aspect-ratio";
 
-const AspectRatio = AspectRatioPrimitive.Root
+const AspectRatio = AspectRatioPrimitive.Root;
 
-export { AspectRatio }
+export { AspectRatio };
 ```
 
 ## File: components/ui/avatar.tsx
+
 ```typescript
 "use client"
 
@@ -6756,6 +6807,7 @@ export { Avatar, AvatarImage, AvatarFallback }
 ```
 
 ## File: components/ui/badge.tsx
+
 ```typescript
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -6796,6 +6848,7 @@ export { Badge, badgeVariants }
 ```
 
 ## File: components/ui/breadcrumb.tsx
+
 ```typescript
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
@@ -6915,6 +6968,7 @@ export {
 ```
 
 ## File: components/ui/button.tsx
+
 ```typescript
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
@@ -6975,6 +7029,7 @@ export { Button, buttonVariants }
 ```
 
 ## File: components/ui/calendar.tsx
+
 ```typescript
 "use client"
 
@@ -7045,6 +7100,7 @@ export { Calendar }
 ```
 
 ## File: components/ui/card.tsx
+
 ```typescript
 import * as React from "react"
 
@@ -7128,6 +7184,7 @@ export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
 ```
 
 ## File: components/ui/carousel.tsx
+
 ```typescript
 "use client"
 
@@ -7394,6 +7451,7 @@ export {
 ```
 
 ## File: components/ui/chart.tsx
+
 ```typescript
 "use client"
 
@@ -7763,6 +7821,7 @@ export {
 ```
 
 ## File: components/ui/checkbox.tsx
+
 ```typescript
 "use client"
 
@@ -7797,21 +7856,23 @@ export { Checkbox }
 ```
 
 ## File: components/ui/collapsible.tsx
+
 ```typescript
-"use client"
+"use client";
 
-import * as CollapsiblePrimitive from "@radix-ui/react-collapsible"
+import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
 
-const Collapsible = CollapsiblePrimitive.Root
+const Collapsible = CollapsiblePrimitive.Root;
 
-const CollapsibleTrigger = CollapsiblePrimitive.CollapsibleTrigger
+const CollapsibleTrigger = CollapsiblePrimitive.CollapsibleTrigger;
 
-const CollapsibleContent = CollapsiblePrimitive.CollapsibleContent
+const CollapsibleContent = CollapsiblePrimitive.CollapsibleContent;
 
-export { Collapsible, CollapsibleTrigger, CollapsibleContent }
+export { Collapsible, CollapsibleTrigger, CollapsibleContent };
 ```
 
 ## File: components/ui/command.tsx
+
 ```typescript
 "use client"
 
@@ -7969,6 +8030,7 @@ export {
 ```
 
 ## File: components/ui/context-menu.tsx
+
 ```typescript
 "use client"
 
@@ -8173,6 +8235,7 @@ export {
 ```
 
 ## File: components/ui/dialog.tsx
+
 ```typescript
 "use client"
 
@@ -8299,6 +8362,7 @@ export {
 ```
 
 ## File: components/ui/drawer.tsx
+
 ```typescript
 "use client"
 
@@ -8421,6 +8485,7 @@ export {
 ```
 
 ## File: components/ui/dropdown-menu.tsx
+
 ```typescript
 "use client"
 
@@ -8625,6 +8690,7 @@ export {
 ```
 
 ## File: components/ui/form.tsx
+
 ```typescript
 "use client"
 
@@ -8807,6 +8873,7 @@ export {
 ```
 
 ## File: components/ui/hover-card.tsx
+
 ```typescript
 "use client"
 
@@ -8840,6 +8907,7 @@ export { HoverCard, HoverCardTrigger, HoverCardContent }
 ```
 
 ## File: components/ui/input-otp.tsx
+
 ```typescript
 "use client"
 
@@ -8915,6 +8983,7 @@ export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator }
 ```
 
 ## File: components/ui/input.tsx
+
 ```typescript
 import * as React from "react"
 
@@ -8941,6 +9010,7 @@ export { Input }
 ```
 
 ## File: components/ui/label.tsx
+
 ```typescript
 "use client"
 
@@ -8971,6 +9041,7 @@ export { Label }
 ```
 
 ## File: components/ui/menubar.tsx
+
 ```typescript
 "use client"
 
@@ -9211,6 +9282,7 @@ export {
 ```
 
 ## File: components/ui/navigation-menu.tsx
+
 ```typescript
 import * as React from "react"
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu"
@@ -9343,6 +9415,7 @@ export {
 ```
 
 ## File: components/ui/pagination.tsx
+
 ```typescript
 import * as React from "react"
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react"
@@ -9464,6 +9537,7 @@ export {
 ```
 
 ## File: components/ui/popover.tsx
+
 ```typescript
 "use client"
 
@@ -9499,6 +9573,7 @@ export { Popover, PopoverTrigger, PopoverContent }
 ```
 
 ## File: components/ui/progress.tsx
+
 ```typescript
 "use client"
 
@@ -9531,6 +9606,7 @@ export { Progress }
 ```
 
 ## File: components/ui/radio-group.tsx
+
 ```typescript
 "use client"
 
@@ -9579,6 +9655,7 @@ export { RadioGroup, RadioGroupItem }
 ```
 
 ## File: components/ui/resizable.tsx
+
 ```typescript
 "use client"
 
@@ -9628,6 +9705,7 @@ export { ResizablePanelGroup, ResizablePanel, ResizableHandle }
 ```
 
 ## File: components/ui/scroll-area.tsx
+
 ```typescript
 "use client"
 
@@ -9680,6 +9758,7 @@ export { ScrollArea, ScrollBar }
 ```
 
 ## File: components/ui/select.tsx
+
 ```typescript
 "use client"
 
@@ -9844,6 +9923,7 @@ export {
 ```
 
 ## File: components/ui/separator.tsx
+
 ```typescript
 "use client"
 
@@ -9879,6 +9959,7 @@ export { Separator }
 ```
 
 ## File: components/ui/sheet.tsx
+
 ```typescript
 "use client"
 
@@ -10023,6 +10104,7 @@ export {
 ```
 
 ## File: components/ui/sidebar.tsx
+
 ```typescript
 "use client"
 
@@ -10790,6 +10872,7 @@ export {
 ```
 
 ## File: components/ui/skeleton.tsx
+
 ```typescript
 import { cn } from "@/lib/utils"
 
@@ -10809,6 +10892,7 @@ export { Skeleton }
 ```
 
 ## File: components/ui/slider.tsx
+
 ```typescript
 "use client"
 
@@ -10841,6 +10925,7 @@ export { Slider }
 ```
 
 ## File: components/ui/sonner.tsx
+
 ```typescript
 "use client"
 
@@ -10876,6 +10961,7 @@ export { Toaster }
 ```
 
 ## File: components/ui/switch.tsx
+
 ```typescript
 "use client"
 
@@ -10909,6 +10995,7 @@ export { Switch }
 ```
 
 ## File: components/ui/table.tsx
+
 ```typescript
 import * as React from "react"
 
@@ -11030,6 +11117,7 @@ export {
 ```
 
 ## File: components/ui/tabs.tsx
+
 ```typescript
 "use client"
 
@@ -11089,6 +11177,7 @@ export { Tabs, TabsList, TabsTrigger, TabsContent }
 ```
 
 ## File: components/ui/textarea.tsx
+
 ```typescript
 import * as React from "react"
 
@@ -11115,6 +11204,7 @@ export { Textarea }
 ```
 
 ## File: components/ui/toast.tsx
+
 ```typescript
 "use client"
 
@@ -11248,6 +11338,7 @@ export {
 ```
 
 ## File: components/ui/toaster.tsx
+
 ```typescript
 "use client"
 
@@ -11287,6 +11378,7 @@ export function Toaster() {
 ```
 
 ## File: components/ui/toggle-group.tsx
+
 ```typescript
 "use client"
 
@@ -11352,6 +11444,7 @@ export { ToggleGroup, ToggleGroupItem }
 ```
 
 ## File: components/ui/toggle.tsx
+
 ```typescript
 "use client"
 
@@ -11401,6 +11494,7 @@ export { Toggle, toggleVariants }
 ```
 
 ## File: components/ui/tooltip.tsx
+
 ```typescript
 "use client"
 
@@ -11435,105 +11529,106 @@ export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }
 ```
 
 ## File: components/ui/use-mobile.tsx
-```typescript
-import * as React from "react"
 
-const MOBILE_BREAKPOINT = 768
+```typescript
+import * as React from "react";
+
+const MOBILE_BREAKPOINT = 768;
 
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = React.useState<boolean | undefined>(undefined)
+  const [isMobile, setIsMobile] = React.useState<boolean | undefined>(
+    undefined,
+  );
 
   React.useEffect(() => {
-    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)
+    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
     const onChange = () => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
-    }
-    mql.addEventListener("change", onChange)
-    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
-    return () => mql.removeEventListener("change", onChange)
-  }, [])
+      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+    };
+    mql.addEventListener("change", onChange);
+    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
 
-  return !!isMobile
+  return !!isMobile;
 }
 ```
 
 ## File: components/ui/use-toast.ts
+
 ```typescript
-"use client"
+"use client";
 
 // Inspired by react-hot-toast library
-import * as React from "react"
+import * as React from "react";
 
-import type {
-  ToastActionElement,
-  ToastProps,
-} from "@/components/ui/toast"
+import type { ToastActionElement, ToastProps } from "@/components/ui/toast";
 
-const TOAST_LIMIT = 1
-const TOAST_REMOVE_DELAY = 1000000
+const TOAST_LIMIT = 1;
+const TOAST_REMOVE_DELAY = 1000000;
 
 type ToasterToast = ToastProps & {
-  id: string
-  title?: React.ReactNode
-  description?: React.ReactNode
-  action?: ToastActionElement
-}
+  id: string;
+  title?: React.ReactNode;
+  description?: React.ReactNode;
+  action?: ToastActionElement;
+};
 
 const actionTypes = {
   ADD_TOAST: "ADD_TOAST",
   UPDATE_TOAST: "UPDATE_TOAST",
   DISMISS_TOAST: "DISMISS_TOAST",
   REMOVE_TOAST: "REMOVE_TOAST",
-} as const
+} as const;
 
-let count = 0
+let count = 0;
 
 function genId() {
-  count = (count + 1) % Number.MAX_SAFE_INTEGER
-  return count.toString()
+  count = (count + 1) % Number.MAX_SAFE_INTEGER;
+  return count.toString();
 }
 
-type ActionType = typeof actionTypes
+type ActionType = typeof actionTypes;
 
 type Action =
   | {
-      type: ActionType["ADD_TOAST"]
-      toast: ToasterToast
+      type: ActionType["ADD_TOAST"];
+      toast: ToasterToast;
     }
   | {
-      type: ActionType["UPDATE_TOAST"]
-      toast: Partial<ToasterToast>
+      type: ActionType["UPDATE_TOAST"];
+      toast: Partial<ToasterToast>;
     }
   | {
-      type: ActionType["DISMISS_TOAST"]
-      toastId?: ToasterToast["id"]
+      type: ActionType["DISMISS_TOAST"];
+      toastId?: ToasterToast["id"];
     }
   | {
-      type: ActionType["REMOVE_TOAST"]
-      toastId?: ToasterToast["id"]
-    }
+      type: ActionType["REMOVE_TOAST"];
+      toastId?: ToasterToast["id"];
+    };
 
 interface State {
-  toasts: ToasterToast[]
+  toasts: ToasterToast[];
 }
 
-const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>()
+const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>();
 
 const addToRemoveQueue = (toastId: string) => {
   if (toastTimeouts.has(toastId)) {
-    return
+    return;
   }
 
   const timeout = setTimeout(() => {
-    toastTimeouts.delete(toastId)
+    toastTimeouts.delete(toastId);
     dispatch({
       type: "REMOVE_TOAST",
       toastId: toastId,
-    })
-  }, TOAST_REMOVE_DELAY)
+    });
+  }, TOAST_REMOVE_DELAY);
 
-  toastTimeouts.set(toastId, timeout)
-}
+  toastTimeouts.set(toastId, timeout);
+};
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -11541,27 +11636,27 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),
-      }
+      };
 
     case "UPDATE_TOAST":
       return {
         ...state,
         toasts: state.toasts.map((t) =>
-          t.id === action.toast.id ? { ...t, ...action.toast } : t
+          t.id === action.toast.id ? { ...t, ...action.toast } : t,
         ),
-      }
+      };
 
     case "DISMISS_TOAST": {
-      const { toastId } = action
+      const { toastId } = action;
 
       // ! Side effects ! - This could be extracted into a dismissToast() action,
       // but I'll keep it here for simplicity
       if (toastId) {
-        addToRemoveQueue(toastId)
+        addToRemoveQueue(toastId);
       } else {
         state.toasts.forEach((toast) => {
-          addToRemoveQueue(toast.id)
-        })
+          addToRemoveQueue(toast.id);
+        });
       }
 
       return {
@@ -11572,46 +11667,46 @@ export const reducer = (state: State, action: Action): State => {
                 ...t,
                 open: false,
               }
-            : t
+            : t,
         ),
-      }
+      };
     }
     case "REMOVE_TOAST":
       if (action.toastId === undefined) {
         return {
           ...state,
           toasts: [],
-        }
+        };
       }
       return {
         ...state,
         toasts: state.toasts.filter((t) => t.id !== action.toastId),
-      }
+      };
   }
-}
+};
 
-const listeners: Array<(state: State) => void> = []
+const listeners: Array<(state: State) => void> = [];
 
-let memoryState: State = { toasts: [] }
+let memoryState: State = { toasts: [] };
 
 function dispatch(action: Action) {
-  memoryState = reducer(memoryState, action)
+  memoryState = reducer(memoryState, action);
   listeners.forEach((listener) => {
-    listener(memoryState)
-  })
+    listener(memoryState);
+  });
 }
 
-type Toast = Omit<ToasterToast, "id">
+type Toast = Omit<ToasterToast, "id">;
 
 function toast({ ...props }: Toast) {
-  const id = genId()
+  const id = genId();
 
   const update = (props: ToasterToast) =>
     dispatch({
       type: "UPDATE_TOAST",
       toast: { ...props, id },
-    })
-  const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id })
+    });
+  const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id });
 
   dispatch({
     type: "ADD_TOAST",
@@ -11620,42 +11715,43 @@ function toast({ ...props }: Toast) {
       id,
       open: true,
       onOpenChange: (open) => {
-        if (!open) dismiss()
+        if (!open) dismiss();
       },
     },
-  })
+  });
 
   return {
     id: id,
     dismiss,
     update,
-  }
+  };
 }
 
 function useToast() {
-  const [state, setState] = React.useState<State>(memoryState)
+  const [state, setState] = React.useState<State>(memoryState);
 
   React.useEffect(() => {
-    listeners.push(setState)
+    listeners.push(setState);
     return () => {
-      const index = listeners.indexOf(setState)
+      const index = listeners.indexOf(setState);
       if (index > -1) {
-        listeners.splice(index, 1)
+        listeners.splice(index, 1);
       }
-    }
-  }, [state])
+    };
+  }, [state]);
 
   return {
     ...state,
     toast,
     dismiss: (toastId?: string) => dispatch({ type: "DISMISS_TOAST", toastId }),
-  }
+  };
 }
 
-export { useToast, toast }
+export { useToast, toast };
 ```
 
 ## File: components/ui/user-avatar.tsx
+
 ```typescript
 import React from "react"
 import { User } from "lucide-react"
@@ -11705,6 +11801,7 @@ export function UserAvatar({ src, alt, username, size = "md", className = "" }: 
 ```
 
 ## File: components/wallet/buy-view.tsx
+
 ```typescript
 "use client";
 
@@ -11857,6 +11954,7 @@ export default function BuyView({ onBack }: BuyViewProps) {
 ```
 
 ## File: components/wallet/donate-form.tsx
+
 ```typescript
 "use client"
 
@@ -11976,6 +12074,7 @@ export default function DonateForm({ creatorId, creatorName }: DonateFormProps) 
 ```
 
 ## File: components/wallet/donate-screen.tsx
+
 ```typescript
 "use client";
 
@@ -12206,6 +12305,7 @@ export default function DonateScreen({ creator, onBack }: DonateScreenProps) {
 ```
 
 ## File: components/wallet/receive-view.tsx
+
 ```typescript
 "use client";
 
@@ -12383,6 +12483,7 @@ export default function ReceiveView({ onBack }: ReceiveViewProps) {
 ```
 
 ## File: components/wallet/ticket-minter.tsx
+
 ```typescript
 'use client'
 
@@ -12426,10 +12527,10 @@ export function TicketMinter() {
     try {
       // Aquí llamarías a tu función del programa Solana
       // const tx = await mintTicket(program, publicKey, ticketData)
-      
+
       // Por ahora, simulamos la transacción
       await new Promise(resolve => setTimeout(resolve, 2000))
-      
+
       toast({
         title: "Ticket Minted! 🎫",
         description: `Ticket #${ticketData.ticketNumber} for ${ticketData.buyerName}`,
@@ -12497,7 +12598,7 @@ export function TicketMinter() {
               />
             </div>
 
-            <Button 
+            <Button
               onClick={handleMintTicket}
               disabled={minting || !ticketData.buyerName || !ticketData.exhibitionName}
               className="w-full"
@@ -12524,6 +12625,7 @@ export function TicketMinter() {
 ```
 
 ## File: components/wallet/wallet-view.tsx
+
 ```typescript
 "use client";
 
@@ -12760,6 +12862,7 @@ export default function WalletView({
 ```
 
 ## File: components/artist-dashboard.tsx
+
 ```typescript
 "use client";
 
@@ -13181,6 +13284,7 @@ const supporters = [
 ```
 
 ## File: components/header.tsx
+
 ```typescript
 import { UserData } from "@/lib/types";
 import { SolanaWalletButton } from "./authentication/solana-wallet-button";
@@ -13236,18 +13340,19 @@ export function Header({
 ```
 
 ## File: components/main-app.tsx
+
 ```typescript
 "use client";
 import HomeView from "@/components/home/home-view";
 import SearchView from "@/components/search-view";
 import ActivityView from "@/components/home/activity-view";
-import ProfileView from "@/components/artist-profile/profile-view";
+import ProfileView from "@/components/profile/profile-view";
 import WalletView from "@/components/wallet/wallet-view";
 import ArtistDashboard from "@/components/artist-dashboard";
 import BuyView from "@/components/wallet/buy-view";
 import SendView from "@/components/send-view";
 import ReceiveView from "@/components/wallet/receive-view";
-import ArtistProfile from "@/components/artist-profile/artist-profile";
+import ArtistProfile from "@/components/profile/artist-profile";
 import { useAuth } from "@/hooks/use-auth";
 import { Header } from "./header";
 import { TabBar } from "./tab-bar";
@@ -13341,6 +13446,7 @@ export function ViewRenderer({
 ```
 
 ## File: components/notification-badge.tsx
+
 ```typescript
 "use client";
 import { useState, useEffect } from "react";
@@ -13381,6 +13487,7 @@ export default function NotificationBadge({ onClick }: NotificationBadgeProps) {
 ```
 
 ## File: components/search-view.tsx
+
 ```typescript
 "use client";
 
@@ -13533,6 +13640,7 @@ export default function SearchView({ onSelectArtist }: SearchViewProps) {
 ```
 
 ## File: components/send-view.tsx
+
 ```typescript
 "use client";
 
@@ -13782,6 +13890,7 @@ export default function SendView({ onBack }: SendViewProps) {
 ```
 
 ## File: components/stats-card.tsx
+
 ```typescript
 import type { ReactNode } from "react"
 import { ArrowDown, ArrowUp } from "lucide-react"
@@ -13825,6 +13934,7 @@ export default function StatsCard({ icon, title, value, trend, trendUp }: StatsC
 ```
 
 ## File: components/tab-bar.tsx
+
 ```typescript
 import { Heart, Home, Search, User, Wallet } from "lucide-react";
 
@@ -13882,6 +13992,7 @@ export function TabBar({
 ```
 
 ## File: components/theme-provider.tsx
+
 ```typescript
 "use client"
 import { ThemeProvider as NextThemesProvider, type ThemeProviderProps } from "next-themes"
@@ -13892,6 +14003,7 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
 ```
 
 ## File: contexts/music-player-context.tsx
+
 ```typescript
 "use client"
 
@@ -13962,7 +14074,7 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
       setCurrentTrack(track)
       setIsPlaying(true)
       setShowMiniPlayer(true)
-      
+
       // Update playlist and track index
       if (isNewTrack) {
         // Import musicTracks dynamically to avoid circular dependency
@@ -13973,7 +14085,7 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
         })
         setCurrentTime(0)
       }
-      
+
       if (audioRef.current && track.audioUrl) {
         // Only set src if it's a new track or if there's no src
         if (isNewTrack || !audioRef.current.src) {
@@ -13995,7 +14107,7 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
   // Next track
   const nextTrack = useCallback(() => {
     if (playlist.length === 0) return
-    
+
     const nextIndex = (currentTrackIndex + 1) % playlist.length
     const nextTrack = playlist[nextIndex]
     if (nextTrack) {
@@ -14006,7 +14118,7 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
   // Previous track
   const previousTrack = useCallback(() => {
     if (playlist.length === 0) return
-    
+
     const prevIndex = currentTrackIndex === 0 ? playlist.length - 1 : currentTrackIndex - 1
     const prevTrack = playlist[prevIndex]
     if (prevTrack) {
@@ -14027,7 +14139,7 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
   // Toggle play/pause
   const togglePlay = useCallback(() => {
     if (!currentTrack) return
-    
+
     try {
       if (audioRef.current) {
         if (isPlaying) {
@@ -14170,6 +14282,7 @@ export function useMusicPlayer() {
 ```
 
 ## File: contexts/solana-wallet-context.tsx
+
 ```typescript
 'use client'
 
@@ -14184,7 +14297,7 @@ import '@solana/wallet-adapter-react-ui/styles.css'
 
 export function SolanaWalletProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false)
-  
+
   // You can use 'devnet', 'testnet', or 'mainnet-beta'
   const network = 'mainnet-beta'
   const endpoint = useMemo(() => clusterApiUrl(network), [network])
@@ -14219,6 +14332,7 @@ export function SolanaWalletProvider({ children }: { children: React.ReactNode }
 ```
 
 ## File: data/artist-profile.ts
+
 ```typescript
 // Vamos a actualizar los datos de los artistas para que cada uno tenga contenido único
 // Reemplazaremos la constante artists con datos más personalizados
@@ -15215,6 +15329,7 @@ export const artists: Artist[] = [
 ```
 
 ## File: data/profile-view.ts
+
 ```typescript
 // Sample posts data
 export const userPosts = [
@@ -15316,6 +15431,7 @@ export const followedArtists = [
 ```
 
 ## File: data/search-view.ts
+
 ```typescript
 // Electronic music genre data
 export const genres = [
@@ -15431,6 +15547,7 @@ export const trendingTopics = [
 ```
 
 ## File: data/wallet-view.ts
+
 ```typescript
 // Artist tokens data
 export const artistTokens = [
@@ -15513,6 +15630,7 @@ export const transactions = [
 ```
 
 ## File: hooks/use-auth.tsx
+
 ```typescript
 "use client";
 
@@ -15853,200 +15971,226 @@ export const useAuth = () => useContext(AuthContext);
 ```
 
 ## File: hooks/use-mobile.tsx
-```typescript
-import * as React from "react"
 
-const MOBILE_BREAKPOINT = 768
+```typescript
+import * as React from "react";
+
+const MOBILE_BREAKPOINT = 768;
 
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = React.useState<boolean | undefined>(undefined)
+  const [isMobile, setIsMobile] = React.useState<boolean | undefined>(
+    undefined,
+  );
 
   React.useEffect(() => {
-    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)
+    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
     const onChange = () => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
-    }
-    mql.addEventListener("change", onChange)
-    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
-    return () => mql.removeEventListener("change", onChange)
-  }, [])
+      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+    };
+    mql.addEventListener("change", onChange);
+    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
 
-  return !!isMobile
+  return !!isMobile;
 }
 ```
 
 ## File: hooks/use-music-player.ts
+
 ```typescript
 // Re-export from the new context
-export { useMusicPlayer, MusicPlayerProvider } from '../contexts/music-player-context'
-export type { Track } from '../contexts/music-player-context'
+export {
+  useMusicPlayer,
+  MusicPlayerProvider,
+} from "../contexts/music-player-context";
+export type { Track } from "../contexts/music-player-context";
 ```
 
 ## File: hooks/use-music-storage.ts
-```typescript
-"use client"
 
-import { useState, useEffect, useCallback } from "react"
-import { musicService, MusicMetadata, MusicFile } from "@/lib/music-service"
-import { useToast } from "@/hooks/use-toast"
+```typescript
+"use client";
+
+import { useState, useEffect, useCallback } from "react";
+import { musicService, MusicMetadata, MusicFile } from "@/lib/music-service";
+import { useToast } from "@/hooks/use-toast";
 
 export interface UseMusicStorageReturn {
   // State
-  musicFiles: MusicMetadata[]
-  loading: boolean
-  uploading: boolean
-  
+  musicFiles: MusicMetadata[];
+  loading: boolean;
+  uploading: boolean;
+
   // Actions
-  uploadMusic: (file: File, name: string, artist: string) => Promise<string | null>
-  getMusicData: (id: string) => Promise<Uint8Array | null>
-  createMusicBlobUrl: (id: string) => Promise<string | null>
-  deleteMusic: (id: string) => Promise<boolean>
-  refreshMusic: () => Promise<void>
-  
+  uploadMusic: (
+    file: File,
+    name: string,
+    artist: string,
+  ) => Promise<string | null>;
+  getMusicData: (id: string) => Promise<Uint8Array | null>;
+  createMusicBlobUrl: (id: string) => Promise<string | null>;
+  deleteMusic: (id: string) => Promise<boolean>;
+  refreshMusic: () => Promise<void>;
+
   // Stats
   stats: {
-    totalFiles: number
-    totalSize: number
-  }
+    totalFiles: number;
+    totalSize: number;
+  };
 }
 
 export function useMusicStorage(): UseMusicStorageReturn {
-  const [musicFiles, setMusicFiles] = useState<MusicMetadata[]>([])
-  const [loading, setLoading] = useState(true)
-  const [uploading, setUploading] = useState(false)
-  const [stats, setStats] = useState({ totalFiles: 0, totalSize: 0 })
-  
-  const { toast } = useToast()
+  const [musicFiles, setMusicFiles] = useState<MusicMetadata[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
+  const [stats, setStats] = useState({ totalFiles: 0, totalSize: 0 });
+
+  const { toast } = useToast();
 
   // Load all music metadata
   const loadMusicMetadata = useCallback(async () => {
     try {
-      setLoading(true)
-      const metadata = await musicService.getAllMusicMetadata()
-      setMusicFiles(metadata)
-      
+      setLoading(true);
+      const metadata = await musicService.getAllMusicMetadata();
+      setMusicFiles(metadata);
+
       // Load stats
-      const musicStats = await musicService.getMusicStats()
-      setStats(musicStats)
+      const musicStats = await musicService.getMusicStats();
+      setStats(musicStats);
     } catch (error) {
-      console.error("Error loading music metadata:", error)
+      console.error("Error loading music metadata:", error);
       toast({
         title: "Error",
         description: "Failed to load music files",
         variant: "destructive",
-      })
+      });
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }, [toast])
+  }, [toast]);
 
   // Upload music file
-  const uploadMusic = useCallback(async (
-    file: File, 
-    name: string, 
-    artist: string
-  ): Promise<string | null> => {
-    try {
-      setUploading(true)
-      
-      // Convert file to Uint8Array
-      const arrayBuffer = await file.arrayBuffer()
-      const uint8Array = new Uint8Array(arrayBuffer)
-      
-      // Upload to canister
-      const musicId = await musicService.uploadMusic(
-        name,
-        artist,
-        uint8Array,
-        file.type || 'audio/mpeg'
-      )
-      
-      toast({
-        title: "Success",
-        description: `Music "${name}" uploaded successfully`,
-      })
-      
-      // Refresh the list
-      await loadMusicMetadata()
-      
-      return musicId
-    } catch (error) {
-      console.error("Error uploading music:", error)
-      toast({
-        title: "Upload Failed",
-        description: error instanceof Error ? error.message : "Failed to upload music",
-        variant: "destructive",
-      })
-      return null
-    } finally {
-      setUploading(false)
-    }
-  }, [loadMusicMetadata, toast])
+  const uploadMusic = useCallback(
+    async (
+      file: File,
+      name: string,
+      artist: string,
+    ): Promise<string | null> => {
+      try {
+        setUploading(true);
+
+        // Convert file to Uint8Array
+        const arrayBuffer = await file.arrayBuffer();
+        const uint8Array = new Uint8Array(arrayBuffer);
+
+        // Upload to canister
+        const musicId = await musicService.uploadMusic(
+          name,
+          artist,
+          uint8Array,
+          file.type || "audio/mpeg",
+        );
+
+        toast({
+          title: "Success",
+          description: `Music "${name}" uploaded successfully`,
+        });
+
+        // Refresh the list
+        await loadMusicMetadata();
+
+        return musicId;
+      } catch (error) {
+        console.error("Error uploading music:", error);
+        toast({
+          title: "Upload Failed",
+          description:
+            error instanceof Error ? error.message : "Failed to upload music",
+          variant: "destructive",
+        });
+        return null;
+      } finally {
+        setUploading(false);
+      }
+    },
+    [loadMusicMetadata, toast],
+  );
 
   // Get music data
-  const getMusicData = useCallback(async (id: string): Promise<Uint8Array | null> => {
-    try {
-      return await musicService.getMusicData(id)
-    } catch (error) {
-      console.error("Error getting music data:", error)
-      toast({
-        title: "Error",
-        description: "Failed to get music data",
-        variant: "destructive",
-      })
-      return null
-    }
-  }, [toast])
+  const getMusicData = useCallback(
+    async (id: string): Promise<Uint8Array | null> => {
+      try {
+        return await musicService.getMusicData(id);
+      } catch (error) {
+        console.error("Error getting music data:", error);
+        toast({
+          title: "Error",
+          description: "Failed to get music data",
+          variant: "destructive",
+        });
+        return null;
+      }
+    },
+    [toast],
+  );
 
   // Create blob URL for streaming
-  const createMusicBlobUrl = useCallback(async (id: string): Promise<string | null> => {
-    try {
-      return await musicService.createMusicBlobUrl(id)
-    } catch (error) {
-      console.error("Error creating blob URL:", error)
-      toast({
-        title: "Error",
-        description: "Failed to create streaming URL",
-        variant: "destructive",
-      })
-      return null
-    }
-  }, [toast])
+  const createMusicBlobUrl = useCallback(
+    async (id: string): Promise<string | null> => {
+      try {
+        return await musicService.createMusicBlobUrl(id);
+      } catch (error) {
+        console.error("Error creating blob URL:", error);
+        toast({
+          title: "Error",
+          description: "Failed to create streaming URL",
+          variant: "destructive",
+        });
+        return null;
+      }
+    },
+    [toast],
+  );
 
   // Delete music file
-  const deleteMusic = useCallback(async (id: string): Promise<boolean> => {
-    try {
-      await musicService.deleteMusic(id)
-      
-      toast({
-        title: "Success",
-        description: "Music file deleted successfully",
-      })
-      
-      // Refresh the list
-      await loadMusicMetadata()
-      
-      return true
-    } catch (error) {
-      console.error("Error deleting music:", error)
-      toast({
-        title: "Delete Failed",
-        description: error instanceof Error ? error.message : "Failed to delete music",
-        variant: "destructive",
-      })
-      return false
-    }
-  }, [loadMusicMetadata, toast])
+  const deleteMusic = useCallback(
+    async (id: string): Promise<boolean> => {
+      try {
+        await musicService.deleteMusic(id);
+
+        toast({
+          title: "Success",
+          description: "Music file deleted successfully",
+        });
+
+        // Refresh the list
+        await loadMusicMetadata();
+
+        return true;
+      } catch (error) {
+        console.error("Error deleting music:", error);
+        toast({
+          title: "Delete Failed",
+          description:
+            error instanceof Error ? error.message : "Failed to delete music",
+          variant: "destructive",
+        });
+        return false;
+      }
+    },
+    [loadMusicMetadata, toast],
+  );
 
   // Refresh music list
   const refreshMusic = useCallback(async () => {
-    await loadMusicMetadata()
-  }, [loadMusicMetadata])
+    await loadMusicMetadata();
+  }, [loadMusicMetadata]);
 
   // Load music on mount
   useEffect(() => {
-    loadMusicMetadata()
-  }, [loadMusicMetadata])
+    loadMusicMetadata();
+  }, [loadMusicMetadata]);
 
   return {
     musicFiles,
@@ -16058,11 +16202,12 @@ export function useMusicStorage(): UseMusicStorageReturn {
     deleteMusic,
     refreshMusic,
     stats,
-  }
+  };
 }
 ```
 
 ## File: hooks/use-navigation.ts
+
 ```typescript
 import { useState, useEffect, useCallback } from "react";
 
@@ -16181,82 +16326,80 @@ export function useViewRenderer(
 ```
 
 ## File: hooks/use-toast.ts
+
 ```typescript
-"use client"
+"use client";
 
 // Inspired by react-hot-toast library
-import * as React from "react"
+import * as React from "react";
 
-import type {
-  ToastActionElement,
-  ToastProps,
-} from "@/components/ui/toast"
+import type { ToastActionElement, ToastProps } from "@/components/ui/toast";
 
-const TOAST_LIMIT = 1
-const TOAST_REMOVE_DELAY = 1000000
+const TOAST_LIMIT = 1;
+const TOAST_REMOVE_DELAY = 1000000;
 
 type ToasterToast = ToastProps & {
-  id: string
-  title?: React.ReactNode
-  description?: React.ReactNode
-  action?: ToastActionElement
-}
+  id: string;
+  title?: React.ReactNode;
+  description?: React.ReactNode;
+  action?: ToastActionElement;
+};
 
 const actionTypes = {
   ADD_TOAST: "ADD_TOAST",
   UPDATE_TOAST: "UPDATE_TOAST",
   DISMISS_TOAST: "DISMISS_TOAST",
   REMOVE_TOAST: "REMOVE_TOAST",
-} as const
+} as const;
 
-let count = 0
+let count = 0;
 
 function genId() {
-  count = (count + 1) % Number.MAX_SAFE_INTEGER
-  return count.toString()
+  count = (count + 1) % Number.MAX_SAFE_INTEGER;
+  return count.toString();
 }
 
-type ActionType = typeof actionTypes
+type ActionType = typeof actionTypes;
 
 type Action =
   | {
-      type: ActionType["ADD_TOAST"]
-      toast: ToasterToast
+      type: ActionType["ADD_TOAST"];
+      toast: ToasterToast;
     }
   | {
-      type: ActionType["UPDATE_TOAST"]
-      toast: Partial<ToasterToast>
+      type: ActionType["UPDATE_TOAST"];
+      toast: Partial<ToasterToast>;
     }
   | {
-      type: ActionType["DISMISS_TOAST"]
-      toastId?: ToasterToast["id"]
+      type: ActionType["DISMISS_TOAST"];
+      toastId?: ToasterToast["id"];
     }
   | {
-      type: ActionType["REMOVE_TOAST"]
-      toastId?: ToasterToast["id"]
-    }
+      type: ActionType["REMOVE_TOAST"];
+      toastId?: ToasterToast["id"];
+    };
 
 interface State {
-  toasts: ToasterToast[]
+  toasts: ToasterToast[];
 }
 
-const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>()
+const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>();
 
 const addToRemoveQueue = (toastId: string) => {
   if (toastTimeouts.has(toastId)) {
-    return
+    return;
   }
 
   const timeout = setTimeout(() => {
-    toastTimeouts.delete(toastId)
+    toastTimeouts.delete(toastId);
     dispatch({
       type: "REMOVE_TOAST",
       toastId: toastId,
-    })
-  }, TOAST_REMOVE_DELAY)
+    });
+  }, TOAST_REMOVE_DELAY);
 
-  toastTimeouts.set(toastId, timeout)
-}
+  toastTimeouts.set(toastId, timeout);
+};
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -16264,27 +16407,27 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),
-      }
+      };
 
     case "UPDATE_TOAST":
       return {
         ...state,
         toasts: state.toasts.map((t) =>
-          t.id === action.toast.id ? { ...t, ...action.toast } : t
+          t.id === action.toast.id ? { ...t, ...action.toast } : t,
         ),
-      }
+      };
 
     case "DISMISS_TOAST": {
-      const { toastId } = action
+      const { toastId } = action;
 
       // ! Side effects ! - This could be extracted into a dismissToast() action,
       // but I'll keep it here for simplicity
       if (toastId) {
-        addToRemoveQueue(toastId)
+        addToRemoveQueue(toastId);
       } else {
         state.toasts.forEach((toast) => {
-          addToRemoveQueue(toast.id)
-        })
+          addToRemoveQueue(toast.id);
+        });
       }
 
       return {
@@ -16295,46 +16438,46 @@ export const reducer = (state: State, action: Action): State => {
                 ...t,
                 open: false,
               }
-            : t
+            : t,
         ),
-      }
+      };
     }
     case "REMOVE_TOAST":
       if (action.toastId === undefined) {
         return {
           ...state,
           toasts: [],
-        }
+        };
       }
       return {
         ...state,
         toasts: state.toasts.filter((t) => t.id !== action.toastId),
-      }
+      };
   }
-}
+};
 
-const listeners: Array<(state: State) => void> = []
+const listeners: Array<(state: State) => void> = [];
 
-let memoryState: State = { toasts: [] }
+let memoryState: State = { toasts: [] };
 
 function dispatch(action: Action) {
-  memoryState = reducer(memoryState, action)
+  memoryState = reducer(memoryState, action);
   listeners.forEach((listener) => {
-    listener(memoryState)
-  })
+    listener(memoryState);
+  });
 }
 
-type Toast = Omit<ToasterToast, "id">
+type Toast = Omit<ToasterToast, "id">;
 
 function toast({ ...props }: Toast) {
-  const id = genId()
+  const id = genId();
 
   const update = (props: ToasterToast) =>
     dispatch({
       type: "UPDATE_TOAST",
       toast: { ...props, id },
-    })
-  const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id })
+    });
+  const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id });
 
   dispatch({
     type: "ADD_TOAST",
@@ -16343,192 +16486,221 @@ function toast({ ...props }: Toast) {
       id,
       open: true,
       onOpenChange: (open) => {
-        if (!open) dismiss()
+        if (!open) dismiss();
       },
     },
-  })
+  });
 
   return {
     id: id,
     dismiss,
     update,
-  }
+  };
 }
 
 function useToast() {
-  const [state, setState] = React.useState<State>(memoryState)
+  const [state, setState] = React.useState<State>(memoryState);
 
   React.useEffect(() => {
-    listeners.push(setState)
+    listeners.push(setState);
     return () => {
-      const index = listeners.indexOf(setState)
+      const index = listeners.indexOf(setState);
       if (index > -1) {
-        listeners.splice(index, 1)
+        listeners.splice(index, 1);
       }
-    }
-  }, [state])
+    };
+  }, [state]);
 
   return {
     ...state,
     toast,
     dismiss: (toastId?: string) => dispatch({ type: "DISMISS_TOAST", toastId }),
-  }
+  };
 }
 
-export { useToast, toast }
+export { useToast, toast };
 ```
 
 ## File: hooks/use-user-data.ts
+
 ```typescript
-import { useState, useEffect, useCallback } from 'react'
-import { userDataService } from '@/lib/user-data-service'
-import { UserData, Post, Activity, Notification, UserStats, FeedItem } from '@/lib/types'
-import { useAuth } from '@/features/authentication'
+import { useState, useEffect, useCallback } from "react";
+import { userDataService } from "@/lib/user-data-service";
+import {
+  UserData,
+  Post,
+  Activity,
+  Notification,
+  UserStats,
+  FeedItem,
+} from "@/lib/types";
+import { useAuth } from "@/features/authentication";
 
 export function useUserData() {
-  const { user } = useAuth()
-  const [userData, setUserData] = useState<UserData | null>(null)
-  const [userStats, setUserStats] = useState<UserStats | null>(null)
-  const [posts, setPosts] = useState<Post[]>([])
-  const [activities, setActivities] = useState<Activity[]>([])
-  const [notifications, setNotifications] = useState<Notification[]>([])
-  const [feed, setFeed] = useState<FeedItem[]>([])
+  const { user } = useAuth();
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [userStats, setUserStats] = useState<UserStats | null>(null);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [activities, setActivities] = useState<Activity[]>([]);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [feed, setFeed] = useState<FeedItem[]>([]);
 
   // Load user data
   const loadUserData = useCallback(() => {
-    if (!user) return
-    
-    const data = userDataService.getUser(user)
-    const stats = userDataService.getUserStats(user)
-    const userPosts = userDataService.getPostsByUser(user)
-    const userActivities = userDataService.getActivitiesForUser(user)
-    const userNotifications = userDataService.getNotificationsForUser(user)
-    const userFeed = userDataService.getFeedForUser(user)
+    if (!user) return;
 
-    setUserData(data)
-    setUserStats(stats)
-    setPosts(userPosts)
-    setActivities(userActivities)
-    setNotifications(userNotifications)
-    setFeed(userFeed)
-  }, [user])
+    const data = userDataService.getUser(user);
+    const stats = userDataService.getUserStats(user);
+    const userPosts = userDataService.getPostsByUser(user);
+    const userActivities = userDataService.getActivitiesForUser(user);
+    const userNotifications = userDataService.getNotificationsForUser(user);
+    const userFeed = userDataService.getFeedForUser(user);
+
+    setUserData(data);
+    setUserStats(stats);
+    setPosts(userPosts);
+    setActivities(userActivities);
+    setNotifications(userNotifications);
+    setFeed(userFeed);
+  }, [user]);
 
   // Refresh all data
   const refreshData = useCallback(() => {
-    loadUserData()
-  }, [loadUserData])
+    loadUserData();
+  }, [loadUserData]);
 
   // Follow a user
-  const followUser = useCallback((targetUserId: string) => {
-    if (!user) return false
-    
-    const success = userDataService.followUser(user, targetUserId)
-    if (success) {
-      refreshData()
-    }
-    return success
-  }, [user, refreshData])
+  const followUser = useCallback(
+    (targetUserId: string) => {
+      if (!user) return false;
+
+      const success = userDataService.followUser(user, targetUserId);
+      if (success) {
+        refreshData();
+      }
+      return success;
+    },
+    [user, refreshData],
+  );
 
   // Unfollow a user
-  const unfollowUser = useCallback((targetUserId: string) => {
-    if (!user) return false
-    
-    const success = userDataService.unfollowUser(user, targetUserId)
-    if (success) {
-      refreshData()
-    }
-    return success
-  }, [user, refreshData])
+  const unfollowUser = useCallback(
+    (targetUserId: string) => {
+      if (!user) return false;
+
+      const success = userDataService.unfollowUser(user, targetUserId);
+      if (success) {
+        refreshData();
+      }
+      return success;
+    },
+    [user, refreshData],
+  );
 
   // Like a post
-  const likePost = useCallback((postId: string) => {
-    if (!user) return false
-    
-    const success = userDataService.likePost(user, postId)
-    if (success) {
-      refreshData()
-    }
-    return success
-  }, [user, refreshData])
+  const likePost = useCallback(
+    (postId: string) => {
+      if (!user) return false;
+
+      const success = userDataService.likePost(user, postId);
+      if (success) {
+        refreshData();
+      }
+      return success;
+    },
+    [user, refreshData],
+  );
 
   // Unlike a post
-  const unlikePost = useCallback((postId: string) => {
-    if (!user) return false
-    
-    const success = userDataService.unlikePost(user, postId)
-    if (success) {
-      refreshData()
-    }
-    return success
-  }, [user, refreshData])
+  const unlikePost = useCallback(
+    (postId: string) => {
+      if (!user) return false;
+
+      const success = userDataService.unlikePost(user, postId);
+      if (success) {
+        refreshData();
+      }
+      return success;
+    },
+    [user, refreshData],
+  );
 
   // Add a comment
-  const addComment = useCallback((postId: string, content: string) => {
-    if (!user) return null
-    
-    const comment = userDataService.addComment(user, postId, content)
-    if (comment) {
-      refreshData()
-    }
-    return comment
-  }, [user, refreshData])
+  const addComment = useCallback(
+    (postId: string, content: string) => {
+      if (!user) return null;
+
+      const comment = userDataService.addComment(user, postId, content);
+      if (comment) {
+        refreshData();
+      }
+      return comment;
+    },
+    [user, refreshData],
+  );
 
   // Create a post
-  const createPost = useCallback((postData: Omit<Post, 'id' | 'createdAt' | 'likes' | 'comments'>) => {
-    const post = userDataService.createPost(postData)
-    if (post) {
-      refreshData()
-    }
-    return post
-  }, [refreshData])
+  const createPost = useCallback(
+    (postData: Omit<Post, "id" | "createdAt" | "likes" | "comments">) => {
+      const post = userDataService.createPost(postData);
+      if (post) {
+        refreshData();
+      }
+      return post;
+    },
+    [refreshData],
+  );
 
   // Mark notification as read
-  const markNotificationAsRead = useCallback((notificationId: string) => {
-    if (!user) return
-    
-    userDataService.markNotificationAsRead(user, notificationId)
-    refreshData()
-  }, [user, refreshData])
+  const markNotificationAsRead = useCallback(
+    (notificationId: string) => {
+      if (!user) return;
+
+      userDataService.markNotificationAsRead(user, notificationId);
+      refreshData();
+    },
+    [user, refreshData],
+  );
 
   // Search users
   const searchUsers = useCallback((query: string) => {
-    return userDataService.searchUsers(query)
-  }, [])
+    return userDataService.searchUsers(query);
+  }, []);
 
   // Search posts
   const searchPosts = useCallback((query: string) => {
-    return userDataService.searchPosts(query)
-  }, [])
+    return userDataService.searchPosts(query);
+  }, []);
 
   // Get user by ID
   const getUser = useCallback((userId: string) => {
-    return userDataService.getUser(userId)
-  }, [])
+    return userDataService.getUser(userId);
+  }, []);
 
   // Get user stats
   const getUserStats = useCallback((userId: string) => {
-    return userDataService.getUserStats(userId)
-  }, [])
+    return userDataService.getUserStats(userId);
+  }, []);
 
   // Get posts by user
   const getPostsByUser = useCallback((userId: string) => {
-    return userDataService.getPostsByUser(userId)
-  }, [])
+    return userDataService.getPostsByUser(userId);
+  }, []);
 
   // Get tokens by artist
   const getTokensByArtist = useCallback((artistId: string) => {
-    return userDataService.getTokensByArtist(artistId)
-  }, [])
+    return userDataService.getTokensByArtist(artistId);
+  }, []);
 
   // Get all tokens
   const getAllTokens = useCallback(() => {
-    return userDataService.getAllTokens()
-  }, [])
+    return userDataService.getAllTokens();
+  }, []);
 
   // Load data on mount and when user changes
   useEffect(() => {
-    loadUserData()
-  }, [loadUserData])
+    loadUserData();
+  }, [loadUserData]);
 
   return {
     // Data
@@ -16538,7 +16710,7 @@ export function useUserData() {
     activities,
     notifications,
     feed,
-    
+
     // Actions
     refreshData,
     followUser,
@@ -16548,22 +16720,23 @@ export function useUserData() {
     addComment,
     createPost,
     markNotificationAsRead,
-    
+
     // Search
     searchUsers,
     searchPosts,
-    
+
     // Getters
     getUser,
     getUserStats,
     getPostsByUser,
     getTokensByArtist,
     getAllTokens,
-  }
+  };
 }
 ```
 
 ## File: lib/backend-service.ts
+
 ```typescript
 class BackendService {
   constructor() {
@@ -16719,11 +16892,12 @@ export const backendService = new BackendService();
 ```
 
 ## File: lib/blockchain.ts
+
 ```typescript
 // This file would contain the actual blockchain interactions
 // For this demo, we're using mock implementations
 
-import { ethers } from "ethers"
+import { ethers } from "ethers";
 
 // ABI for the DROPS Token contract
 const BEANS_TOKEN_ABI = [
@@ -16731,7 +16905,7 @@ const BEANS_TOKEN_ABI = [
   "function transfer(address to, uint256 amount) returns (bool)",
   "function balanceOf(address account) view returns (uint256)",
   "function approve(address spender, uint256 amount) returns (bool)",
-]
+];
 
 // ABI for the Beans Platform contract
 const BEANS_PLATFORM_ABI = [
@@ -16739,66 +16913,70 @@ const BEANS_PLATFORM_ABI = [
   "function donateToCreator(string creatorId, uint256 amount, string message, bool isAnonymous) returns (bool)",
   "function getCreatorInfo(string creatorId) view returns (address walletAddress, uint256 totalReceived, uint256 supportersCount)",
   "function registerAsCreator(string name, string handle, string category, string description) returns (string creatorId)",
-]
+];
 
 // Contract addresses (these would be the actual addresses on World Chain)
-const BEANS_TOKEN_ADDRESS = "0x1234567890123456789012345678901234567890"
-const BEANS_PLATFORM_ADDRESS = "0x0987654321098765432109876543210987654321"
+const BEANS_TOKEN_ADDRESS = "0x1234567890123456789012345678901234567890";
+const BEANS_PLATFORM_ADDRESS = "0x0987654321098765432109876543210987654321";
 
 // Connect to provider (in a real app, this would connect to World Chain)
 const getProvider = () => {
   // In a real app, this would connect to the World Chain network
   // For now, we'll just return a mock provider
-  return new ethers.JsonRpcProvider("https://worldchain-rpc.example.com")
-}
+  return new ethers.JsonRpcProvider("https://worldchain-rpc.example.com");
+};
 
 // Get signer (in a real app, this would get the user's wallet)
 const getSigner = async () => {
-  const provider = getProvider()
+  const provider = getProvider();
 
   // In a real app, this would connect to the user's wallet
   // For now, we'll just return a mock signer
-  return new ethers.Wallet("0xmockprivatekey", provider)
-}
+  return new ethers.Wallet("0xmockprivatekey", provider);
+};
 
 // Get BEANS token contract
 const getBEANSTokenContract = async () => {
-  const signer = await getSigner()
-  return new ethers.Contract(BEANS_TOKEN_ADDRESS, BEANS_TOKEN_ABI, signer)
-}
+  const signer = await getSigner();
+  return new ethers.Contract(BEANS_TOKEN_ADDRESS, BEANS_TOKEN_ABI, signer);
+};
 
 // Get Beans platform contract
 const getBeansPlatformContract = async () => {
-  const signer = await getSigner()
-  return new ethers.Contract(BEANS_PLATFORM_ADDRESS, BEANS_PLATFORM_ABI, signer)
-}
+  const signer = await getSigner();
+  return new ethers.Contract(
+    BEANS_PLATFORM_ADDRESS,
+    BEANS_PLATFORM_ABI,
+    signer,
+  );
+};
 
 // Check DROPS balance
 export const checkBEANSBalance = async (): Promise<number> => {
   try {
-    const blgToken = await getBEANSTokenContract()
-    const signer = await getSigner()
-    const balance = await blgToken.balanceOf(await signer.getAddress())
-    return Number(ethers.formatUnits(balance, 18))
+    const blgToken = await getBEANSTokenContract();
+    const signer = await getSigner();
+    const balance = await blgToken.balanceOf(await signer.getAddress());
+    return Number(ethers.formatUnits(balance, 18));
   } catch (error) {
-    console.error("Error checking DROPS balance:", error)
+    console.error("Error checking DROPS balance:", error);
     // For demo purposes, return a mock balance
-    return 100
+    return 100;
   }
-}
+};
 
 // Buy DROPS tokens with WLD
 export const buyBEANSWithWLD = async (wldAmount: number): Promise<boolean> => {
   try {
     // In a real app, this would interact with a DEX or swap contract
-    console.log(`Buying DROPS with ${wldAmount} WLD`)
+    console.log(`Buying DROPS with ${wldAmount} WLD`);
     // Mock successful purchase
-    return true
+    return true;
   } catch (error) {
-    console.error("Error buying DROPS:", error)
-    return false
+    console.error("Error buying DROPS:", error);
+    return false;
   }
-}
+};
 
 // Donate DROPS to creator
 export const donateToCreator = async (
@@ -16812,20 +16990,20 @@ export const donateToCreator = async (
     // 1. Approve the Beans platform to spend DROPS tokens
     // 2. Call the donateToCreator function on the Beans platform contract
 
-    console.log(`Donating ${amount} DROPS to creator ${creatorId}`)
-    console.log(`Message: ${message}`)
-    console.log(`Anonymous: ${isAnonymous}`)
+    console.log(`Donating ${amount} DROPS to creator ${creatorId}`);
+    console.log(`Message: ${message}`);
+    console.log(`Anonymous: ${isAnonymous}`);
 
     // Mock successful donation
     // Add a delay to simulate blockchain transaction
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    return true
+    return true;
   } catch (error) {
-    console.error("Error donating to creator:", error)
-    throw error
+    console.error("Error donating to creator:", error);
+    throw error;
   }
-}
+};
 
 // Register as creator
 export const registerAsCreator = async (
@@ -16835,53 +17013,60 @@ export const registerAsCreator = async (
   description: string,
 ): Promise<string> => {
   try {
-    const beansPlatform = await getBeansPlatformContract()
-    const tx = await beansPlatform.registerAsCreator(name, handle, category, description)
-    await tx.wait()
+    const beansPlatform = await getBeansPlatformContract();
+    const tx = await beansPlatform.registerAsCreator(
+      name,
+      handle,
+      category,
+      description,
+    );
+    await tx.wait();
 
     // In a real app, this would return the creator ID from the transaction receipt
     // For now, we'll just return a mock ID
-    return "creator_" + Math.random().toString(36).substring(2, 10)
+    return "creator_" + Math.random().toString(36).substring(2, 10);
   } catch (error) {
-    console.error("Error registering as creator:", error)
-    throw error
+    console.error("Error registering as creator:", error);
+    throw error;
   }
-}
+};
 
 // Get creator info
 export const getCreatorInfo = async (creatorId: string) => {
   try {
-    const beansPlatform = await getBeansPlatformContract()
-    const [walletAddress, totalReceived, supportersCount] = await beansPlatform.getCreatorInfo(creatorId)
+    const beansPlatform = await getBeansPlatformContract();
+    const [walletAddress, totalReceived, supportersCount] =
+      await beansPlatform.getCreatorInfo(creatorId);
 
     return {
       walletAddress,
       totalReceived: Number(ethers.formatUnits(totalReceived, 18)),
       supportersCount: Number(supportersCount),
-    }
+    };
   } catch (error) {
-    console.error("Error getting creator info:", error)
+    console.error("Error getting creator info:", error);
     // For demo purposes, return mock data
     return {
       walletAddress: "0x1234...5678",
       totalReceived: 8750,
       supportersCount: 1245,
-    }
+    };
   }
-}
+};
 ```
 
 ## File: lib/music-data.ts
+
 ```typescript
 export interface Track {
-  id: string
-  title: string
-  artist: string
-  album: string
-  duration: number
-  cover: string
-  audioUrl: string
-  isLiked?: boolean
+  id: string;
+  title: string;
+  artist: string;
+  album: string;
+  duration: number;
+  cover: string;
+  audioUrl: string;
+  isLiked?: boolean;
 }
 
 // URLs de streaming para los archivos de música
@@ -16895,7 +17080,7 @@ export const musicTracks: Track[] = [
     duration: 285, // 4:45 in seconds
     cover: "/avatars/banger.jpg",
     audioUrl: "/music/Banger - Bandolero (feat. Ace).mp3",
-    isLiked: false
+    isLiked: false,
   },
   {
     id: "2",
@@ -16905,7 +17090,7 @@ export const musicTracks: Track[] = [
     duration: 372, // 6:12 in seconds
     cover: "/avatars/juampi.jpg",
     audioUrl: "/music/Flush - Fuck That.mp3",
-    isLiked: true
+    isLiked: true,
   },
   {
     id: "3",
@@ -16915,7 +17100,7 @@ export const musicTracks: Track[] = [
     duration: 426, // 7:06 in seconds
     cover: "/avatars/juampi.jpg",
     audioUrl: "/music/Flush - Sadtisfied.mp3",
-    isLiked: false
+    isLiked: false,
   },
   {
     id: "4",
@@ -16925,7 +17110,7 @@ export const musicTracks: Track[] = [
     duration: 522, // 8:42 in seconds
     cover: "/avatars/juampi.jpg",
     audioUrl: "/music/Flush - Touch It.mp3",
-    isLiked: true
+    isLiked: true,
   },
   {
     id: "5",
@@ -16935,7 +17120,7 @@ export const musicTracks: Track[] = [
     duration: 486, // 8:06 in seconds
     cover: "/avatars/nicola.jpg",
     audioUrl: "/music/Nicola Marti - Better Than Sex-4.mp3",
-    isLiked: false
+    isLiked: false,
   },
   {
     id: "6",
@@ -16945,7 +17130,7 @@ export const musicTracks: Track[] = [
     duration: 378, // 6:18 in seconds
     cover: "/avatars/juampi.jpg",
     audioUrl: "/music/iamjuampi - SHADOWS.mp3",
-    isLiked: true
+    isLiked: true,
   },
   {
     id: "7",
@@ -16955,39 +17140,41 @@ export const musicTracks: Track[] = [
     duration: 342, // 5:42 in seconds
     cover: "/avatars/juampi.jpg",
     audioUrl: "/music/iamjuampi - TOXIC.mp3",
-    isLiked: false
-  }
-]
+    isLiked: false,
+  },
+];
 
 // Función para obtener una pista por ID
 export function getTrackById(id: string): Track | undefined {
-  return musicTracks.find(track => track.id === id)
+  return musicTracks.find((track) => track.id === id);
 }
 
 // Función para obtener todas las pistas
 export function getAllTracks(): Track[] {
-  return musicTracks
+  return musicTracks;
 }
 
 // Función para obtener pistas por artista
 export function getTracksByArtist(artist: string): Track[] {
-  return musicTracks.filter(track => 
-    track.artist.toLowerCase().includes(artist.toLowerCase())
-  )
+  return musicTracks.filter((track) =>
+    track.artist.toLowerCase().includes(artist.toLowerCase()),
+  );
 }
 
 // Función para buscar pistas
 export function searchTracks(query: string): Track[] {
-  const lowerQuery = query.toLowerCase()
-  return musicTracks.filter(track => 
-    track.title.toLowerCase().includes(lowerQuery) ||
-    track.artist.toLowerCase().includes(lowerQuery) ||
-    track.album.toLowerCase().includes(lowerQuery)
-  )
+  const lowerQuery = query.toLowerCase();
+  return musicTracks.filter(
+    (track) =>
+      track.title.toLowerCase().includes(lowerQuery) ||
+      track.artist.toLowerCase().includes(lowerQuery) ||
+      track.album.toLowerCase().includes(lowerQuery),
+  );
 }
 ```
 
 ## File: lib/music-service.ts
+
 ```typescript
 import { musicTracks } from "./music-data"; // Import mock data
 
@@ -17148,10 +17335,11 @@ export const musicService = new MockMusicService();
 ```
 
 ## File: lib/solana-program-client.ts
+
 ```typescript
 /**
  * Cliente para interactuar con programas de Solana desde el frontend
- * 
+ *
  * Flujo:
  * 1. Usuario conecta wallet (ya tienes SolanaWalletButton)
  * 2. Frontend llama funciones de este cliente
@@ -17160,12 +17348,20 @@ export const musicService = new MockMusicService();
  * 5. Transacción se envía a blockchain
  */
 
-import { Connection, PublicKey, Transaction, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js';
-import { AnchorProvider, Program, Idl } from '@coral-xyz/anchor';
-import { useAnchorWallet, useConnection } from '@solana/wallet-adapter-react';
+import {
+  Connection,
+  PublicKey,
+  Transaction,
+  SystemProgram,
+  LAMPORTS_PER_SOL,
+} from "@solana/web3.js";
+import { AnchorProvider, Program, Idl } from "@coral-xyz/anchor";
+import { useAnchorWallet, useConnection } from "@solana/wallet-adapter-react";
 
 // El Program ID de tu programa (se genera cuando haces anchor deploy)
-export const DROPSLAND_PROGRAM_ID = new PublicKey('2EpreJPoJC6wEHk3hShxffGyPbmEaNLyDMKQmbSsTWXH');
+export const DROPSLAND_PROGRAM_ID = new PublicKey(
+  "2EpreJPoJC6wEHk3hShxffGyPbmEaNLyDMKQmbSsTWXH",
+);
 
 /**
  * Hook personalizado para interactuar con tu programa Solana
@@ -17179,17 +17375,15 @@ export function useSolanaProgram() {
   }
 
   // Crear provider de Anchor
-  const provider = new AnchorProvider(
-    connection,
-    wallet,
-    { commitment: 'confirmed' }
-  );
+  const provider = new AnchorProvider(connection, wallet, {
+    commitment: "confirmed",
+  });
 
   return {
     connection,
     wallet,
     provider,
-    programId: DROPSLAND_PROGRAM_ID
+    programId: DROPSLAND_PROGRAM_ID,
   };
 }
 
@@ -17198,7 +17392,7 @@ export function useSolanaProgram() {
  */
 export async function initializeProgram(
   program: Program,
-  wallet: PublicKey
+  wallet: PublicKey,
 ): Promise<string> {
   try {
     const tx = await program.methods
@@ -17229,17 +17423,17 @@ export async function mintTicket(
     buyerName: string;
     exhibitionName: string;
     ticketNumber: number;
-  }
+  },
 ): Promise<string> {
   try {
     // Generar PDA (Program Derived Address) para el NFT
     const [ticketPda] = PublicKey.findProgramAddressSync(
       [
-        Buffer.from('ticket'),
+        Buffer.from("ticket"),
         wallet.toBuffer(),
-        Buffer.from(ticketData.ticketNumber.toString())
+        Buffer.from(ticketData.ticketNumber.toString()),
       ],
-      program.programId
+      program.programId,
     );
 
     const tx = await program.methods
@@ -17247,7 +17441,7 @@ export async function mintTicket(
         ticketData.name,
         ticketData.buyerName,
         ticketData.exhibitionName,
-        ticketData.ticketNumber
+        ticketData.ticketNumber,
       )
       .accounts({
         ticket: ticketPda,
@@ -17267,10 +17461,7 @@ export async function mintTicket(
 /**
  * Obtener datos de un ticket
  */
-export async function getTicketData(
-  program: Program,
-  ticketPda: PublicKey
-) {
+export async function getTicketData(program: Program, ticketPda: PublicKey) {
   try {
     const ticketAccount = await program.account.ticket.fetch(ticketPda);
     return ticketAccount;
@@ -17285,7 +17476,7 @@ export async function getTicketData(
  */
 export async function getSolBalance(
   connection: Connection,
-  publicKey: PublicKey
+  publicKey: PublicKey,
 ): Promise<number> {
   const balance = await connection.getBalance(publicKey);
   return balance / LAMPORTS_PER_SOL;
@@ -17293,195 +17484,231 @@ export async function getSolBalance(
 ```
 
 ## File: lib/types.ts
+
 ```typescript
-export type UserType = "fan" | "artist"
+export type UserType = "fan" | "artist";
 
 export interface UserData {
-  id: string
-  username: string
-  handle?: string  // @username
-  type: UserType
-  isVerified?: boolean
-  profilePhoto?: string
-  coverPhoto?: string  // Cover image
-  isIIUser?: boolean
-  principal?: string
-  bio?: string
-  genre?: string
-  location?: string
-  website?: string
+  id: string;
+  username: string;
+  handle?: string; // @username
+  type: UserType;
+  isVerified?: boolean;
+  profilePhoto?: string;
+  coverPhoto?: string; // Cover image
+  isIIUser?: boolean;
+  principal?: string;
+  bio?: string;
+  genre?: string;
+  location?: string;
+  website?: string;
   socialLinks?: {
-    twitter?: string
-    instagram?: string
-    youtube?: string
-    spotify?: string
-  }
-  followers: string[]
-  following: string[]
-  createdAt: string
-  lastActive: string
+    twitter?: string;
+    instagram?: string;
+    youtube?: string;
+    spotify?: string;
+  };
+  followers: string[];
+  following: string[];
+  createdAt: string;
+  lastActive: string;
 }
 
 export interface Post {
-  id: string
-  authorId: string
-  authorName: string
-  authorAvatar: string
-  content: string
-  image?: string
-  likes: string[]
-  comments: PostComment[]
-  createdAt: string
-  type: "post" | "release" | "announcement"
-  tags?: string[]
+  id: string;
+  authorId: string;
+  authorName: string;
+  authorAvatar: string;
+  content: string;
+  image?: string;
+  likes: string[];
+  comments: PostComment[];
+  createdAt: string;
+  type: "post" | "release" | "announcement";
+  tags?: string[];
 }
 
 export interface PostComment {
-  id: string
-  authorId: string
-  authorName: string
-  authorAvatar: string
-  content: string
-  createdAt: string
-  likes: string[]
+  id: string;
+  authorId: string;
+  authorName: string;
+  authorAvatar: string;
+  content: string;
+  createdAt: string;
+  likes: string[];
 }
 
 export interface Activity {
-  id: string
-  type: "purchase" | "mention" | "reward" | "follow" | "like" | "comment" | "release"
-  userId: string
-  userName: string
-  userAvatar: string
-  action: string
-  message?: string
-  amount?: number
-  tokenName?: string
-  createdAt: string
-  relatedTo: "artist" | "fan"
-  targetUserId?: string
-  targetPostId?: string
-  isRead: boolean
+  id: string;
+  type:
+    | "purchase"
+    | "mention"
+    | "reward"
+    | "follow"
+    | "like"
+    | "comment"
+    | "release";
+  userId: string;
+  userName: string;
+  userAvatar: string;
+  action: string;
+  message?: string;
+  amount?: number;
+  tokenName?: string;
+  createdAt: string;
+  relatedTo: "artist" | "fan";
+  targetUserId?: string;
+  targetPostId?: string;
+  isRead: boolean;
 }
 
 export interface Notification {
-  id: string
-  type: "follow" | "like" | "comment" | "mention" | "purchase" | "reward"
-  userId: string
-  userName: string
-  userAvatar: string
-  message: string
-  createdAt: string
-  isRead: boolean
-  targetPostId?: string
-  targetUserId?: string
+  id: string;
+  type: "follow" | "like" | "comment" | "mention" | "purchase" | "reward";
+  userId: string;
+  userName: string;
+  userAvatar: string;
+  message: string;
+  createdAt: string;
+  isRead: boolean;
+  targetPostId?: string;
+  targetUserId?: string;
 }
 
 export interface Token {
-  id: string
-  name: string
-  symbol: string
-  artistId: string
-  artistName: string
-  price: number
-  totalSupply: number
-  circulatingSupply: number
-  description: string
-  image?: string
+  id: string;
+  name: string;
+  symbol: string;
+  artistId: string;
+  artistName: string;
+  price: number;
+  totalSupply: number;
+  circulatingSupply: number;
+  description: string;
+  image?: string;
 }
 
 export interface UserStats {
-  followers: number
-  following: number
-  posts: number
-  tokensOwned: number
-  totalValue: number
-  totalDonated: number
+  followers: number;
+  following: number;
+  posts: number;
+  tokensOwned: number;
+  totalValue: number;
+  totalDonated: number;
 }
 
 export interface FeedItem {
-  id: string
-  type: "post" | "activity" | "release"
-  data: Post | Activity
-  priority: number
-  createdAt: string
+  id: string;
+  type: "post" | "activity" | "release";
+  data: Post | Activity;
+  priority: number;
+  createdAt: string;
 }
 ```
 
 ## File: lib/user-data-service.ts
+
 ```typescript
-import { UserData, Post, Activity, Notification, Token, UserStats, FeedItem, PostComment } from './types'
+import {
+  UserData,
+  Post,
+  Activity,
+  Notification,
+  Token,
+  UserStats,
+  FeedItem,
+  PostComment,
+} from "./types";
 
 class UserDataService {
-  private users: Map<string, UserData> = new Map()
-  private posts: Map<string, Post> = new Map()
-  private activities: Map<string, Activity> = new Map()
-  private notifications: Map<string, Notification[]> = new Map()
-  private tokens: Map<string, Token> = new Map()
-  private userStats: Map<string, UserStats> = new Map()
+  private users: Map<string, UserData> = new Map();
+  private posts: Map<string, Post> = new Map();
+  private activities: Map<string, Activity> = new Map();
+  private notifications: Map<string, Notification[]> = new Map();
+  private tokens: Map<string, Token> = new Map();
+  private userStats: Map<string, UserStats> = new Map();
 
   constructor() {
-    this.loadFromStorage()
-    this.initializeDefaultData()
+    this.loadFromStorage();
+    this.initializeDefaultData();
   }
 
   private loadFromStorage() {
     try {
       // Check if we're in a browser environment
-      if (typeof window === 'undefined') return
-      
-      const usersData = localStorage.getItem('dropsland_users')
+      if (typeof window === "undefined") return;
+
+      const usersData = localStorage.getItem("dropsland_users");
       if (usersData) {
-        const users = JSON.parse(usersData)
-        this.users = new Map(Object.entries(users))
+        const users = JSON.parse(usersData);
+        this.users = new Map(Object.entries(users));
       }
 
-      const postsData = localStorage.getItem('dropsland_posts')
+      const postsData = localStorage.getItem("dropsland_posts");
       if (postsData) {
-        const posts = JSON.parse(postsData)
-        this.posts = new Map(Object.entries(posts))
+        const posts = JSON.parse(postsData);
+        this.posts = new Map(Object.entries(posts));
       }
 
-      const activitiesData = localStorage.getItem('dropsland_activities')
+      const activitiesData = localStorage.getItem("dropsland_activities");
       if (activitiesData) {
-        const activities = JSON.parse(activitiesData)
-        this.activities = new Map(Object.entries(activities))
+        const activities = JSON.parse(activitiesData);
+        this.activities = new Map(Object.entries(activities));
       }
 
-      const notificationsData = localStorage.getItem('dropsland_notifications')
+      const notificationsData = localStorage.getItem("dropsland_notifications");
       if (notificationsData) {
-        const notifications = JSON.parse(notificationsData)
-        this.notifications = new Map(Object.entries(notifications))
+        const notifications = JSON.parse(notificationsData);
+        this.notifications = new Map(Object.entries(notifications));
       }
 
-      const tokensData = localStorage.getItem('dropsland_tokens')
+      const tokensData = localStorage.getItem("dropsland_tokens");
       if (tokensData) {
-        const tokens = JSON.parse(tokensData)
-        this.tokens = new Map(Object.entries(tokens))
+        const tokens = JSON.parse(tokensData);
+        this.tokens = new Map(Object.entries(tokens));
       }
 
-      const statsData = localStorage.getItem('dropsland_user_stats')
+      const statsData = localStorage.getItem("dropsland_user_stats");
       if (statsData) {
-        const stats = JSON.parse(statsData)
-        this.userStats = new Map(Object.entries(stats))
+        const stats = JSON.parse(statsData);
+        this.userStats = new Map(Object.entries(stats));
       }
     } catch (error) {
-      console.error('Error loading data from storage:', error)
+      console.error("Error loading data from storage:", error);
     }
   }
 
   private saveToStorage() {
     try {
       // Check if we're in a browser environment
-      if (typeof window === 'undefined') return
-      
-      localStorage.setItem('dropsland_users', JSON.stringify(Object.fromEntries(this.users)))
-      localStorage.setItem('dropsland_posts', JSON.stringify(Object.fromEntries(this.posts)))
-      localStorage.setItem('dropsland_activities', JSON.stringify(Object.fromEntries(this.activities)))
-      localStorage.setItem('dropsland_notifications', JSON.stringify(Object.fromEntries(this.notifications)))
-      localStorage.setItem('dropsland_tokens', JSON.stringify(Object.fromEntries(this.tokens)))
-      localStorage.setItem('dropsland_user_stats', JSON.stringify(Object.fromEntries(this.userStats)))
+      if (typeof window === "undefined") return;
+
+      localStorage.setItem(
+        "dropsland_users",
+        JSON.stringify(Object.fromEntries(this.users)),
+      );
+      localStorage.setItem(
+        "dropsland_posts",
+        JSON.stringify(Object.fromEntries(this.posts)),
+      );
+      localStorage.setItem(
+        "dropsland_activities",
+        JSON.stringify(Object.fromEntries(this.activities)),
+      );
+      localStorage.setItem(
+        "dropsland_notifications",
+        JSON.stringify(Object.fromEntries(this.notifications)),
+      );
+      localStorage.setItem(
+        "dropsland_tokens",
+        JSON.stringify(Object.fromEntries(this.tokens)),
+      );
+      localStorage.setItem(
+        "dropsland_user_stats",
+        JSON.stringify(Object.fromEntries(this.userStats)),
+      );
     } catch (error) {
-      console.error('Error saving data to storage:', error)
+      console.error("Error saving data to storage:", error);
     }
   }
 
@@ -17489,459 +17716,478 @@ class UserDataService {
     // Initialize default users if they don't exist
     const defaultUsers: UserData[] = [
       {
-        id: 'juampi',
-        username: 'iamjuampi',
-        type: 'artist',
-        profilePhoto: '/avatars/juampi.jpg',
-        bio: 'Techno producer and DJ from Argentina. Creating dark, industrial sounds that move the dance floor.',
-        genre: 'Techno',
-        location: 'Buenos Aires, Argentina',
-        website: 'https://iamjuampi.com',
+        id: "juampi",
+        username: "iamjuampi",
+        type: "artist",
+        profilePhoto: "/avatars/juampi.jpg",
+        bio: "Techno producer and DJ from Argentina. Creating dark, industrial sounds that move the dance floor.",
+        genre: "Techno",
+        location: "Buenos Aires, Argentina",
+        website: "https://iamjuampi.com",
         socialLinks: {
-          twitter: '@iamjuampi',
-          instagram: '@iamjuampi',
-          youtube: 'iamjuampi',
-          spotify: 'iamjuampi'
+          twitter: "@iamjuampi",
+          instagram: "@iamjuampi",
+          youtube: "iamjuampi",
+          spotify: "iamjuampi",
         },
-        followers: ['banger', 'nicolamarti', 'fan'],
-        following: ['banger', 'nicolamarti'],
-        createdAt: '2024-01-01T00:00:00Z',
-        lastActive: new Date().toISOString()
+        followers: ["banger", "nicolamarti", "fan"],
+        following: ["banger", "nicolamarti"],
+        createdAt: "2024-01-01T00:00:00Z",
+        lastActive: new Date().toISOString(),
       },
       {
-        id: 'iamjuampi',
-        username: 'iamjuampi',
-        type: 'artist',
-        profilePhoto: '/avatars/juampi.jpg',
-        bio: 'Techno producer and DJ from Argentina. Creating dark, industrial sounds that move the dance floor.',
-        genre: 'Techno',
-        location: 'Buenos Aires, Argentina',
-        website: 'https://iamjuampi.com',
+        id: "iamjuampi",
+        username: "iamjuampi",
+        type: "artist",
+        profilePhoto: "/avatars/juampi.jpg",
+        bio: "Techno producer and DJ from Argentina. Creating dark, industrial sounds that move the dance floor.",
+        genre: "Techno",
+        location: "Buenos Aires, Argentina",
+        website: "https://iamjuampi.com",
         socialLinks: {
-          twitter: '@iamjuampi',
-          instagram: '@iamjuampi',
-          youtube: 'iamjuampi',
-          spotify: 'iamjuampi'
+          twitter: "@iamjuampi",
+          instagram: "@iamjuampi",
+          youtube: "iamjuampi",
+          spotify: "iamjuampi",
         },
-        followers: ['banger', 'nicolamarti', 'fan'],
-        following: ['banger', 'nicolamarti'],
-        createdAt: '2024-01-01T00:00:00Z',
-        lastActive: new Date().toISOString()
+        followers: ["banger", "nicolamarti", "fan"],
+        following: ["banger", "nicolamarti"],
+        createdAt: "2024-01-01T00:00:00Z",
+        lastActive: new Date().toISOString(),
       },
       {
-        id: 'banger',
-        username: 'banger',
-        type: 'artist',
-        profilePhoto: '/avatars/banger.jpg',
-        bio: 'Techno DJ and producer pushing the boundaries of electronic music. Known for high-energy sets and innovative productions.',
-        genre: 'Techno',
-        location: 'Berlin, Germany',
-        website: 'https://banger-music.com',
+        id: "banger",
+        username: "banger",
+        type: "artist",
+        profilePhoto: "/avatars/banger.jpg",
+        bio: "Techno DJ and producer pushing the boundaries of electronic music. Known for high-energy sets and innovative productions.",
+        genre: "Techno",
+        location: "Berlin, Germany",
+        website: "https://banger-music.com",
         socialLinks: {
-          twitter: '@banger_music',
-          instagram: '@banger_music',
-          youtube: 'banger_music',
-          spotify: 'banger'
+          twitter: "@banger_music",
+          instagram: "@banger_music",
+          youtube: "banger_music",
+          spotify: "banger",
         },
-        followers: ['juampi', 'nicolamarti', 'fan'],
-        following: ['juampi', 'nicolamarti'],
-        createdAt: '2024-01-02T00:00:00Z',
-        lastActive: new Date().toISOString()
+        followers: ["juampi", "nicolamarti", "fan"],
+        following: ["juampi", "nicolamarti"],
+        createdAt: "2024-01-02T00:00:00Z",
+        lastActive: new Date().toISOString(),
       },
       {
-        id: 'nicolamarti',
-        username: 'Nicola Marti',
-        type: 'artist',
-        profilePhoto: '/avatars/nicola.jpg',
-        bio: 'House music producer and DJ. Creating soulful, groovy tracks that make you move.',
-        genre: 'House',
-        location: 'Amsterdam, Netherlands',
-        website: 'https://nicolamarti.com',
+        id: "nicolamarti",
+        username: "Nicola Marti",
+        type: "artist",
+        profilePhoto: "/avatars/nicola.jpg",
+        bio: "House music producer and DJ. Creating soulful, groovy tracks that make you move.",
+        genre: "House",
+        location: "Amsterdam, Netherlands",
+        website: "https://nicolamarti.com",
         socialLinks: {
-          twitter: '@nicolamarti',
-          instagram: '@nicolamarti',
-          youtube: 'nicolamarti',
-          spotify: 'nicola_marti'
+          twitter: "@nicolamarti",
+          instagram: "@nicolamarti",
+          youtube: "nicolamarti",
+          spotify: "nicola_marti",
         },
-        followers: ['juampi', 'banger', 'fan'],
-        following: ['juampi', 'banger'],
-        createdAt: '2024-01-03T00:00:00Z',
-        lastActive: new Date().toISOString()
+        followers: ["juampi", "banger", "fan"],
+        following: ["juampi", "banger"],
+        createdAt: "2024-01-03T00:00:00Z",
+        lastActive: new Date().toISOString(),
       },
       {
-        id: 'axs',
-        username: 'AXS',
-        type: 'artist',
-        profilePhoto: '/avatars/axs.jpg',
-        bio: 'UK techno producer and DJ. Pushing the boundaries of underground electronic music.',
-        genre: 'Techno',
-        location: 'Manchester, UK',
-        website: 'https://axs-music.com',
+        id: "axs",
+        username: "AXS",
+        type: "artist",
+        profilePhoto: "/avatars/axs.jpg",
+        bio: "UK techno producer and DJ. Pushing the boundaries of underground electronic music.",
+        genre: "Techno",
+        location: "Manchester, UK",
+        website: "https://axs-music.com",
         socialLinks: {
-          twitter: '@axs_music',
-          instagram: '@axs_music',
-          youtube: 'axs_music',
-          spotify: 'axs'
+          twitter: "@axs_music",
+          instagram: "@axs_music",
+          youtube: "axs_music",
+          spotify: "axs",
         },
-        followers: ['juampi', 'banger', 'nicolamarti', 'fan'],
-        following: ['juampi', 'banger', 'nicolamarti'],
-        createdAt: '2024-01-04T00:00:00Z',
-        lastActive: new Date().toISOString()
+        followers: ["juampi", "banger", "nicolamarti", "fan"],
+        following: ["juampi", "banger", "nicolamarti"],
+        createdAt: "2024-01-04T00:00:00Z",
+        lastActive: new Date().toISOString(),
       },
       {
-        id: 'fan',
-        username: 'musicfan',
-        type: 'fan',
-        profilePhoto: '/avatars/user.jpg',
-        bio: 'Music enthusiast and electronic music fan. Supporting my favorite artists on DROPSLAND.',
+        id: "fan",
+        username: "musicfan",
+        type: "fan",
+        profilePhoto: "/avatars/user.jpg",
+        bio: "Music enthusiast and electronic music fan. Supporting my favorite artists on DROPSLAND.",
         followers: [],
-        following: ['juampi', 'banger', 'nicolamarti', 'axs'],
-        createdAt: '2024-03-01T00:00:00Z',
-        lastActive: new Date().toISOString()
-      }
-    ]
+        following: ["juampi", "banger", "nicolamarti", "axs"],
+        createdAt: "2024-03-01T00:00:00Z",
+        lastActive: new Date().toISOString(),
+      },
+    ];
 
-    defaultUsers.forEach(user => {
+    defaultUsers.forEach((user) => {
       if (!this.users.has(user.id)) {
-        this.users.set(user.id, user)
+        this.users.set(user.id, user);
       }
-    })
+    });
 
     // Initialize default posts
     const defaultPosts: Post[] = [
       {
-        id: 'post1',
-        authorId: 'juampi',
-        authorName: 'iamjuampi',
-        authorAvatar: '/avatars/juampi.jpg',
-        content: 'Just released my new EP "Techno Dimensions"! Available now on all platforms. This one took me 6 months to perfect. #TechnoDimensions #NewRelease #Techno',
-        image: '/images/bdeeeee.jpg',
-        likes: ['banger', 'nicolamarti', 'fan'],
+        id: "post1",
+        authorId: "juampi",
+        authorName: "iamjuampi",
+        authorAvatar: "/avatars/juampi.jpg",
+        content:
+          'Just released my new EP "Techno Dimensions"! Available now on all platforms. This one took me 6 months to perfect. #TechnoDimensions #NewRelease #Techno',
+        image: "/images/bdeeeee.jpg",
+        likes: ["banger", "nicolamarti", "fan"],
         comments: [
           {
-            id: 'comment1',
-            authorId: 'banger',
-            authorName: 'banger',
-            authorAvatar: '/avatars/banger.jpg',
-            content: 'Sounds absolutely fire! 🔥 The production quality is insane',
-            createdAt: '2024-01-15T10:30:00Z',
-            likes: ['juampi', 'fan']
+            id: "comment1",
+            authorId: "banger",
+            authorName: "banger",
+            authorAvatar: "/avatars/banger.jpg",
+            content:
+              "Sounds absolutely fire! 🔥 The production quality is insane",
+            createdAt: "2024-01-15T10:30:00Z",
+            likes: ["juampi", "fan"],
           },
           {
-            id: 'comment2',
-            authorId: 'nicolamarti',
-            authorName: 'Nicola Marti',
-            authorAvatar: '/avatars/nicola.jpg',
-            content: 'Congrats on the release! The track "Midnight Pulse" is my favorite',
-            createdAt: '2024-01-15T11:15:00Z',
-            likes: ['juampi']
-          }
+            id: "comment2",
+            authorId: "nicolamarti",
+            authorName: "Nicola Marti",
+            authorAvatar: "/avatars/nicola.jpg",
+            content:
+              'Congrats on the release! The track "Midnight Pulse" is my favorite',
+            createdAt: "2024-01-15T11:15:00Z",
+            likes: ["juampi"],
+          },
         ],
-        createdAt: '2024-01-15T09:00:00Z',
-        type: 'post',
-        tags: ['techno', 'newrelease', 'ep']
+        createdAt: "2024-01-15T09:00:00Z",
+        type: "post",
+        tags: ["techno", "newrelease", "ep"],
       },
       {
-        id: 'post2',
-        authorId: 'banger',
-        authorName: 'banger',
-        authorAvatar: '/avatars/banger.jpg',
-        content: 'Studio session with @nicolamarti today! Working on a collab that\'s going to blow your minds. Two different styles coming together in the most beautiful way. #StudioSession #Collab #TechnoHouse',
-        image: '/images/dj-mixer.png',
-        likes: ['juampi', 'nicolamarti', 'fan'],
+        id: "post2",
+        authorId: "banger",
+        authorName: "banger",
+        authorAvatar: "/avatars/banger.jpg",
+        content:
+          "Studio session with @nicolamarti today! Working on a collab that's going to blow your minds. Two different styles coming together in the most beautiful way. #StudioSession #Collab #TechnoHouse",
+        image: "/images/dj-mixer.png",
+        likes: ["juampi", "nicolamarti", "fan"],
         comments: [
           {
-            id: 'comment3',
-            authorId: 'juampi',
-            authorName: 'iamjuampi',
-            authorAvatar: '/avatars/juampi.jpg',
-            content: 'Can\'t wait to hear this! 🔥',
-            createdAt: '2024-01-16T14:20:00Z',
-            likes: ['banger']
-          }
+            id: "comment3",
+            authorId: "juampi",
+            authorName: "iamjuampi",
+            authorAvatar: "/avatars/juampi.jpg",
+            content: "Can't wait to hear this! 🔥",
+            createdAt: "2024-01-16T14:20:00Z",
+            likes: ["banger"],
+          },
         ],
-        createdAt: '2024-01-16T14:00:00Z',
-        type: 'post',
-        tags: ['studiosession', 'collab', 'technohouse']
+        createdAt: "2024-01-16T14:00:00Z",
+        type: "post",
+        tags: ["studiosession", "collab", "technohouse"],
       },
       {
-        id: 'post3',
-        authorId: 'nicolamarti',
-        authorName: 'Nicola Marti',
-        authorAvatar: '/avatars/nicola.jpg',
-        content: 'Preparing my set for this weekend at Club Underground. It\'s going to be an epic night of techno and house. Who\'s coming? 🎧 #ClubUnderground #LiveSet #Techno',
-        likes: ['juampi', 'banger', 'fan'],
+        id: "post3",
+        authorId: "nicolamarti",
+        authorName: "Nicola Marti",
+        authorAvatar: "/avatars/nicola.jpg",
+        content:
+          "Preparing my set for this weekend at Club Underground. It's going to be an epic night of techno and house. Who's coming? 🎧 #ClubUnderground #LiveSet #Techno",
+        likes: ["juampi", "banger", "fan"],
         comments: [
           {
-            id: 'comment4',
-            authorId: 'fan',
-            authorName: 'musicfan',
-            authorAvatar: '/avatars/user.jpg',
-            content: 'I\'ll be there! Can\'t wait to hear your new tracks live',
-            createdAt: '2024-01-17T16:45:00Z',
-            likes: ['nicolamarti']
-          }
+            id: "comment4",
+            authorId: "fan",
+            authorName: "musicfan",
+            authorAvatar: "/avatars/user.jpg",
+            content: "I'll be there! Can't wait to hear your new tracks live",
+            createdAt: "2024-01-17T16:45:00Z",
+            likes: ["nicolamarti"],
+          },
         ],
-        createdAt: '2024-01-17T16:00:00Z',
-        type: 'post',
-        tags: ['clubunderground', 'liveset', 'techno']
+        createdAt: "2024-01-17T16:00:00Z",
+        type: "post",
+        tags: ["clubunderground", "liveset", "techno"],
       },
       {
-        id: 'post4',
-        authorId: 'juampi',
-        authorName: 'iamjuampi',
-        authorAvatar: '/avatars/juampi.jpg',
-        content: 'Happy to announce I\'ll be playing at the Electronic Dreams festival next month! This is going to be huge. See you there! #ElectronicDreams #Festival #Techno',
-        image: '/images/bdeeeee.jpg',
-        likes: ['banger', 'nicolamarti', 'fan'],
+        id: "post4",
+        authorId: "juampi",
+        authorName: "iamjuampi",
+        authorAvatar: "/avatars/juampi.jpg",
+        content:
+          "Happy to announce I'll be playing at the Electronic Dreams festival next month! This is going to be huge. See you there! #ElectronicDreams #Festival #Techno",
+        image: "/images/bdeeeee.jpg",
+        likes: ["banger", "nicolamarti", "fan"],
         comments: [],
-        createdAt: '2024-01-18T12:30:00Z',
-        type: 'announcement',
-        tags: ['electronicdreams', 'festival', 'techno']
+        createdAt: "2024-01-18T12:30:00Z",
+        type: "announcement",
+        tags: ["electronicdreams", "festival", "techno"],
       },
       {
-        id: 'post5',
-        authorId: 'banger',
-        authorName: 'banger',
-        authorAvatar: '/avatars/banger.jpg',
-        content: 'Working on new sounds for my upcoming release. I\'m experimenting with analog synthesizers and 90s samples. The results are mind-blowing! #AnalogSynths #90sSamples #NewSounds',
-        likes: ['juampi', 'fan'],
+        id: "post5",
+        authorId: "banger",
+        authorName: "banger",
+        authorAvatar: "/avatars/banger.jpg",
+        content:
+          "Working on new sounds for my upcoming release. I'm experimenting with analog synthesizers and 90s samples. The results are mind-blowing! #AnalogSynths #90sSamples #NewSounds",
+        likes: ["juampi", "fan"],
         comments: [
           {
-            id: 'comment5',
-            authorId: 'juampi',
-            authorName: 'iamjuampi',
-            authorAvatar: '/avatars/juampi.jpg',
-            content: 'Analog synths are the way to go! What gear are you using?',
-            createdAt: '2024-01-19T10:15:00Z',
-            likes: ['banger']
-          }
+            id: "comment5",
+            authorId: "juampi",
+            authorName: "iamjuampi",
+            authorAvatar: "/avatars/juampi.jpg",
+            content:
+              "Analog synths are the way to go! What gear are you using?",
+            createdAt: "2024-01-19T10:15:00Z",
+            likes: ["banger"],
+          },
         ],
-        createdAt: '2024-01-19T09:30:00Z',
-        type: 'post',
-        tags: ['analogsynths', '90ssamples', 'newsounds']
+        createdAt: "2024-01-19T09:30:00Z",
+        type: "post",
+        tags: ["analogsynths", "90ssamples", "newsounds"],
       },
       {
-        id: 'post6',
-        authorId: 'nicolamarti',
-        authorName: 'Nicola Marti',
-        authorAvatar: '/avatars/nicola.jpg',
-        content: 'Just finished mastering the collaboration with @banger - two different worlds colliding in the most beautiful way. This track is going to be special. #Collab #Mastering #NewTrack',
-        likes: ['juampi', 'banger', 'fan'],
+        id: "post6",
+        authorId: "nicolamarti",
+        authorName: "Nicola Marti",
+        authorAvatar: "/avatars/nicola.jpg",
+        content:
+          "Just finished mastering the collaboration with @banger - two different worlds colliding in the most beautiful way. This track is going to be special. #Collab #Mastering #NewTrack",
+        likes: ["juampi", "banger", "fan"],
         comments: [],
-        createdAt: '2024-01-20T15:45:00Z',
-        type: 'post',
-        tags: ['collab', 'mastering', 'newtrack']
+        createdAt: "2024-01-20T15:45:00Z",
+        type: "post",
+        tags: ["collab", "mastering", "newtrack"],
       },
       {
-        id: 'post7',
-        authorId: 'juampi',
-        authorName: 'iamjuampi',
-        authorAvatar: '/avatars/juampi.jpg',
-        content: 'Vinyl lovers! Limited edition 12" of "Techno Dimensions" coming next week. Only 200 copies available worldwide. Pre-order link in bio. #Vinyl #LimitedEdition #Techno',
-        image: '/images/dj-mixer.png',
-        likes: ['banger', 'nicolamarti', 'fan'],
+        id: "post7",
+        authorId: "juampi",
+        authorName: "iamjuampi",
+        authorAvatar: "/avatars/juampi.jpg",
+        content:
+          'Vinyl lovers! Limited edition 12" of "Techno Dimensions" coming next week. Only 200 copies available worldwide. Pre-order link in bio. #Vinyl #LimitedEdition #Techno',
+        image: "/images/dj-mixer.png",
+        likes: ["banger", "nicolamarti", "fan"],
         comments: [
           {
-            id: 'comment6',
-            authorId: 'fan',
-            authorName: 'musicfan',
-            authorAvatar: '/avatars/user.jpg',
-            content: 'Already pre-ordered! Can\'t wait to have this on vinyl',
-            createdAt: '2024-01-21T11:30:00Z',
-            likes: ['juampi']
-          }
+            id: "comment6",
+            authorId: "fan",
+            authorName: "musicfan",
+            authorAvatar: "/avatars/user.jpg",
+            content: "Already pre-ordered! Can't wait to have this on vinyl",
+            createdAt: "2024-01-21T11:30:00Z",
+            likes: ["juampi"],
+          },
         ],
-        createdAt: '2024-01-21T10:00:00Z',
-        type: 'announcement',
-        tags: ['vinyl', 'limitededition', 'techno']
+        createdAt: "2024-01-21T10:00:00Z",
+        type: "announcement",
+        tags: ["vinyl", "limitededition", "techno"],
       },
       {
-        id: 'post8',
-        authorId: 'banger',
-        authorName: 'banger',
-        authorAvatar: '/avatars/banger.jpg',
-        content: 'Throwback to my Ibiza set last summer. Still can\'t believe how amazing that crowd was! The energy was electric. #Ibiza #Throwback #HouseMusic',
-        image: '/images/bdeeeee.jpg',
-        likes: ['juampi', 'nicolamarti', 'fan'],
+        id: "post8",
+        authorId: "banger",
+        authorName: "banger",
+        authorAvatar: "/avatars/banger.jpg",
+        content:
+          "Throwback to my Ibiza set last summer. Still can't believe how amazing that crowd was! The energy was electric. #Ibiza #Throwback #HouseMusic",
+        image: "/images/bdeeeee.jpg",
+        likes: ["juampi", "nicolamarti", "fan"],
         comments: [],
-        createdAt: '2024-01-22T18:20:00Z',
-        type: 'post',
-        tags: ['ibiza', 'throwback', 'housemusic']
+        createdAt: "2024-01-22T18:20:00Z",
+        type: "post",
+        tags: ["ibiza", "throwback", "housemusic"],
       },
       // Nuevos posts más recientes
       {
-        id: 'post9',
-        authorId: 'axs',
-        authorName: 'AXS',
-        authorAvatar: '/avatars/axs.jpg',
-        content: 'New track "Neon Nights" dropping this Friday! This one is pure techno energy. Can\'t wait to share it with you all. #NeonNights #NewTrack #Techno',
-        likes: ['juampi', 'banger', 'fan'],
+        id: "post9",
+        authorId: "axs",
+        authorName: "AXS",
+        authorAvatar: "/avatars/axs.jpg",
+        content:
+          'New track "Neon Nights" dropping this Friday! This one is pure techno energy. Can\'t wait to share it with you all. #NeonNights #NewTrack #Techno',
+        likes: ["juampi", "banger", "fan"],
         comments: [
           {
-            id: 'comment7',
-            authorId: 'juampi',
-            authorName: 'iamjuampi',
-            authorAvatar: '/avatars/juampi.jpg',
-            content: 'Been waiting for this! Your sound is always on point 🔥',
-            createdAt: '2024-01-23T09:15:00Z',
-            likes: ['axs']
-          }
+            id: "comment7",
+            authorId: "juampi",
+            authorName: "iamjuampi",
+            authorAvatar: "/avatars/juampi.jpg",
+            content: "Been waiting for this! Your sound is always on point 🔥",
+            createdAt: "2024-01-23T09:15:00Z",
+            likes: ["axs"],
+          },
         ],
-        createdAt: '2024-01-23T08:00:00Z',
-        type: 'post',
-        tags: ['neonnights', 'newtrack', 'techno']
+        createdAt: "2024-01-23T08:00:00Z",
+        type: "post",
+        tags: ["neonnights", "newtrack", "techno"],
       },
       {
-        id: 'post10',
-        authorId: 'juampi',
-        authorName: 'iamjuampi',
-        authorAvatar: '/avatars/juampi.jpg',
-        content: 'Studio vibes today. Working on something special for my next release. The energy in here is incredible right now. #StudioVibes #NewMusic #Techno',
-        image: '/images/dj-mixer.png',
-        likes: ['banger', 'nicolamarti', 'axs', 'fan'],
+        id: "post10",
+        authorId: "juampi",
+        authorName: "iamjuampi",
+        authorAvatar: "/avatars/juampi.jpg",
+        content:
+          "Studio vibes today. Working on something special for my next release. The energy in here is incredible right now. #StudioVibes #NewMusic #Techno",
+        image: "/images/dj-mixer.png",
+        likes: ["banger", "nicolamarti", "axs", "fan"],
         comments: [],
-        createdAt: '2024-01-24T14:30:00Z',
-        type: 'post',
-        tags: ['studiovibes', 'newmusic', 'techno']
+        createdAt: "2024-01-24T14:30:00Z",
+        type: "post",
+        tags: ["studiovibes", "newmusic", "techno"],
       },
       {
-        id: 'post11',
-        authorId: 'nicolamarti',
-        authorName: 'Nicola Marti',
-        authorAvatar: '/avatars/nicola.jpg',
-        content: 'Just got back from my European tour! The response was incredible. Thank you to everyone who came out. Special shoutout to Berlin - you know how to party! #EuropeanTour #Berlin #HouseMusic',
-        likes: ['juampi', 'banger', 'axs', 'fan'],
+        id: "post11",
+        authorId: "nicolamarti",
+        authorName: "Nicola Marti",
+        authorAvatar: "/avatars/nicola.jpg",
+        content:
+          "Just got back from my European tour! The response was incredible. Thank you to everyone who came out. Special shoutout to Berlin - you know how to party! #EuropeanTour #Berlin #HouseMusic",
+        likes: ["juampi", "banger", "axs", "fan"],
         comments: [
           {
-            id: 'comment8',
-            authorId: 'banger',
-            authorName: 'banger',
-            authorAvatar: '/avatars/banger.jpg',
-            content: 'Berlin crowds are the best! Welcome back 🔥',
-            createdAt: '2024-01-25T11:20:00Z',
-            likes: ['nicolamarti']
-          }
+            id: "comment8",
+            authorId: "banger",
+            authorName: "banger",
+            authorAvatar: "/avatars/banger.jpg",
+            content: "Berlin crowds are the best! Welcome back 🔥",
+            createdAt: "2024-01-25T11:20:00Z",
+            likes: ["nicolamarti"],
+          },
         ],
-        createdAt: '2024-01-25T10:00:00Z',
-        type: 'post',
-        tags: ['europeantour', 'berlin', 'housemusic']
+        createdAt: "2024-01-25T10:00:00Z",
+        type: "post",
+        tags: ["europeantour", "berlin", "housemusic"],
       },
       {
-        id: 'post12',
-        authorId: 'banger',
-        authorName: 'banger',
-        authorAvatar: '/avatars/banger.jpg',
-        content: 'New remix for @axs "Neon Nights" is ready! This one goes hard. Check it out on my SoundCloud. #Remix #NeonNights #Techno',
-        likes: ['juampi', 'nicolamarti', 'axs', 'fan'],
+        id: "post12",
+        authorId: "banger",
+        authorName: "banger",
+        authorAvatar: "/avatars/banger.jpg",
+        content:
+          'New remix for @axs "Neon Nights" is ready! This one goes hard. Check it out on my SoundCloud. #Remix #NeonNights #Techno',
+        likes: ["juampi", "nicolamarti", "axs", "fan"],
         comments: [
           {
-            id: 'comment9',
-            authorId: 'axs',
-            authorName: 'AXS',
-            authorAvatar: '/avatars/axs.jpg',
-            content: 'This remix is absolutely insane! 🔥🔥🔥',
-            createdAt: '2024-01-26T16:45:00Z',
-            likes: ['banger']
-          }
+            id: "comment9",
+            authorId: "axs",
+            authorName: "AXS",
+            authorAvatar: "/avatars/axs.jpg",
+            content: "This remix is absolutely insane! 🔥🔥🔥",
+            createdAt: "2024-01-26T16:45:00Z",
+            likes: ["banger"],
+          },
         ],
-        createdAt: '2024-01-26T15:00:00Z',
-        type: 'post',
-        tags: ['remix', 'neonnights', 'techno']
+        createdAt: "2024-01-26T15:00:00Z",
+        type: "post",
+        tags: ["remix", "neonnights", "techno"],
       },
       {
-        id: 'post13',
-        authorId: 'axs',
-        authorName: 'AXS',
-        authorAvatar: '/avatars/axs.jpg',
-        content: 'Playing at Warehouse Project this weekend! Manchester, are you ready for some techno? This is going to be epic. #WarehouseProject #Manchester #Techno',
-        likes: ['juampi', 'banger', 'nicolamarti', 'fan'],
+        id: "post13",
+        authorId: "axs",
+        authorName: "AXS",
+        authorAvatar: "/avatars/axs.jpg",
+        content:
+          "Playing at Warehouse Project this weekend! Manchester, are you ready for some techno? This is going to be epic. #WarehouseProject #Manchester #Techno",
+        likes: ["juampi", "banger", "nicolamarti", "fan"],
         comments: [],
-        createdAt: '2024-01-27T12:00:00Z',
-        type: 'announcement',
-        tags: ['warehouseproject', 'manchester', 'techno']
+        createdAt: "2024-01-27T12:00:00Z",
+        type: "announcement",
+        tags: ["warehouseproject", "manchester", "techno"],
       },
       {
-        id: 'post14',
-        authorId: 'juampi',
-        authorName: 'iamjuampi',
-        authorAvatar: '/avatars/juampi.jpg',
-        content: 'Just finished a 4-hour studio session. The new track is taking shape and it\'s sounding massive. Sometimes you just know when you\'ve got something special. #StudioSession #NewTrack #Techno',
-        likes: ['banger', 'nicolamarti', 'axs', 'fan'],
+        id: "post14",
+        authorId: "juampi",
+        authorName: "iamjuampi",
+        authorAvatar: "/avatars/juampi.jpg",
+        content:
+          "Just finished a 4-hour studio session. The new track is taking shape and it's sounding massive. Sometimes you just know when you've got something special. #StudioSession #NewTrack #Techno",
+        likes: ["banger", "nicolamarti", "axs", "fan"],
         comments: [
           {
-            id: 'comment10',
-            authorId: 'fan',
-            authorName: 'musicfan',
-            authorAvatar: '/avatars/user.jpg',
-            content: 'Can\'t wait to hear it! Your tracks always hit different 🔥',
-            createdAt: '2024-01-28T19:30:00Z',
-            likes: ['juampi']
-          }
+            id: "comment10",
+            authorId: "fan",
+            authorName: "musicfan",
+            authorAvatar: "/avatars/user.jpg",
+            content:
+              "Can't wait to hear it! Your tracks always hit different 🔥",
+            createdAt: "2024-01-28T19:30:00Z",
+            likes: ["juampi"],
+          },
         ],
-        createdAt: '2024-01-28T18:00:00Z',
-        type: 'post',
-        tags: ['studiosession', 'newtrack', 'techno']
+        createdAt: "2024-01-28T18:00:00Z",
+        type: "post",
+        tags: ["studiosession", "newtrack", "techno"],
       },
       {
-        id: 'post15',
-        authorId: 'nicolamarti',
-        authorName: 'Nicola Marti',
-        authorAvatar: '/avatars/nicola.jpg',
-        content: 'New podcast episode is live! This week I\'m sharing some of my favorite tracks and talking about the future of house music. Link in bio. #Podcast #HouseMusic #NewEpisode',
-        likes: ['juampi', 'banger', 'axs', 'fan'],
+        id: "post15",
+        authorId: "nicolamarti",
+        authorName: "Nicola Marti",
+        authorAvatar: "/avatars/nicola.jpg",
+        content:
+          "New podcast episode is live! This week I'm sharing some of my favorite tracks and talking about the future of house music. Link in bio. #Podcast #HouseMusic #NewEpisode",
+        likes: ["juampi", "banger", "axs", "fan"],
         comments: [],
-        createdAt: '2024-01-29T20:00:00Z',
-        type: 'post',
-        tags: ['podcast', 'housemusic', 'newepisode']
-      }
-    ]
+        createdAt: "2024-01-29T20:00:00Z",
+        type: "post",
+        tags: ["podcast", "housemusic", "newepisode"],
+      },
+    ];
 
-    defaultPosts.forEach(post => {
+    defaultPosts.forEach((post) => {
       if (!this.posts.has(post.id)) {
-        this.posts.set(post.id, post)
+        this.posts.set(post.id, post);
       }
-    })
+    });
 
-    console.log('After adding default posts, total posts:', this.posts.size)
-    console.log('Default posts added:', defaultPosts.length)
+    console.log("After adding default posts, total posts:", this.posts.size);
+    console.log("Default posts added:", defaultPosts.length);
 
     // Initialize default tokens
     const defaultTokens: Token[] = [
       {
-        id: 'juampi_token',
-        name: 'JUAMPI Token',
-        symbol: 'JUAMPI',
-        artistId: 'juampi',
-        artistName: 'iamjuampi',
-        price: 0.50,
+        id: "juampi_token",
+        name: "JUAMPI Token",
+        symbol: "JUAMPI",
+        artistId: "juampi",
+        artistName: "iamjuampi",
+        price: 0.5,
         totalSupply: 10000,
         circulatingSupply: 5000,
-        description: 'Official token for iamjuampi artist',
-        image: '/avatars/juampi.jpg'
+        description: "Official token for iamjuampi artist",
+        image: "/avatars/juampi.jpg",
       },
       {
-        id: 'banger_token',
-        name: 'BANGER Token',
-        symbol: 'BANGER',
-        artistId: 'banger',
-        artistName: 'banger',
-        price: 0.30,
+        id: "banger_token",
+        name: "BANGER Token",
+        symbol: "BANGER",
+        artistId: "banger",
+        artistName: "banger",
+        price: 0.3,
         totalSupply: 8000,
         circulatingSupply: 3000,
-        description: 'Official token for banger artist',
-        image: '/avatars/banger.jpg'
-      }
-    ]
+        description: "Official token for banger artist",
+        image: "/avatars/banger.jpg",
+      },
+    ];
 
-    defaultTokens.forEach(token => {
+    defaultTokens.forEach((token) => {
       if (!this.tokens.has(token.id)) {
-        this.tokens.set(token.id, token)
+        this.tokens.set(token.id, token);
       }
-    })
+    });
 
     // Initialize user stats
-    defaultUsers.forEach(user => {
+    defaultUsers.forEach((user) => {
       if (!this.userStats.has(user.id)) {
         this.userStats.set(user.id, {
           followers: user.followers.length,
@@ -17949,397 +18195,435 @@ class UserDataService {
           posts: this.getPostsByUser(user.id).length,
           tokensOwned: 0,
           totalValue: 0,
-          totalDonated: 0
-        })
+          totalDonated: 0,
+        });
       }
-    })
+    });
 
-    this.saveToStorage()
+    this.saveToStorage();
   }
 
   // User methods
   getUser(userId: string): UserData | null {
-    return this.users.get(userId) || null
+    return this.users.get(userId) || null;
   }
 
   getUserByPrincipal(principal: string): UserData | null {
     for (const user of this.users.values()) {
       if (user.principal === principal) {
-        return user
+        return user;
       }
     }
-    return null
+    return null;
   }
 
   getUserByUsername(username: string): UserData | null {
     for (const user of this.users.values()) {
       if (user.username === username) {
-        return user
+        return user;
       }
     }
-    return null
+    return null;
   }
 
   getAllUsers(): UserData[] {
-    return Array.from(this.users.values())
+    return Array.from(this.users.values());
   }
 
-  createUser(userData: Omit<UserData, 'id' | 'createdAt' | 'lastActive' | 'followers' | 'following'>): UserData {
-    const id = userData.principal || `user_${Date.now()}`
+  createUser(
+    userData: Omit<
+      UserData,
+      "id" | "createdAt" | "lastActive" | "followers" | "following"
+    >,
+  ): UserData {
+    const id = userData.principal || `user_${Date.now()}`;
     const newUser: UserData = {
       ...userData,
       id,
       followers: [],
       following: [],
       createdAt: new Date().toISOString(),
-      lastActive: new Date().toISOString()
-    }
+      lastActive: new Date().toISOString(),
+    };
 
-    this.users.set(id, newUser)
+    this.users.set(id, newUser);
     this.userStats.set(id, {
       followers: 0,
       following: 0,
       posts: 0,
       tokensOwned: 0,
       totalValue: 0,
-      totalDonated: 0
-    })
+      totalDonated: 0,
+    });
 
-    this.saveToStorage()
-    return newUser
+    this.saveToStorage();
+    return newUser;
   }
 
   updateUser(userId: string, updates: Partial<UserData>): UserData | null {
-    const user = this.users.get(userId)
-    if (!user) return null
+    const user = this.users.get(userId);
+    if (!user) return null;
 
-    const updatedUser = { ...user, ...updates, lastActive: new Date().toISOString() }
-    this.users.set(userId, updatedUser)
-    this.saveToStorage()
-    return updatedUser
+    const updatedUser = {
+      ...user,
+      ...updates,
+      lastActive: new Date().toISOString(),
+    };
+    this.users.set(userId, updatedUser);
+    this.saveToStorage();
+    return updatedUser;
   }
 
   // Post methods
-  createPost(postData: Omit<Post, 'id' | 'createdAt' | 'likes' | 'comments'>): Post {
-    const id = `post_${Date.now()}`
+  createPost(
+    postData: Omit<Post, "id" | "createdAt" | "likes" | "comments">,
+  ): Post {
+    const id = `post_${Date.now()}`;
     const newPost: Post = {
       ...postData,
       id,
       likes: [],
       comments: [],
-      createdAt: new Date().toISOString()
-    }
+      createdAt: new Date().toISOString(),
+    };
 
-    this.posts.set(id, newPost)
-    this.updateUserStats(postData.authorId)
-    this.saveToStorage()
-    return newPost
+    this.posts.set(id, newPost);
+    this.updateUserStats(postData.authorId);
+    this.saveToStorage();
+    return newPost;
   }
 
   getPostsByUser(userId: string): Post[] {
-    return Array.from(this.posts.values()).filter(post => post.authorId === userId)
+    return Array.from(this.posts.values()).filter(
+      (post) => post.authorId === userId,
+    );
   }
 
   getAllPosts(): Post[] {
-    return Array.from(this.posts.values())
+    return Array.from(this.posts.values());
   }
 
   getFeedForUser(userId: string): FeedItem[] {
-    const user = this.users.get(userId)
-    
+    const user = this.users.get(userId);
+
     if (!user) {
-      return []
+      return [];
     }
 
-    const followingIds = user.following
-    
+    const followingIds = user.following;
+
     // If user is not following anyone, show posts from featured artists
-    let postFilter = (post: Post) => followingIds.includes(post.authorId) || post.authorId === userId
-    
+    let postFilter = (post: Post) =>
+      followingIds.includes(post.authorId) || post.authorId === userId;
+
     if (followingIds.length === 0) {
       // Show posts from featured artists for new users
-      const featuredArtistIds = ['juampi', 'banger', 'nicolamarti', 'axs']
-      postFilter = (post: Post) => featuredArtistIds.includes(post.authorId) || post.authorId === userId
+      const featuredArtistIds = ["juampi", "banger", "nicolamarti", "axs"];
+      postFilter = (post: Post) =>
+        featuredArtistIds.includes(post.authorId) || post.authorId === userId;
     }
-    
-    const allPosts = Array.from(this.posts.values())
-    
-    const userPosts = allPosts
-      .filter(postFilter)
-      .map(post => ({
-        id: `feed_${post.id}`,
-        type: 'post' as const,
-        data: post,
-        priority: 1,
-        createdAt: post.createdAt
-      }))
+
+    const allPosts = Array.from(this.posts.values());
+
+    const userPosts = allPosts.filter(postFilter).map((post) => ({
+      id: `feed_${post.id}`,
+      type: "post" as const,
+      data: post,
+      priority: 1,
+      createdAt: post.createdAt,
+    }));
 
     const userActivities = Array.from(this.activities.values())
-      .filter(activity => followingIds.includes(activity.userId) || activity.userId === userId)
-      .map(activity => ({
+      .filter(
+        (activity) =>
+          followingIds.includes(activity.userId) || activity.userId === userId,
+      )
+      .map((activity) => ({
         id: `feed_${activity.id}`,
-        type: 'activity' as const,
+        type: "activity" as const,
         data: activity,
         priority: 2,
-        createdAt: activity.createdAt
-      }))
+        createdAt: activity.createdAt,
+      }));
 
-    const result = [...userPosts, ...userActivities]
-      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-    
-    return result
+    const result = [...userPosts, ...userActivities].sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
+
+    return result;
   }
 
   // Activity methods
-  createActivity(activityData: Omit<Activity, 'id' | 'createdAt' | 'isRead'>): Activity {
-    const id = `activity_${Date.now()}`
+  createActivity(
+    activityData: Omit<Activity, "id" | "createdAt" | "isRead">,
+  ): Activity {
+    const id = `activity_${Date.now()}`;
     const newActivity: Activity = {
       ...activityData,
       id,
       createdAt: new Date().toISOString(),
-      isRead: false
-    }
+      isRead: false,
+    };
 
-    this.activities.set(id, newActivity)
-    this.saveToStorage()
-    return newActivity
+    this.activities.set(id, newActivity);
+    this.saveToStorage();
+    return newActivity;
   }
 
   getActivitiesForUser(userId: string): Activity[] {
-    const user = this.users.get(userId)
-    if (!user) return []
+    const user = this.users.get(userId);
+    if (!user) return [];
 
     return Array.from(this.activities.values())
-      .filter(activity => 
-        activity.userId === userId || 
-        activity.targetUserId === userId ||
-        (user.type === 'artist' && activity.relatedTo === 'artist') ||
-        (user.type === 'fan' && activity.relatedTo === 'fan')
+      .filter(
+        (activity) =>
+          activity.userId === userId ||
+          activity.targetUserId === userId ||
+          (user.type === "artist" && activity.relatedTo === "artist") ||
+          (user.type === "fan" && activity.relatedTo === "fan"),
       )
-      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      );
   }
 
   // Notification methods
-  createNotification(notificationData: Omit<Notification, 'id' | 'createdAt' | 'isRead'>): Notification {
-    const id = `notification_${Date.now()}`
+  createNotification(
+    notificationData: Omit<Notification, "id" | "createdAt" | "isRead">,
+  ): Notification {
+    const id = `notification_${Date.now()}`;
     const newNotification: Notification = {
       ...notificationData,
       id,
       createdAt: new Date().toISOString(),
-      isRead: false
-    }
+      isRead: false,
+    };
 
-    const userNotifications = this.notifications.get(notificationData.targetUserId || '') || []
-    userNotifications.unshift(newNotification)
-    this.notifications.set(notificationData.targetUserId || '', userNotifications)
-    this.saveToStorage()
-    return newNotification
+    const userNotifications =
+      this.notifications.get(notificationData.targetUserId || "") || [];
+    userNotifications.unshift(newNotification);
+    this.notifications.set(
+      notificationData.targetUserId || "",
+      userNotifications,
+    );
+    this.saveToStorage();
+    return newNotification;
   }
 
   getNotificationsForUser(userId: string): Notification[] {
-    return this.notifications.get(userId) || []
+    return this.notifications.get(userId) || [];
   }
 
   markNotificationAsRead(userId: string, notificationId: string): void {
-    const userNotifications = this.notifications.get(userId) || []
-    const updatedNotifications = userNotifications.map(notification =>
-      notification.id === notificationId ? { ...notification, isRead: true } : notification
-    )
-    this.notifications.set(userId, updatedNotifications)
-    this.saveToStorage()
+    const userNotifications = this.notifications.get(userId) || [];
+    const updatedNotifications = userNotifications.map((notification) =>
+      notification.id === notificationId
+        ? { ...notification, isRead: true }
+        : notification,
+    );
+    this.notifications.set(userId, updatedNotifications);
+    this.saveToStorage();
   }
 
   // Follow/Unfollow methods
   followUser(followerId: string, targetUserId: string): boolean {
-    const follower = this.users.get(followerId)
-    const target = this.users.get(targetUserId)
-    
-    if (!follower || !target || followerId === targetUserId) return false
+    const follower = this.users.get(followerId);
+    const target = this.users.get(targetUserId);
+
+    if (!follower || !target || followerId === targetUserId) return false;
 
     if (!follower.following.includes(targetUserId)) {
-      follower.following.push(targetUserId)
-      target.followers.push(followerId)
-      
-      this.users.set(followerId, follower)
-      this.users.set(targetUserId, target)
-      
+      follower.following.push(targetUserId);
+      target.followers.push(followerId);
+
+      this.users.set(followerId, follower);
+      this.users.set(targetUserId, target);
+
       // Create activity and notification
       this.createActivity({
-        type: 'follow',
+        type: "follow",
         userId: followerId,
         userName: follower.username,
-        userAvatar: follower.profilePhoto || '/avatars/user.jpg',
-        action: 'started following you',
-        relatedTo: 'artist',
-        targetUserId
-      })
+        userAvatar: follower.profilePhoto || "/avatars/user.jpg",
+        action: "started following you",
+        relatedTo: "artist",
+        targetUserId,
+      });
 
       this.createNotification({
-        type: 'follow',
+        type: "follow",
         userId: followerId,
         userName: follower.username,
-        userAvatar: follower.profilePhoto || '/avatars/user.jpg',
+        userAvatar: follower.profilePhoto || "/avatars/user.jpg",
         message: `${follower.username} started following you`,
-        targetUserId
-      })
+        targetUserId,
+      });
 
-      this.updateUserStats(followerId)
-      this.updateUserStats(targetUserId)
-      this.saveToStorage()
-      return true
+      this.updateUserStats(followerId);
+      this.updateUserStats(targetUserId);
+      this.saveToStorage();
+      return true;
     }
 
-    return false
+    return false;
   }
 
   unfollowUser(followerId: string, targetUserId: string): boolean {
-    const follower = this.users.get(followerId)
-    const target = this.users.get(targetUserId)
-    
-    if (!follower || !target) return false
+    const follower = this.users.get(followerId);
+    const target = this.users.get(targetUserId);
 
-    const followerIndex = follower.following.indexOf(targetUserId)
-    const targetIndex = target.followers.indexOf(followerId)
+    if (!follower || !target) return false;
+
+    const followerIndex = follower.following.indexOf(targetUserId);
+    const targetIndex = target.followers.indexOf(followerId);
 
     if (followerIndex > -1 && targetIndex > -1) {
-      follower.following.splice(followerIndex, 1)
-      target.followers.splice(targetIndex, 1)
-      
-      this.users.set(followerId, follower)
-      this.users.set(targetUserId, target)
-      
-      this.updateUserStats(followerId)
-      this.updateUserStats(targetUserId)
-      this.saveToStorage()
-      return true
+      follower.following.splice(followerIndex, 1);
+      target.followers.splice(targetIndex, 1);
+
+      this.users.set(followerId, follower);
+      this.users.set(targetUserId, target);
+
+      this.updateUserStats(followerId);
+      this.updateUserStats(targetUserId);
+      this.saveToStorage();
+      return true;
     }
 
-    return false
+    return false;
   }
 
   // Like/Unlike methods
   likePost(userId: string, postId: string): boolean {
-    const post = this.posts.get(postId)
-    const user = this.users.get(userId)
-    
-    if (!post || !user) return false
+    const post = this.posts.get(postId);
+    const user = this.users.get(userId);
+
+    if (!post || !user) return false;
 
     if (!post.likes.includes(userId)) {
-      post.likes.push(userId)
-      this.posts.set(postId, post)
-      
+      post.likes.push(userId);
+      this.posts.set(postId, post);
+
       // Create activity and notification
       this.createActivity({
-        type: 'like',
+        type: "like",
         userId,
         userName: user.username,
-        userAvatar: user.profilePhoto || '/avatars/user.jpg',
-        action: 'liked your post',
-        relatedTo: 'artist',
+        userAvatar: user.profilePhoto || "/avatars/user.jpg",
+        action: "liked your post",
+        relatedTo: "artist",
         targetUserId: post.authorId,
-        targetPostId: postId
-      })
+        targetPostId: postId,
+      });
 
       if (post.authorId !== userId) {
         this.createNotification({
-          type: 'like',
+          type: "like",
           userId,
           userName: user.username,
-          userAvatar: user.profilePhoto || '/avatars/user.jpg',
+          userAvatar: user.profilePhoto || "/avatars/user.jpg",
           message: `${user.username} liked your post`,
           targetUserId: post.authorId,
-          targetPostId: postId
-        })
+          targetPostId: postId,
+        });
       }
 
-      this.saveToStorage()
-      return true
+      this.saveToStorage();
+      return true;
     }
 
-    return false
+    return false;
   }
 
   unlikePost(userId: string, postId: string): boolean {
-    const post = this.posts.get(postId)
-    if (!post) return false
+    const post = this.posts.get(postId);
+    if (!post) return false;
 
-    const likeIndex = post.likes.indexOf(userId)
+    const likeIndex = post.likes.indexOf(userId);
     if (likeIndex > -1) {
-      post.likes.splice(likeIndex, 1)
-      this.posts.set(postId, post)
-      this.saveToStorage()
-      return true
+      post.likes.splice(likeIndex, 1);
+      this.posts.set(postId, post);
+      this.saveToStorage();
+      return true;
     }
 
-    return false
+    return false;
   }
 
   // Comment methods
-  addComment(userId: string, postId: string, content: string): PostComment | null {
-    const post = this.posts.get(postId)
-    const user = this.users.get(userId)
-    
-    if (!post || !user) return null
+  addComment(
+    userId: string,
+    postId: string,
+    content: string,
+  ): PostComment | null {
+    const post = this.posts.get(postId);
+    const user = this.users.get(userId);
+
+    if (!post || !user) return null;
 
     const comment: PostComment = {
       id: `comment_${Date.now()}`,
       authorId: userId,
       authorName: user.username,
-      authorAvatar: user.profilePhoto || '/avatars/user.jpg',
+      authorAvatar: user.profilePhoto || "/avatars/user.jpg",
       content,
       createdAt: new Date().toISOString(),
-      likes: []
-    }
+      likes: [],
+    };
 
-    post.comments.push(comment)
-    this.posts.set(postId, post)
-    
+    post.comments.push(comment);
+    this.posts.set(postId, post);
+
     // Create activity and notification
     this.createActivity({
-      type: 'comment',
+      type: "comment",
       userId,
       userName: user.username,
-      userAvatar: user.profilePhoto || '/avatars/user.jpg',
-      action: 'commented on your post',
+      userAvatar: user.profilePhoto || "/avatars/user.jpg",
+      action: "commented on your post",
       message: content,
-      relatedTo: 'artist',
+      relatedTo: "artist",
       targetUserId: post.authorId,
-      targetPostId: postId
-    })
+      targetPostId: postId,
+    });
 
     if (post.authorId !== userId) {
       this.createNotification({
-        type: 'comment',
+        type: "comment",
         userId,
         userName: user.username,
-        userAvatar: user.profilePhoto || '/avatars/user.jpg',
+        userAvatar: user.profilePhoto || "/avatars/user.jpg",
         message: `${user.username} commented on your post`,
         targetUserId: post.authorId,
-        targetPostId: postId
-      })
+        targetPostId: postId,
+      });
     }
 
-    this.saveToStorage()
-    return comment
+    this.saveToStorage();
+    return comment;
   }
 
   // Token methods
   getTokensByArtist(artistId: string): Token[] {
-    return Array.from(this.tokens.values()).filter(token => token.artistId === artistId)
+    return Array.from(this.tokens.values()).filter(
+      (token) => token.artistId === artistId,
+    );
   }
 
   getAllTokens(): Token[] {
-    return Array.from(this.tokens.values())
+    return Array.from(this.tokens.values());
   }
 
   // Stats methods
   getUserStats(userId: string): UserStats | null {
-    return this.userStats.get(userId) || null
+    return this.userStats.get(userId) || null;
   }
 
   private updateUserStats(userId: string): void {
-    const user = this.users.get(userId)
-    if (!user) return
+    const user = this.users.get(userId);
+    if (!user) return;
 
     const stats: UserStats = {
       followers: user.followers.length,
@@ -18347,46 +18631,50 @@ class UserDataService {
       posts: this.getPostsByUser(userId).length,
       tokensOwned: 0, // This would be calculated from token ownership
       totalValue: 0, // This would be calculated from token values
-      totalDonated: 0 // This would be calculated from donation history
-    }
+      totalDonated: 0, // This would be calculated from donation history
+    };
 
-    this.userStats.set(userId, stats)
+    this.userStats.set(userId, stats);
   }
 
   // Search methods
   searchUsers(query: string): UserData[] {
-    const lowercaseQuery = query.toLowerCase()
-    return Array.from(this.users.values()).filter(user =>
-      user.username.toLowerCase().includes(lowercaseQuery) ||
-      user.bio?.toLowerCase().includes(lowercaseQuery) ||
-      user.genre?.toLowerCase().includes(lowercaseQuery)
-    )
+    const lowercaseQuery = query.toLowerCase();
+    return Array.from(this.users.values()).filter(
+      (user) =>
+        user.username.toLowerCase().includes(lowercaseQuery) ||
+        user.bio?.toLowerCase().includes(lowercaseQuery) ||
+        user.genre?.toLowerCase().includes(lowercaseQuery),
+    );
   }
 
   searchPosts(query: string): Post[] {
-    const lowercaseQuery = query.toLowerCase()
-    return Array.from(this.posts.values()).filter(post =>
-      post.content.toLowerCase().includes(lowercaseQuery) ||
-      post.tags?.some(tag => tag.toLowerCase().includes(lowercaseQuery))
-    )
+    const lowercaseQuery = query.toLowerCase();
+    return Array.from(this.posts.values()).filter(
+      (post) =>
+        post.content.toLowerCase().includes(lowercaseQuery) ||
+        post.tags?.some((tag) => tag.toLowerCase().includes(lowercaseQuery)),
+    );
   }
 }
 
 // Export singleton instance
-export const userDataService = new UserDataService()
+export const userDataService = new UserDataService();
 ```
 
 ## File: lib/utils.ts
+
 ```typescript
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 ```
 
 ## File: public/images/banknote-custom.svg
+
 ```
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
@@ -18469,6 +18757,7 @@ export function cn(...inputs: ClassValue[]) {
 ```
 
 ## File: public/images/dropsland-logo.svg
+
 ```
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
@@ -18564,6 +18853,7 @@ export function cn(...inputs: ClassValue[]) {
 ```
 
 ## File: public/images/internet-identity-logo.svg
+
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -18575,6 +18865,7 @@ export function cn(...inputs: ClassValue[]) {
 ```
 
 ## File: public/images/nfid-logo.svg
+
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18585,6 +18876,7 @@ export function cn(...inputs: ClassValue[]) {
 ```
 
 ## File: public/images/verified-badge.svg
+
 ```
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
 <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
@@ -18596,16 +18888,19 @@ export function cn(...inputs: ClassValue[]) {
 ```
 
 ## File: public/placeholder-logo.svg
+
 ```
 <svg xmlns="http://www.w3.org/2000/svg" width="215" height="48" fill="none"><path fill="#000" d="M57.588 9.6h6L73.828 38h-5.2l-2.36-6.88h-11.36L52.548 38h-5.2l10.24-28.4Zm7.16 17.16-4.16-12.16-4.16 12.16h8.32Zm23.694-2.24c-.186-1.307-.706-2.32-1.56-3.04-.853-.72-1.866-1.08-3.04-1.08-1.68 0-2.986.613-3.92 1.84-.906 1.227-1.36 2.947-1.36 5.16s.454 3.933 1.36 5.16c.934 1.227 2.24 1.84 3.92 1.84 1.254 0 2.307-.373 3.16-1.12.854-.773 1.387-1.867 1.6-3.28l5.12.24c-.186 1.68-.733 3.147-1.64 4.4-.906 1.227-2.08 2.173-3.52 2.84-1.413.667-2.986 1-4.72 1-2.08 0-3.906-.453-5.48-1.36-1.546-.907-2.76-2.2-3.64-3.88-.853-1.68-1.28-3.627-1.28-5.84 0-2.24.427-4.187 1.28-5.84.88-1.68 2.094-2.973 3.64-3.88 1.574-.907 3.4-1.36 5.48-1.36 1.68 0 3.227.32 4.64.96 1.414.64 2.56 1.56 3.44 2.76.907 1.2 1.454 2.6 1.64 4.2l-5.12.28Zm11.486-7.72.12 3.4c.534-1.227 1.307-2.173 2.32-2.84 1.04-.693 2.267-1.04 3.68-1.04 1.494 0 2.76.387 3.8 1.16 1.067.747 1.827 1.813 2.28 3.2.507-1.44 1.294-2.52 2.36-3.24 1.094-.747 2.414-1.12 3.96-1.12 1.414 0 2.64.307 3.68.92s1.84 1.52 2.4 2.72c.56 1.2.84 2.667.84 4.4V38h-4.96V25.92c0-1.813-.293-3.187-.88-4.12-.56-.96-1.413-1.44-2.56-1.44-.906 0-1.68.213-2.32.64-.64.427-1.133 1.053-1.48 1.88-.32.827-.48 1.84-.48 3.04V38h-4.56V25.92c0-1.2-.133-2.213-.4-3.04-.24-.827-.626-1.453-1.16-1.88-.506-.427-1.133-.64-1.88-.64-.906 0-1.68.227-2.32.68-.64.427-1.133 1.053-1.48 1.88-.32.827-.48 1.827-.48 3V38h-4.96V16.8h4.48Zm26.723 10.6c0-2.24.427-4.187 1.28-5.84.854-1.68 2.067-2.973 3.64-3.88 1.574-.907 3.4-1.36 5.48-1.36 1.84 0 3.494.413 4.96 1.24 1.467.827 2.64 2.08 3.52 3.76.88 1.653 1.347 3.693 1.4 6.12v1.32h-15.08c.107 1.813.614 3.227 1.52 4.24.907.987 2.134 1.48 3.68 1.48.987 0 1.88-.253 2.68-.76a4.803 4.803 0 0 0 1.84-2.2l5.08.36c-.64 2.027-1.84 3.64-3.6 4.84-1.733 1.173-3.733 1.76-6 1.76-2.08 0-3.906-.453-5.48-1.36-1.573-.907-2.786-2.2-3.64-3.88-.853-1.68-1.28-3.627-1.28-5.84Zm15.16-2.04c-.213-1.733-.76-3.013-1.64-3.84-.853-.827-1.893-1.24-3.12-1.24-1.44 0-2.6.453-3.48 1.36-.88.88-1.44 2.12-1.68 3.72h9.92ZM163.139 9.6V38h-5.04V9.6h5.04Zm8.322 7.2.24 5.88-.64-.36c.32-2.053 1.094-3.56 2.32-4.52 1.254-.987 2.787-1.48 4.6-1.48 2.32 0 4.107.733 5.36 2.2 1.254 1.44 1.88 3.387 1.88 5.84V38h-4.96V25.92c0-1.253-.12-2.28-.36-3.08-.24-.8-.64-1.413-1.2-1.84-.533-.427-1.253-.64-2.16-.64-1.44 0-2.573.48-3.4 1.44-.8.933-1.2 2.307-1.2 4.12V38h-4.96V16.8h4.48Zm30.003 7.72c-.186-1.307-.706-2.32-1.56-3.04-.853-.72-1.866-1.08-3.04-1.08-1.68 0-2.986.613-3.92 1.84-.906 1.227-1.36 2.947-1.36 5.16s.454 3.933 1.36 5.16c.934 1.227 2.24 1.84 3.92 1.84 1.254 0 2.307-.373 3.16-1.12.854-.773 1.387-1.867 1.6-3.28l5.12.24c-.186 1.68-.733 3.147-1.64 4.4-.906 1.227-2.08 2.173-3.52 2.84-1.413.667-2.986 1-4.72 1-2.08 0-3.906-.453-5.48-1.36-1.546-.907-2.76-2.2-3.64-3.88-.853-1.68-1.28-3.627-1.28-5.84 0-2.24.427-4.187 1.28-5.84.88-1.68 2.094-2.973 3.64-3.88 1.574-.907 3.4-1.36 5.48-1.36 1.68 0 3.227.32 4.64.96 1.414.64 2.56 1.56 3.44 2.76.907 1.2 1.454 2.6 1.64 4.2l-5.12.28Zm11.443 8.16V38h-5.6v-5.32h5.6Z"/><path fill="#171717" fill-rule="evenodd" d="m7.839 40.783 16.03-28.054L20 6 0 40.783h7.839Zm8.214 0H40L27.99 19.894l-4.02 7.032 3.976 6.914H20.02l-3.967 6.943Z" clip-rule="evenodd"/></svg>
 ```
 
 ## File: public/placeholder.svg
+
 ```
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" fill="none"><rect width="1200" height="1200" fill="#EAEAEA" rx="3"/><g opacity=".5"><g opacity=".5"><path fill="#FAFAFA" d="M600.709 736.5c-75.454 0-136.621-61.167-136.621-136.62 0-75.454 61.167-136.621 136.621-136.621 75.453 0 136.62 61.167 136.62 136.621 0 75.453-61.167 136.62-136.62 136.62Z"/><path stroke="#C9C9C9" stroke-width="2.418" d="M600.709 736.5c-75.454 0-136.621-61.167-136.621-136.62 0-75.454 61.167-136.621 136.621-136.621 75.453 0 136.62 61.167 136.62 136.621 0 75.453-61.167 136.62-136.62 136.62Z"/></g><path stroke="url(#a)" stroke-width="2.418" d="M0-1.209h553.581" transform="scale(1 -1) rotate(45 1163.11 91.165)"/><path stroke="url(#b)" stroke-width="2.418" d="M404.846 598.671h391.726"/><path stroke="url(#c)" stroke-width="2.418" d="M599.5 795.742V404.017"/><path stroke="url(#d)" stroke-width="2.418" d="m795.717 796.597-391.441-391.44"/><path fill="#fff" d="M600.709 656.704c-31.384 0-56.825-25.441-56.825-56.824 0-31.384 25.441-56.825 56.825-56.825 31.383 0 56.824 25.441 56.824 56.825 0 31.383-25.441 56.824-56.824 56.824Z"/><g clip-path="url(#e)"><path fill="#666" fill-rule="evenodd" d="M616.426 586.58h-31.434v16.176l3.553-3.554.531-.531h9.068l.074-.074 8.463-8.463h2.565l7.18 7.181V586.58Zm-15.715 14.654 3.698 3.699 1.283 1.282-2.565 2.565-1.282-1.283-5.2-5.199h-6.066l-5.514 5.514-.073.073v2.876a2.418 2.418 0 0 0 2.418 2.418h26.598a2.418 2.418 0 0 0 2.418-2.418v-8.317l-8.463-8.463-7.181 7.181-.071.072Zm-19.347 5.442v4.085a6.045 6.045 0 0 0 6.046 6.045h26.598a6.044 6.044 0 0 0 6.045-6.045v-7.108l1.356-1.355-1.282-1.283-.074-.073v-17.989h-38.689v23.43l-.146.146.146.147Z" clip-rule="evenodd"/></g><path stroke="#C9C9C9" stroke-width="2.418" d="M600.709 656.704c-31.384 0-56.825-25.441-56.825-56.824 0-31.384 25.441-56.825 56.825-56.825 31.383 0 56.824 25.441 56.824 56.825 0 31.383-25.441 56.824-56.824 56.824Z"/></g><defs><linearGradient id="a" x1="554.061" x2="-.48" y1=".083" y2=".087" gradientUnits="userSpaceOnUse"><stop stop-color="#C9C9C9" stop-opacity="0"/><stop offset=".208" stop-color="#C9C9C9"/><stop offset=".792" stop-color="#C9C9C9"/><stop offset="1" stop-color="#C9C9C9" stop-opacity="0"/></linearGradient><linearGradient id="b" x1="796.912" x2="404.507" y1="599.963" y2="599.965" gradientUnits="userSpaceOnUse"><stop stop-color="#C9C9C9" stop-opacity="0"/><stop offset=".208" stop-color="#C9C9C9"/><stop offset=".792" stop-color="#C9C9C9"/><stop offset="1" stop-color="#C9C9C9" stop-opacity="0"/></linearGradient><linearGradient id="c" x1="600.792" x2="600.794" y1="403.677" y2="796.082" gradientUnits="userSpaceOnUse"><stop stop-color="#C9C9C9" stop-opacity="0"/><stop offset=".208" stop-color="#C9C9C9"/><stop offset=".792" stop-color="#C9C9C9"/><stop offset="1" stop-color="#C9C9C9" stop-opacity="0"/></linearGradient><linearGradient id="d" x1="404.85" x2="796.972" y1="403.903" y2="796.02" gradientUnits="userSpaceOnUse"><stop stop-color="#C9C9C9" stop-opacity="0"/><stop offset=".208" stop-color="#C9C9C9"/><stop offset=".792" stop-color="#C9C9C9"/><stop offset="1" stop-color="#C9C9C9" stop-opacity="0"/></linearGradient><clipPath id="e"><path fill="#fff" d="M581.364 580.535h38.689v38.689h-38.689z"/></clipPath></defs></svg>
 ```
 
 ## File: styles/globals.css
+
 ```css
 @tailwind base;
 @tailwind components;
@@ -18704,6 +18999,7 @@ body {
 ```
 
 ## File: types/artist.ts
+
 ```typescript
 export interface Post {
   content: string;
@@ -18755,6 +19051,7 @@ export interface Artist {
 ```
 
 ## File: types/music-player.ts
+
 ```typescript
 export interface Track {
   id: string;
@@ -18793,11 +19090,13 @@ export interface MusicPlayer {
 ```
 
 ## File: .gitignore
+
 ```
 .repomixignore
 ```
 
 ## File: package.json
+
 ```json
 {
   "name": "my-v0-project",
@@ -18878,8 +19177,9 @@ export interface MusicPlayer {
 ```
 
 ## File: tailwind.config.ts
+
 ```typescript
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
@@ -18964,12 +19264,13 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
 ```
 
 ## File: tsconfig.json
+
 ```json
 {
   "compilerOptions": {

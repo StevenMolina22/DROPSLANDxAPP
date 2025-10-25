@@ -1,12 +1,12 @@
 export interface Track {
-  id: string
-  title: string
-  artist: string
-  album: string
-  duration: number
-  cover: string
-  audioUrl: string
-  isLiked?: boolean
+  id: string;
+  title: string;
+  artist: string;
+  album: string;
+  duration: number;
+  cover: string;
+  audioUrl: string;
+  isLiked?: boolean;
 }
 
 // URLs de streaming para los archivos de música
@@ -20,7 +20,7 @@ export const musicTracks: Track[] = [
     duration: 285, // 4:45 in seconds
     cover: "/avatars/banger.jpg",
     audioUrl: "/music/Banger - Bandolero (feat. Ace).mp3",
-    isLiked: false
+    isLiked: false,
   },
   {
     id: "2",
@@ -30,7 +30,7 @@ export const musicTracks: Track[] = [
     duration: 372, // 6:12 in seconds
     cover: "/avatars/juampi.jpg",
     audioUrl: "/music/Flush - Fuck That.mp3",
-    isLiked: true
+    isLiked: true,
   },
   {
     id: "3",
@@ -40,7 +40,7 @@ export const musicTracks: Track[] = [
     duration: 426, // 7:06 in seconds
     cover: "/avatars/juampi.jpg",
     audioUrl: "/music/Flush - Sadtisfied.mp3",
-    isLiked: false
+    isLiked: false,
   },
   {
     id: "4",
@@ -50,7 +50,7 @@ export const musicTracks: Track[] = [
     duration: 522, // 8:42 in seconds
     cover: "/avatars/juampi.jpg",
     audioUrl: "/music/Flush - Touch It.mp3",
-    isLiked: true
+    isLiked: true,
   },
   {
     id: "5",
@@ -60,7 +60,7 @@ export const musicTracks: Track[] = [
     duration: 486, // 8:06 in seconds
     cover: "/avatars/nicola.jpg",
     audioUrl: "/music/Nicola Marti - Better Than Sex-4.mp3",
-    isLiked: false
+    isLiked: false,
   },
   {
     id: "6",
@@ -70,7 +70,7 @@ export const musicTracks: Track[] = [
     duration: 378, // 6:18 in seconds
     cover: "/avatars/juampi.jpg",
     audioUrl: "/music/iamjuampi - SHADOWS.mp3",
-    isLiked: true
+    isLiked: true,
   },
   {
     id: "7",
@@ -80,33 +80,34 @@ export const musicTracks: Track[] = [
     duration: 342, // 5:42 in seconds
     cover: "/avatars/juampi.jpg",
     audioUrl: "/music/iamjuampi - TOXIC.mp3",
-    isLiked: false
-  }
-]
+    isLiked: false,
+  },
+];
 
 // Función para obtener una pista por ID
 export function getTrackById(id: string): Track | undefined {
-  return musicTracks.find(track => track.id === id)
+  return musicTracks.find((track) => track.id === id);
 }
 
 // Función para obtener todas las pistas
 export function getAllTracks(): Track[] {
-  return musicTracks
+  return musicTracks;
 }
 
 // Función para obtener pistas por artista
 export function getTracksByArtist(artist: string): Track[] {
-  return musicTracks.filter(track => 
-    track.artist.toLowerCase().includes(artist.toLowerCase())
-  )
+  return musicTracks.filter((track) =>
+    track.artist.toLowerCase().includes(artist.toLowerCase()),
+  );
 }
 
 // Función para buscar pistas
 export function searchTracks(query: string): Track[] {
-  const lowerQuery = query.toLowerCase()
-  return musicTracks.filter(track => 
-    track.title.toLowerCase().includes(lowerQuery) ||
-    track.artist.toLowerCase().includes(lowerQuery) ||
-    track.album.toLowerCase().includes(lowerQuery)
-  )
-} 
+  const lowerQuery = query.toLowerCase();
+  return musicTracks.filter(
+    (track) =>
+      track.title.toLowerCase().includes(lowerQuery) ||
+      track.artist.toLowerCase().includes(lowerQuery) ||
+      track.album.toLowerCase().includes(lowerQuery),
+  );
+}

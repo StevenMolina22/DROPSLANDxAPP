@@ -8,7 +8,7 @@ import Image from "next/image";
 
 // Import the useAuth hook and UserProfile component
 import { useAuth } from "@/hooks/use-auth";
-import UserProfile from "@/components/artist-profile/user-profile";
+import UserProfile from "@/components/profile/user-profile";
 import { useMusicPlayer } from "@/hooks/use-music-player";
 import { musicTracks } from "@/lib/music-data";
 import { LegacyProfileInfo } from "./legacy-profile-info";
