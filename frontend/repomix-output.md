@@ -60,10 +60,6 @@ components/
     activity-screen.tsx
     activity-view.tsx
     home-view.tsx
-  home/
-    activity-screen.tsx
-    activity-view.tsx
-    home-view.tsx
   icons/
     banknote-icon.tsx
     banknote-svg.tsx
@@ -162,7 +158,10 @@ contexts/
   music-player-context.tsx
   solana-wallet-context.tsx
 data/
+  activities.ts
   artist-profile.ts
+  explore.ts
+  music.ts
   profile-view.ts
   search-view.ts
   wallet-view.ts
@@ -195,7 +194,9 @@ styles/
   globals.css
 types/
   artist.ts
+  explore.ts
   music-player.ts
+  music.ts
 .gitignore
 package.json
 tailwind.config.ts
@@ -229,129 +230,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DonateForm from "@/components/wallet/donate-form";
-
-// Import the artists data from the artist-profile component
-const artists = [
-  {
-    id: "iamjuampi",
-    name: "iamjuampi",
-    handle: "@iamjuampi",
-    avatar: "/avatars/juampi.jpg",
-    coverImage: "/images/bdeeeee.jpg",
-    genre: "Tech-House",
-    description:
-      "DJ, producer, and founder of the record label Best Drops Ever.",
-    supporters: 1850,
-    blgReceived: 1850,
-    featured: true,
-    tokenName: "JUAMPI",
-    tokenPrice: 0.45,
-    posts: [
-      {
-        content:
-          "Just released my new EP 'Techno Dimensions'. Available now on all platforms! #TechnoDimensions #NewRelease",
-        time: "2 hours ago",
-        likes: 87,
-        comments: 14,
-        image: "/images/dj-mixer.png",
-      },
-      {
-        content:
-          "Preparing my set for this weekend at Club Underground. It's going to be an epic night of techno and house. Who's coming? 🎧",
-        time: "1 day ago",
-        likes: 65,
-        comments: 23,
-      },
-      {
-        content:
-          "Happy to announce I'll be playing at the Electronic Dreams festival next month. See you there! #ElectronicDreams #Festival",
-        time: "3 days ago",
-        likes: 112,
-        comments: 31,
-        image: "/images/dj-mixer.png",
-      },
-      {
-        content:
-          "Working on new sounds for my upcoming release. I'm experimenting with analog synthesizers and 90s samples.",
-        time: "1 week ago",
-        likes: 94,
-        comments: 17,
-      },
-    ],
-  },
-  {
-    id: "banger",
-    name: "banger",
-    handle: "@banger",
-    avatar: "/avatars/banger.jpg",
-    coverImage: "/images/bdeeeee.jpg",
-    genre: "DNB y Tech-House",
-    description:
-      "Productor de house con influencias de disco y funk. Conocido por sus ritmos enérgicos.",
-    supporters: 2100,
-    blgReceived: 2100,
-    featured: true,
-    tokenName: "BANGER",
-    tokenPrice: 0.42,
-    posts: [
-      {
-        content:
-          "New track dropping next week! Can't wait to share this one with you all.",
-        time: "1 day ago",
-        likes: 45,
-        comments: 8,
-      },
-    ],
-  },
-  {
-    id: "nicolamarti",
-    name: "Nicola Marti",
-    handle: "@nicolamarti",
-    avatar: "/avatars/nicola.jpg",
-    coverImage: "/images/bdeeeee.jpg",
-    genre: "Tech-House",
-    description:
-      "Artista italiano de techno melódico con un estilo único y atmosférico.",
-    supporters: 1750,
-    blgReceived: 1750,
-    featured: true,
-    tokenName: "NICOLA",
-    tokenPrice: 0.38,
-    posts: [
-      {
-        content:
-          "Working on new melodic techno tracks. The energy is incredible!",
-        time: "3 days ago",
-        likes: 67,
-        comments: 12,
-      },
-    ],
-  },
-  {
-    id: "axs",
-    name: "AXS",
-    handle: "@axs",
-    avatar: "/avatars/axs.jpg",
-    coverImage: "/images/bdeeeee.jpg",
-    genre: "Riddim",
-    description:
-      "Productor de techno industrial con influencias de EBM y post-punk.",
-    supporters: 1680,
-    blgReceived: 1680,
-    featured: true,
-    tokenName: "AXS",
-    tokenPrice: 0.35,
-    posts: [
-      {
-        content:
-          "New riddim track in the works. This one is going to be heavy!",
-        time: "2 days ago",
-        likes: 89,
-        comments: 15,
-      },
-    ],
-  },
-];
+import { artists } from "@/data/artist-profile";
 
 export default function CreatorPage({ params }: { params: { id: string } }) {
   // Find the artist by ID
@@ -1148,94 +1027,9 @@ export default function ArtistsList() {
 ## File: components/explore/explore-screen.tsx
 ```typescript
 "use client";
-
 import { Search, Filter } from "lucide-react";
 import Image from "next/image";
-
-// Mock data for categories and creators
-const CATEGORIES = [
-  "All",
-  "Art",
-  "Music",
-  "Tech",
-  "Gaming",
-  "Writing",
-  "Cooking",
-];
-
-type Creator = {
-  id: string;
-  name: string;
-  handle: string;
-  avatar: string;
-  category: string;
-  description: string;
-  blgReceived: number;
-  featured: boolean;
-};
-
-const CREATORS: Creator[] = [
-  {
-    id: "1",
-    name: "Elena Rodriguez",
-    handle: "@elenadraws",
-    avatar: "/placeholder.svg?height=60&width=60",
-    category: "Art",
-    description: "Digital artist creating vibrant illustrations",
-    blgReceived: 8750,
-    featured: true,
-  },
-  {
-    id: "2",
-    name: "Marcus Chen",
-    handle: "@marcusmusic",
-    avatar: "/placeholder.svg?height=60&width=60",
-    category: "Music",
-    description: "Independent musician sharing original compositions",
-    blgReceived: 6320,
-    featured: false,
-  },
-  {
-    id: "3",
-    name: "Sophia Williams",
-    handle: "@sophiatech",
-    avatar: "/placeholder.svg?height=60&width=60",
-    category: "Tech",
-    description: "Tutorials and insights on blockchain development",
-    blgReceived: 12450,
-    featured: true,
-  },
-  {
-    id: "4",
-    name: "Jamal Thompson",
-    handle: "@jamalgaming",
-    avatar: "/placeholder.svg?height=60&width=60",
-    category: "Gaming",
-    description: "Game reviews and live streaming of indie games",
-    blgReceived: 4890,
-    featured: false,
-  },
-  {
-    id: "5",
-    name: "Aisha Patel",
-    handle: "@aishawriter",
-    avatar: "/placeholder.svg?height=60&width=60",
-    category: "Writing",
-    description: "Short stories and poetry from around the world",
-    blgReceived: 3750,
-    featured: false,
-  },
-  {
-    id: "6",
-    name: "Leo Kim",
-    handle: "@leocooks",
-    avatar: "/placeholder.svg?height=60&width=60",
-    category: "Cooking",
-    description: "Fusion recipes and culinary adventures",
-    blgReceived: 7120,
-    featured: true,
-  },
-];
+import { Creator, CATEGORIES, CREATORS } from "@/data/explore";
 
 interface ExploreScreenProps {
   onSelectCreator: (creator: Creator) => void;
@@ -1342,167 +1136,21 @@ export default function ExploreScreen({ onSelectCreator }: ExploreScreenProps) {
 
 ## File: components/explore/explore-view.tsx
 ```typescript
-import { useState, useEffect } from "react";
-import {
-  Search,
-  Filter,
-  TrendingUp,
-  Music,
-  Headphones,
-  Guitar,
-  Drum,
-  Mic,
-} from "lucide-react";
+import { useState } from "react";
+import { Search, Filter, TrendingUp, Music } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import MusicCard from "@/components/music-player/music-card";
 import { useMusicPlayer } from "@/hooks/use-music-player";
-
-interface Artist {
-  id: string;
-  name: string;
-  avatar: string;
-  genre: string;
-  followers: number;
-}
-
-interface Track {
-  id: string;
-  title: string;
-  artist: string;
-  album: string;
-  duration: number;
-  cover: string;
-  audioUrl: string;
-}
-
-interface Genre {
-  id: string;
-  name: string;
-  icon: string;
-  artists: number;
-}
+import { Track } from "@/types/explore";
+import { genres, popularTracks, trendingArtists } from "@/data/explore";
 
 export function ExploreView() {
   const [searchQuery, setSearchQuery] = useState("");
   const [likedTracks, setLikedTracks] = useState<Set<string>>(new Set());
   const { playTrack } = useMusicPlayer();
-
-  // Sample data
-  const trendingArtists: Artist[] = [
-    {
-      id: "1",
-      name: "Flush",
-      avatar: "/avatars/flush.jpg",
-      genre: "Electronic",
-      followers: 15420,
-    },
-    {
-      id: "2",
-      name: "Danilødr",
-      avatar: "/avatars/danilodr.jpg",
-      genre: "Dubstep",
-      followers: 12890,
-    },
-    {
-      id: "3",
-      name: "Kr4D",
-      avatar: "/avatars/kr4d.jpg",
-      genre: "Bass",
-      followers: 9870,
-    },
-    {
-      id: "4",
-      name: "AXS",
-      avatar: "/avatars/axs.jpg",
-      genre: "Trap",
-      followers: 11230,
-    },
-  ];
-
-  const popularTracks: Track[] = [
-    {
-      id: "1",
-      title: "Best Drops Ever",
-      artist: "Flush",
-      album: "Dropsland Collection",
-      duration: 225,
-      cover: "/covers/best-drops-ever.jpg",
-      audioUrl: "/audio/best-drops-ever.mp3",
-    },
-    {
-      id: "2",
-      title: "Broken",
-      artist: "Danilødr",
-      album: "Dropsland Collection",
-      duration: 252,
-      cover: "/covers/broken.jpg",
-      audioUrl: "/audio/broken.mp3",
-    },
-    {
-      id: "3",
-      title: "Sadtisfied",
-      artist: "Flush",
-      album: "Dropsland Collection",
-      duration: 208,
-      cover: "/covers/sadtisfied.jpg",
-      audioUrl: "/audio/sadtisfied.mp3",
-    },
-    {
-      id: "4",
-      title: "Riddim Tutorial",
-      artist: "AXS",
-      album: "Dropsland Collection",
-      duration: 315,
-      cover: "/covers/riddim-tutorial.jpg",
-      audioUrl: "/audio/riddim-tutorial.mp3",
-    },
-    {
-      id: "5",
-      title: "Kingman",
-      artist: "AXS, Brolow",
-      album: "Dropsland Collection",
-      duration: 273,
-      cover: "/covers/kingman.jpg",
-      audioUrl: "/audio/kingman.mp3",
-    },
-    {
-      id: "6",
-      title: "Body",
-      artist: "Kr4D",
-      album: "Dropsland Collection",
-      duration: 232,
-      cover: "/covers/body.jpg",
-      audioUrl: "/audio/body.mp3",
-    },
-    {
-      id: "7",
-      title: "Travel",
-      artist: "Flush",
-      album: "Dropsland Collection",
-      duration: 248,
-      cover: "/covers/travel.jpg",
-      audioUrl: "/audio/travel.mp3",
-    },
-    {
-      id: "8",
-      title: "Arriving",
-      artist: "Flush",
-      album: "Dropsland Collection",
-      duration: 235,
-      cover: "/covers/arriving.jpg",
-      audioUrl: "/audio/arriving.mp3",
-    },
-  ];
-
-  const genres: Genre[] = [
-    { id: "1", name: "Dubstep", icon: "🎵", artists: 45 },
-    { id: "2", name: "Trap", icon: "🎧", artists: 32 },
-    { id: "3", name: "Bass", icon: "🥁", artists: 28 },
-    { id: "4", name: "Electronic", icon: "🎤", artists: 56 },
-  ];
 
   const handleTrackLike = (trackId: string) => {
     const newLikedTracks = new Set(likedTracks);
@@ -1687,122 +1335,13 @@ export default function LoadingCreators() {
 ## File: components/feed/activity-screen.tsx
 ```typescript
 "use client";
-
 import { ArrowDown, ArrowUp, Heart, MessageCircle, User } from "lucide-react";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-// Importar el hook useAuth
 import { useAuth } from "@/hooks/use-auth";
-
-// Mock data for activity
-const ACTIVITIES = [
-  {
-    id: "a1",
-    type: "donation_sent",
-    user: {
-      name: "Elena Rodriguez",
-      avatar: "/placeholder.svg?height=40&width=40",
-    },
-    amount: 5,
-    time: "2 hours ago",
-  },
-  {
-    id: "a2",
-    type: "purchase",
-    amount: 50,
-    wldAmount: 0.5,
-    time: "1 day ago",
-  },
-  {
-    id: "a3",
-    type: "donation_received",
-    user: {
-      name: "Anonymous",
-      avatar: "/placeholder.svg?height=40&width=40",
-    },
-    amount: 10,
-    time: "3 days ago",
-  },
-  {
-    id: "a4",
-    type: "donation_sent",
-    user: {
-      name: "Marcus Chen",
-      avatar: "/placeholder.svg?height=40&width=40",
-    },
-    amount: 20,
-    time: "1 week ago",
-  },
-  {
-    id: "a5",
-    type: "purchase",
-    amount: 100,
-    wldAmount: 1,
-    time: "2 weeks ago",
-  },
-];
-
-// Mock data for social notifications
-const SOCIAL_NOTIFICATIONS = [
-  {
-    id: "n1",
-    type: "like",
-    user: {
-      name: "Juan Pablo",
-      avatar: "/avatars/user.jpg",
-    },
-    action: "liked your post",
-    postContent:
-      "Just finished a new track! Can't wait to share it with you all.",
-    time: "5 minutes ago",
-  },
-  {
-    id: "n2",
-    type: "comment",
-    user: {
-      name: "Banger",
-      avatar: "/avatars/banger.jpg",
-    },
-    action: "commented on your post",
-    comment: "Amazing track! 🔥",
-    time: "1 hour ago",
-  },
-  {
-    id: "n3",
-    type: "follow",
-    user: {
-      name: "Nicola Marti",
-      avatar: "/avatars/nicola.jpg",
-    },
-    action: "started following you",
-    time: "2 hours ago",
-  },
-  {
-    id: "n4",
-    type: "like",
-    user: {
-      name: "AXS",
-      avatar: "/avatars/axs.jpg",
-    },
-    action: "liked your post",
-    postContent: "Working on something special for my supporters. Stay tuned!",
-    time: "3 hours ago",
-  },
-  {
-    id: "n5",
-    type: "comment",
-    user: {
-      name: "FLUSH",
-      avatar: "/avatars/flush.jpg",
-    },
-    action: "commented on your post",
-    comment: "Can't wait to hear it! 🎵",
-    time: "1 day ago",
-  },
-];
+import { ACTIVITIES, SOCIAL_NOTIFICATIONS } from "@/data/activities";
 
 // Modificar la función ActivityScreen para mostrar el balance actual
 export default function ActivityScreen() {
@@ -2004,7 +1543,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
 import { userDataService } from "@/lib/user-data-service";
-import { Activity } from "@/lib/types";
+import { Activity } from "@/types/core";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
 
 interface ActivityViewProps {
@@ -2169,1223 +1708,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
 import { useAuth } from "@/hooks/use-auth";
 import { userDataService } from "@/lib/user-data-service";
-import { Post, Activity, FeedItem } from "@/lib/types";
-import MusicPlayer from "@/components/music-player/music-player";
-
-interface HomeViewProps {
-  onSelectArtist: (artistId: string) => void;
-  onNavigateToExplore?: () => void;
-}
-
-export default function HomeView({
-  onSelectArtist,
-  onNavigateToExplore,
-}: HomeViewProps) {
-  const { userData, isArtist, user } = useAuth();
-  const [feedItems, setFeedItems] = useState<FeedItem[]>([]);
-  const [showCommentDialog, setShowCommentDialog] = useState(false);
-  const [currentPostId, setCurrentPostId] = useState<string | null>(null);
-  const [commentText, setCommentText] = useState("");
-  const [showCreatePost, setShowCreatePost] = useState(false);
-  const [newPostContent, setNewPostContent] = useState("");
-  const [newPostImage, setNewPostImage] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [likedTracks, setLikedTracks] = useState<Set<string>>(new Set());
-  const [showLocationPicker, setShowLocationPicker] = useState(false);
-  const [showPollCreator, setShowPollCreator] = useState(false);
-  const [showFileUpload, setShowFileUpload] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState<string>("");
-  const [pollOptions, setPollOptions] = useState<string[]>(["", ""]);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [showWelcomeBanner, setShowWelcomeBanner] = useState(true); // Add state for welcome banner visibility
-
-  // Load feed data
-  useEffect(() => {
-    if (user) {
-      const feed = userDataService.getFeedForUser(user);
-      setFeedItems(feed);
-    }
-  }, [user]);
-
-  const handleSelectArtist = (artistId: string) => {
-    console.log("Home view - Selected artist:", artistId);
-    onSelectArtist(artistId);
-  };
-
-  const handleLike = (postId: string) => {
-    if (!user) return;
-
-    const success = userDataService.likePost(user, postId);
-    if (success) {
-      // Refresh feed
-      const feed = userDataService.getFeedForUser(user);
-      setFeedItems(feed);
-    }
-  };
-
-  const handleOpenComments = (postId: string) => {
-    setCurrentPostId(postId);
-    setShowCommentDialog(true);
-  };
-
-  const handleSendComment = () => {
-    if (!commentText.trim() || !currentPostId || !user) return;
-
-    const comment = userDataService.addComment(
-      user,
-      currentPostId,
-      commentText,
-    );
-    if (comment) {
-      // Refresh feed
-      const feed = userDataService.getFeedForUser(user);
-      setFeedItems(feed);
-      setCommentText("");
-    }
-  };
-
-  const handleCreatePost = () => {
-    if (!newPostContent.trim() || !user || !userData) return;
-
-    let content = newPostContent;
-
-    // Add location if selected
-    if (selectedLocation) {
-      content += ` 📍 ${selectedLocation}`;
-    }
-
-    // Add poll if created
-    if (pollOptions.some((option) => option.trim())) {
-      content += `\n\n📊 Poll:\n${pollOptions
-        .filter((option) => option.trim())
-        .map((option, index) => `${index + 1}. ${option}`)
-        .join("\n")}`;
-    }
-
-    const postData = {
-      authorId: user,
-      authorName: userData.username,
-      authorAvatar: userData.profilePhoto || "/avatars/user.jpg",
-      content: content,
-      image: previewUrl || undefined,
-      type: "post" as const,
-      tags: extractTags(newPostContent),
-    };
-
-    const newPost = userDataService.createPost(postData);
-    if (newPost) {
-      // Refresh feed
-      const feed = userDataService.getFeedForUser(user);
-      setFeedItems(feed);
-      setNewPostContent("");
-      setNewPostImage(null);
-      setPreviewUrl(null);
-      setSelectedLocation("");
-      setPollOptions(["", ""]);
-      setSelectedFile(null);
-      setShowCreatePost(false);
-    }
-  };
-
-  const extractTags = (content: string): string[] => {
-    const hashtagRegex = /#(\w+)/g;
-    const matches = content.match(hashtagRegex);
-    return matches ? matches.map((tag) => tag.slice(1)) : [];
-  };
-
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      if (!file.type.startsWith("image/")) {
-        alert("Please select an image file");
-        return;
-      }
-
-      if (file.size > 5 * 1024 * 1024) {
-        alert("Please select an image smaller than 5MB");
-        return;
-      }
-
-      setNewPostImage(file);
-      const url = URL.createObjectURL(file);
-      setPreviewUrl(url);
-    }
-  };
-
-  const handleImageClick = () => {
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = "image/*";
-    input.onchange = (e) => handleImageUpload(e as any);
-    input.click();
-  };
-
-  const handleLocationClick = () => {
-    setShowLocationPicker(true);
-  };
-
-  const handleHashtagClick = () => {
-    setNewPostContent((prev) => prev + " #");
-  };
-
-  const handlePollClick = () => {
-    setShowPollCreator(true);
-  };
-
-  const handleFileClick = () => {
-    setShowFileUpload(true);
-  };
-
-  const handleAddPollOption = () => {
-    setPollOptions((prev) => [...prev, ""]);
-  };
-
-  const handlePollOptionChange = (index: number, value: string) => {
-    setPollOptions((prev) =>
-      prev.map((option, i) => (i === index ? value : option)),
-    );
-  };
-
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      if (file.size > 10 * 1024 * 1024) {
-        alert("Please select a file smaller than 10MB");
-        return;
-      }
-      setSelectedFile(file);
-      setNewPostContent((prev) => prev + ` 📎 ${file.name}`);
-    }
-  };
-
-  const formatTimeAgo = (dateString: string): string => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffInMinutes = Math.floor(
-      (now.getTime() - date.getTime()) / (1000 * 60),
-    );
-
-    if (diffInMinutes < 1) return "Just now";
-    if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
-
-    const diffInHours = Math.floor(diffInMinutes / 60);
-    if (diffInHours < 24) return `${diffInHours}h ago`;
-
-    const diffInDays = Math.floor(diffInHours / 24);
-    if (diffInDays < 7) return `${diffInDays}d ago`;
-
-    return date.toLocaleDateString();
-  };
-
-  const handleTrackChange = (track: any) => {
-    console.log("Now playing:", track.title, "by", track.artist);
-  };
-
-  const handleTrackLike = (trackId: string) => {
-    const newLikedTracks = new Set(likedTracks);
-    if (newLikedTracks.has(trackId)) {
-      newLikedTracks.delete(trackId);
-    } else {
-      newLikedTracks.add(trackId);
-    }
-    setLikedTracks(newLikedTracks);
-  };
-
-  const renderFeedItem = (item: FeedItem) => {
-    if (item.type === "post") {
-      const post = item.data as Post;
-      const isLiked = user ? post.likes.includes(user) : false;
-
-      return (
-        <Card key={item.id} className="bg-gray-800 border-gray-700">
-          <CardContent className="p-4">
-            <div className="flex items-center mb-3">
-              <Avatar
-                className="h-8 w-8 mr-2 cursor-pointer"
-                onClick={() => handleSelectArtist(post.authorId)}
-              >
-                <AvatarImage src={post.authorAvatar} alt={post.authorName} />
-                <AvatarFallback>
-                  {post.authorName.substring(0, 2).toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
-              <div>
-                <p
-                  className="font-medium text-white cursor-pointer"
-                  onClick={() => handleSelectArtist(post.authorId)}
-                >
-                  {post.authorName}
-                </p>
-                <p className="text-gray-400 text-xs">
-                  {formatTimeAgo(post.createdAt)}
-                </p>
-              </div>
-            </div>
-            <p className="text-sm text-gray-300 mb-3">{post.content}</p>
-            {post.image && (
-              <div className="mb-3 rounded-lg overflow-hidden">
-                <img
-                  src={post.image}
-                  alt="Post image"
-                  className="w-full h-auto"
-                />
-              </div>
-            )}
-            <div className="flex items-center justify-between text-gray-400 text-sm">
-              <button
-                className="flex items-center"
-                onClick={() => handleLike(post.id)}
-                disabled={!user}
-              >
-                <Heart
-                  className={`h-4 w-4 mr-1 ${isLiked ? "fill-red-500 text-red-500" : ""}`}
-                />
-                {post.likes.length}
-              </button>
-              <button
-                className="flex items-center"
-                onClick={() => handleOpenComments(post.id)}
-                disabled={!user}
-              >
-                <MessageCircle className="h-4 w-4 mr-1" />
-                {post.comments.length}
-              </button>
-              <button className="flex items-center">
-                <Share2 className="h-4 w-4 mr-1" />
-                Share
-              </button>
-            </div>
-          </CardContent>
-        </Card>
-      );
-    } else if (item.type === "activity") {
-      const activity = item.data as Activity;
-
-      return (
-        <Card key={item.id} className="bg-gray-800 border-gray-700">
-          <CardContent className="p-3">
-            <div className="flex gap-3">
-              <Avatar
-                className="h-10 w-10 cursor-pointer"
-                onClick={() => handleSelectArtist(activity.userId)}
-              >
-                <AvatarImage
-                  src={activity.userAvatar}
-                  alt={activity.userName}
-                />
-                <AvatarFallback>
-                  {activity.userName.substring(0, 2).toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex-1">
-                <p className="text-sm text-white">
-                  <span
-                    className="font-medium cursor-pointer"
-                    onClick={() => handleSelectArtist(activity.userId)}
-                  >
-                    {activity.userName}
-                  </span>{" "}
-                  {activity.action}
-                </p>
-                {activity.message && (
-                  <p className="text-sm mt-1 bg-gray-700 p-2 rounded-lg text-gray-300">
-                    {activity.message}
-                  </p>
-                )}
-                <div className="flex items-center mt-1">
-                  <p className="text-xs text-gray-400">
-                    {formatTimeAgo(activity.createdAt)}
-                  </p>
-                  {activity.amount && activity.tokenName && (
-                    <div className="flex items-center text-bright-yellow text-xs font-medium ml-2">
-                      <BanknoteIcon className="h-4 w-4 mr-1" />
-                      <span>
-                        {activity.amount} ${activity.tokenName}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      );
-    }
-
-    return null;
-  };
-
-  return (
-    <div className="pb-6 overflow-auto bg-gray-50 dark:bg-gray-950">
-      {/* Featured Artists */}
-      <div className="px-4 pt-6">
-        <h2 className="text-lg font-semibold mb-3 text-white">
-          Featured Artists
-        </h2>
-        <div className="flex overflow-x-auto gap-1 pb-2 -mx-4 px-4">
-          {featuredArtists.map((artist) => (
-            <div
-              key={artist.id}
-              className="flex-shrink-0 w-28"
-              onClick={() => handleSelectArtist(artist.id)}
-              style={{ cursor: "pointer" }}
-            >
-              <div className="flex flex-col items-center cursor-pointer">
-                <Avatar className="h-16 w-16">
-                  <AvatarImage src={artist.avatar} alt={artist.name} />
-                  <AvatarFallback>
-                    {artist.name.substring(0, 2).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-                <p className="font-medium text-sm mt-2 text-center text-white">
-                  {artist.name}
-                </p>
-                <p className="text-xs text-gray-400">{artist.genre}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Message for fans */}
-      {!isArtist() && showWelcomeBanner && (
-        <div className="px-4 mt-4">
-          <Card className="bg-gray-800 border-gray-700">
-            <CardContent className="p-4">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <h3 className="text-white font-medium mb-2">
-                    Welcome to DROPSLAND
-                  </h3>
-                  <p className="text-sm text-gray-300">
-                    Here you can discover artists, buy their tokens and receive
-                    exclusive rewards.
-                  </p>
-                  <div className="flex gap-2 mt-3">
-                    <Button
-                      size="sm"
-                      className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
-                    >
-                      <BanknoteIcon className="h-5 w-5 mr-1" />
-                      Buy Tokens
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="bg-gray-700 text-white border-gray-600"
-                      onClick={onNavigateToExplore}
-                    >
-                      Explore Artists
-                    </Button>
-                  </div>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setShowWelcomeBanner(false)}
-                  className="text-gray-400 hover:text-white ml-2"
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
-
-      {/* Tabs */}
-      <div className="px-4 mt-6">
-        <Tabs defaultValue="feed" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 bg-gray-800">
-            <TabsTrigger
-              value="feed"
-              className="data-[state=active]:bg-teal-600"
-            >
-              Feed
-            </TabsTrigger>
-            <TabsTrigger
-              value="music"
-              className="data-[state=active]:bg-teal-600"
-            >
-              Player
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="feed" className="mt-4">
-            {/* What's on your USB */}
-            {user && (
-              <div className="mb-4">
-                <Card className="bg-gray-800 border-gray-700">
-                  <CardContent className="p-4">
-                    <div className="flex items-start gap-3">
-                      <Avatar className="h-10 w-10">
-                        <AvatarImage
-                          src={
-                            userData?.profilePhoto &&
-                            userData.profilePhoto.trim() !== ""
-                              ? userData.profilePhoto
-                              : "/avatars/user.jpg"
-                          }
-                          alt="Your profile"
-                          onError={(e) => {
-                            e.currentTarget.src = "/avatars/user.jpg";
-                          }}
-                        />
-                        <AvatarFallback>
-                          {userData?.username?.substring(0, 2).toUpperCase() ||
-                            "U"}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1">
-                        <Textarea
-                          placeholder="What's on your USB?"
-                          value={newPostContent}
-                          onChange={(e) => setNewPostContent(e.target.value)}
-                          className="bg-gray-700 border-gray-600 text-white resize-none mb-3"
-                          rows={3}
-                        />
-                        <div className="flex flex-wrap gap-4 mb-3 justify-start">
-                          <ImageIcon
-                            className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer"
-                            onClick={handleImageClick}
-                          />
-                          <MapPin
-                            className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer"
-                            onClick={handleLocationClick}
-                          />
-                          <Hash
-                            className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer"
-                            onClick={handleHashtagClick}
-                          />
-                          <BarChart2
-                            className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer"
-                            onClick={handlePollClick}
-                          />
-                          <Paperclip
-                            className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer"
-                            onClick={handleFileClick}
-                          />
-                        </div>
-                        <div className="flex justify-end">
-                          <Button
-                            size="sm"
-                            onClick={handleCreatePost}
-                            disabled={!newPostContent.trim()}
-                            className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
-                          >
-                            <Send className="h-4 w-4 mr-2" />
-                            Post
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            )}
-
-            <div className="space-y-3">
-              {feedItems.length > 0 ? (
-                feedItems.map(renderFeedItem)
-              ) : (
-                <Card className="bg-gray-800 border-gray-700">
-                  <CardContent className="p-6 text-center">
-                    <p className="text-gray-300">No posts yet</p>
-                    <p className="text-gray-400 text-sm mt-1">
-                      Follow some artists to see their posts here
-                    </p>
-                  </CardContent>
-                </Card>
-              )}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="music" className="mt-4">
-            <MusicPlayer onTrackChange={handleTrackChange} />
-          </TabsContent>
-        </Tabs>
-      </div>
-
-      {/* Comment Dialog */}
-      <Dialog open={showCommentDialog} onOpenChange={setShowCommentDialog}>
-        <DialogContent className="bg-gray-800 border-gray-700">
-          <DialogHeader>
-            <DialogTitle className="text-white">Comments</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <div className="max-h-[300px] overflow-y-auto space-y-3">
-              {currentPostId &&
-                (() => {
-                  const allPosts = userDataService.getAllPosts();
-                  const post = allPosts.find(
-                    (p: any) => p.id === currentPostId,
-                  );
-                  return post?.comments.map((comment: any, i: number) => (
-                    <div key={i} className="flex gap-2">
-                      <Avatar className="h-8 w-8">
-                        <AvatarImage
-                          src={comment.authorAvatar}
-                          alt={comment.authorName}
-                        />
-                        <AvatarFallback>
-                          {comment.authorName.substring(0, 2).toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1 bg-gray-700 p-2 rounded-lg">
-                        <p className="text-sm font-medium text-white">
-                          {comment.authorName}
-                        </p>
-                        <p className="text-sm text-gray-300">
-                          {comment.content}
-                        </p>
-                      </div>
-                    </div>
-                  ));
-                })()}
-            </div>
-            <div className="flex gap-2">
-              <Input
-                placeholder="Write a comment..."
-                value={commentText}
-                onChange={(e) => setCommentText(e.target.value)}
-                className="flex-1 bg-gray-700 border-gray-600 text-white"
-              />
-              <Button
-                onClick={handleSendComment}
-                disabled={!commentText.trim()}
-                className="bg-teal-600 hover:bg-teal-700"
-              >
-                Send
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      {/* Location Picker Dialog */}
-      <Dialog open={showLocationPicker} onOpenChange={setShowLocationPicker}>
-        <DialogContent className="bg-gray-800 border-gray-700">
-          <DialogHeader>
-            <DialogTitle className="text-white">Add Location</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <Input
-              placeholder="Enter location..."
-              value={selectedLocation}
-              onChange={(e) => setSelectedLocation(e.target.value)}
-              className="bg-gray-700 border-gray-600 text-white"
-            />
-            <div className="flex gap-2">
-              <Button
-                onClick={() => setShowLocationPicker(false)}
-                variant="outline"
-                className="bg-gray-700 border-gray-600 text-white"
-              >
-                Cancel
-              </Button>
-              <Button
-                onClick={() => setShowLocationPicker(false)}
-                className="bg-teal-600 hover:bg-teal-700"
-              >
-                Add
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      {/* Poll Creator Dialog */}
-      <Dialog open={showPollCreator} onOpenChange={setShowPollCreator}>
-        <DialogContent className="bg-gray-800 border-gray-700">
-          <DialogHeader>
-            <DialogTitle className="text-white">Create Poll</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <p className="text-gray-300 text-sm">Add poll options:</p>
-            {pollOptions.map((option, index) => (
-              <Input
-                key={index}
-                placeholder={`Option ${index + 1}`}
-                value={option}
-                onChange={(e) => handlePollOptionChange(index, e.target.value)}
-                className="bg-gray-700 border-gray-600 text-white"
-              />
-            ))}
-            <Button
-              onClick={handleAddPollOption}
-              variant="outline"
-              className="bg-gray-700 border-gray-600 text-white"
-            >
-              Add Option
-            </Button>
-            <div className="flex gap-2">
-              <Button
-                onClick={() => setShowPollCreator(false)}
-                variant="outline"
-                className="bg-gray-700 border-gray-600 text-white"
-              >
-                Cancel
-              </Button>
-              <Button
-                onClick={() => setShowPollCreator(false)}
-                className="bg-teal-600 hover:bg-teal-700"
-              >
-                Create Poll
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      {/* File Upload Dialog */}
-      <Dialog open={showFileUpload} onOpenChange={setShowFileUpload}>
-        <DialogContent className="bg-gray-800 border-gray-700">
-          <DialogHeader>
-            <DialogTitle className="text-white">Attach File</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <input
-              type="file"
-              onChange={handleFileUpload}
-              className="bg-gray-700 border-gray-600 text-white p-2 rounded"
-            />
-            <div className="flex gap-2">
-              <Button
-                onClick={() => setShowFileUpload(false)}
-                variant="outline"
-                className="bg-gray-700 border-gray-600 text-white"
-              >
-                Cancel
-              </Button>
-              <Button
-                onClick={() => setShowFileUpload(false)}
-                className="bg-teal-600 hover:bg-teal-700"
-              >
-                Attach
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-    </div>
-  );
-}
-
-// Featured artists data
-const featuredArtists = [
-  {
-    id: "iamjuampi",
-    name: "iamjuampi",
-    genre: "Techno / House",
-    avatar: "/avatars/juampi.jpg",
-  },
-  {
-    id: "banger",
-    name: "banger",
-    genre: "Techno",
-    avatar: "/avatars/banger.jpg",
-  },
-  {
-    id: "nicolamarti",
-    name: "Nicola Marti",
-    genre: "House",
-    avatar: "/avatars/nicola.jpg",
-  },
-  {
-    id: "axs",
-    name: "AXS",
-    genre: "Techno",
-    avatar: "/avatars/axs.jpg",
-  },
-];
-```
-
-## File: components/home/activity-screen.tsx
-```typescript
-"use client";
-
-import { ArrowDown, ArrowUp, Heart, MessageCircle, User } from "lucide-react";
-import { BanknoteIcon } from "@/components/icons/banknote-icon";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-// Importar el hook useAuth
-import { useAuth } from "@/hooks/use-auth";
-
-// Mock data for activity
-const ACTIVITIES = [
-  {
-    id: "a1",
-    type: "donation_sent",
-    user: {
-      name: "Elena Rodriguez",
-      avatar: "/placeholder.svg?height=40&width=40",
-    },
-    amount: 5,
-    time: "2 hours ago",
-  },
-  {
-    id: "a2",
-    type: "purchase",
-    amount: 50,
-    wldAmount: 0.5,
-    time: "1 day ago",
-  },
-  {
-    id: "a3",
-    type: "donation_received",
-    user: {
-      name: "Anonymous",
-      avatar: "/placeholder.svg?height=40&width=40",
-    },
-    amount: 10,
-    time: "3 days ago",
-  },
-  {
-    id: "a4",
-    type: "donation_sent",
-    user: {
-      name: "Marcus Chen",
-      avatar: "/placeholder.svg?height=40&width=40",
-    },
-    amount: 20,
-    time: "1 week ago",
-  },
-  {
-    id: "a5",
-    type: "purchase",
-    amount: 100,
-    wldAmount: 1,
-    time: "2 weeks ago",
-  },
-];
-
-// Mock data for social notifications
-const SOCIAL_NOTIFICATIONS = [
-  {
-    id: "n1",
-    type: "like",
-    user: {
-      name: "Juan Pablo",
-      avatar: "/avatars/user.jpg",
-    },
-    action: "liked your post",
-    postContent:
-      "Just finished a new track! Can't wait to share it with you all.",
-    time: "5 minutes ago",
-  },
-  {
-    id: "n2",
-    type: "comment",
-    user: {
-      name: "Banger",
-      avatar: "/avatars/banger.jpg",
-    },
-    action: "commented on your post",
-    comment: "Amazing track! 🔥",
-    time: "1 hour ago",
-  },
-  {
-    id: "n3",
-    type: "follow",
-    user: {
-      name: "Nicola Marti",
-      avatar: "/avatars/nicola.jpg",
-    },
-    action: "started following you",
-    time: "2 hours ago",
-  },
-  {
-    id: "n4",
-    type: "like",
-    user: {
-      name: "AXS",
-      avatar: "/avatars/axs.jpg",
-    },
-    action: "liked your post",
-    postContent: "Working on something special for my supporters. Stay tuned!",
-    time: "3 hours ago",
-  },
-  {
-    id: "n5",
-    type: "comment",
-    user: {
-      name: "FLUSH",
-      avatar: "/avatars/flush.jpg",
-    },
-    action: "commented on your post",
-    comment: "Can't wait to hear it! 🎵",
-    time: "1 day ago",
-  },
-];
-
-// Modificar la función ActivityScreen para mostrar el balance actual
-export default function ActivityScreen() {
-  const { balance } = useAuth(); // Obtener el balance del contexto
-
-  return (
-    <div className="h-full overflow-auto pb-20">
-      <div className="bg-primary p-4">
-        <h1 className="text-white font-bold text-xl mb-4">Activity</h1>
-        <div className="bg-white rounded-xl p-4 shadow-sm">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-gray-500 text-sm">Available Balance</p>
-              <div className="flex items-center mt-1">
-                <BanknoteIcon className="h-6 w-6 text-primary mr-2" />
-                <span className="text-2xl font-bold">{balance} DROPS</span>
-              </div>
-            </div>
-            <button className="bg-primary text-white px-4 py-2 rounded-full text-sm font-medium">
-              Buy More
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div className="p-4">
-        <Tabs defaultValue="social" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 bg-gray-800">
-            <TabsTrigger
-              value="social"
-              className="data-[state=active]:bg-teal-600"
-            >
-              Social
-            </TabsTrigger>
-            <TabsTrigger
-              value="transactions"
-              className="data-[state=active]:bg-teal-600"
-            >
-              Transactions
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="social" className="mt-4">
-            <div className="space-y-3">
-              {SOCIAL_NOTIFICATIONS.map((notification) => (
-                <Card
-                  key={notification.id}
-                  className="bg-gray-800 border-gray-700"
-                >
-                  <CardContent className="p-4">
-                    <div className="flex items-start gap-3">
-                      <Avatar className="h-10 w-10">
-                        <AvatarImage
-                          src={notification.user.avatar}
-                          alt={notification.user.name}
-                        />
-                        <AvatarFallback>
-                          {notification.user.name.substring(0, 2).toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="font-medium text-white">
-                            {notification.user.name}
-                          </span>
-                          <span className="text-gray-400">
-                            {notification.action}
-                          </span>
-                          {notification.type === "like" && (
-                            <Heart className="h-4 w-4 text-red-500 fill-current" />
-                          )}
-                          {notification.type === "comment" && (
-                            <MessageCircle className="h-4 w-4 text-blue-500" />
-                          )}
-                          {notification.type === "follow" && (
-                            <User className="h-4 w-4 text-green-500" />
-                          )}
-                        </div>
-                        {notification.postContent && (
-                          <p className="text-sm text-gray-300 mb-1">
-                            "{notification.postContent}"
-                          </p>
-                        )}
-                        {notification.comment && (
-                          <p className="text-sm text-gray-300 mb-1">
-                            "{notification.comment}"
-                          </p>
-                        )}
-                        <p className="text-xs text-gray-500">
-                          {notification.time}
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="transactions" className="mt-4">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="font-bold text-lg text-white">
-                Transaction History
-              </h2>
-              <button className="text-teal-400 text-sm font-medium">
-                Filter
-              </button>
-            </div>
-
-            <div className="space-y-3">
-              {ACTIVITIES.map((activity) => (
-                <Card key={activity.id} className="bg-gray-800 border-gray-700">
-                  <CardContent className="p-4">
-                    {activity.type === "donation_sent" && (
-                      <div className="flex items-center">
-                        <div className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center mr-3">
-                          <ArrowUp className="h-5 w-5 text-red-500" />
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between">
-                            <p className="font-medium text-white">
-                              Donation to {activity.user?.name || "Unknown"}
-                            </p>
-                            <p className="text-red-500 font-medium">
-                              -{activity.amount} DROPS
-                            </p>
-                          </div>
-                          <p className="text-xs text-gray-500">
-                            {activity.time}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-
-                    {activity.type === "donation_received" && (
-                      <div className="flex items-center">
-                        <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center mr-3">
-                          <ArrowDown className="h-5 w-5 text-green-500" />
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between">
-                            <p className="font-medium text-white">
-                              Donation from {activity.user?.name || "Unknown"}
-                            </p>
-                            <p className="text-green-500 font-medium">
-                              +{activity.amount} DROPS
-                            </p>
-                          </div>
-                          <p className="text-xs text-gray-500">
-                            {activity.time}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-
-                    {activity.type === "purchase" && (
-                      <div className="flex items-center">
-                        <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center mr-3">
-                          <BanknoteIcon className="h-6 w-6 text-blue-500" />
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between">
-                            <p className="font-medium text-white">
-                              Purchased DROPS
-                            </p>
-                            <p className="text-green-500 font-medium">
-                              +{activity.amount} DROPS
-                            </p>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <p className="text-xs text-gray-500">
-                              {activity.time}
-                            </p>
-                            <p className="text-xs text-gray-500">
-                              -{activity.wldAmount} WLD
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
-      </div>
-    </div>
-  );
-}
-```
-
-## File: components/home/activity-view.tsx
-```typescript
-"use client";
-
-import { useState, useEffect } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent } from "@/components/ui/card";
-import { useAuth } from "@/hooks/use-auth";
-import { userDataService } from "@/lib/user-data-service";
-import { Activity } from "@/lib/types";
-import { BanknoteIcon } from "@/components/icons/banknote-icon";
-
-interface ActivityViewProps {
-  onSelectArtist: (artistId: string) => void;
-}
-
-export default function ActivityView({ onSelectArtist }: ActivityViewProps) {
-  const { userData, isArtist, user } = useAuth();
-  const [activities, setActivities] = useState<Activity[]>([]);
-
-  // Load activities for the current user
-  useEffect(() => {
-    if (user) {
-      const userActivities = userDataService.getActivitiesForUser(user);
-      setActivities(userActivities);
-    }
-  }, [user]);
-
-  // Function to redirect to artist related to the activity
-  const handleSelectArtist = (artistId: string) => {
-    console.log("Activity view - Selected artist:", artistId);
-    onSelectArtist(artistId);
-  };
-
-  const formatTimeAgo = (dateString: string): string => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffInMinutes = Math.floor(
-      (now.getTime() - date.getTime()) / (1000 * 60),
-    );
-
-    if (diffInMinutes < 1) return "Just now";
-    if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
-
-    const diffInHours = Math.floor(diffInMinutes / 60);
-    if (diffInHours < 24) return `${diffInHours}h ago`;
-
-    const diffInDays = Math.floor(diffInHours / 24);
-    if (diffInDays < 7) return `${diffInDays}d ago`;
-
-    return date.toLocaleDateString();
-  };
-
-  return (
-    <div className="p-4 pb-6 bg-gray-50 dark:bg-gray-950">
-      <h1 className="text-xl font-bold mb-4 text-white">Activity</h1>
-
-      {activities.length > 0 ? (
-        <div className="space-y-3">
-          {activities.map((activity) => (
-            <ActivityCard
-              key={activity.id}
-              activity={activity}
-              onSelectArtist={handleSelectArtist}
-              formatTimeAgo={formatTimeAgo}
-            />
-          ))}
-        </div>
-      ) : (
-        <div className="text-center py-8 bg-gray-800 rounded-lg border border-gray-700">
-          <p className="text-gray-300 font-medium">
-            You don't have any notifications yet
-          </p>
-          <p className="text-gray-400 text-sm mt-1">
-            {isArtist()
-              ? "Interactions with your followers will appear here"
-              : "Updates from artists you follow will appear here"}
-          </p>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function ActivityCard({
-  activity,
-  onSelectArtist,
-  formatTimeAgo,
-}: {
-  activity: Activity;
-  onSelectArtist: (artistId: string) => void;
-  formatTimeAgo: (dateString: string) => string;
-}) {
-  return (
-    <Card className="overflow-hidden bg-gray-800 border-gray-700">
-      <CardContent className="p-3">
-        <div className="flex gap-3">
-          <Avatar
-            className="h-10 w-10 cursor-pointer"
-            onClick={() => onSelectArtist(activity.userId)}
-          >
-            <AvatarImage src={activity.userAvatar} alt={activity.userName} />
-            <AvatarFallback>
-              {activity.userName.substring(0, 2).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
-          <div className="flex-1">
-            <p className="text-sm text-white">
-              <span
-                className="font-medium cursor-pointer"
-                onClick={() => onSelectArtist(activity.userId)}
-              >
-                {activity.userName}
-              </span>{" "}
-              {activity.action}
-            </p>
-            {activity.message && (
-              <p className="text-sm mt-1 bg-gray-700 p-2 rounded-lg text-gray-300">
-                {activity.message}
-              </p>
-            )}
-            <div className="flex items-center mt-1">
-              <p className="text-xs text-gray-400">
-                {formatTimeAgo(activity.createdAt)}
-              </p>
-              {activity.amount && activity.tokenName && (
-                <div className="flex items-center text-bright-yellow text-xs font-medium ml-2">
-                  <BanknoteIcon className="h-4 w-4 mr-1" />
-                  <span>
-                    {activity.amount} ${activity.tokenName}
-                  </span>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-```
-
-## File: components/home/home-view.tsx
-```typescript
-"use client";
-
-import { useState, useEffect } from "react";
-import {
-  Heart,
-  MessageCircle,
-  Share2,
-  Send,
-  ImageIcon,
-  MapPin,
-  Hash,
-  BarChart2,
-  Paperclip,
-  X,
-} from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Textarea } from "@/components/ui/textarea";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BanknoteIcon } from "@/components/icons/banknote-icon";
-import { useAuth } from "@/hooks/use-auth";
-import { userDataService } from "@/lib/user-data-service";
-import { Post, Activity, FeedItem } from "@/lib/types";
+import { Post, Activity, FeedItem } from "@/types/core";
 import MusicPlayer from "@/components/music-player/music-player";
 
 interface HomeViewProps {
@@ -4187,7 +2510,7 @@ export function BanknoteSvg({ className = "" }: BanknoteSvgProps) {
 
 ## File: components/layout/header.tsx
 ```typescript
-import { UserData } from "@/lib/types";
+import { UserData } from "@/types/core";
 import { UserPlus } from "lucide-react";
 import { SolanaWalletButton } from "@/components/auth/solana-wallet-button";
 import { Button } from "@/components/ui/button";
@@ -6162,7 +4485,7 @@ export const ProfileCommentDialog: React.FC<ProfileCommentDialogProps> = ({
 
 ## File: components/profile/profile-create-post-form.tsx
 ```typescript
-import { UserData } from "@/lib/types";
+import { UserData } from "@/types/core";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { ImageIcon, MapPin, BarChart2, Paperclip, Hash } from "lucide-react";
 import { useState } from "react";
@@ -6915,7 +5238,7 @@ export default function ProfileScreen({
 ## File: components/profile/profile-tabs.tsx
 ```typescript
 import { Track } from "@/lib/music-data";
-import { UserData } from "@/lib/types";
+import { UserData } from "@/types/core";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@radix-ui/react-tabs";
 import { PostInteractionState } from "./profile-view";
 import { CreatePostForm } from "./profile-create-post-form";
@@ -6940,7 +5263,7 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import { Badge } from "../ui/badge";
-import { MusicPlayer } from "@/types/music-player";
+import { MusicPlayer } from "@/types/music";
 
 interface ProfileTabsProps {
   isArtist: boolean;
@@ -15619,6 +13942,116 @@ export function SolanaWalletProvider({
 }
 ```
 
+## File: data/activities.ts
+```typescript
+// Mock data for activity
+export const ACTIVITIES = [
+  {
+    id: "a1",
+    type: "donation_sent",
+    user: {
+      name: "Elena Rodriguez",
+      avatar: "/placeholder.svg?height=40&width=40",
+    },
+    amount: 5,
+    time: "2 hours ago",
+  },
+  {
+    id: "a2",
+    type: "purchase",
+    amount: 50,
+    wldAmount: 0.5,
+    time: "1 day ago",
+  },
+  {
+    id: "a3",
+    type: "donation_received",
+    user: {
+      name: "Anonymous",
+      avatar: "/placeholder.svg?height=40&width=40",
+    },
+    amount: 10,
+    time: "3 days ago",
+  },
+  {
+    id: "a4",
+    type: "donation_sent",
+    user: {
+      name: "Marcus Chen",
+      avatar: "/placeholder.svg?height=40&width=40",
+    },
+    amount: 20,
+    time: "1 week ago",
+  },
+  {
+    id: "a5",
+    type: "purchase",
+    amount: 100,
+    wldAmount: 1,
+    time: "2 weeks ago",
+  },
+];
+
+// Mock data for social notifications
+export const SOCIAL_NOTIFICATIONS = [
+  {
+    id: "n1",
+    type: "like",
+    user: {
+      name: "Juan Pablo",
+      avatar: "/avatars/user.jpg",
+    },
+    action: "liked your post",
+    postContent:
+      "Just finished a new track! Can't wait to share it with you all.",
+    time: "5 minutes ago",
+  },
+  {
+    id: "n2",
+    type: "comment",
+    user: {
+      name: "Banger",
+      avatar: "/avatars/banger.jpg",
+    },
+    action: "commented on your post",
+    comment: "Amazing track! 🔥",
+    time: "1 hour ago",
+  },
+  {
+    id: "n3",
+    type: "follow",
+    user: {
+      name: "Nicola Marti",
+      avatar: "/avatars/nicola.jpg",
+    },
+    action: "started following you",
+    time: "2 hours ago",
+  },
+  {
+    id: "n4",
+    type: "like",
+    user: {
+      name: "AXS",
+      avatar: "/avatars/axs.jpg",
+    },
+    action: "liked your post",
+    postContent: "Working on something special for my supporters. Stay tuned!",
+    time: "3 hours ago",
+  },
+  {
+    id: "n5",
+    type: "comment",
+    user: {
+      name: "FLUSH",
+      avatar: "/avatars/flush.jpg",
+    },
+    action: "commented on your post",
+    comment: "Can't wait to hear it! 🎵",
+    time: "1 day ago",
+  },
+];
+```
+
 ## File: data/artist-profile.ts
 ```typescript
 // Vamos a actualizar los datos de los artistas para que cada uno tenga contenido único
@@ -16615,6 +15048,287 @@ export const artists: Artist[] = [
 ];
 ```
 
+## File: data/explore.ts
+```typescript
+"use client";
+
+import { Artist, Genre, Track } from "@/types/explore";
+
+// Mock data for categories and creators
+export const CATEGORIES = [
+  "All",
+  "Art",
+  "Music",
+  "Tech",
+  "Gaming",
+  "Writing",
+  "Cooking",
+];
+export type Creator = {
+  id: string;
+  name: string;
+  handle: string;
+  avatar: string;
+  category: string;
+  description: string;
+  blgReceived: number;
+  featured: boolean;
+};
+export const CREATORS: Creator[] = [
+  {
+    id: "1",
+    name: "Elena Rodriguez",
+    handle: "@elenadraws",
+    avatar: "/placeholder.svg?height=60&width=60",
+    category: "Art",
+    description: "Digital artist creating vibrant illustrations",
+    blgReceived: 8750,
+    featured: true,
+  },
+  {
+    id: "2",
+    name: "Marcus Chen",
+    handle: "@marcusmusic",
+    avatar: "/placeholder.svg?height=60&width=60",
+    category: "Music",
+    description: "Independent musician sharing original compositions",
+    blgReceived: 6320,
+    featured: false,
+  },
+  {
+    id: "3",
+    name: "Sophia Williams",
+    handle: "@sophiatech",
+    avatar: "/placeholder.svg?height=60&width=60",
+    category: "Tech",
+    description: "Tutorials and insights on blockchain development",
+    blgReceived: 12450,
+    featured: true,
+  },
+  {
+    id: "4",
+    name: "Jamal Thompson",
+    handle: "@jamalgaming",
+    avatar: "/placeholder.svg?height=60&width=60",
+    category: "Gaming",
+    description: "Game reviews and live streaming of indie games",
+    blgReceived: 4890,
+    featured: false,
+  },
+  {
+    id: "5",
+    name: "Aisha Patel",
+    handle: "@aishawriter",
+    avatar: "/placeholder.svg?height=60&width=60",
+    category: "Writing",
+    description: "Short stories and poetry from around the world",
+    blgReceived: 3750,
+    featured: false,
+  },
+  {
+    id: "6",
+    name: "Leo Kim",
+    handle: "@leocooks",
+    avatar: "/placeholder.svg?height=60&width=60",
+    category: "Cooking",
+    description: "Fusion recipes and culinary adventures",
+    blgReceived: 7120,
+    featured: true,
+  },
+];
+
+export const trendingArtists: Artist[] = [
+  {
+    id: "1",
+    name: "Flush",
+    avatar: "/avatars/flush.jpg",
+    genre: "Electronic",
+    followers: 15420,
+  },
+  {
+    id: "2",
+    name: "Danilødr",
+    avatar: "/avatars/danilodr.jpg",
+    genre: "Dubstep",
+    followers: 12890,
+  },
+  {
+    id: "3",
+    name: "Kr4D",
+    avatar: "/avatars/kr4d.jpg",
+    genre: "Bass",
+    followers: 9870,
+  },
+  {
+    id: "4",
+    name: "AXS",
+    avatar: "/avatars/axs.jpg",
+    genre: "Trap",
+    followers: 11230,
+  },
+];
+
+export const popularTracks: Track[] = [
+  {
+    id: "1",
+    title: "Best Drops Ever",
+    artist: "Flush",
+    album: "Dropsland Collection",
+    duration: 225,
+    cover: "/covers/best-drops-ever.jpg",
+    audioUrl: "/audio/best-drops-ever.mp3",
+  },
+  {
+    id: "2",
+    title: "Broken",
+    artist: "Danilødr",
+    album: "Dropsland Collection",
+    duration: 252,
+    cover: "/covers/broken.jpg",
+    audioUrl: "/audio/broken.mp3",
+  },
+  {
+    id: "3",
+    title: "Sadtisfied",
+    artist: "Flush",
+    album: "Dropsland Collection",
+    duration: 208,
+    cover: "/covers/sadtisfied.jpg",
+    audioUrl: "/audio/sadtisfied.mp3",
+  },
+  {
+    id: "4",
+    title: "Riddim Tutorial",
+    artist: "AXS",
+    album: "Dropsland Collection",
+    duration: 315,
+    cover: "/covers/riddim-tutorial.jpg",
+    audioUrl: "/audio/riddim-tutorial.mp3",
+  },
+  {
+    id: "5",
+    title: "Kingman",
+    artist: "AXS, Brolow",
+    album: "Dropsland Collection",
+    duration: 273,
+    cover: "/covers/kingman.jpg",
+    audioUrl: "/audio/kingman.mp3",
+  },
+  {
+    id: "6",
+    title: "Body",
+    artist: "Kr4D",
+    album: "Dropsland Collection",
+    duration: 232,
+    cover: "/covers/body.jpg",
+    audioUrl: "/audio/body.mp3",
+  },
+  {
+    id: "7",
+    title: "Travel",
+    artist: "Flush",
+    album: "Dropsland Collection",
+    duration: 248,
+    cover: "/covers/travel.jpg",
+    audioUrl: "/audio/travel.mp3",
+  },
+  {
+    id: "8",
+    title: "Arriving",
+    artist: "Flush",
+    album: "Dropsland Collection",
+    duration: 235,
+    cover: "/covers/arriving.jpg",
+    audioUrl: "/audio/arriving.mp3",
+  },
+];
+
+export const genres: Genre[] = [
+  { id: "1", name: "Dubstep", icon: "🎵", artists: 45 },
+  { id: "2", name: "Trap", icon: "🎧", artists: 32 },
+  { id: "3", name: "Bass", icon: "🥁", artists: 28 },
+  { id: "4", name: "Electronic", icon: "🎤", artists: 56 },
+];
+```
+
+## File: data/music.ts
+```typescript
+import { Track } from "@/types/music";
+
+export const musicTracks: Track[] = [
+  {
+    id: "1",
+    title: "Bandolero (feat. Ace)",
+    artist: "Banger",
+    album: "Dropsland Collection",
+    duration: 285, // 4:45 in seconds
+    cover: "/avatars/banger.jpg",
+    audioUrl: "/music/Banger - Bandolero (feat. Ace).mp3",
+    isLiked: false,
+  },
+  {
+    id: "2",
+    title: "Fuck That",
+    artist: "Flush",
+    album: "Dropsland Collection",
+    duration: 372, // 6:12 in seconds
+    cover: "/avatars/juampi.jpg",
+    audioUrl: "/music/Flush - Fuck That.mp3",
+    isLiked: true,
+  },
+  {
+    id: "3",
+    title: "Sadtisfied",
+    artist: "Flush",
+    album: "Dropsland Collection",
+    duration: 426, // 7:06 in seconds
+    cover: "/avatars/juampi.jpg",
+    audioUrl: "/music/Flush - Sadtisfied.mp3",
+    isLiked: false,
+  },
+  {
+    id: "4",
+    title: "Touch It",
+    artist: "Flush",
+    album: "Dropsland Collection",
+    duration: 522, // 8:42 in seconds
+    cover: "/avatars/juampi.jpg",
+    audioUrl: "/music/Flush - Touch It.mp3",
+    isLiked: true,
+  },
+  {
+    id: "5",
+    title: "Better Than Sex",
+    artist: "Nicola Marti",
+    album: "Dropsland Collection",
+    duration: 486, // 8:06 in seconds
+    cover: "/avatars/nicola.jpg",
+    audioUrl: "/music/Nicola Marti - Better Than Sex-4.mp3",
+    isLiked: false,
+  },
+  {
+    id: "6",
+    title: "SHADOWS",
+    artist: "iamjuampi",
+    album: "Dropsland Collection",
+    duration: 378, // 6:18 in seconds
+    cover: "/avatars/juampi.jpg",
+    audioUrl: "/music/iamjuampi - SHADOWS.mp3",
+    isLiked: true,
+  },
+  {
+    id: "7",
+    title: "TOXIC",
+    artist: "iamjuampi",
+    album: "Dropsland Collection",
+    duration: 342, // 5:42 in seconds
+    cover: "/avatars/juampi.jpg",
+    audioUrl: "/music/iamjuampi - TOXIC.mp3",
+    isLiked: false,
+  },
+];
+```
+
 ## File: data/profile-view.ts
 ```typescript
 // Sample posts data
@@ -16926,7 +15640,7 @@ import {
   useCallback,
 } from "react";
 import { backendService } from "@/lib/backend-service"; // Keep using the mock backend
-import { UserData } from "@/lib/types";
+import { UserData } from "@/types/core";
 
 // --- Mock User Data ---
 const mockArtistData: UserData = {
@@ -18119,91 +16833,11 @@ export const getCreatorInfo = async (creatorId: string) => {
 
 ## File: lib/music-data.ts
 ```typescript
-export interface Track {
-  id: string;
-  title: string;
-  artist: string;
-  album: string;
-  duration: number;
-  cover: string;
-  audioUrl: string;
-  isLiked?: boolean;
-}
-
 // URLs de streaming para los archivos de música
 // Usando los archivos de la carpeta public/music
-export const musicTracks: Track[] = [
-  {
-    id: "1",
-    title: "Bandolero (feat. Ace)",
-    artist: "Banger",
-    album: "Dropsland Collection",
-    duration: 285, // 4:45 in seconds
-    cover: "/avatars/banger.jpg",
-    audioUrl: "/music/Banger - Bandolero (feat. Ace).mp3",
-    isLiked: false,
-  },
-  {
-    id: "2",
-    title: "Fuck That",
-    artist: "Flush",
-    album: "Dropsland Collection",
-    duration: 372, // 6:12 in seconds
-    cover: "/avatars/juampi.jpg",
-    audioUrl: "/music/Flush - Fuck That.mp3",
-    isLiked: true,
-  },
-  {
-    id: "3",
-    title: "Sadtisfied",
-    artist: "Flush",
-    album: "Dropsland Collection",
-    duration: 426, // 7:06 in seconds
-    cover: "/avatars/juampi.jpg",
-    audioUrl: "/music/Flush - Sadtisfied.mp3",
-    isLiked: false,
-  },
-  {
-    id: "4",
-    title: "Touch It",
-    artist: "Flush",
-    album: "Dropsland Collection",
-    duration: 522, // 8:42 in seconds
-    cover: "/avatars/juampi.jpg",
-    audioUrl: "/music/Flush - Touch It.mp3",
-    isLiked: true,
-  },
-  {
-    id: "5",
-    title: "Better Than Sex",
-    artist: "Nicola Marti",
-    album: "Dropsland Collection",
-    duration: 486, // 8:06 in seconds
-    cover: "/avatars/nicola.jpg",
-    audioUrl: "/music/Nicola Marti - Better Than Sex-4.mp3",
-    isLiked: false,
-  },
-  {
-    id: "6",
-    title: "SHADOWS",
-    artist: "iamjuampi",
-    album: "Dropsland Collection",
-    duration: 378, // 6:18 in seconds
-    cover: "/avatars/juampi.jpg",
-    audioUrl: "/music/iamjuampi - SHADOWS.mp3",
-    isLiked: true,
-  },
-  {
-    id: "7",
-    title: "TOXIC",
-    artist: "iamjuampi",
-    album: "Dropsland Collection",
-    duration: 342, // 5:42 in seconds
-    cover: "/avatars/juampi.jpg",
-    audioUrl: "/music/iamjuampi - TOXIC.mp3",
-    isLiked: false,
-  },
-];
+
+import { musicTracks } from "@/data/music";
+import { Track } from "@/types/music";
 
 // Función para obtener una pista por ID
 export function getTrackById(id: string): Track | undefined {
@@ -20097,6 +18731,34 @@ export interface Artist {
 }
 ```
 
+## File: types/explore.ts
+```typescript
+export interface Artist {
+  id: string;
+  name: string;
+  avatar: string;
+  genre: string;
+  followers: number;
+}
+
+export interface Track {
+  id: string;
+  title: string;
+  artist: string;
+  album: string;
+  duration: number;
+  cover: string;
+  audioUrl: string;
+}
+
+export interface Genre {
+  id: string;
+  name: string;
+  icon: string;
+  artists: number;
+}
+```
+
 ## File: types/music-player.ts
 ```typescript
 export interface Track {
@@ -20132,6 +18794,20 @@ export interface MusicPlayer {
   previousTrack: () => void;
   formatTime: (time: number) => string;
   audioRef: React.RefObject<HTMLAudioElement | null>;
+}
+```
+
+## File: types/music.ts
+```typescript
+export interface Track {
+  id: string;
+  title: string;
+  artist: string;
+  album: string;
+  duration: number;
+  cover: string;
+  audioUrl: string;
+  isLiked?: boolean;
 }
 ```
 

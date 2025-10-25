@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import MusicCard from "@/components/music-player/music-card";
 import { useMusicPlayer } from "@/hooks/use-music-player";
-import { Track } from "@/types/explore";
 import { genres, popularTracks, trendingArtists } from "@/data/explore";
+import { Track } from "@/types/music";
 
 export function ExploreView() {
   const [searchQuery, setSearchQuery] = useState("");

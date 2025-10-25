@@ -28,7 +28,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
 import { useAuth } from "@/hooks/use-auth";
 import { userDataService } from "@/lib/user-data-service";
-import { Post, Activity, FeedItem } from "@/lib/types";
+import { Post, Activity, FeedItem } from "@/types/core";
 import MusicPlayer from "@/components/music-player/music-player";
 
 interface HomeViewProps {

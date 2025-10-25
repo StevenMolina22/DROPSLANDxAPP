@@ -1,12 +1,7 @@
 "use client";
-
-import { useState, useRef, useEffect } from "react";
 import { Play, Pause, SkipBack, SkipForward, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Slider } from "@/components/ui/slider";
-import { useMusicPlayer } from "@/hooks/use-music-player";
-import { musicTracks } from "@/lib/music-data";
 
 interface Track {
   id: string;

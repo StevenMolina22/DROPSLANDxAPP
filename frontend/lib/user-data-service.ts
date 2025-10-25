@@ -7,7 +7,7 @@ import {
   UserStats,
   FeedItem,
   PostComment,
-} from "./types";
+} from "@/types/core";
 
 class UserDataService {
   private users: Map<string, UserData> = new Map();

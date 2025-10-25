@@ -1,8 +1,7 @@
 "use client";
+import { Artist, Genre } from "@/types/explore";
+import { Track } from "@/types/music";
 
-import { Artist, Genre, Track } from "@/types/explore";
-
-// Mock data for categories and creators
 export const CATEGORIES = [
   "All",
   "Art",

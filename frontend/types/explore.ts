@@ -6,16 +6,6 @@ export interface Artist {
   followers: number;
 }
 
-export interface Track {
-  id: string;
-  title: string;
-  artist: string;
-  album: string;
-  duration: number;
-  cover: string;
-  audioUrl: string;
-}
-
 export interface Genre {
   id: string;
   name: string;

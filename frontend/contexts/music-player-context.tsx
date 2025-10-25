@@ -1,5 +1,6 @@
 "use client";
-
+import { musicTracks } from "@/data/music";
+import { Track } from "@/types/music";
 import React, {
   useState,
   useRef,
@@ -9,17 +10,6 @@ import React, {
   createContext,
   ReactNode,
 } from "react";
-
-export interface Track {
-  id: string;
-  title: string;
-  artist: string;
-  album: string;
-  duration: number;
-  cover: string;
-  audioUrl?: string;
-  isLiked?: boolean;
-}
 
 interface MusicPlayerContextProps {
   currentTrack: Track | null;
@@ -82,11 +72,9 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
         // Update playlist and track index
         if (isNewTrack) {
           // Import musicTracks dynamically to avoid circular dependency
-          import("@/lib/music-data").then(({ musicTracks }) => {
-            const trackIndex = musicTracks.findIndex((t) => t.id === track.id);
-            setPlaylist(musicTracks);
-            setCurrentTrackIndex(trackIndex >= 0 ? trackIndex : 0);
-          });
+          const trackIndex = musicTracks.findIndex((t) => t.id === track.id);
+          setPlaylist(musicTracks);
+          setCurrentTrackIndex(trackIndex >= 0 ? trackIndex : 0);
           setCurrentTime(0);
         }
 

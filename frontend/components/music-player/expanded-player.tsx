@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import {
   Play,
@@ -11,7 +10,6 @@ import {
   Repeat,
   Shuffle,
   Heart,
-  MoreHorizontal,
   List,
   Minimize2,
   X,
@@ -21,7 +19,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useMusicPlayer } from "@/hooks/use-music-player";
-import { musicTracks } from "@/lib/music-data";
+import { musicTracks } from "@/data/music";
 
 export default function ExpandedPlayer() {
   const [isShuffled, setIsShuffled] = useState(false);
