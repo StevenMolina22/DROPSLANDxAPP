@@ -4,14 +4,14 @@
 seeds = false
 skip-lint = false
 
-[programs.localnet]
+[programs.devnet]
 dropsland_solana = "2EpreJPoJC6wEHk3hShxffGyPbmEaNLyDMKQmbSsTWXH"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "testnet"
 wallet = "/home/vboxuser/.config/solana/id.json"
 
 [scripts]
