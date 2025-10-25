@@ -26,7 +26,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
-import { useAuth } from "@/icp/features/authentication";
+import { useAuth } from "@/hooks/use-auth";
 import { userDataService } from "@/lib/user-data-service";
 import { Post, Activity, FeedItem } from "@/lib/types";
 import MusicPlayer from "@/components/music-player/music-player";

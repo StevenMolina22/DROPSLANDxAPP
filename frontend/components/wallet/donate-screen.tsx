@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ArrowLeft, Banknote } from "lucide-react";
 import Image from "next/image";
-import { useAuth } from "@/icp/features/authentication";
+import { useAuth } from "@/hooks/use-auth";
 
 interface Creator {
   name: string;

@@ -4,7 +4,7 @@ import { TrendingUp, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useAuth } from "@/icp/features/authentication";
+import { useAuth } from "@/hooks/use-auth";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
 import { artistTokens, transactions } from "@/data/wallet-view";
 

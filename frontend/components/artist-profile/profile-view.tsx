@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 // Import the useAuth hook and UserProfile component
-import { useAuth } from "@/icp/features/authentication";
+import { useAuth } from "@/hooks/use-auth";
 import UserProfile from "@/components/artist-profile/user-profile";
 import { useMusicPlayer } from "@/hooks/use-music-player";
 import { musicTracks } from "@/lib/music-data";

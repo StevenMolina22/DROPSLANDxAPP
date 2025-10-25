@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { useAuth } from "@/icp/features/authentication";
+import { useAuth } from "@/hooks/use-auth";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
 
 interface ArtistDashboardProps {

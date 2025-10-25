@@ -3,7 +3,7 @@ import "@/app/globals.css";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
-import { AuthProvider } from "@/icp/features/authentication";
+import { AuthProvider } from "@/hooks/use-auth";
 import { MusicPlayerProvider } from "@/contexts/music-player-context";
 import { SolanaWalletProvider } from "@/contexts/solana-wallet-context";
 import MiniPlayerWrapper from "@/components/music-player/mini-player-wrapper";

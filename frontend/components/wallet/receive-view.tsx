@@ -5,7 +5,7 @@ import { ArrowLeft, Copy, Check, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { useAuth } from "@/icp/features/authentication";
+import { useAuth } from "@/hooks/use-auth";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
 import Image from "next/image";
 

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { useAuth } from "@/icp/features/authentication";
+import { useAuth } from "@/hooks/use-auth";
 import { artists } from "@/data/artist-profile";
 import { ArrowLeft, Lock } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";

@@ -9,7 +9,7 @@ import { Slider } from "@/components/ui/slider";
 import { useToast } from "@/hooks/use-toast";
 
 // Import the useAuth hook
-import { useAuth } from "@/icp/features/authentication";
+import { useAuth } from "@/hooks/use-auth";
 
 interface BuyViewProps {
   onBack: () => void;

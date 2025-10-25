@@ -1,16 +1,16 @@
-import { Actor, HttpAgent } from "@dfinity/agent";
-import { Principal } from "@dfinity/principal";
-import { idlFactory } from "@icp/declarations/dropsland_backend/dropsland_backend.did.js";
+import { musicTracks } from "./music-data"; // Import mock data
 
+// Define interfaces based on original service expectations, mapping from Track
+// Note: We might need to adjust or add dummy data for fields not in the original Track interface.
 export interface MusicFile {
   id: string;
   name: string;
   artist: string;
-  data: Uint8Array;
+  data: Uint8Array; // This will be mocked as empty
   contentType: string;
-  size: number;
-  uploadedAt: bigint;
-  uploadedBy: Principal;
+  size: number; // We can estimate or use a dummy value
+  uploadedAt: bigint; // Mock timestamp
+  uploadedBy: string; // Use string for mock principal
 }
 
 export interface MusicMetadata {
@@ -20,192 +20,137 @@ export interface MusicMetadata {
   size: number;
   contentType: string;
   uploadedAt: bigint;
-  uploadedBy: Principal;
+  uploadedBy: string;
 }
 
 export interface MusicStats {
   totalFiles: number;
-  totalSize: number;
+  totalSize: number; // Estimate based on duration or use dummy
 }
 
-class MusicService {
-  private agent: HttpAgent;
-  private actor: any;
-  private canisterId: string;
-
-  constructor() {
-    this.canisterId = "5c3ao-uyaaa-aaaae-qfcwq-cai"; // dropsland_backend canister ID
-    this.agent = new HttpAgent({
-      host: "https://ic0.app",
-    });
-
-    this.actor = Actor.createActor(idlFactory, {
-      agent: this.agent,
-      canisterId: this.canisterId,
-    });
-  }
-
-  // Upload music file
+// Mock implementation of the Music Service
+class MockMusicService {
+  // Simulate adding music (doesn't actually modify the imported array)
   async uploadMusic(
     name: string,
     artist: string,
     data: Uint8Array,
     contentType: string,
   ): Promise<string> {
-    try {
-      const result = await this.actor.uploadMusic(
-        name,
-        artist,
-        Array.from(data),
-        contentType,
-      );
-
-      if ("ok" in result) {
-        return result.ok;
-      } else {
-        throw new Error(result.err);
-      }
-    } catch (error) {
-      console.error("Error uploading music:", error);
-      throw error;
-    }
+    console.log(`Mock: Uploading music "${name}" by ${artist}`);
+    const newId = `mock_${Date.now()}`;
+    // In a real mock needing persistence, you might add to a local state array here
+    await new Promise((resolve) => setTimeout(resolve, 300)); // Simulate delay
+    return newId;
   }
 
-  // Get music metadata by ID
+  // Get metadata for a specific track from mock data
   async getMusicMetadata(id: string): Promise<MusicMetadata> {
-    try {
-      const result = await this.actor.getMusicMetadata(id);
-
-      if ("ok" in result) {
-        return {
-          id: result.ok.id,
-          name: result.ok.name,
-          artist: result.ok.artist,
-          size: Number(result.ok.size),
-          contentType: result.ok.contentType,
-          uploadedAt: result.ok.uploadedAt,
-          uploadedBy: result.ok.uploadedBy,
-        };
-      } else {
-        throw new Error(result.err);
-      }
-    } catch (error) {
-      console.error("Error getting music metadata:", error);
-      throw error;
+    const track = musicTracks.find((t) => t.id === id);
+    if (!track) {
+      throw new Error("Mock: Music file not found");
     }
+    await new Promise((resolve) => setTimeout(resolve, 50)); // Simulate delay
+    return {
+      id: track.id,
+      name: track.title,
+      artist: track.artist,
+      size: track.duration * 100000, // Estimate size
+      contentType: "audio/mpeg", // Dummy value
+      uploadedAt: BigInt(Date.now() * 1_000_000), // Dummy timestamp (nanoseconds)
+      uploadedBy: "mock-uploader-principal", // Dummy principal string
+    };
   }
 
-  // Get all music metadata
+  // Get metadata for all tracks from mock data
   async getAllMusicMetadata(): Promise<MusicMetadata[]> {
-    try {
-      const result = await this.actor.getAllMusicMetadata();
-
-      return result.map((item: any) => ({
-        id: item.id,
-        name: item.name,
-        artist: item.artist,
-        size: Number(item.size),
-        contentType: item.contentType,
-        uploadedAt: item.uploadedAt,
-        uploadedBy: item.uploadedBy,
-      }));
-    } catch (error) {
-      console.error("Error getting all music metadata:", error);
-      throw error;
-    }
+    await new Promise((resolve) => setTimeout(resolve, 100)); // Simulate delay
+    return musicTracks.map((track) => ({
+      id: track.id,
+      name: track.title,
+      artist: track.artist,
+      size: track.duration * 100000, // Estimate size
+      contentType: "audio/mpeg",
+      uploadedAt: BigInt(Date.now() * 1_000_000 - Math.random() * 1e12), // Dummy timestamps
+      uploadedBy: "mock-uploader-principal",
+    }));
   }
 
-  // Get music data by ID
+  // Get raw music data (return empty array as mock)
   async getMusicData(id: string): Promise<Uint8Array> {
-    try {
-      const result = await this.actor.getMusicData(id);
-
-      if ("ok" in result) {
-        return new Uint8Array(result.ok);
-      } else {
-        throw new Error(result.err);
-      }
-    } catch (error) {
-      console.error("Error getting music data:", error);
-      throw error;
+    const track = musicTracks.find((t) => t.id === id);
+    if (!track) {
+      throw new Error("Mock: Music file not found");
     }
+    console.warn(
+      `Mock: getMusicData called for ${id}. Returning empty Uint8Array as mock.`,
+    );
+    await new Promise((resolve) => setTimeout(resolve, 150)); // Simulate delay
+    // In a more complex mock, you could fetch the actual audioUrl here,
+    // but for now, we return empty data as the player uses the URL.
+    return new Uint8Array();
   }
 
-  // Get music file (metadata + data)
+  // Get combined metadata and (mocked) data
   async getMusicFile(id: string): Promise<MusicFile> {
-    try {
-      const result = await this.actor.getMusicFile(id);
-
-      if ("ok" in result) {
-        return {
-          id: result.ok.id,
-          name: result.ok.name,
-          artist: result.ok.artist,
-          data: new Uint8Array(result.ok.data),
-          contentType: result.ok.contentType,
-          size: Number(result.ok.size),
-          uploadedAt: result.ok.uploadedAt,
-          uploadedBy: result.ok.uploadedBy,
-        };
-      } else {
-        throw new Error(result.err);
-      }
-    } catch (error) {
-      console.error("Error getting music file:", error);
-      throw error;
-    }
+    const metadata = await this.getMusicMetadata(id);
+    const data = await this.getMusicData(id); // Will be empty array
+    return {
+      ...metadata,
+      data: data,
+    };
   }
 
-  // Delete music file
+  // Simulate deleting music
   async deleteMusic(id: string): Promise<void> {
-    try {
-      const result = await this.actor.deleteMusic(id);
-
-      if ("ok" in result) {
-        return;
-      } else {
-        throw new Error(result.err);
-      }
-    } catch (error) {
-      console.error("Error deleting music:", error);
-      throw error;
+    console.log(`Mock: Deleting music with id ${id}`);
+    const trackIndex = musicTracks.findIndex((t) => t.id === id);
+    if (trackIndex === -1) {
+      throw new Error("Mock: Music file not found for deletion");
     }
+    // Note: This won't actually remove from the imported musicTracks array.
+    // To test deletion effects, manage a mutable copy of the tracks within the service state.
+    await new Promise((resolve) => setTimeout(resolve, 200)); // Simulate delay
+    return;
   }
 
-  // Get music statistics
+  // Calculate stats from mock data
   async getMusicStats(): Promise<MusicStats> {
-    try {
-      const result = await this.actor.getMusicStats();
-
-      return {
-        totalFiles: Number(result.totalFiles),
-        totalSize: Number(result.totalSize),
-      };
-    } catch (error) {
-      console.error("Error getting music stats:", error);
-      throw error;
-    }
+    await new Promise((resolve) => setTimeout(resolve, 50)); // Simulate delay
+    const totalFiles = musicTracks.length;
+    // Estimate total size
+    const totalSize = musicTracks.reduce(
+      (sum, track) => sum + track.duration * 100000,
+      0,
+    );
+    return {
+      totalFiles: totalFiles,
+      totalSize: totalSize,
+    };
   }
 
-  // Create a blob URL for streaming
+  // Create blob URL (just return the existing audioUrl)
   async createMusicBlobUrl(id: string): Promise<string> {
-    try {
-      const musicData = await this.getMusicData(id);
-      const blob = new Blob([musicData], { type: "audio/mpeg" });
-      return URL.createObjectURL(blob);
-    } catch (error) {
-      console.error("Error creating blob URL:", error);
-      throw error;
+    const track = musicTracks.find((t) => t.id === id);
+    if (!track || !track.audioUrl) {
+      throw new Error("Mock: Track or audio URL not found");
     }
+    console.log(`Mock: Returning existing audioUrl for ${id} as blob URL.`);
+    return track.audioUrl;
   }
 
-  // Get streaming URL (for direct access)
+  // Get streaming URL (return existing audioUrl)
   getStreamingUrl(id: string): string {
-    // This would be used if we implement HTTP interface in the canister
-    // For now, we'll use the blob URL approach
-    return `https://${this.canisterId}.icp0.io/music/${id}`;
+    const track = musicTracks.find((t) => t.id === id);
+    if (!track || !track.audioUrl) {
+      console.warn(
+        `Mock: Track or audio URL not found for getStreamingUrl(${id}). Returning empty string.`,
+      );
+      return "";
+    }
+    return track.audioUrl;
   }
 }
 
-// Export singleton instance
-export const musicService = new MusicService();
+// Export singleton instance with the same name
+export const musicService = new MockMusicService();

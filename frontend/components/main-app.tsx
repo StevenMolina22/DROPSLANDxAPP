@@ -9,7 +9,7 @@ import BuyView from "@/components/wallet/buy-view";
 import SendView from "@/components/send-view";
 import ReceiveView from "@/components/wallet/receive-view";
 import ArtistProfile from "@/components/artist-profile/artist-profile";
-import { LoginScreen, useAuth } from "@/icp/features/authentication";
+import { useAuth } from "@/hooks/use-auth";
 import { Header } from "./header";
 import { TabBar } from "./tab-bar";
 import { useNavigation, useViewRenderer } from "@/hooks/use-navigation";
@@ -25,10 +25,6 @@ export default function MainApp() {
     user,
   );
 
-  if (!user) {
-    return <LoginScreen onLogin={login} />;
-  }
-
   return (
     <>
       <Header
@@ -36,11 +32,15 @@ export default function MainApp() {
         isArtist={isArtist}
         activeTab={navigation.activeTab}
         handleOpenArtistDashboard={navigation.navigateToArtistDashboard}
-        user={user}
+        user={user || "iamjuampi"}
         logout={logout}
       />
       <main className="flex-1 overflow-auto bg-gray-950 pb-24">
-        <ViewRenderer viewType={viewType} navigation={navigation} user={user} />
+        <ViewRenderer
+          viewType={viewType}
+          navigation={navigation}
+          user={user || "iamjuampi"}
+        />
       </main>
       <TabBar
         activeTab={navigation.activeTab}

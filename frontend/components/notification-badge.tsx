@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Bell } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { userDataService } from "@/lib/user-data-service";
-import { useAuth } from "@/icp/features/authentication/hooks/use-auth";
+import { useAuth } from "@/hooks/use-auth";
 
 interface NotificationBadgeProps {
   onClick?: () => void;

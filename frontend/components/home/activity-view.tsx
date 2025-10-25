@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
-import { useAuth } from "@/icp/features/authentication";
+import { useAuth } from "@/hooks/use-auth";
 import { userDataService } from "@/lib/user-data-service";
 import { Activity } from "@/lib/types";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
