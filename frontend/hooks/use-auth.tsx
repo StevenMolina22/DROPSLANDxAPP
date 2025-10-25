@@ -1,4 +1,3 @@
-// File: icp/features/authentication/hooks/use-auth.tsx
 "use client";
 
 import {
