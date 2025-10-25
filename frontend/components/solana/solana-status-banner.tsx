@@ -20,7 +20,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { useState } from "react";
-import { useIntegratedAuth } from "./ui/use-integrated-auth";
+import { useIntegratedAuth } from "../ui/use-integrated-auth";
 
 interface SolanaStatusBannerProps {
   onMintProfile?: () => void;

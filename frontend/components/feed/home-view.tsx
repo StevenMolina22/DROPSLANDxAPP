@@ -29,7 +29,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { userDataService } from "@/lib/user-data-service";
 import { ExtendedPost, Activity, FeedItem } from "@/types";
 import MusicPlayer from "@/components/music-player/music-player";
-import { SolanaStatusBanner } from "../solana-status-banner";
+import { SolanaStatusBanner } from "../solana/solana-status-banner";
 
 interface HomeViewProps {
   onSelectArtist: (artistId: string) => void;
