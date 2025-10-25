@@ -11,17 +11,11 @@ import {
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DonateForm from "@/components/wallet/donate-form";
-import { artists } from "@/data/artist-profile";
+import { artists } from "@/data";
 
 export default function CreatorPage({ params }: { params: { id: string } }) {
   // Find the artist by ID

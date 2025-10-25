@@ -1,6 +1,6 @@
 "use client";
-import { musicTracks } from "@/data/music";
-import { Track } from "@/types/music";
+import { musicTracks } from "@/data";
+import { Track } from "@/types";
 import React, {
   useState,
   useRef,

@@ -19,7 +19,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useMusicPlayer } from "@/hooks/use-music-player";
-import { musicTracks } from "@/data/music";
+import { musicTracks } from "@/data";
 
 export default function ExpandedPlayer() {
   const [isShuffled, setIsShuffled] = useState(false);

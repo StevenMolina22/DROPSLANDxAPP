@@ -11,7 +11,7 @@ import { LegacyProfileInfo } from "./legacy-profile-info";
 import { LegacyProfileSettings } from "./legacy-profile-settings";
 import { ProfileCommentDialog } from "./profile-comment-dialog";
 import { ProfileTabs } from "./profile-tabs";
-import { musicTracks } from "@/data/music";
+import { musicTracks } from "@/data";
 
 // --- Type Definitions ---
 // (Ideally, these would be imported from your data files)

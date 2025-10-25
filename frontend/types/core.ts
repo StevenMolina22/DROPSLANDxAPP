@@ -26,7 +26,7 @@ export interface UserData {
   lastActive: string;
 }
 
-export interface Post {
+export interface ExtendedPost {
   id: string;
   authorId: string;
   authorName: string;
@@ -112,7 +112,7 @@ export interface UserStats {
 export interface FeedItem {
   id: string;
   type: "post" | "activity" | "release";
-  data: Post | Activity;
+  data: ExtendedPost | Activity;
   priority: number;
   createdAt: string;
 }

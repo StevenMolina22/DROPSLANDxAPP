@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/hooks/use-auth";
-import { ACTIVITIES, SOCIAL_NOTIFICATIONS } from "@/data/activities";
+import { ACTIVITIES, SOCIAL_NOTIFICATIONS } from "@/data";
 
 // Modificar la función ActivityScreen para mostrar el balance actual
 export default function ActivityScreen() {

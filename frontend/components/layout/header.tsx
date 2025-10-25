@@ -1,4 +1,4 @@
-import { UserData } from "@/types/core";
+import { UserData } from "@/types";
 import { UserPlus } from "lucide-react";
 import { SolanaWalletButton } from "@/components/auth/solana-wallet-button";
 import { Button } from "@/components/ui/button";

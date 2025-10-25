@@ -1,17 +1,17 @@
 import {
   UserData,
-  Post,
+  ExtendedPost,
   Activity,
   Notification,
   Token,
   UserStats,
   FeedItem,
   PostComment,
-} from "@/types/core";
+} from "@/types";
 
 class UserDataService {
   private users: Map<string, UserData> = new Map();
-  private posts: Map<string, Post> = new Map();
+  private posts: Map<string, ExtendedPost> = new Map();
   private activities: Map<string, Activity> = new Map();
   private notifications: Map<string, Notification[]> = new Map();
   private tokens: Map<string, Token> = new Map();
@@ -224,7 +224,7 @@ class UserDataService {
     });
 
     // Initialize default posts
-    const defaultPosts: Post[] = [
+    const defaultPosts: ExtendedPost[] = [
       {
         id: "post1",
         authorId: "juampi",
@@ -665,10 +665,10 @@ class UserDataService {
 
   // Post methods
   createPost(
-    postData: Omit<Post, "id" | "createdAt" | "likes" | "comments">,
-  ): Post {
+    postData: Omit<ExtendedPost, "id" | "createdAt" | "likes" | "comments">,
+  ): ExtendedPost {
     const id = `post_${Date.now()}`;
-    const newPost: Post = {
+    const newPost: ExtendedPost = {
       ...postData,
       id,
       likes: [],
@@ -682,13 +682,13 @@ class UserDataService {
     return newPost;
   }
 
-  getPostsByUser(userId: string): Post[] {
+  getPostsByUser(userId: string): ExtendedPost[] {
     return Array.from(this.posts.values()).filter(
       (post) => post.authorId === userId,
     );
   }
 
-  getAllPosts(): Post[] {
+  getAllPosts(): ExtendedPost[] {
     return Array.from(this.posts.values());
   }
 
@@ -702,13 +702,13 @@ class UserDataService {
     const followingIds = user.following;
 
     // If user is not following anyone, show posts from featured artists
-    let postFilter = (post: Post) =>
+    let postFilter = (post: ExtendedPost) =>
       followingIds.includes(post.authorId) || post.authorId === userId;
 
     if (followingIds.length === 0) {
       // Show posts from featured artists for new users
       const featuredArtistIds = ["juampi", "banger", "nicolamarti", "axs"];
-      postFilter = (post: Post) =>
+      postFilter = (post: ExtendedPost) =>
         featuredArtistIds.includes(post.authorId) || post.authorId === userId;
     }
 
@@ -1037,7 +1037,7 @@ class UserDataService {
     );
   }
 
-  searchPosts(query: string): Post[] {
+  searchPosts(query: string): ExtendedPost[] {
     const lowercaseQuery = query.toLowerCase();
     return Array.from(this.posts.values()).filter(
       (post) =>

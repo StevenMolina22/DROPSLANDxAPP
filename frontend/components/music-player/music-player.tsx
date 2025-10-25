@@ -20,8 +20,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useMusicPlayer } from "@/hooks/use-music-player";
-import { Track } from "@/types/music";
-import { musicTracks } from "@/data/music";
+import { Track } from "@/types";
+import { musicTracks } from "@/data";
 
 interface MusicPlayerProps {
   tracks?: Track[];

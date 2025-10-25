@@ -1,8 +1,8 @@
 // URLs de streaming para los archivos de música
 // Usando los archivos de la carpeta public/music
 
-import { musicTracks } from "@/data/music";
-import { Track } from "@/types/music";
+import { musicTracks } from "@/data";
+import { Track } from "@/types";
 
 // Función para obtener una pista por ID
 export function getTrackById(id: string): Track | undefined {

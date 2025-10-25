@@ -1,4 +1,4 @@
-import { Track } from "@/types/music";
+import { Track } from "@/types";
 
 export const musicTracks: Track[] = [
   {

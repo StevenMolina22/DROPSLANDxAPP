@@ -178,7 +178,6 @@ lib/
   music-data.ts
   music-service.ts
   solana-program-client.ts
-  types.ts
   user-data-service.ts
   utils.ts
 public/
@@ -194,8 +193,8 @@ styles/
   globals.css
 types/
   artist.ts
+  core.ts
   explore.ts
-  music-player.ts
   music.ts
 .gitignore
 package.json
@@ -230,7 +229,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DonateForm from "@/components/wallet/donate-form";
-import { artists } from "@/data/artist-profile";
+import { artists } from "@/data";
 
 export default function CreatorPage({ params }: { params: { id: string } }) {
   // Find the artist by ID
@@ -1029,7 +1028,7 @@ export default function ArtistsList() {
 "use client";
 import { Search, Filter } from "lucide-react";
 import Image from "next/image";
-import { Creator, CATEGORIES, CREATORS } from "@/data/explore";
+import { Creator, CATEGORIES, CREATORS } from "@/data";
 
 interface ExploreScreenProps {
   onSelectCreator: (creator: Creator) => void;
@@ -1144,8 +1143,8 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import MusicCard from "@/components/music-player/music-card";
 import { useMusicPlayer } from "@/hooks/use-music-player";
-import { Track } from "@/types/explore";
-import { genres, popularTracks, trendingArtists } from "@/data/explore";
+import { genres, popularTracks, trendingArtists } from "@/data";
+import { Track } from "@/types";
 
 export function ExploreView() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -1341,7 +1340,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/hooks/use-auth";
-import { ACTIVITIES, SOCIAL_NOTIFICATIONS } from "@/data/activities";
+import { ACTIVITIES, SOCIAL_NOTIFICATIONS } from "@/data";
 
 // Modificar la función ActivityScreen para mostrar el balance actual
 export default function ActivityScreen() {
@@ -1543,7 +1542,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
 import { userDataService } from "@/lib/user-data-service";
-import { Activity } from "@/types/core";
+import { Activity } from "@/types";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
 
 interface ActivityViewProps {
@@ -1708,7 +1707,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
 import { useAuth } from "@/hooks/use-auth";
 import { userDataService } from "@/lib/user-data-service";
-import { Post, Activity, FeedItem } from "@/types/core";
+import { Post, Activity, FeedItem } from "@/types";
 import MusicPlayer from "@/components/music-player/music-player";
 
 interface HomeViewProps {
@@ -2510,7 +2509,7 @@ export function BanknoteSvg({ className = "" }: BanknoteSvgProps) {
 
 ## File: components/layout/header.tsx
 ```typescript
-import { UserData } from "@/types/core";
+import { UserData } from "@/types";
 import { UserPlus } from "lucide-react";
 import { SolanaWalletButton } from "@/components/auth/solana-wallet-button";
 import { Button } from "@/components/ui/button";
@@ -2728,7 +2727,6 @@ export function TabBar({
 ## File: components/music-player/expanded-player.tsx
 ```typescript
 "use client";
-
 import { useState } from "react";
 import {
   Play,
@@ -2740,7 +2738,6 @@ import {
   Repeat,
   Shuffle,
   Heart,
-  MoreHorizontal,
   List,
   Minimize2,
   X,
@@ -2750,7 +2747,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useMusicPlayer } from "@/hooks/use-music-player";
-import { musicTracks } from "@/lib/music-data";
+import { musicTracks } from "@/data";
 
 export default function ExpandedPlayer() {
   const [isShuffled, setIsShuffled] = useState(false);
@@ -3070,14 +3067,9 @@ export default function MiniPlayerWrapper() {
 ## File: components/music-player/mini-player.tsx
 ```typescript
 "use client";
-
-import { useState, useRef, useEffect } from "react";
 import { Play, Pause, SkipBack, SkipForward, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Slider } from "@/components/ui/slider";
-import { useMusicPlayer } from "@/hooks/use-music-player";
-import { musicTracks } from "@/lib/music-data";
 
 interface Track {
   id: string;
@@ -3351,7 +3343,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useMusicPlayer } from "@/hooks/use-music-player";
-import { Track, musicTracks } from "@/lib/music-data";
+import { Track } from "@/types";
+import { musicTracks } from "@/data";
 
 interface MusicPlayerProps {
   tracks?: Track[];
@@ -3691,7 +3684,7 @@ export default function MusicPlayer({
 
 ## File: components/profile/artist-certifications-tab.tsx
 ```typescript
-import { Artist } from "@/types/artist";
+import { Artist } from "@/types";
 import { Disc, Video, Users, Award } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import { TabsContent } from "../ui/tabs";
@@ -3780,7 +3773,7 @@ export function ArtistCertificationsTab({ artist }: { artist: Artist }) {
 
 ## File: components/profile/artist-posts-tab.tsx
 ```typescript
-import { Artist } from "@/types/artist";
+import { Artist } from "@/types";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { Heart, MessageCircle, Share2 } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
@@ -3842,7 +3835,7 @@ export function ArtistPostsTab({ artist }: { artist: Artist }) {
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/use-auth";
-import { artists } from "@/data/artist-profile";
+import { artists } from "@/data";
 import { ArrowLeft, Lock } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -4040,7 +4033,7 @@ export default function ArtistProfile({
 
 ## File: components/profile/artist-rewards-tab.tsx
 ```typescript
-import { Artist } from "@/types/artist";
+import { Artist } from "@/types";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { BanknoteIcon } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
@@ -4108,7 +4101,7 @@ export function ArtistRewardsTab({ artist }: { artist: Artist }) {
 
 ## File: components/profile/artist-token-info.tsx
 ```typescript
-import { Artist } from "@/types/artist";
+import { Artist } from "@/types";
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
 
@@ -4485,7 +4478,7 @@ export const ProfileCommentDialog: React.FC<ProfileCommentDialogProps> = ({
 
 ## File: components/profile/profile-create-post-form.tsx
 ```typescript
-import { UserData } from "@/types/core";
+import { UserData } from "@/types";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { ImageIcon, MapPin, BarChart2, Paperclip, Hash } from "lucide-react";
 import { useState } from "react";
@@ -4914,7 +4907,7 @@ import { userPosts } from "@/data/profile-view";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { Heart, MessageCircle, Share2 } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
-import { Post } from "@/types/artist";
+import { Post } from "@/types";
 
 interface PostListProps {
   userDisplayName: string;
@@ -5237,8 +5230,7 @@ export default function ProfileScreen({
 
 ## File: components/profile/profile-tabs.tsx
 ```typescript
-import { Track } from "@/lib/music-data";
-import { UserData } from "@/types/core";
+import { UserData } from "@/types";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@radix-ui/react-tabs";
 import { PostInteractionState } from "./profile-view";
 import { CreatePostForm } from "./profile-create-post-form";
@@ -5250,7 +5242,7 @@ import {
   followedArtists,
   rewards,
 } from "@/data/profile-view";
-import { Certification } from "@/types/artist";
+import { Certification } from "@/types";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import {
   Disc,
@@ -5263,7 +5255,8 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import { Badge } from "../ui/badge";
-import { MusicPlayer } from "@/types/music";
+import { MusicPlayer } from "@/types";
+import { Track } from "@/types";
 
 interface ProfileTabsProps {
   isArtist: boolean;
@@ -5713,22 +5706,19 @@ const TracksTab: React.FC<TracksTabProps> = ({
 ## File: components/profile/profile-view.tsx
 ```typescript
 "use client";
-
 import { useState, useMemo } from "react";
 import { Edit } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-
-// Import the useAuth hook and UserProfile component
 import { useAuth } from "@/hooks/use-auth";
 import UserProfile from "@/components/profile/user-profile";
 import { useMusicPlayer } from "@/hooks/use-music-player";
-import { musicTracks } from "@/lib/music-data";
 import { LegacyProfileInfo } from "./legacy-profile-info";
 import { LegacyProfileSettings } from "./legacy-profile-settings";
 import { ProfileCommentDialog } from "./profile-comment-dialog";
 import { ProfileTabs } from "./profile-tabs";
+import { musicTracks } from "@/data";
 
 // --- Type Definitions ---
 // (Ideally, these would be imported from your data files)
@@ -12436,7 +12426,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/hooks/use-auth";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
-import { artistTokens, transactions } from "@/data/wallet-view";
+import { artistTokens, transactions } from "@/data";
 
 interface WalletViewProps {
   onBuy: () => void;
@@ -13135,7 +13125,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
-import { artists, genres, trendingTopics } from "@/data/search-view";
+import { artists, genres, trendingTopics } from "@/data";
 
 interface SearchViewProps {
   onSelectArtist: (artistId: string) => void;
@@ -13595,7 +13585,8 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
 ## File: contexts/music-player-context.tsx
 ```typescript
 "use client";
-
+import { musicTracks } from "@/data";
+import { Track } from "@/types";
 import React, {
   useState,
   useRef,
@@ -13605,17 +13596,6 @@ import React, {
   createContext,
   ReactNode,
 } from "react";
-
-export interface Track {
-  id: string;
-  title: string;
-  artist: string;
-  album: string;
-  duration: number;
-  cover: string;
-  audioUrl?: string;
-  isLiked?: boolean;
-}
 
 interface MusicPlayerContextProps {
   currentTrack: Track | null;
@@ -13678,11 +13658,9 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
         // Update playlist and track index
         if (isNewTrack) {
           // Import musicTracks dynamically to avoid circular dependency
-          import("@/lib/music-data").then(({ musicTracks }) => {
-            const trackIndex = musicTracks.findIndex((t) => t.id === track.id);
-            setPlaylist(musicTracks);
-            setCurrentTrackIndex(trackIndex >= 0 ? trackIndex : 0);
-          });
+          const trackIndex = musicTracks.findIndex((t) => t.id === track.id);
+          setPlaylist(musicTracks);
+          setCurrentTrackIndex(trackIndex >= 0 ? trackIndex : 0);
           setCurrentTime(0);
         }
 
@@ -14057,7 +14035,7 @@ export const SOCIAL_NOTIFICATIONS = [
 // Vamos a actualizar los datos de los artistas para que cada uno tenga contenido único
 // Reemplazaremos la constante artists con datos más personalizados
 
-import { Artist } from "@/types/artist";
+import { Artist } from "@/types";
 
 export const artists: Artist[] = [
   {
@@ -15051,10 +15029,9 @@ export const artists: Artist[] = [
 ## File: data/explore.ts
 ```typescript
 "use client";
+import { Artist, Genre } from "@/types/explore";
+import { Track } from "@/types";
 
-import { Artist, Genre, Track } from "@/types/explore";
-
-// Mock data for categories and creators
 export const CATEGORIES = [
   "All",
   "Art",
@@ -15253,7 +15230,7 @@ export const genres: Genre[] = [
 
 ## File: data/music.ts
 ```typescript
-import { Track } from "@/types/music";
+import { Track } from "@/types";
 
 export const musicTracks: Track[] = [
   {
@@ -15640,7 +15617,7 @@ import {
   useCallback,
 } from "react";
 import { backendService } from "@/lib/backend-service"; // Keep using the mock backend
-import { UserData } from "@/types/core";
+import { UserData } from "@/types";
 
 // --- Mock User Data ---
 const mockArtistData: UserData = {
@@ -15999,7 +15976,6 @@ export {
   useMusicPlayer,
   MusicPlayerProvider,
 } from "../contexts/music-player-context";
-export type { Track } from "../contexts/music-player-context";
 ```
 
 ## File: hooks/use-music-storage.ts
@@ -16836,8 +16812,8 @@ export const getCreatorInfo = async (creatorId: string) => {
 // URLs de streaming para los archivos de música
 // Usando los archivos de la carpeta public/music
 
-import { musicTracks } from "@/data/music";
-import { Track } from "@/types/music";
+import { musicTracks } from "@/data";
+import { Track } from "@/types";
 
 // Función para obtener una pista por ID
 export function getTrackById(id: string): Track | undefined {
@@ -16870,9 +16846,10 @@ export function searchTracks(query: string): Track[] {
 
 ## File: lib/music-service.ts
 ```typescript
-import { musicTracks } from "./music-data"; // Import mock data
-
 // Define interfaces based on original service expectations, mapping from Track
+
+import { musicTracks } from "@/data";
+
 // Note: We might need to adjust or add dummy data for fields not in the original Track interface.
 export interface MusicFile {
   id: string;
@@ -17176,128 +17153,6 @@ export async function getSolBalance(
 }
 ```
 
-## File: lib/types.ts
-```typescript
-export type UserType = "fan" | "artist";
-
-export interface UserData {
-  id: string;
-  username: string;
-  handle?: string; // @username
-  type: UserType;
-  isVerified?: boolean;
-  profilePhoto?: string;
-  coverPhoto?: string; // Cover image
-  isIIUser?: boolean;
-  principal?: string;
-  bio?: string;
-  genre?: string;
-  location?: string;
-  website?: string;
-  socialLinks?: {
-    twitter?: string;
-    instagram?: string;
-    youtube?: string;
-    spotify?: string;
-  };
-  followers: string[];
-  following: string[];
-  createdAt: string;
-  lastActive: string;
-}
-
-export interface Post {
-  id: string;
-  authorId: string;
-  authorName: string;
-  authorAvatar: string;
-  content: string;
-  image?: string;
-  likes: string[];
-  comments: PostComment[];
-  createdAt: string;
-  type: "post" | "release" | "announcement";
-  tags?: string[];
-}
-
-export interface PostComment {
-  id: string;
-  authorId: string;
-  authorName: string;
-  authorAvatar: string;
-  content: string;
-  createdAt: string;
-  likes: string[];
-}
-
-export interface Activity {
-  id: string;
-  type:
-    | "purchase"
-    | "mention"
-    | "reward"
-    | "follow"
-    | "like"
-    | "comment"
-    | "release";
-  userId: string;
-  userName: string;
-  userAvatar: string;
-  action: string;
-  message?: string;
-  amount?: number;
-  tokenName?: string;
-  createdAt: string;
-  relatedTo: "artist" | "fan";
-  targetUserId?: string;
-  targetPostId?: string;
-  isRead: boolean;
-}
-
-export interface Notification {
-  id: string;
-  type: "follow" | "like" | "comment" | "mention" | "purchase" | "reward";
-  userId: string;
-  userName: string;
-  userAvatar: string;
-  message: string;
-  createdAt: string;
-  isRead: boolean;
-  targetPostId?: string;
-  targetUserId?: string;
-}
-
-export interface Token {
-  id: string;
-  name: string;
-  symbol: string;
-  artistId: string;
-  artistName: string;
-  price: number;
-  totalSupply: number;
-  circulatingSupply: number;
-  description: string;
-  image?: string;
-}
-
-export interface UserStats {
-  followers: number;
-  following: number;
-  posts: number;
-  tokensOwned: number;
-  totalValue: number;
-  totalDonated: number;
-}
-
-export interface FeedItem {
-  id: string;
-  type: "post" | "activity" | "release";
-  data: Post | Activity;
-  priority: number;
-  createdAt: string;
-}
-```
-
 ## File: lib/user-data-service.ts
 ```typescript
 import {
@@ -17309,7 +17164,7 @@ import {
   UserStats,
   FeedItem,
   PostComment,
-} from "./types";
+} from "@/types";
 
 class UserDataService {
   private users: Map<string, UserData> = new Map();
@@ -18731,6 +18586,128 @@ export interface Artist {
 }
 ```
 
+## File: types/core.ts
+```typescript
+export type UserType = "fan" | "artist";
+
+export interface UserData {
+  id: string;
+  username: string;
+  handle?: string; // @username
+  type: UserType;
+  isVerified?: boolean;
+  profilePhoto?: string;
+  coverPhoto?: string; // Cover image
+  isIIUser?: boolean;
+  principal?: string;
+  bio?: string;
+  genre?: string;
+  location?: string;
+  website?: string;
+  socialLinks?: {
+    twitter?: string;
+    instagram?: string;
+    youtube?: string;
+    spotify?: string;
+  };
+  followers: string[];
+  following: string[];
+  createdAt: string;
+  lastActive: string;
+}
+
+export interface Post {
+  id: string;
+  authorId: string;
+  authorName: string;
+  authorAvatar: string;
+  content: string;
+  image?: string;
+  likes: string[];
+  comments: PostComment[];
+  createdAt: string;
+  type: "post" | "release" | "announcement";
+  tags?: string[];
+}
+
+export interface PostComment {
+  id: string;
+  authorId: string;
+  authorName: string;
+  authorAvatar: string;
+  content: string;
+  createdAt: string;
+  likes: string[];
+}
+
+export interface Activity {
+  id: string;
+  type:
+    | "purchase"
+    | "mention"
+    | "reward"
+    | "follow"
+    | "like"
+    | "comment"
+    | "release";
+  userId: string;
+  userName: string;
+  userAvatar: string;
+  action: string;
+  message?: string;
+  amount?: number;
+  tokenName?: string;
+  createdAt: string;
+  relatedTo: "artist" | "fan";
+  targetUserId?: string;
+  targetPostId?: string;
+  isRead: boolean;
+}
+
+export interface Notification {
+  id: string;
+  type: "follow" | "like" | "comment" | "mention" | "purchase" | "reward";
+  userId: string;
+  userName: string;
+  userAvatar: string;
+  message: string;
+  createdAt: string;
+  isRead: boolean;
+  targetPostId?: string;
+  targetUserId?: string;
+}
+
+export interface Token {
+  id: string;
+  name: string;
+  symbol: string;
+  artistId: string;
+  artistName: string;
+  price: number;
+  totalSupply: number;
+  circulatingSupply: number;
+  description: string;
+  image?: string;
+}
+
+export interface UserStats {
+  followers: number;
+  following: number;
+  posts: number;
+  tokensOwned: number;
+  totalValue: number;
+  totalDonated: number;
+}
+
+export interface FeedItem {
+  id: string;
+  type: "post" | "activity" | "release";
+  data: Post | Activity;
+  priority: number;
+  createdAt: string;
+}
+```
+
 ## File: types/explore.ts
 ```typescript
 export interface Artist {
@@ -18741,16 +18718,6 @@ export interface Artist {
   followers: number;
 }
 
-export interface Track {
-  id: string;
-  title: string;
-  artist: string;
-  album: string;
-  duration: number;
-  cover: string;
-  audioUrl: string;
-}
-
 export interface Genre {
   id: string;
   name: string;
@@ -18759,7 +18726,7 @@ export interface Genre {
 }
 ```
 
-## File: types/music-player.ts
+## File: types/music.ts
 ```typescript
 export interface Track {
   id: string;
@@ -18794,20 +18761,6 @@ export interface MusicPlayer {
   previousTrack: () => void;
   formatTime: (time: number) => string;
   audioRef: React.RefObject<HTMLAudioElement | null>;
-}
-```
-
-## File: types/music.ts
-```typescript
-export interface Track {
-  id: string;
-  title: string;
-  artist: string;
-  album: string;
-  duration: number;
-  cover: string;
-  audioUrl: string;
-  isLiked?: boolean;
 }
 ```
 

@@ -1,6 +1,6 @@
 "use client";
-import { Artist, Genre } from "@/types/explore";
-import { Track } from "@/types/music";
+import { Creator, ExploreArtist, Genre } from "@/types/explore";
+import { Track } from "@/types";
 
 export const CATEGORIES = [
   "All",
@@ -11,16 +11,7 @@ export const CATEGORIES = [
   "Writing",
   "Cooking",
 ];
-export type Creator = {
-  id: string;
-  name: string;
-  handle: string;
-  avatar: string;
-  category: string;
-  description: string;
-  blgReceived: number;
-  featured: boolean;
-};
+
 export const CREATORS: Creator[] = [
   {
     id: "1",
@@ -84,7 +75,7 @@ export const CREATORS: Creator[] = [
   },
 ];
 
-export const trendingArtists: Artist[] = [
+export const trendingArtists: ExploreArtist[] = [
   {
     id: "1",
     name: "Flush",
