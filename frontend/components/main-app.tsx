@@ -1,5 +1,4 @@
 "use client";
-
 import HomeView from "@/components/home/home-view";
 import SearchView from "@/components/search-view";
 import ActivityView from "@/components/home/activity-view";
@@ -14,106 +13,89 @@ import { LoginScreen, useAuth } from "@/icp/features/authentication";
 import { Header } from "./header";
 import { TabBar } from "./tab-bar";
 import { useNavigation, useViewRenderer } from "@/hooks/use-navigation";
+import type { useNavigation as useNavigationType } from "@/hooks/use-navigation";
 
 export default function MainApp() {
   const { user, userData, login, logout, isArtist } = useAuth();
-
-  const {
-    activeTab,
-    currentView,
-    selectedArtistId,
-    handleViewArtist,
-    handleTabChange,
-    navigateToBuy,
-    navigateToSend,
-    navigateToReceive,
-    navigateToArtistDashboard,
-    navigateBack,
-  } = useNavigation();
-
+  const navigation = useNavigation();
   const { viewType } = useViewRenderer(
-    currentView,
-    activeTab,
-    selectedArtistId,
+    navigation.currentView,
+    navigation.activeTab,
+    navigation.selectedArtistId,
     user,
   );
 
-  // Wrapper for handleViewArtist to include current user
-  const handleArtistClick = (artistId: string) => {
-    handleViewArtist(artistId, user);
-  };
-
-  // Render the appropriate content based on the view type
-  const renderContent = () => {
-    switch (viewType) {
-      case "buy":
-        return <BuyView onBack={navigateBack} />;
-
-      case "send":
-        return <SendView onBack={navigateBack} />;
-
-      case "receive":
-        return <ReceiveView onBack={navigateBack} />;
-
-      case "artistDashboard":
-        return <ArtistDashboard onBack={navigateBack} />;
-      // return <ReceiveView onBack={navigateBack} />;
-
-      case "artist":
-        return (
-          <ArtistProfile artistId={selectedArtistId!} onBack={navigateBack} />
-        );
-
-      case "home":
-        return <HomeView onSelectArtist={handleArtistClick} />;
-
-      case "search":
-        return <SearchView onSelectArtist={handleArtistClick} />;
-
-      case "wallet":
-        return (
-          <WalletView
-            onBuy={navigateToBuy}
-            onSend={navigateToSend}
-            onReceive={navigateToReceive}
-          />
-        );
-
-      case "activity":
-        return <ActivityView onSelectArtist={handleArtistClick} />;
-
-      case "profile":
-        return <ProfileView username={user!} />;
-
-      default:
-        return null;
-    }
-  };
+  if (!user) {
+    return <LoginScreen onLogin={login} />;
+  }
 
   return (
     <>
-      {user && (
-        <Header
-          userData={userData}
-          isArtist={isArtist}
-          activeTab={activeTab}
-          handleOpenArtistDashboard={navigateToArtistDashboard}
-          user={user}
-          logout={logout}
-        />
-      )}
-
-      {!user ? (
-        <LoginScreen onLogin={login} />
-      ) : (
-        <>
-          <main className="flex-1 overflow-auto bg-gray-950 pb-24">
-            {renderContent()}
-          </main>
-
-          <TabBar activeTab={activeTab} onTabChange={handleTabChange} />
-        </>
-      )}
+      <Header
+        userData={userData}
+        isArtist={isArtist}
+        activeTab={navigation.activeTab}
+        handleOpenArtistDashboard={navigation.navigateToArtistDashboard}
+        user={user}
+        logout={logout}
+      />
+      <main className="flex-1 overflow-auto bg-gray-950 pb-24">
+        <ViewRenderer viewType={viewType} navigation={navigation} user={user} />
+      </main>
+      <TabBar
+        activeTab={navigation.activeTab}
+        onTabChange={navigation.handleTabChange}
+      />
     </>
   );
+}
+
+export function ViewRenderer({
+  viewType,
+  navigation,
+  user,
+}: {
+  viewType: string | null;
+  navigation: ReturnType<typeof useNavigationType>;
+  user: string;
+}) {
+  const handleArtistClick = (artistId: string) => {
+    navigation.handleViewArtist(artistId, user);
+  };
+
+  switch (viewType) {
+    case "buy":
+      return <BuyView onBack={navigation.navigateBack} />;
+    case "send":
+      return <SendView onBack={navigation.navigateBack} />;
+    case "receive":
+      return <ReceiveView onBack={navigation.navigateBack} />;
+    case "artistDashboard":
+      return <ArtistDashboard onBack={navigation.navigateBack} />;
+    case "artist":
+      return (
+        <ArtistProfile
+          artistId={navigation.selectedArtistId!}
+          onBack={navigation.navigateBack}
+        />
+      );
+    case "home":
+      return <HomeView onSelectArtist={handleArtistClick} />;
+    case "search":
+      return <SearchView onSelectArtist={handleArtistClick} />;
+    case "wallet":
+      return (
+        <WalletView
+          onBuy={navigation.navigateToBuy}
+          onSend={navigation.navigateToSend}
+          onReceive={navigation.navigateToReceive}
+        />
+      );
+    case "activity":
+      return <ActivityView onSelectArtist={handleArtistClick} />;
+    case "profile":
+      return <ProfileView username={user} />;
+    default:
+      return null;
+  }
 }
