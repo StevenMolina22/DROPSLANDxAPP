@@ -13,6 +13,7 @@ import { BanknoteIcon } from "@/components/icons/banknote-icon"
 
 // Import the useAuth hook
 import { useAuth } from "@/hooks/use-auth"
+import { useIntegratedAuth } from "@/hooks/use-integrated-auth"
 
 interface SendViewProps {
   onBack: () => void
@@ -27,8 +28,9 @@ export default function SendView({ onBack }: SendViewProps) {
   const [selectedUser, setSelectedUser] = useState<any>(null)
   const { toast } = useToast()
   const { balance, addToBalance, addToDonated } = useAuth() // Get balance and functions to update it
+  const { sendTokens } = useIntegratedAuth() // Get Solana functions
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!selectedUser) {
       toast({
         title: "Select a recipient",
@@ -50,20 +52,40 @@ export default function SendView({ onBack }: SendViewProps) {
 
     setIsLoading(true)
 
-    // Simulate network delay
-    setTimeout(() => {
-      // Subtract from balance
-      addToBalance(-amount)
-
-      // Add to donated value
-      addToDonated(amount)
-
+    try {
+      // Use real Solana transaction
+      if (sendTokens) {
+        const result = await sendTokens(selectedUser.id, amount, message)
+        
+        if (result.success) {
+          toast({
+            title: "Sent successfully!",
+            description: `You've sent ${amount} $DROPS to ${selectedUser.name}`,
+          })
+        } else {
+          throw new Error(result.error || 'Failed to send tokens')
+        }
+      } else {
+        // Fallback to simulated transaction
+        setTimeout(() => {
+          addToBalance(-amount)
+          addToDonated(amount)
+          toast({
+            title: "Sent successfully!",
+            description: `You've sent ${amount} $DROPS to ${selectedUser.name}`,
+          })
+          setIsLoading(false)
+        }, 1500)
+      }
+    } catch (error: any) {
       toast({
-        title: "Sent successfully!",
-        description: `You've sent ${amount} $DROPS to ${selectedUser.name}`,
+        title: "Error",
+        description: error.message || "Failed to send tokens",
+        variant: "destructive"
       })
+    } finally {
       setIsLoading(false)
-    }, 1500)
+    }
   }
 
   const handleSearch = () => {

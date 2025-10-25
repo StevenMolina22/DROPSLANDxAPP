@@ -10,11 +10,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Textarea } from "@/components/ui/textarea"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { BanknoteIcon } from "@/components/icons/banknote-icon"
-import { useAuth } from "@/hooks/use-auth"
+import { useIntegratedAuth } from "@/hooks/use-integrated-auth"
 import { userDataService } from "@/lib/user-data-service"
 import { Post, Activity, FeedItem, UserData } from "@/lib/types"
 import MusicPlayer from "@/components/music-player"
 import MusicCard from "@/components/music-card"
+import { SolanaStatusBanner } from "@/components/solana-status-banner"
 
 interface HomeViewProps {
   onSelectArtist: (artistId: string) => void
@@ -22,7 +23,7 @@ interface HomeViewProps {
 }
 
 export default function HomeView({ onSelectArtist, onNavigateToExplore }: HomeViewProps) {
-  const { userData, isArtist, user } = useAuth()
+  const { userData, isArtist, user, solanaConnected, hasProfileNFT } = useIntegratedAuth()
   const [feedItems, setFeedItems] = useState<FeedItem[]>([])
   const [showCommentDialog, setShowCommentDialog] = useState(false)
   const [currentPostId, setCurrentPostId] = useState<string | null>(null)
@@ -420,6 +421,24 @@ export default function HomeView({ onSelectArtist, onNavigateToExplore }: HomeVi
           </Card>
         </div>
       )}
+
+      {/* Solana Status Banner */}
+      <div className="px-4 mt-4">
+        <SolanaStatusBanner 
+          onMintProfile={() => {
+            // Refresh or show success message
+            console.log("Profile NFT minted successfully");
+          }}
+          onMintMusic={() => {
+            // Navigate to music minting
+            console.log("Navigate to music minting");
+          }}
+          onViewNFTs={() => {
+            // Navigate to wallet or NFT view
+            console.log("Navigate to NFT view");
+          }}
+        />
+      </div>
 
       {/* Tabs */}
       <div className="px-4 mt-6">

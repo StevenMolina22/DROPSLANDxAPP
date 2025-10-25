@@ -7,8 +7,20 @@ import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { useAuth } from "@/hooks/use-auth"
+import { useIntegratedAuth } from "@/hooks/use-integrated-auth"
 import { BanknoteIcon } from "@/components/icons/banknote-icon"
+import { SolanaConnectionDebug } from "@/components/solana-connection-debug"
+import { MintButtonsTest } from "@/components/mint-buttons-test"
+import { ErrorDebug } from "@/components/error-debug"
+import { JavaScriptErrorCatcher } from "@/components/javascript-error-catcher"
+import { SpecificErrorsChecker } from "@/components/specific-errors-checker"
+import { EndpointVerifier } from "@/components/endpoint-verifier"
+import { ServerErrorsDetector } from "@/components/server-errors-detector"
+import { Fix4ServerErrors } from "@/components/fix-4-server-errors"
+import { JavaScriptRuntimeErrorFixer } from "@/components/javascript-runtime-error-fixer"
+import { RealSolanaConnection } from "@/components/real-solana-connection"
+import { RealSolanaNFTs } from "@/components/real-solana-nfts"
+import { RealSolanaTransactions } from "@/components/real-solana-transactions"
 
 interface ArtistDashboardProps {
   onBack: () => void
@@ -16,7 +28,7 @@ interface ArtistDashboardProps {
 
 export default function ArtistDashboard({ onBack }: ArtistDashboardProps) {
   const [activeTab, setActiveTab] = useState("overview")
-  const { userData } = useAuth()
+  const { userData, solanaConnected, hasProfileNFT, userMusicNFTs } = useIntegratedAuth()
 
   // Artist data would come from the backend in a real app
   const artistData = {
@@ -119,6 +131,191 @@ export default function ArtistDashboard({ onBack }: ArtistDashboardProps) {
                     <p className="text-xs text-gray-400">Token Price</p>
                   </div>
                 </div>
+              </CardContent>
+            </Card>
+
+            {/* Solana Integration Section */}
+            <Card className="bg-gray-800 border-gray-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-white text-lg">Solana Integration</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between p-3 bg-purple-900/20 rounded-lg border border-purple-500/30">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-purple-600/30 rounded-full flex items-center justify-center">
+                        <span className="text-purple-200 text-sm font-bold">S</span>
+                      </div>
+                      <div>
+                        <p className="text-sm text-purple-200">Wallet Status</p>
+                        <p className="text-xs text-purple-300">
+                          {solanaConnected ? "Connected" : "Not Connected"}
+                        </p>
+                      </div>
+                    </div>
+                    <Badge 
+                      variant="secondary" 
+                    >
+                    </Badge>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-3 bg-gray-700/50 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-blue-600/30 rounded-full flex items-center justify-center">
+                        <span className="text-blue-200 text-sm font-bold">P</span>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-300">Profile NFT</p>
+                        <p className="text-xs text-gray-400">
+                          {hasProfileNFT ? "Active" : "Not minted"}
+                        </p>
+                      </div>
+                    </div>
+                    <Badge 
+                      variant="secondary" 
+                      className={hasProfileNFT ? "bg-green-500/20 text-green-200" : "bg-orange-500/20 text-orange-200"}
+                    >
+                      {hasProfileNFT ? "✅" : "❌"}
+                    </Badge>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-3 bg-gray-700/50 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-pink-600/30 rounded-full flex items-center justify-center">
+                        <span className="text-pink-200 text-sm font-bold">M</span>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-300">Music NFTs</p>
+                        <p className="text-xs text-gray-400">
+                          {userMusicNFTs.length} owned
+                        </p>
+                      </div>
+                    </div>
+                    <Badge variant="secondary" className="bg-pink-500/20 text-pink-200">
+                      {userMusicNFTs.length}
+                    </Badge>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Solana Connection Debug */}
+            <Card className="bg-gray-800 border-gray-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-white text-lg">Solana Connection Debug</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <SolanaConnectionDebug />
+              </CardContent>
+            </Card>
+
+            {/* Mint Buttons Test */}
+            <Card className="bg-gray-800 border-gray-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-white text-lg">Mint Buttons Test</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <MintButtonsTest />
+              </CardContent>
+            </Card>
+
+            {/* Error Debug */}
+            <Card className="bg-gray-800 border-gray-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-white text-lg">Error Debug</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ErrorDebug />
+              </CardContent>
+            </Card>
+
+            {/* JavaScript Error Catcher */}
+            <Card className="bg-gray-800 border-gray-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-white text-lg">JavaScript Error Catcher</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <JavaScriptErrorCatcher />
+              </CardContent>
+            </Card>
+
+            {/* Specific Errors Checker */}
+            <Card className="bg-gray-800 border-gray-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-white text-lg">Specific Errors Checker</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <SpecificErrorsChecker />
+              </CardContent>
+            </Card>
+
+            {/* Endpoint Verifier */}
+            <Card className="bg-gray-800 border-gray-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-white text-lg">Endpoint Verifier</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <EndpointVerifier />
+              </CardContent>
+            </Card>
+
+            {/* Server Errors Detector */}
+            <Card className="bg-gray-800 border-gray-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-white text-lg">Server Errors Detector</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ServerErrorsDetector />
+              </CardContent>
+            </Card>
+
+            {/* Fix 4 Server Errors */}
+            <Card className="bg-gray-800 border-gray-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-white text-lg">Fix 4 Server Errors</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Fix4ServerErrors />
+              </CardContent>
+            </Card>
+
+            {/* JavaScript Runtime Error Fixer */}
+            <Card className="bg-gray-800 border-gray-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-white text-lg">JavaScript Runtime Error Fixer</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <JavaScriptRuntimeErrorFixer />
+              </CardContent>
+            </Card>
+
+            {/* Real Solana Connection */}
+            <Card className="bg-gray-800 border-gray-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-white text-lg">Real Solana Connection</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <RealSolanaConnection />
+              </CardContent>
+            </Card>
+
+            {/* Real Solana NFTs */}
+            <Card className="bg-gray-800 border-gray-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-white text-lg">Real Solana NFTs</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <RealSolanaNFTs />
+              </CardContent>
+            </Card>
+
+            {/* Real Solana Transactions */}
+            <Card className="bg-gray-800 border-gray-700">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-white text-lg">Real Solana Transactions</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <RealSolanaTransactions />
               </CardContent>
             </Card>
 

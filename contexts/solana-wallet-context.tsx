@@ -4,17 +4,46 @@ import React, { useMemo, useEffect, useState } from 'react'
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react'
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui'
 import { PhantomWalletAdapter, SolflareWalletAdapter, TorusWalletAdapter } from '@solana/wallet-adapter-wallets'
-import { clusterApiUrl } from '@solana/web3.js'
 
 // Import wallet adapter CSS
 import '@solana/wallet-adapter-react-ui/styles.css'
 
 export function SolanaWalletProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false)
+  const [currentCluster, setCurrentCluster] = useState<'mainnet-beta' | 'testnet' | 'devnet'>('testnet')
+  const [currentEndpoint, setCurrentEndpoint] = useState<string>('https://api.testnet.solana.com')
   
-  // You can use 'devnet', 'testnet', or 'mainnet-beta'
-  const network = 'mainnet-beta'
-  const endpoint = useMemo(() => clusterApiUrl(network), [network])
+  // Cluster endpoints configuration
+  const clusterEndpoints = {
+    'mainnet-beta': [
+      'https://api.mainnet-beta.solana.com',
+      'https://rpc.ankr.com/solana',
+      'https://solana-api.projectserum.com'
+    ],
+    'testnet': [
+      'https://api.testnet.solana.com',
+      'https://testnet.helius-rpc.com/?api-key=demo'
+    ],
+    'devnet': [
+      'https://api.devnet.solana.com',
+      'https://devnet.helius-rpc.com/?api-key=demo'
+    ]
+  }
+  
+  // Use a working endpoint directly
+  useEffect(() => {
+    // Try testnet first as it's more reliable for development
+    const testnetEndpoint = 'https://api.testnet.solana.com'
+    console.log('🔗 Setting Solana endpoint to:', testnetEndpoint)
+    setCurrentEndpoint(testnetEndpoint)
+    setCurrentCluster('testnet')
+  }, [])
+  
+  // Use the best available endpoint
+  const endpoint = useMemo(() => {
+    console.log('🔗 Using Solana endpoint:', currentEndpoint);
+    return currentEndpoint;
+  }, [currentEndpoint])
 
   const wallets = useMemo(
     () => [

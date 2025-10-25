@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useToast } from "@/hooks/use-toast"
 import { useAuth } from "@/hooks/use-auth"
+import { useIntegratedAuth } from "@/hooks/use-integrated-auth"
 import { BanknoteIcon } from "@/components/icons/banknote-icon"
 
 interface ArtistProfileProps {
@@ -20,6 +21,7 @@ export default function ArtistProfile({ artistId, onBack }: ArtistProfileProps) 
   const [isLoading, setIsLoading] = useState(false)
   const { toast } = useToast()
   const { addToBalance, isArtist } = useAuth()
+  const { buyArtistToken } = useIntegratedAuth()
 
   // Find artist by ID with better error handling
   const artist = artists.find((a) => a.id === artistId)
@@ -40,20 +42,43 @@ export default function ArtistProfile({ artistId, onBack }: ArtistProfileProps) 
     )
   }
 
-  // Simulate network delay
-  const handleBuyToken = () => {
+  // Buy artist token with real Solana transaction
+  const handleBuyToken = async () => {
     setIsLoading(true)
 
-    // Simulate network delay
-    setTimeout(() => {
-      addToBalance(-10) // Subtract DROPS
-
+    try {
+      // Use real Solana transaction
+      if (buyArtistToken) {
+        const result = await buyArtistToken(artist.id, 10, artist.tokenPrice)
+        
+        if (result.success) {
+          toast({
+            title: "Purchase successful!",
+            description: `You've bought 10 $${artist.tokenName} from ${artist.name}`,
+          })
+        } else {
+          throw new Error(result.error || 'Failed to buy artist token')
+        }
+      } else {
+        // Fallback to simulated transaction
+        setTimeout(() => {
+          addToBalance(-10) // Subtract DROPS
+          toast({
+            title: "Purchase successful!",
+            description: `You've bought 10 $${artist.tokenName} from ${artist.name}`,
+          })
+          setIsLoading(false)
+        }, 1500)
+      }
+    } catch (error: any) {
       toast({
-        title: "Purchase successful!",
-        description: `You've bought 10 $${artist.tokenName} from ${artist.name}`,
+        title: "Error",
+        description: error.message || "Failed to buy artist token",
+        variant: "destructive"
       })
+    } finally {
       setIsLoading(false)
-    }, 1500)
+    }
   }
 
   return (

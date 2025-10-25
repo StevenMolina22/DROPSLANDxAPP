@@ -12,7 +12,7 @@ import BuyView from "@/components/buy-view"
 import SendView from "@/components/send-view"
 import ReceiveView from "@/components/receive-view"
 import ArtistProfile from "@/components/artist-profile"
-import { useAuth } from "@/hooks/use-auth"
+import { useIntegratedAuth } from "@/hooks/use-integrated-auth"
 import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import LoginScreen from "@/components/login-screen"
@@ -24,7 +24,7 @@ export default function MainApp() {
     "main",
   )
   const [selectedArtistId, setSelectedArtistId] = useState<string | null>(null)
-  const { user, userData, login, logout, isArtist } = useAuth()
+  const { user, userData, login, logout, isArtist, solanaConnected, hasProfileNFT } = useIntegratedAuth()
   const { toast } = useToast()
 
   // Debug state changes

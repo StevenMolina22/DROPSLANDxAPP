@@ -34,8 +34,10 @@ import Image from "next/image"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 
 // Import the useAuth hook and UserProfile component
-import { useAuth } from "@/hooks/use-auth"
+import { useIntegratedAuth } from "@/hooks/use-integrated-auth"
 import UserProfile from "@/components/user-profile"
+import { SolanaProfileSection } from "@/components/solana-profile-section"
+import { SoulboundTokenManager } from "@/components/soulbound-token-manager"
 import { useMusicPlayer } from "@/hooks/use-music-player"
 import { musicTracks } from "@/lib/music-data"
 
@@ -47,7 +49,7 @@ export default function ProfileView({ username = "usuario" }: ProfileViewProps) 
   const [isEditing, setIsEditing] = useState(false)
   const [postContent, setPostContent] = useState("")
   const [editedBio, setEditedBio] = useState("")
-  const { balance, donated, userData, isArtist, logout, isNFIDUser, user } = useAuth() // Get user data and check if artist
+  const { balance, donated, userData, isArtist, logout, isNFIDUser, user } = useIntegratedAuth() // Get user data and check if artist
 
   // Nuevos estados para likes y comentarios
   const [likedPosts, setLikedPosts] = useState<{ [key: string]: boolean }>({})
@@ -273,6 +275,16 @@ export default function ProfileView({ username = "usuario" }: ProfileViewProps) 
             </div>
           </div>
         )}
+
+        {/* Solana Integration Section */}
+        <div className="px-4 mt-6">
+          <SolanaProfileSection />
+        </div>
+
+        {/* Soulbound Tokens Section */}
+        <div className="px-4 mt-6">
+          <SoulboundTokenManager />
+        </div>
 
         {/* Tabs - Same structure for both fans and artists */}
         <div className="mt-6">

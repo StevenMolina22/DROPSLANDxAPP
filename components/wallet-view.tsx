@@ -4,7 +4,15 @@ import { TrendingUp, Users } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useAuth } from "@/hooks/use-auth"
+import { useIntegratedAuth } from "@/hooks/use-integrated-auth"
+import { SolanaQRSection } from "@/components/solana-qr-section"
+import { SoulboundTokenManager } from "@/components/soulbound-token-manager"
+import { SolanaRealStatus } from "@/components/solana-real-status"
+import { SolanaDebug } from "@/components/solana-debug"
+import { SolanaEndpointStatus } from "@/components/solana-endpoint-status"
+import { SolanaEndpointInfo } from "@/components/solana-endpoint-info"
+import { SolanaClusterSelector } from "@/components/solana-cluster-selector"
+import { SolanaTestnetNotice } from "@/components/solana-testnet-notice"
 import { BanknoteIcon } from "@/components/icons/banknote-icon"
 
 interface WalletViewProps {
@@ -14,7 +22,17 @@ interface WalletViewProps {
 }
 
 export default function WalletView({ onBuy, onSend, onReceive }: WalletViewProps) {
-  const { balance, donated } = useAuth()
+  const { 
+    balance, 
+    donated, 
+    solanaConnected, 
+    solanaBalance, 
+    hasProfileNFT, 
+    userMusicNFTs,
+    checkProfileNFT,
+    getUserMusicNFTs,
+    getSolanaBalance
+  } = useIntegratedAuth()
 
   return (
     <div className="pb-6 bg-gray-950">
@@ -25,6 +43,13 @@ export default function WalletView({ onBuy, onSend, onReceive }: WalletViewProps
         <div className="flex items-center mt-1">
           <span className="text-2xl font-bold">{balance} $DROPS</span>
         </div>
+        
+        {/* Solana Real Status */}
+        {solanaConnected && (
+          <div className="mt-4">
+            <SolanaRealStatus />
+          </div>
+        )}
         <div className="flex gap-2 mt-4">
           <Button
             size="sm"
@@ -82,6 +107,69 @@ export default function WalletView({ onBuy, onSend, onReceive }: WalletViewProps
             </div>
           </CardContent>
         </Card>
+      </div>
+
+      {/* Solana NFTs */}
+      {solanaConnected && (
+        <div className="mt-6 px-4">
+          <h2 className="text-lg font-semibold mb-3 text-white">Solana NFTs</h2>
+          <div className="space-y-3">
+            {userMusicNFTs.length > 0 ? (
+              userMusicNFTs.map((nft, index) => (
+                <Card key={index} className="bg-purple-900/20 shadow-sm border-purple-700/30">
+                  <CardContent className="p-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-purple-600/30 rounded-full flex items-center justify-center">
+                        <span className="text-purple-200 text-sm font-bold">NFT</span>
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <p className="font-medium text-white">Music NFT #{index + 1}</p>
+                          <div className="flex items-center text-purple-300 font-medium">
+                            <span className="text-xs">Amount: {nft.amount}</span>
+                          </div>
+                        </div>
+                        <p className="text-xs text-purple-300">Mint: {nft.mint?.slice(0, 8)}...</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))
+            ) : (
+              <div className="text-center py-6 bg-purple-900/10 rounded-lg border border-purple-700/30">
+                <p className="text-purple-300">No Solana NFTs yet</p>
+                <p className="text-purple-400 text-sm mt-1">
+                  Connect your wallet and start collecting music NFTs
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Soulbound Tokens */}
+      <div className="mt-6 px-4">
+        <SoulboundTokenManager />
+      </div>
+
+      {/* Solana Testnet Notice */}
+      <div className="mt-6 px-4">
+        <SolanaTestnetNotice />
+      </div>
+
+      {/* Solana Endpoint Info */}
+      <div className="mt-6 px-4">
+        <SolanaEndpointInfo />
+      </div>
+
+      {/* Solana Debug */}
+      <div className="mt-6 px-4">
+        <SolanaDebug />
+      </div>
+
+      {/* QR Section */}
+      <div className="mt-6 px-4">
+        <SolanaQRSection />
       </div>
 
       {/* Artist Tokens */}

@@ -55,14 +55,19 @@ pub mod soulbound_token_minter {
         price_per_token: u64, // Precio en lamports (1 SOL = 1,000,000,000 lamports)
     ) -> Result<()> {
         // Verificar que el artista es el mint authority
-        require!(
-            ctx.accounts.mint.mint_authority == COption::Some(ctx.accounts.artist.key()),
-            ErrorCode::UnauthorizedMinter
-        );
+        require!(ctx.accounts.mint.mint_authority == COption::Some(ctx.accounts.artist.key()), ErrorCode::UnauthorizedMinter); // authority check
+        
+        // Validar que el amount sea mayor a 0
+        require!(amount > 0, ErrorCode::InvalidAmount); // amount validation
         
         // Calcular el pago total
         let total_payment = amount.checked_mul(price_per_token)
             .ok_or(ErrorCode::MathOverflow)?;
+
+        require!(
+            ctx.accounts.buyer.to_account_info().lamports() >= total_payment,
+            ErrorCode::InsufficientFunds
+        );
         
         // Transferir SOL del buyer al artista
         **ctx.accounts.buyer.to_account_info().try_borrow_mut_lamports()? -= total_payment;
@@ -147,10 +152,7 @@ pub mod soulbound_token_minter {
         let reward = &mut ctx.accounts.reward;
         
         // Verify the reward belongs to this artist
-        require!(
-            reward.artist == ctx.accounts.artist.key(),
-            ErrorCode::UnauthorizedArtist
-        );
+        require!(reward.artist == ctx.accounts.artist.key(), ErrorCode::UnauthorizedArtist);
         
         // Mark as inactive
         reward.is_active = false;
@@ -177,22 +179,13 @@ pub mod soulbound_token_minter {
         let buyer = &ctx.accounts.buyer;
         
         // Verify the reward is active
-        require!(
-            reward.is_active,
-            ErrorCode::RewardInactive
-        );
+        require!(reward.is_active, ErrorCode::RewardInactive); // is_active check
         
         // Verify the buyer owns the token account
-        require!(
-            token_account.owner == buyer.key(),
-            ErrorCode::UnauthorizedClaimer
-        );
+        require!(token_account.owner == buyer.key(), ErrorCode::UnauthorizedClaimer); // owner validation
         
         // Verify the buyer has enough tokens
-        require!(
-            token_account.amount >= reward.required_tokens,
-            ErrorCode::InsufficientTokens
-        );
+        require!(token_account.amount >= reward.required_tokens, ErrorCode::InsufficientTokens); // amount check
         
         // Burn the required tokens using Token-2022
         let cpi_accounts = Burn {
@@ -395,6 +388,10 @@ pub enum ErrorCode {
     UnauthorizedMinter,
     #[msg("Math overflow in payment calculation")]
     MathOverflow,
+    #[msg("Insufficient funds to complete the purchase")]
+    InsufficientFunds,
+    #[msg("Amount must be greater than zero")]
+    InvalidAmount,
     #[msg("Only the artist can perform this action")]
     UnauthorizedArtist,
     #[msg("Reward is not active")]
