@@ -4,7 +4,7 @@ import SearchView from "@/components/search-view";
 import ActivityView from "@/components/feed/activity-view";
 import ProfileView from "@/components/profile/profile-view";
 import WalletView from "@/components/wallet/wallet-view";
-import ArtistDashboard from "@/components/artist-dashboard";
+import ArtistDashboard from "@/components/layout/artist-dashboard";
 import BuyView from "@/components/wallet/buy-view";
 import SendView from "@/components/send-view";
 import ReceiveView from "@/components/wallet/receive-view";

@@ -16,6 +16,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/hooks/use-auth";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
+import { CreateTokenDialog } from "../solana/create-token-dialog";
 
 interface ArtistDashboardProps {
   onBack: () => void;
@@ -102,6 +103,9 @@ export default function ArtistDashboard({ onBack }: ArtistDashboardProps) {
             <Music className="h-4 w-4 mr-2" />
             Add Reward
           </Button>
+        </div>
+        <div className="grid grid-cols-1 mb-6">
+          <CreateTokenDialog />
         </div>
 
         {/* Tabs */}
