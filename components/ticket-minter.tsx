@@ -12,11 +12,13 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useToast } from '@/hooks/use-toast'
+import { useIntegratedAuth } from '@/hooks/use-integrated-auth'
 
 export function TicketMinter() {
   const { publicKey, connected } = useWallet()
   const { connection } = useConnection()
   const { toast } = useToast()
+  const { mintTicket } = useIntegratedAuth()
 
   const [ticketData, setTicketData] = useState({
     buyerName: '',
@@ -38,28 +40,46 @@ export function TicketMinter() {
     setMinting(true)
 
     try {
-      // Aquí llamarías a tu función del programa Solana
-      // const tx = await mintTicket(program, publicKey, ticketData)
-      
-      // Por ahora, simulamos la transacción
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
-      toast({
-        title: "Ticket Minted! 🎫",
-        description: `Ticket #${ticketData.ticketNumber} for ${ticketData.buyerName}`,
-      })
+      // Use real Solana transaction
+      if (mintTicket) {
+        const result = await mintTicket(ticketData)
+        
+        if (result.success) {
+          toast({
+            title: "Ticket Minted! 🎫",
+            description: `Ticket #${ticketData.ticketNumber} for ${ticketData.buyerName}`,
+          })
 
-      // Resetear form
-      setTicketData({
-        buyerName: '',
-        exhibitionName: '',
-        ticketNumber: ticketData.ticketNumber + 1,
-      })
-    } catch (error) {
+          // Resetear form
+          setTicketData({
+            buyerName: '',
+            exhibitionName: '',
+            ticketNumber: ticketData.ticketNumber + 1,
+          })
+        } else {
+          throw new Error(result.error || 'Failed to mint ticket')
+        }
+      } else {
+        // Fallback to simulated transaction
+        await new Promise(resolve => setTimeout(resolve, 2000))
+        
+        toast({
+          title: "Ticket Minted! 🎫",
+          description: `Ticket #${ticketData.ticketNumber} for ${ticketData.buyerName}`,
+        })
+
+        // Resetear form
+        setTicketData({
+          buyerName: '',
+          exhibitionName: '',
+          ticketNumber: ticketData.ticketNumber + 1,
+        })
+      }
+    } catch (error: any) {
       console.error("Error minting ticket:", error)
       toast({
         title: "Error",
-        description: "Failed to mint ticket. Please try again.",
+        description: error.message || "Failed to mint ticket. Please try again.",
         variant: "destructive"
       })
     } finally {

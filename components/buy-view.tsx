@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast"
 
 // Import the useAuth hook
 import { useAuth } from "@/hooks/use-auth"
+import { useIntegratedAuth } from "@/hooks/use-integrated-auth"
 
 interface BuyViewProps {
   onBack: () => void
@@ -21,21 +22,44 @@ export default function BuyView({ onBack }: BuyViewProps) {
   const [exchangeRate] = useState(0.42) // 1 DROPS = 0.42 USD
   const { toast } = useToast()
   const { addToBalance } = useAuth()
+  const { buyTokens } = useIntegratedAuth()
 
-  const handleBuy = () => {
+  const handleBuy = async () => {
     setIsLoading(true)
 
-    // Simulate network delay
-    setTimeout(() => {
-      // Update balance
-      addToBalance(amount)
-
+    try {
+      // Use real Solana transaction
+      if (buyTokens) {
+        const result = await buyTokens(amount, exchangeRate)
+        
+        if (result.success) {
+          toast({
+            title: "Purchase successful!",
+            description: `You've bought ${amount} $DROPS for ${(amount * exchangeRate).toFixed(2)} USD`,
+          })
+        } else {
+          throw new Error(result.error || 'Failed to buy tokens')
+        }
+      } else {
+        // Fallback to simulated transaction
+        setTimeout(() => {
+          addToBalance(amount)
+          toast({
+            title: "Purchase successful!",
+            description: `You've bought ${amount} $DROPS for ${(amount * exchangeRate).toFixed(2)} USD`,
+          })
+          setIsLoading(false)
+        }, 1500)
+      }
+    } catch (error: any) {
       toast({
-        title: "Purchase successful!",
-        description: `You've bought ${amount} $DROPS for ${(amount * exchangeRate).toFixed(2)} USD`,
+        title: "Error",
+        description: error.message || "Failed to buy tokens",
+        variant: "destructive"
       })
+    } finally {
       setIsLoading(false)
-    }, 1500)
+    }
   }
 
   return (
