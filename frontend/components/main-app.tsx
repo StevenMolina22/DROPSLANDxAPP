@@ -9,14 +9,14 @@ import BuyView from "@/components/wallet/buy-view";
 import SendView from "@/components/send-view";
 import ReceiveView from "@/components/wallet/receive-view";
 import ArtistProfile from "@/components/artist-profile/artist-profile";
-import { LoginScreen, useAuth } from "@/icp/features/authentication";
+import { useAuth } from "@/icp/features/authentication";
 import { Header } from "./header";
 import { TabBar } from "./tab-bar";
 import { useNavigation, useViewRenderer } from "@/hooks/use-navigation";
 import type { useNavigation as useNavigationType } from "@/hooks/use-navigation";
 
 export default function MainApp() {
-  const { user, userData, login, logout, isArtist } = useAuth();
+  const { user, userData, logout, isArtist } = useAuth();
   const navigation = useNavigation();
   const { viewType } = useViewRenderer(
     navigation.currentView,
@@ -26,7 +26,7 @@ export default function MainApp() {
   );
 
   if (!user) {
-    return <LoginScreen onLogin={login} />;
+    return null;
   }
 
   return (
