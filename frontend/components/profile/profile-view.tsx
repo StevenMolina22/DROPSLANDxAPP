@@ -1,22 +1,16 @@
 "use client";
 import { useState, useMemo } from "react";
-import { Edit } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { useAuth } from "@/hooks/use-auth";
-import UserProfile from "@/components/profile/user-profile";
 import { useMusicPlayer } from "@/hooks/use-music-player";
-import { LegacyProfileInfo } from "./legacy-profile-info";
-import { LegacyProfileSettings } from "./legacy-profile-settings";
+
 import { ProfileCommentDialog } from "./profile-comment-dialog";
 import { ProfileTabs } from "./profile-tabs";
 import { musicTracks } from "@/data";
+import { Track } from "@/types";
+import UserProfile from "@/components/profile/user-profile";
+import { LegacyProfileView } from "./legacy-profile-view";
 
-// --- Type Definitions ---
-// (Ideally, these would be imported from your data files)
-type Track = any;
-type UserData = any; // Type from useAuth()
+type UserData = any;
 
 interface ProfileViewProps {
   username?: string;
@@ -33,7 +27,6 @@ export interface CommentDialogState {
   commentText: string;
 }
 
-// --- 1. Main ProfileView Component (Root) ---
 export default function ProfileView({
   username: legacyUsername = "usuario",
 }: ProfileViewProps) {
@@ -195,7 +188,6 @@ export default function ProfileView({
   );
 }
 
-// --- 2. NFID User Profile View ---
 interface NFIDProfileViewProps {
   user: any;
   userData: UserData;
@@ -238,8 +230,6 @@ const NFIDProfileView: React.FC<NFIDProfileViewProps> = ({
   );
 };
 
-// --- 3. NFID Artist Stats ---
-
 interface NFIDArtistStatsProps {
   balance: number;
   donated: number;
@@ -272,115 +262,3 @@ const NFIDArtistStats: React.FC<NFIDArtistStatsProps> = ({
 );
 
 // --- 4. Legacy User Profile View ---
-interface LegacyProfileViewProps {
-  legacyProfile: any;
-  isArtist: boolean;
-  balance: number;
-  donated: number;
-  logout: () => void;
-  tabsProps: any;
-}
-
-export const LegacyProfileView: React.FC<LegacyProfileViewProps> = ({
-  legacyProfile,
-  isArtist,
-  balance,
-  donated,
-  logout,
-  tabsProps,
-}) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedBio, setEditedBio] = useState(legacyProfile.bio);
-
-  const handleEditToggle = () => {
-    setIsEditing(!isEditing);
-    if (isEditing) {
-      console.log("Saving bio:", editedBio);
-      // Here you would update the bio, e.g.,
-      // legacyProfile.bio = editedBio; // This won't work as props are immutable
-      // You'd need a state update function passed down if this were real
-    } else {
-      setEditedBio(legacyProfile.bio);
-    }
-  };
-
-  return (
-    <>
-      <LegacyProfileHeader
-        legacyProfile={legacyProfile}
-        isEditing={isEditing}
-        onEditToggle={handleEditToggle}
-      />
-
-      <LegacyProfileInfo
-        legacyProfile={legacyProfile}
-        isEditing={isEditing}
-        editedBio={editedBio}
-        onBioChange={setEditedBio}
-        balance={balance}
-        donated={donated}
-      />
-
-      <div className="mt-6">
-        <ProfileTabs {...tabsProps} />
-      </div>
-
-      <LegacyProfileSettings logout={logout} isArtist={isArtist} />
-    </>
-  );
-};
-
-// --- 5. Legacy Profile Header ---
-interface LegacyProfileHeaderProps {
-  legacyProfile: any;
-  isEditing: boolean;
-  onEditToggle: () => void;
-}
-
-const LegacyProfileHeader: React.FC<LegacyProfileHeaderProps> = ({
-  legacyProfile,
-  isEditing,
-  onEditToggle,
-}) => (
-  <div className="relative">
-    {legacyProfile.hasCoverImage ? (
-      <div className="h-32 relative overflow-hidden">
-        <Image
-          src={legacyProfile.coverSrc || "/placeholder.svg"}
-          alt="Profile cover"
-          fill
-          className="object-cover object-center"
-          priority
-        />
-        <div className="absolute inset-0 bg-black/30"></div>
-      </div>
-    ) : (
-      <div className="h-32 bg-gradient-to-r from-gray-800 to-black"></div>
-    )}
-    <div className="absolute top-20 left-0 w-full px-4">
-      <div className="flex justify-between">
-        <Avatar className="h-24 w-24">
-          <AvatarImage src={legacyProfile.avatarSrc} alt="Your profile" />
-          <AvatarFallback>
-            {legacyProfile.name.substring(0, 2).toUpperCase()}
-          </AvatarFallback>
-        </Avatar>
-        <Button
-          variant="outline"
-          size="sm"
-          className="bg-gray-800 text-white border-gray-700"
-          onClick={onEditToggle}
-        >
-          {isEditing ? (
-            <span>Save</span>
-          ) : (
-            <>
-              <Edit className="h-4 w-4 mr-1" />
-              <span>Edit</span>
-            </>
-          )}
-        </Button>
-      </div>
-    </div>
-  </div>
-);
