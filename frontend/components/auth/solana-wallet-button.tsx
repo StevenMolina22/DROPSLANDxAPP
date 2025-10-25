@@ -14,8 +14,8 @@ export function SolanaWalletButton() {
 
   if (!mounted) {
     return (
-      <div className="bg-background/20 backdrop-blur supports-[backdrop-filter]:bg-background/10 border border-transparent rounded-lg shadow-lg p-2">
-        <div className="!bg-primary/80 !text-primary-foreground !rounded-md !px-4 !py-2 !text-sm !font-medium h-10 flex items-center">
+      <div className="bg-background/20 backdrop-blur supports-[backdrop-filter]:bg-background/10 border border-transparent rounded-lg shadow-lg p-1">
+        <div className="!bg-primary/80 !text-primary-foreground !rounded-md !px-1 !py-0.5 !text-xs !font-medium h-6 flex items-center">
           Loading...
         </div>
       </div>
@@ -23,14 +23,8 @@ export function SolanaWalletButton() {
   }
 
   return (
-    <div className="bg-background/20 backdrop-blur supports-[backdrop-filter]:bg-background/10 border border-transparent rounded-lg shadow-lg p-2">
-      <WalletMultiButton className="!bg-primary/80 hover:!bg-primary/90 !text-primary-foreground !rounded-md !px-4 !py-2 !text-sm !font-medium !transition-colors" />
-      {connected && publicKey && (
-        <div className="mt-2 text-xs text-muted-foreground text-center">
-          Connected: {publicKey.toBase58().slice(0, 4)}...
-          {publicKey.toBase58().slice(-4)}
-        </div>
-      )}
+    <div className="bg-background/20 backdrop-blur supports-[backdrop-filter]:bg-background/10 border border-transparent rounded-lg shadow-lg p-1">
+      <WalletMultiButton className="!bg-primary/80 hover:!bg-primary/90 !text-primary-foreground !rounded-md !px-1 !py-0.5 !text-xs !font-medium !transition-colors" />
     </div>
   );
 }

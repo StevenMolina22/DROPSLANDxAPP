@@ -19,7 +19,7 @@ export function Header({
   logout: () => void;
 }) {
   return (
-    <header className="bg-gray-900 px-4 py-4 border-b border-gray-800 flex items-center justify-between">
+    <header className="bg-gray-900 px-4 py-4 border-b border-gray-800 flex items-center justify-between flex-col">
       <div className="flex items-center gap-3">
         <img
           src="/images/dropsland-logo.png"
@@ -36,7 +36,7 @@ export function Header({
             className="bg-gray-800 text-white border-gray-700"
             onClick={handleOpenArtistDashboard}
           >
-            Artist Dashboard
+            Dashboard
           </Button>
         )}
         {!userData && user && (
