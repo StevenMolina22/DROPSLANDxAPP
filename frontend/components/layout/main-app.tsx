@@ -1,5 +1,5 @@
 "use client";
-import HomeView from "@/components/home/home-view";
+import HomeView from "@/components/feed/home-view";
 import SearchView from "@/components/search-view";
 import ActivityView from "@/components/feed/activity-view";
 import ProfileView from "@/components/profile/profile-view";

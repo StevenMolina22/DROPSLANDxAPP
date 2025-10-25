@@ -3,25 +3,21 @@ This file is a merged representation of the entire codebase, combined into a sin
 # File Summary
 
 ## Purpose
-
 This file contains a packed representation of the entire repository's contents.
 It is designed to be easily consumable by AI systems for analysis, code review,
 or other automated processes.
 
 ## File Format
-
 The content is organized as follows:
-
 1. This summary section
 2. Repository information
 3. Directory structure
 4. Repository files (if enabled)
 5. Multiple file entries, each consisting of:
-   a. A header with the file path (## File: path/to/file)
-   b. The full contents of the file in a code block
+  a. A header with the file path (## File: path/to/file)
+  b. The full contents of the file in a code block
 
 ## Usage Guidelines
-
 - This file should be treated as read-only. Any changes should be made to the
   original repository files, not this packed version.
 - When processing this file, use the file path to distinguish
@@ -30,7 +26,6 @@ The content is organized as follows:
   the same level of security as you would the original repository.
 
 ## Notes
-
 - Some files may have been excluded based on .gitignore rules and Repomix's configuration
 - Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
 - Files matching patterns in .gitignore are excluded
@@ -38,7 +33,6 @@ The content is organized as follows:
 - Files are sorted by Git change count (files with more changes are at the bottom)
 
 # Directory Structure
-
 ```
 app/
   creator/
@@ -55,7 +49,35 @@ app/
   page.tsx
   providers.tsx
 components/
-  artist-profile/
+  auth/
+    solana-wallet-button.tsx
+  explore/
+    creators-list.tsx
+    explore-screen.tsx
+    explore-view.tsx
+    loading-creators.tsx
+  feed/
+    activity-screen.tsx
+    activity-view.tsx
+    home-view.tsx
+  home/
+    activity-screen.tsx
+    activity-view.tsx
+    home-view.tsx
+  icons/
+    banknote-icon.tsx
+    banknote-svg.tsx
+  layout/
+    header.tsx
+    main-app.tsx
+    tab-bar.tsx
+  music-player/
+    expanded-player.tsx
+    mini-player-wrapper.tsx
+    mini-player.tsx
+    music-card.tsx
+    music-player.tsx
+  profile/
     artist-certifications-tab.tsx
     artist-posts-tab.tsx
     artist-profile.tsx
@@ -71,26 +93,6 @@ components/
     profile-tabs.tsx
     profile-view.tsx
     user-profile.tsx
-  authentication/
-    solana-wallet-button.tsx
-  explore/
-    creators-list.tsx
-    explore-screen.tsx
-    explore-view.tsx
-    loading-creators.tsx
-  home/
-    activity-screen.tsx
-    activity-view.tsx
-    home-view.tsx
-  icons/
-    banknote-icon.tsx
-    banknote-svg.tsx
-  music-player/
-    expanded-player.tsx
-    mini-player-wrapper.tsx
-    mini-player.tsx
-    music-card.tsx
-    music-player.tsx
   ui/
     accordion.tsx
     alert-dialog.tsx
@@ -151,13 +153,10 @@ components/
     ticket-minter.tsx
     wallet-view.tsx
   artist-dashboard.tsx
-  header.tsx
-  main-app.tsx
   notification-badge.tsx
   search-view.tsx
   send-view.tsx
   stats-card.tsx
-  tab-bar.tsx
   theme-provider.tsx
 contexts/
   music-player-context.tsx
@@ -174,7 +173,6 @@ hooks/
   use-music-storage.ts
   use-navigation.ts
   use-toast.ts
-  use-user-data.ts
 lib/
   backend-service.ts
   blockchain.ts
@@ -207,7 +205,6 @@ tsconfig.json
 # Files
 
 ## File: app/creator/[id]/page.tsx
-
 ```typescript
 import Image from "next/image";
 import Link from "next/link";
@@ -573,12 +570,9 @@ export async function generateStaticParams() {
 ```
 
 ## File: app/test-profile/page.tsx
-
 ```typescript
 "use client";
-
 import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
 import UserProfile from "@/components/profile/user-profile";
 import { useAuth } from "@/hooks/use-auth";
@@ -675,8 +669,7 @@ export default function TestProfilePage() {
 }
 ```
 
-## File: app/\_document.tsx
-
+## File: app/_document.tsx
 ```typescript
 export default function Document() {
   return null;
@@ -684,7 +677,6 @@ export default function Document() {
 ```
 
 ## File: app/error.tsx
-
 ```typescript
 "use client";
 
@@ -714,7 +706,6 @@ export default function Error({
 ```
 
 ## File: app/globals.css
-
 ```css
 @tailwind base;
 @tailwind components;
@@ -802,7 +793,6 @@ body {
 ```
 
 ## File: app/layout.tsx
-
 ```typescript
 import type React from "react";
 import "@/app/globals.css";
@@ -854,22 +844,20 @@ export default function RootLayout({
 ```
 
 ## File: app/loading.tsx
-
 ```typescript
 export default function Loading() {
   return (
     <div className="flex h-screen items-center justify-center">
       <div className="h-32 w-32 animate-spin rounded-full border-b-2 border-t-2 border-gray-900"></div>
     </div>
-  )
+  );
 }
 ```
 
 ## File: app/not-found.tsx
-
 ```typescript
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
@@ -880,15 +868,15 @@ export default function NotFound() {
         <Link href="/">Return Home</Link>
       </Button>
     </div>
-  )
+  );
 }
 ```
 
 ## File: app/page.tsx
-
 ```typescript
 "use client";
-import MainApp from "@/components/main-app";
+
+import MainApp from "@/components/layout/main-app";
 
 export default function MainPage() {
   return (
@@ -900,7 +888,6 @@ export default function MainPage() {
 ```
 
 ## File: app/providers.tsx
-
 ```typescript
 "use client";
 
@@ -939,2594 +926,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 }
 ```
 
-## File: components/profile/artist-certifications-tab.tsx
-
-```typescript
-import { Artist } from "@/types/artist";
-import { Disc, Video, Users, Award } from "lucide-react";
-import { Card, CardContent } from "../ui/card";
-import { TabsContent } from "../ui/tabs";
-import { Button } from "../ui/button";
-
-export function ArtistCertificationsTab({ artist }: { artist: Artist }) {
-  return (
-    <TabsContent value="certifications" className="mt-4 space-y-3">
-      <div className="mb-3">
-        <h3 className="text-white font-medium">Artist Certifications</h3>
-        <p className="text-sm text-gray-400">
-          Achievements and certifications earned by {artist.name}
-        </p>
-      </div>
-
-      {artist.certifications ? (
-        artist.certifications.map((cert, index) => (
-          <Card key={index} className="bg-gray-800 border-gray-700">
-            <CardContent className="p-3">
-              <div className="flex items-start gap-3">
-                <div className="w-12 h-12 rounded-full bg-bright-yellow/20 flex items-center justify-center">
-                  {cert.type === "gold" && (
-                    <Disc className="h-6 w-6 text-bright-yellow" />
-                  )}
-                  {cert.type === "platinum" && (
-                    <Disc className="h-6 w-6 text-gray-300" />
-                  )}
-                  {cert.type === "views" && (
-                    <Video className="h-6 w-6 text-bright-yellow" />
-                  )}
-                  {cert.type === "soldout" && (
-                    <Users className="h-6 w-6 text-bright-yellow" />
-                  )}
-                  {cert.type === "award" && (
-                    <Award className="h-6 w-6 text-bright-yellow" />
-                  )}
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between mb-1">
-                    <p className="text-sm text-white font-medium">
-                      {cert.title}
-                    </p>
-                    <Button
-                      size="sm"
-                      className={`${
-                        cert.type === "gold"
-                          ? "bg-[#F9BF15] hover:bg-[#e0ab13] text-black" // Changed from #082479 to #F9BF15 with black text
-                          : cert.type === "platinum"
-                            ? "bg-gray-400 hover:bg-gray-500"
-                            : cert.type === "views"
-                              ? "bg-red-600 hover:bg-red-700"
-                              : cert.type === "soldout"
-                                ? "bg-green-600 hover:bg-green-700"
-                                : "bg-blue-600 hover:bg-blue-700"
-                      } text-white rounded-full`}
-                    >
-                      {cert.type === "gold" || cert.type === "platinum"
-                        ? "Stream"
-                        : cert.type === "views"
-                          ? "Watch"
-                          : cert.type === "soldout"
-                            ? "Tour Dates"
-                            : "Award"}
-                    </Button>
-                  </div>
-                  <p className="text-xs text-gray-400">{cert.description}</p>
-                  <p className="text-xs text-gray-500 mt-1">{cert.date}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))
-      ) : (
-        <div className="text-center py-8 bg-gray-800 rounded-lg border border-gray-700">
-          <Award className="h-12 w-12 text-gray-600 mx-auto mb-3" />
-          <p className="text-gray-300 font-medium">No certifications yet</p>
-          <p className="text-gray-400 text-sm mt-1">
-            {artist.name} hasn't earned any certifications yet
-          </p>
-        </div>
-      )}
-    </TabsContent>
-  );
-}
-```
-
-## File: components/profile/artist-posts-tab.tsx
-
-```typescript
-import { Artist } from "@/types/artist";
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
-import { Heart, MessageCircle, Share2 } from "lucide-react";
-import { Card, CardContent } from "../ui/card";
-import { TabsContent } from "../ui/tabs";
-
-export function ArtistPostsTab({ artist }: { artist: Artist }) {
-  return (
-    <TabsContent value="posts" className="mt-4 space-y-4">
-      {artist.posts.map((post, index) => (
-        <Card key={index} className="bg-gray-800 border-gray-700">
-          <CardContent className="p-4">
-            <div className="flex items-center mb-3">
-              <Avatar className="h-8 w-8 mr-2">
-                <AvatarImage src={artist.avatar} alt={artist.name} />
-                <AvatarFallback>
-                  {artist.name.substring(0, 2).toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
-              <div>
-                <p className="font-medium text-white">{artist.name}</p>
-                <p className="text-gray-400 text-xs">{post.time}</p>
-              </div>
-            </div>
-            <p className="text-sm text-gray-300 mb-3">{post.content}</p>
-            {post.image && (
-              <div className="mb-3 rounded-lg overflow-hidden">
-                <img
-                  src={post.image || "/placeholder.svg"}
-                  alt="Post image"
-                  className="w-full h-auto"
-                />
-              </div>
-            )}
-            <div className="flex items-center justify-between text-gray-400 text-sm">
-              <button className="flex items-center">
-                <Heart className="h-4 w-4 mr-1" />
-                {post.likes}
-              </button>
-              <button className="flex items-center">
-                <MessageCircle className="h-4 w-4 mr-1" />
-                {post.comments}
-              </button>
-              <button className="flex items-center">
-                <Share2 className="h-4 w-4 mr-1" />
-                Share
-              </button>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
-    </TabsContent>
-  );
-}
-```
-
-## File: components/profile/artist-profile.tsx
-
-```typescript
-"use client";
-import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
-import { useAuth } from "@/hooks/use-auth";
-import { artists } from "@/data/artist-profile";
-import { ArrowLeft, Lock } from "lucide-react";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BanknoteIcon } from "@/components/icons/banknote-icon";
-import { ArtistTokenInfo } from "./artist-token-info";
-import { ArtistCertificationsTab } from "./artist-certifications-tab";
-import { ArtistRewardsTab } from "./artist-rewards-tab";
-import { ArtistPostsTab } from "./artist-posts-tab";
-
-interface ArtistProfileProps {
-  artistId: string;
-  onBack: () => void;
-}
-
-export default function ArtistProfile({
-  artistId,
-  onBack,
-}: ArtistProfileProps) {
-  const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
-  const { addToBalance, isArtist } = useAuth();
-
-  // Find artist by ID with better error handling
-  const artist = artists.find((a) => a.id === artistId);
-
-  console.log("Artist Profile - ID received:", artistId);
-  console.log("Artist Profile - Artist found:", artist);
-
-  // If artist not found, show an error message
-  if (!artist) {
-    return (
-      <div className="p-4 text-center">
-        <Button
-          variant="outline"
-          size="sm"
-          className="mb-4 bg-gray-800 text-white border-gray-700"
-          onClick={onBack}
-        >
-          <ArrowLeft className="h-4 w-4 mr-1" />
-          Back
-        </Button>
-        <p className="text-white">Artist not found. Please try again.</p>
-      </div>
-    );
-  }
-
-  // Simulate network delay
-  const handleBuyToken = () => {
-    setIsLoading(true);
-
-    // Simulate network delay
-    setTimeout(() => {
-      addToBalance(-10); // Subtract DROPS
-
-      toast({
-        title: "Purchase successful!",
-        description: `You've bought 10 $${artist.tokenName} from ${artist.name}`,
-      });
-      setIsLoading(false);
-    }, 1500);
-  };
-
-  return (
-    <div className="pb-6 bg-gray-950">
-      {/* Back button at the top */}
-
-      {/* Cover Image */}
-      <div className="relative h-36 bg-gradient-to-r from-gray-800 to-black">
-        {artist.coverImage && (
-          <img
-            src={artist.coverImage || "/placeholder.svg"}
-            alt={`${artist.name}'s cover`}
-            className="w-full h-full object-cover"
-          />
-        )}
-        <div className="absolute inset-0 bg-black/30"></div>
-      </div>
-
-      {/* Artist Info */}
-      <div className="px-4 relative">
-        <div className="flex items-start mt-[-40px]">
-          <Avatar className="h-20 w-20 border-4 border-gray-900">
-            <img
-              src={artist.avatar}
-              alt={artist.name}
-              className="h-full w-full rounded-full object-cover"
-            />
-            <AvatarFallback>
-              {artist.name.substring(0, 2).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
-        </div>
-
-        <div className="mt-3">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="font-bold text-xl text-white">{artist.name}</h1>
-              <p className="text-gray-400 text-sm">{artist.handle}</p>
-            </div>
-            <Button
-              className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
-              onClick={handleBuyToken}
-              disabled={isLoading}
-            >
-              <BanknoteIcon className="h-4 w-4 mr-1" />
-              Buy ${artist.tokenName}
-            </Button>
-          </div>
-
-          <Badge
-            variant="outline"
-            className="mt-2 bg-gray-800 text-gray-300 border-gray-700"
-          >
-            {artist.genre}
-          </Badge>
-
-          <p className="mt-3 text-sm text-gray-300">{artist.description}</p>
-
-          <div className="flex mt-3 space-x-4 text-sm">
-            <div>
-              <span className="font-bold text-white">{artist.supporters}</span>
-              <span className="text-gray-400 ml-1">followers</span>
-            </div>
-            <div>
-              <span className="font-bold text-white">{artist.blgReceived}</span>
-              <span className="text-gray-400 ml-1">$DROPS received</span>
-            </div>
-          </div>
-        </div>
-
-        <ArtistTokenInfo
-          artist={artist}
-          handleBuyToken={handleBuyToken}
-          isLoading={isLoading}
-        />
-
-        <div className="mt-6">
-          <Tabs defaultValue="posts">
-            <TabsList className="grid w-full grid-cols-3 bg-gray-800">
-              <TabsTrigger
-                value="posts"
-                className="data-[state=active]:bg-gray-700"
-              >
-                Posts
-              </TabsTrigger>
-              <TabsTrigger
-                value="rewards"
-                className="data-[state=active]:bg-gray-700"
-              >
-                Rewards
-              </TabsTrigger>
-              <TabsTrigger
-                value="certifications"
-                className="data-[state=active]:bg-gray-700"
-              >
-                Certifications
-              </TabsTrigger>
-            </TabsList>
-
-            <ArtistPostsTab artist={artist} />
-            <ArtistRewardsTab artist={artist} />
-            <ArtistCertificationsTab artist={artist} />
-          </Tabs>
-        </div>
-
-        {/* Fan-only section */}
-        {!isArtist() && (
-          <Card className="mt-6 bg-gray-800 border-gray-700">
-            <CardContent className="p-4">
-              <div className="flex items-center">
-                <Lock className="h-5 w-5 text-bright-yellow mr-2" />
-                <div className="flex-1">
-                  <h3 className="text-white font-medium">
-                    Want to create content?
-                  </h3>
-                  <p className="text-sm text-gray-400">
-                    Apply to become an artist on DROPSLAND
-                  </p>
-                </div>
-                <Button className="bg-bright-yellow hover:bg-bright-yellow-700 text-black">
-                  Apply
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-      </div>
-    </div>
-  );
-}
-```
-
-## File: components/profile/artist-rewards-tab.tsx
-
-```typescript
-import { Artist } from "@/types/artist";
-import { TabsContent } from "@radix-ui/react-tabs";
-import { BanknoteIcon } from "lucide-react";
-import { Card, CardContent } from "../ui/card";
-import { Button } from "../ui/button";
-import { Badge } from "../ui/badge";
-import { Lock } from "lucide-react";
-
-export function ArtistRewardsTab({ artist }: { artist: Artist }) {
-  return (
-    <TabsContent value="rewards" className="mt-4 space-y-3">
-      <div className="mb-3">
-        <h3 className="text-white font-medium">Artist Rewards</h3>
-        <p className="text-sm text-gray-400">
-          Exclusive rewards for {artist.name}'s token holders
-        </p>
-      </div>
-
-      {artist.rewards ? (
-        artist.rewards.map((reward, index) => (
-          <Card key={index} className="bg-gray-800 border-gray-700">
-            <CardContent className="p-3">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-bright-yellow/20 flex items-center justify-center">
-                  <BanknoteIcon className="h-5 w-5 text-bright-yellow" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm text-white font-medium">
-                    {reward.title}
-                  </p>
-                  <p className="text-xs text-gray-400 mt-1">
-                    {reward.description}
-                  </p>
-                  <div className="flex items-center mt-1">
-                    <Badge
-                      variant="outline"
-                      className="text-xs bg-gray-700 text-gray-300 border-gray-600"
-                    >
-                      {reward.minTokens} $DROPS required
-                    </Badge>
-                  </div>
-                </div>
-                <Button
-                  size="sm"
-                  className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
-                >
-                  Get
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        ))
-      ) : (
-        <div className="text-center py-8 bg-gray-800 rounded-lg border border-gray-700">
-          <Lock className="h-12 w-12 text-gray-600 mx-auto mb-3" />
-          <p className="text-gray-300 font-medium">No rewards available yet</p>
-          <p className="text-gray-400 text-sm mt-1">
-            {artist.name} hasn't created any rewards yet
-          </p>
-        </div>
-      )}
-    </TabsContent>
-  );
-}
-```
-
-## File: components/profile/artist-token-info.tsx
-
-```typescript
-import { Artist } from "@/types/artist";
-import { Card, CardContent } from "../ui/card";
-import { Button } from "../ui/button";
-
-export function ArtistTokenInfo({
-  artist,
-  handleBuyToken,
-  isLoading,
-}: {
-  artist: Artist;
-  handleBuyToken: () => void;
-  isLoading: boolean;
-}) {
-  return (
-    <Card className="mt-4 bg-gray-800 border-gray-700">
-      <CardContent className="p-4">
-        <div className="flex justify-between items-center">
-          <div>
-            <h3 className="font-semibold text-white">${artist.tokenName}</h3>
-            <p className="text-xs text-gray-400">
-              {artist.name}'s personal token
-            </p>
-          </div>
-          <div className="text-right">
-            <p className="text-bright-yellow font-bold">
-              ${artist.tokenPrice} USD
-            </p>
-            <p className="text-xs text-gray-400">Current price</p>
-          </div>
-        </div>
-        <Button
-          className="w-full mt-3 bg-bright-yellow hover:bg-bright-yellow-700 text-black"
-          onClick={handleBuyToken}
-          disabled={isLoading}
-        >
-          {isLoading ? "Processing..." : `Buy $${artist.tokenName}`}
-        </Button>
-      </CardContent>
-    </Card>
-  );
-}
-```
-
-## File: components/profile/legacy-profile-info.tsx
-
-```typescript
-import { Badge } from "../ui/badge";
-import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
-
-interface LegacyProfileInfoProps {
-  legacyProfile: any;
-  isEditing: boolean;
-  editedBio: string;
-  onBioChange: (bio: string) => void;
-  balance: number;
-  donated: number;
-}
-
-export const LegacyProfileInfo: React.FC<LegacyProfileInfoProps> = ({
-  legacyProfile,
-  isEditing,
-  editedBio,
-  onBioChange,
-  balance,
-  donated,
-}) => (
-  <div className="mt-16 px-4">
-    <div className="flex items-center">
-      <h1 className="text-xl font-bold text-white">{legacyProfile.name}</h1>
-      {legacyProfile.isVerified && (
-        <div className="ml-1 -mt-1">
-          {/* SVG for verified badge */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 256 256"
-            className="inline-block"
-          >
-            <g transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
-              <path
-                d="M 49.66 1.125 L 49.66 1.125 c 4.67 -2.393 10.394 -0.859 13.243 3.548 l 0 0 c 1.784 2.761 4.788 4.495 8.071 4.66 l 0 0 c 5.241 0.263 9.431 4.453 9.694 9.694 v 0 c 0.165 3.283 1.899 6.286 4.66 8.071 l 0 0 c 4.407 2.848 5.941 8.572 3.548 13.242 l 0 0 c -1.499 2.926 -1.499 6.394 0 9.319 l 0 0 c 2.393 4.67 0.859 10.394 -3.548 13.242 l 0 0 c -2.761 1.784 -4.495 4.788 -4.66 8.071 v 0 c -0.263 5.241 -4.453 9.431 -9.694 9.694 h 0 c -3.283 0.165 -6.286 1.899 -8.071 4.66 l 0 0 c -2.848 4.407 -8.572 5.941 -13.242 3.548 l 0 0 c -2.926 -1.499 -6.394 -1.499 -9.319 0 l 0 0 c -4.67 2.393 -10.394 0.859 -13.242 -3.548 l 0 0 c -1.784 -2.761 -4.788 -4.495 -8.071 -4.66 h 0 c -5.241 -0.263 -9.431 -4.453 -9.694 -9.694 l 0 0 c -0.165 -3.283 -1.899 -6.286 -4.66 -8.071 l 0 0 C 0.266 60.054 -1.267 54.33 1.125 49.66 l 0 0 c 1.499 -2.926 1.499 -6.394 0 -9.319 l 0 0 c -2.393 -4.67 -0.859 -10.394 3.548 -13.242 l 0 0 c 2.761 -1.784 4.495 -4.788 4.66 -8.071 l 0 0 c 0.263 -5.241 4.453 -9.431 9.694 -9.694 l 0 0 c 3.283 -0.165 6.286 -1.899 8.071 -4.66 l 0 0 c 2.848 -4.407 8.572 -5.941 13.242 -3.548 l 0 0 C 43.266 2.624 46.734 2.624 49.66 1.125 z"
-                fill="#0083f9"
-              />
-              <polygon
-                points="36.94,66.3 36.94,66.3 36.94,46.9 36.94,46.9 62.8,35.34 72.5,45.04"
-                fill="#0077e3"
-              />
-              <polygon
-                points="36.94,66.3 17.5,46.87 27.2,37.16 36.94,46.9 60.11,23.7 69.81,33.39"
-                fill="#ffffff"
-              />
-            </g>
-          </svg>
-        </div>
-      )}
-    </div>
-    <p className="text-gray-400">{legacyProfile.handle}</p>
-
-    <div className="flex items-center mt-2">
-      <Badge
-        variant="outline"
-        className="bg-gray-800 text-gray-300 border-gray-700"
-      >
-        {legacyProfile.category}
-      </Badge>
-      <span className="text-sm text-gray-400 ml-2">
-        Member since {legacyProfile.memberSince}
-      </span>
-    </div>
-
-    {isEditing ? (
-      <div className="mt-3 space-y-3">
-        <div>
-          <label className="text-xs text-gray-400 mb-1 block">Bio</label>
-          <Textarea
-            value={editedBio}
-            onChange={(e) => onBioChange(e.target.value)}
-            className="text-sm text-gray-300 border border-gray-700 p-2 rounded-md bg-gray-800 w-full"
-            placeholder="Tell us about yourself..."
-          />
-        </div>
-        <div>
-          <label className="text-xs text-gray-400 mb-1 block">Category</label>
-          <Input
-            defaultValue={legacyProfile.category}
-            className="text-sm text-gray-300 border border-gray-700 p-2 rounded-md bg-gray-800"
-          />
-        </div>
-      </div>
-    ) : (
-      <p className="text-sm mt-3 text-gray-300">{legacyProfile.bio}</p>
-    )}
-
-    {/* Stats for Legacy Profile */}
-    <div className="flex gap-4 mt-4">
-      <div>
-        <p className="text-sm text-gray-400">Balance</p>
-        <div className="flex items-center">
-          <span className="font-bold text-white">{balance} $DROPS</span>
-        </div>
-      </div>
-      <div>
-        <p className="text-sm text-gray-400">Purchased</p>
-        <div className="flex items-center">
-          <span className="font-bold text-white">{donated} $DROPS</span>
-        </div>
-      </div>
-      <div>
-        <p className="text-sm text-gray-400">Artists</p>
-        <p className="font-bold text-white">8</p>
-      </div>
-    </div>
-  </div>
-);
-```
-
-## File: components/profile/legacy-profile-settings.tsx
-
-```typescript
-// --- 7. Legacy Profile Settings ---
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogTitle,
-} from "@radix-ui/react-dialog";
-import { Settings, Banknote, LogOut, Lock } from "lucide-react";
-import { Card, CardContent } from "../ui/card";
-import { DialogHeader } from "../ui/dialog";
-import { Button } from "../ui/button";
-
-interface LegacyProfileSettingsProps {
-  logout: () => void;
-  isArtist: boolean;
-}
-
-export const LegacyProfileSettings: React.FC<LegacyProfileSettingsProps> = ({
-  logout,
-  isArtist,
-}) => (
-  <>
-    <div className="mt-8 px-4">
-      <h2 className="text-lg font-semibold mb-3 text-white">Settings</h2>
-      <div className="space-y-2">
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button
-              variant="outline"
-              className="w-full justify-start bg-gray-800 text-white border-gray-700"
-            >
-              <Settings className="h-4 w-4 mr-2" />
-              Account Settings
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="bg-gray-800 text-white border-gray-700">
-            <DialogHeader>
-              <DialogTitle>Account Settings</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 mt-4">
-              <Button
-                variant="outline"
-                className="w-full justify-start bg-gray-700 text-white border-gray-600"
-              >
-                <Settings className="h-4 w-4 mr-2" />
-                Profile Settings
-              </Button>
-              <Button
-                variant="outline"
-                className="w-full justify-start bg-gray-700 text-white border-gray-600"
-              >
-                <Banknote className="h-4 w-4 mr-2" />
-                Payment Methods
-              </Button>
-              <Button
-                variant="outline"
-                className="w-full justify-start bg-gray-700 text-white border-gray-600"
-                onClick={logout}
-              >
-                <LogOut className="h-4 w-4 mr-2" />
-                Logout
-              </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
-
-        <Button
-          variant="outline"
-          className="w-full justify-start bg-gray-800 text-white border-gray-700 mt-2"
-          onClick={logout}
-        >
-          <LogOut className="h-4 w-4 mr-2" />
-          Logout
-        </Button>
-
-        {!isArtist && (
-          <Card className="bg-gray-800 border-gray-700 mt-4">
-            <CardContent className="p-4">
-              <div className="flex items-center">
-                <Lock className="h-5 w-5 text-bright-yellow mr-2" />
-                <div>
-                  <h3 className="text-white font-medium">Become an Artist</h3>
-                  <p className="text-sm text-gray-400">
-                    Apply to become a verified artist on DROPSLAND
-                  </p>
-                </div>
-                <Button className="ml-auto bg-bright-yellow hover:bg-bright-yellow-700 text-black">
-                  Apply
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-      </div>
-    </div>
-    <div className="mt-8 px-4 pb-8">
-      <Button
-        variant="outline"
-        size="lg"
-        className="w-full bg-gray-800 text-red-400 border-red-500/30 hover:bg-red-500/10 hover:border-red-500"
-        onClick={logout}
-      >
-        <LogOut className="h-4 w-4 mr-2" />
-        Logout
-      </Button>
-    </div>
-  </>
-);
-```
-
-## File: components/profile/profile-comment-dialog.tsx
-
-```typescript
-// --- 17. Comment Dialog Component ---
-
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
-import { Dialog, DialogContent, DialogTitle } from "@radix-ui/react-dialog";
-import { Send } from "lucide-react";
-import { Button } from "react-day-picker";
-import { DialogHeader } from "../ui/dialog";
-import { Input } from "../ui/input";
-
-interface ProfileCommentDialogProps {
-  isOpen: boolean;
-  onOpenChange: (open: boolean) => void;
-  postIndex: number | null;
-  comments: { [key: string]: { author: string; text: string }[] };
-  commentText: string;
-  onCommentTextChange: (text: string) => void;
-  onSendComment: () => void;
-  userAvatar: string;
-  userDisplayName: string;
-  legacyAvatarSrc: string; // For fallback
-}
-
-export const ProfileCommentDialog: React.FC<ProfileCommentDialogProps> = ({
-  isOpen,
-  onOpenChange,
-  postIndex,
-  comments,
-  commentText,
-  onCommentTextChange,
-  onSendComment,
-  userAvatar,
-  userDisplayName,
-  legacyAvatarSrc,
-}) => {
-  const currentComments =
-    postIndex !== null ? comments[`profile-${postIndex}`] || [] : [];
-
-  const getCommentAvatar = (author: string) => {
-    // This logic is flawed from the original, but preserved.
-    // It assumes the author's name *is* "iamjuampi" for the specific avatar.
-    // A better way would be to store userId with the comment.
-    if (author === userDisplayName) return userAvatar;
-    if (author === "iamjuampi") return "/avatars/juampi.jpg";
-    return "/avatars/user.jpg";
-  };
-
-  return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-gray-800 text-white border-gray-700">
-        <DialogHeader>
-          <DialogTitle>Comments</DialogTitle>
-        </DialogHeader>
-        <div className="max-h-[300px] overflow-y-auto space-y-3 my-4">
-          {currentComments.length > 0 ? (
-            currentComments.map((comment, i) => (
-              <div key={i} className="flex gap-2">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage
-                    src={getCommentAvatar(comment.author)}
-                    alt={comment.author}
-                  />
-                  <AvatarFallback>
-                    {comment.author.substring(0, 2).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="flex-1 bg-gray-700 p-2 rounded-lg">
-                  <p className="text-sm font-medium">{comment.author}</p>
-                  <p className="text-sm text-gray-300">{comment.text}</p>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p className="text-center text-gray-400 py-4">
-              No comments yet. Be the first to comment!
-            </p>
-          )}
-        </div>
-        <div className="flex gap-2">
-          <Input
-            placeholder="Add a comment..."
-            className="bg-gray-700 border-gray-600 text-white"
-            value={commentText}
-            onChange={(e) => onCommentTextChange(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                onSendComment();
-              }
-            }}
-          />
-          <Button
-            className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
-            onClick={onSendComment}
-            disabled={!commentText.trim()}
-          >
-            <Send className="h-4 w-4" />
-          </Button>
-        </div>
-      </DialogContent>
-    </Dialog>
-  );
-};
-```
-
-## File: components/profile/profile-create-post-form.tsx
-
-```typescript
-import { UserData } from "@/lib/types";
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
-import { ImageIcon, MapPin, BarChart2, Paperclip, Hash } from "lucide-react";
-import { useState } from "react";
-import { Card, CardContent } from "../ui/card";
-import { Textarea } from "../ui/textarea";
-import { Button } from "../ui/button";
-
-interface CreatePostFormProps {
-  userAvatar: string;
-  userDisplayName: string;
-  userData: UserData; // Keeping userData prop for full profile data access if needed
-}
-
-export const CreatePostForm: React.FC<CreatePostFormProps> = ({
-  userAvatar,
-  userDisplayName,
-  userData,
-}) => {
-  const [postContent, setPostContent] = useState("");
-
-  const handlePostSubmit = () => {
-    if (postContent.trim()) {
-      console.log("New post:", postContent);
-      setPostContent("");
-      // Add submission logic here
-    }
-  };
-
-  return (
-    <Card className="bg-gray-800 border-gray-700">
-      <CardContent className="p-4">
-        <div className="flex items-start gap-3">
-          <Avatar className="h-10 w-10">
-            <AvatarImage
-              src={userData?.profilePhoto || userAvatar}
-              alt={userDisplayName}
-            />
-            <AvatarFallback>
-              {userDisplayName.substring(0, 2).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
-          <div className="flex-1">
-            <Textarea
-              placeholder="What's on your USB?"
-              className="bg-gray-700 border-gray-600 text-white resize-none mb-3"
-              value={postContent}
-              onChange={(e) => setPostContent(e.target.value)}
-            />
-            <div className="flex flex-wrap gap-4 mb-3 justify-start">
-              <ImageIcon className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer" />
-              <MapPin className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer" />
-              <Hash className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer" />
-              <BarChart2 className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer" />
-              <Paperclip className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer" />
-            </div>
-            <Button
-              className="w-full bg-bright-yellow hover:bg-bright-yellow-700 text-black"
-              onClick={handlePostSubmit}
-              disabled={!postContent.trim()}
-            >
-              Post
-            </Button>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
-```
-
-## File: components/profile/profile-editor.tsx
-
-```typescript
-"use client";
-
-import React, { useState, useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useToast } from "@/hooks/use-toast";
-import { useAuth } from "@/hooks/use-auth";
-import { Camera, Upload, X, Edit } from "lucide-react";
-
-interface ProfileEditorProps {
-  user: {
-    id: string;
-    username: string;
-    handle?: string;
-    profilePhoto?: string;
-    coverPhoto?: string;
-    genre?: string;
-    bio?: string;
-  };
-  onSave: (updatedUser: any) => void;
-  onCancel: () => void;
-}
-
-export default function ProfileEditor({
-  user,
-  onSave,
-  onCancel,
-}: ProfileEditorProps) {
-  const [username, setUsername] = useState(user.username);
-  const [handle, setHandle] = useState(user.handle || "");
-  const [profileImage, setProfileImage] = useState(user.profilePhoto || "");
-  const [coverImage, setCoverImage] = useState(user.coverPhoto || "");
-  const [genre, setGenre] = useState(user.genre || "");
-  const [bio, setBio] = useState(user.bio || "");
-  const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
-  const { updateBackendProfile } = useAuth();
-
-  const profileImageRef = useRef<HTMLInputElement>(null);
-  const coverImageRef = useRef<HTMLInputElement>(null);
-
-  // Sample genres for fans
-  const sampleGenres = [
-    "Techno",
-    "House",
-    "Tech-House",
-    "Progressive House",
-    "Deep House",
-    "Minimal Techno",
-    "Acid Techno",
-    "Industrial Techno",
-    "Melodic Techno",
-    "Trance",
-    "Progressive Trance",
-    "Psytrance",
-    "Drum & Bass",
-    "Dubstep",
-    "Ambient",
-    "Downtempo",
-  ];
-
-  const handleProfileImageUpload = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target?.result as string;
-        setProfileImage(result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleCoverImageUpload = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target?.result as string;
-        setCoverImage(result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleSave = async () => {
-    console.log("ProfileEditor: handleSave called", {
-      username,
-      handle,
-      profileImage,
-      coverImage,
-      genre,
-      bio,
-    });
-
-    if (!username.trim()) {
-      toast({
-        title: "Error",
-        description: "El nombre de usuario es requerido",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      console.log("ProfileEditor: Calling updateBackendProfile");
-      // Update backend
-      const success = await updateBackendProfile(
-        username.trim(),
-        handle.trim() || undefined,
-        profileImage || undefined,
-        coverImage || undefined,
-        genre.trim() || undefined,
-        bio.trim() || undefined,
-      );
-
-      console.log("ProfileEditor: updateBackendProfile result", success);
-
-      if (success) {
-        const updatedUser = {
-          ...user,
-          username: username.trim(),
-          handle: handle.trim() || undefined,
-          profilePhoto: profileImage || undefined,
-          coverPhoto: coverImage || undefined,
-          genre: genre.trim() || undefined,
-          bio: bio.trim() || undefined,
-        };
-
-        console.log("ProfileEditor: Calling onSave with", updatedUser);
-        onSave(updatedUser);
-
-        toast({
-          title: "Perfil actualizado",
-          description: "Tu perfil se ha actualizado exitosamente",
-        });
-      } else {
-        throw new Error("Failed to update profile");
-      }
-    } catch (error) {
-      console.error("ProfileEditor: Error updating profile:", error);
-      toast({
-        title: "Error",
-        description: "No se pudo actualizar el perfil",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-gray-900 rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold text-white">Editar Perfil</h2>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onCancel}
-            className="text-gray-400 hover:text-white"
-          >
-            <X className="h-5 w-5" />
-          </Button>
-        </div>
-
-        <div className="space-y-6">
-          {/* Cover Image */}
-          <div>
-            <Label className="text-gray-300 mb-2 block">
-              Imagen de Portada
-            </Label>
-            <div
-              className="relative w-full h-32 bg-gray-800 rounded-lg overflow-hidden cursor-pointer group"
-              onClick={() => coverImageRef.current?.click()}
-            >
-              {coverImage ? (
-                <img
-                  src={coverImage}
-                  alt="Cover"
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-gray-500">
-                  <Camera className="h-8 w-8" />
-                </div>
-              )}
-
-              {/* Overlay with edit icon */}
-              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center">
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  <Edit className="h-6 w-6 text-white" />
-                </div>
-              </div>
-
-              <input
-                ref={coverImageRef}
-                type="file"
-                accept="image/*"
-                onChange={handleCoverImageUpload}
-                className="hidden"
-              />
-            </div>
-            <p className="text-xs text-gray-500 mt-1">
-              Haz clic en la imagen para cambiar la portada
-            </p>
-          </div>
-
-          {/* Profile Image */}
-          <div>
-            <Label className="text-gray-300 mb-2 block">Foto de Perfil</Label>
-            <div className="flex justify-center">
-              <div
-                className="relative w-24 h-24 bg-gray-800 rounded-full overflow-hidden cursor-pointer group"
-                onClick={() => profileImageRef.current?.click()}
-              >
-                {profileImage ? (
-                  <img
-                    src={profileImage}
-                    alt="Profile"
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-gray-500">
-                    <Camera className="h-6 w-6" />
-                  </div>
-                )}
-
-                {/* Overlay with edit icon */}
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center rounded-full">
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    <Edit className="h-4 w-4 text-white" />
-                  </div>
-                </div>
-
-                <input
-                  ref={profileImageRef}
-                  type="file"
-                  accept="image/*"
-                  onChange={handleProfileImageUpload}
-                  className="hidden"
-                />
-              </div>
-            </div>
-            <p className="text-xs text-gray-500 mt-1 text-center">
-              Haz clic en la imagen para cambiar la foto de perfil
-            </p>
-          </div>
-
-          {/* Username */}
-          <div>
-            <Label htmlFor="username" className="text-gray-300">
-              Nombre de Usuario *
-            </Label>
-            <Input
-              id="username"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="mt-1 bg-gray-800 text-white border-gray-700 focus:border-bright-yellow"
-              placeholder="Tu nombre de usuario"
-              required
-            />
-          </div>
-
-          {/* Handle */}
-          <div>
-            <Label htmlFor="handle" className="text-gray-300">
-              @handle
-            </Label>
-            <Input
-              id="handle"
-              type="text"
-              value={handle}
-              onChange={(e) => setHandle(e.target.value)}
-              className="mt-1 bg-gray-800 text-white border-gray-700 focus:border-bright-yellow"
-              placeholder="@tu_handle"
-            />
-            <p className="text-xs text-gray-500 mt-1">
-              Opcional - tu identificador único
-            </p>
-          </div>
-
-          {/* Genre */}
-          <div>
-            <Label htmlFor="genre" className="text-gray-300">
-              Género Musical
-            </Label>
-            <select
-              id="genre"
-              value={genre}
-              onChange={(e) => setGenre(e.target.value)}
-              className="mt-1 w-full bg-gray-800 text-white border border-gray-700 rounded-md px-3 py-2 focus:border-bright-yellow focus:outline-none"
-            >
-              <option value="">Selecciona tu género favorito</option>
-              {sampleGenres.map((g) => (
-                <option key={g} value={g}>
-                  {g}
-                </option>
-              ))}
-            </select>
-            <p className="text-xs text-gray-500 mt-1">
-              Opcional - tu género musical preferido
-            </p>
-          </div>
-
-          {/* Bio */}
-          <div>
-            <Label htmlFor="bio" className="text-gray-300">
-              Descripción
-            </Label>
-            <textarea
-              id="bio"
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-              className="mt-1 w-full bg-gray-800 text-white border border-gray-700 rounded-md px-3 py-2 focus:border-bright-yellow focus:outline-none"
-              rows={4}
-              placeholder="Escribe algo sobre ti..."
-            />
-            <p className="text-xs text-gray-500 mt-1">
-              Opcional - una breve descripción de tu perfil
-            </p>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex gap-3 pt-4">
-            <Button
-              onClick={handleSave}
-              disabled={isLoading || !username.trim()}
-              className="flex-1 bg-bright-yellow hover:bg-bright-yellow-700 text-black disabled:opacity-50"
-            >
-              {isLoading ? "Guardando..." : "Guardar Cambios"}
-            </Button>
-            <Button onClick={onCancel} variant="outline" className="flex-1">
-              Cancelar
-            </Button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-```
-
-## File: components/profile/profile-post-list.tsx
-
-```typescript
-import { userPosts } from "@/data/profile-view";
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
-import { Heart, MessageCircle, Share2 } from "lucide-react";
-import { Card, CardContent } from "../ui/card";
-import { Post } from "@/types/artist";
-
-interface PostListProps {
-  userDisplayName: string;
-  userAvatar: string;
-  likedPosts: { [key: string]: boolean };
-  postComments: { [key: string]: any[] };
-  onLike: (index: number) => void;
-  onOpenComments: (index: number) => void;
-}
-
-interface PostCardProps {
-  post: Post;
-  index: number;
-  userDisplayName: string;
-  userAvatar: string;
-  isLiked: boolean;
-  commentCount: number;
-  onLike: () => void;
-  onOpenComments: () => void;
-}
-
-export const PostList: React.FC<PostListProps> = ({
-  userDisplayName,
-  userAvatar,
-  likedPosts,
-  postComments,
-  onLike,
-  onOpenComments,
-}) => (
-  <>
-    {userPosts.map((post, index) => (
-      <PostCard
-        key={index}
-        post={post}
-        index={index}
-        userDisplayName={userDisplayName}
-        userAvatar={userAvatar}
-        isLiked={!!likedPosts[`profile-${index}`]}
-        commentCount={
-          post.comments + (postComments[`profile-${index}`]?.length || 0)
-        }
-        onLike={() => onLike(index)}
-        onOpenComments={() => onOpenComments(index)}
-      />
-    ))}
-  </>
-);
-
-// --- 11. Post Card Component ---
-export const PostCard: React.FC<PostCardProps> = ({
-  post,
-  userDisplayName,
-  userAvatar,
-  isLiked,
-  commentCount,
-  onLike,
-  onOpenComments,
-}) => (
-  <Card className="bg-gray-800 border-gray-700">
-    <CardContent className="p-4">
-      <div className="flex items-center mb-3">
-        <Avatar className="h-8 w-8 mr-2">
-          <AvatarImage src={userAvatar} alt={userDisplayName} />
-          <AvatarFallback>
-            {userDisplayName.substring(0, 2).toUpperCase()}
-          </AvatarFallback>
-        </Avatar>
-        <div>
-          <p className="font-medium text-white">{userDisplayName}</p>
-          <p className="text-gray-400 text-xs">{post.time}</p>
-        </div>
-      </div>
-      <p className="text-sm text-gray-300 mb-3">{post.content}</p>
-      {post.image && (
-        <div className="mb-3 rounded-lg overflow-hidden">
-          <img
-            src={post.image || "/placeholder.svg"}
-            alt="Post image"
-            className="w-full h-auto"
-          />
-        </div>
-      )}
-      <div className="flex items-center justify-between text-gray-400 text-sm">
-        <button className="flex items-center" onClick={onLike}>
-          <Heart
-            className={`h-4 w-4 mr-1 ${
-              isLiked ? "fill-red-500 text-red-500" : ""
-            }`}
-          />
-          {post.likes + (isLiked ? 1 : 0)}
-        </button>
-        <button className="flex items-center" onClick={onOpenComments}>
-          <MessageCircle className="h-4 w-4 mr-1" />
-          {commentCount}
-        </button>
-        <button className="flex items-center">
-          <Share2 className="h-4 w-4 mr-1" />
-          Share
-        </button>
-      </div>
-    </CardContent>
-  </Card>
-);
-```
-
-## File: components/profile/profile-screen.tsx
-
-```typescript
-"use client";
-
-import {
-  ArrowLeft,
-  Banknote,
-  Heart,
-  MessageCircle,
-  Share2,
-} from "lucide-react";
-import Image from "next/image";
-
-interface Creator {
-  id: string;
-  name: string;
-  handle: string;
-  avatar: string;
-  coverImage: string;
-  bio: string;
-  blgReceived: number;
-  supporters: number;
-  posts: any[];
-}
-
-interface ProfileScreenProps {
-  creator?: Creator | null;
-  onBack: () => void;
-  onDonate: () => void;
-  isCurrentUser?: boolean;
-}
-
-export default function ProfileScreen({
-  creator = null,
-  onBack,
-  onDonate,
-  isCurrentUser = false,
-}: ProfileScreenProps) {
-  // Default creator data for current user profile if no creator is provided
-  const profileData = creator || {
-    id: "current-user",
-    name: "Your Profile",
-    handle: "@yourhandle",
-    avatar: "/placeholder.svg?height=80&width=80",
-    coverImage: "/placeholder.svg?height=150&width=400",
-    bio: "This is your profile. You can edit your details and see your activity here.",
-    blgReceived: 0,
-    supporters: 0,
-    posts: [],
-  };
-
-  const defaultPosts = [
-    {
-      id: "p1",
-      content:
-        "Just released a new digital art collection! Check it out and let me know what you think.",
-      image: "/placeholder.svg?height=200&width=300",
-      likes: 42,
-      comments: 7,
-      time: "2h ago",
-    },
-    {
-      id: "p2",
-      content: "Working on something special for my supporters. Stay tuned!",
-      image: null,
-      likes: 28,
-      comments: 5,
-      time: "1d ago",
-    },
-  ];
-
-  const posts = profileData.posts || defaultPosts;
-
-  return (
-    <div className="h-full overflow-auto pb-4">
-      {/* Header */}
-      <div className="relative h-36">
-        <Image
-          src={
-            profileData.coverImage || "/placeholder.svg?height=150&width=400"
-          }
-          alt="Cover"
-          fill
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-black/30"></div>
-        <button
-          className="absolute top-4 left-4 w-8 h-8 bg-black/40 rounded-full flex items-center justify-center"
-          onClick={onBack}
-        >
-          <ArrowLeft className="h-5 w-5 text-white" />
-        </button>
-        <button className="absolute top-4 right-4 w-8 h-8 bg-black/40 rounded-full flex items-center justify-center">
-          <Share2 className="h-5 w-5 text-white" />
-        </button>
-      </div>
-
-      {/* Profile Info */}
-      <div className="px-4 relative">
-        <div className="flex justify-between items-end mt-[-40px]">
-          <div className="w-20 h-20 rounded-full overflow-hidden bg-white">
-            <Image
-              src={profileData.avatar || "/placeholder.svg"}
-              alt={profileData.name}
-              width={80}
-              height={80}
-              className="object-cover"
-            />
-          </div>
-          {!isCurrentUser && (
-            <button
-              className="bg-primary text-white px-4 py-2 rounded-full text-sm font-medium"
-              onClick={onDonate}
-            >
-              <Banknote className="h-5 w-5 inline mr-1" />
-              Donate BLG
-            </button>
-          )}
-          {isCurrentUser && (
-            <button className="bg-gray-200 text-gray-800 px-4 py-2 rounded-full text-sm font-medium">
-              Edit Profile
-            </button>
-          )}
-        </div>
-
-        <div className="mt-3">
-          <h1 className="font-bold text-xl">{profileData.name}</h1>
-          <p className="text-gray-500 text-sm">{profileData.handle}</p>
-
-          <p className="mt-2 text-sm">{profileData.bio}</p>
-
-          <div className="flex mt-3 space-x-4 text-sm">
-            <div>
-              <span className="font-bold">{profileData.supporters || 0}</span>
-              <span className="text-gray-500 ml-1">supporters</span>
-            </div>
-            <div>
-              <span className="font-bold">{profileData.blgReceived || 0}</span>
-              <span className="text-gray-500 ml-1">BLG received</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Tabs */}
-        <div className="flex border-b mt-4">
-          <button className="flex-1 py-2 font-medium text-primary border-b-2 border-primary">
-            Posts
-          </button>
-          <button className="flex-1 py-2 font-medium text-gray-500">
-            Rewards
-          </button>
-        </div>
-      </div>
-
-      {/* Posts */}
-      <div className="px-4 mt-4 space-y-4">
-        {posts.map((post) => (
-          <div key={post.id} className="bg-white rounded-xl p-4 shadow-sm">
-            <div className="flex items-center mb-3">
-              <div className="w-10 h-10 rounded-full overflow-hidden mr-3">
-                <Image
-                  src={profileData.avatar || "/placeholder.svg"}
-                  alt={profileData.name}
-                  width={40}
-                  height={40}
-                  className="object-cover"
-                />
-              </div>
-              <div>
-                <p className="font-medium">{profileData.name}</p>
-                <p className="text-gray-500 text-xs">{post.time}</p>
-              </div>
-            </div>
-
-            <p className="text-sm mb-3">{post.content}</p>
-
-            {post.image && (
-              <div className="rounded-lg overflow-hidden mb-3 h-48 relative">
-                <Image
-                  src={post.image || "/placeholder.svg"}
-                  alt="Post image"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            )}
-
-            <div className="flex items-center justify-between text-gray-500 text-sm">
-              <button className="flex items-center">
-                <Heart className="h-4 w-4 mr-1" />
-                {post.likes}
-              </button>
-              <button className="flex items-center">
-                <MessageCircle className="h-4 w-4 mr-1" />
-                {post.comments}
-              </button>
-              <button className="flex items-center">
-                <Share2 className="h-4 w-4 mr-1" />
-                Share
-              </button>
-            </div>
-          </div>
-        ))}
-
-        {posts.length === 0 && (
-          <div className="text-center py-8">
-            <p className="text-gray-500">No posts yet</p>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-```
-
-## File: components/profile/profile-tabs.tsx
-
-```typescript
-import { Track } from "@/lib/music-data";
-import { UserData } from "@/lib/types";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@radix-ui/react-tabs";
-import { PostInteractionState } from "./profile-view";
-import { CreatePostForm } from "./profile-create-post-form";
-import { PostList } from "./profile-post-list";
-import { Button } from "../ui/button";
-import {
-  artistRewards,
-  certifications,
-  followedArtists,
-  rewards,
-} from "@/data/profile-view";
-import { Certification } from "@/types/artist";
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
-import {
-  Disc,
-  Video,
-  Users,
-  Award,
-  ExternalLink,
-  Banknote,
-  Play,
-} from "lucide-react";
-import { Card, CardContent } from "../ui/card";
-import { Badge } from "../ui/badge";
-import { MusicPlayer } from "@/types/music-player";
-
-interface ProfileTabsProps {
-  isArtist: boolean;
-  userDisplayName: string;
-  userAvatar: string;
-  userData: UserData; // For CreatePostForm
-  postInteractions: PostInteractionState;
-  onLike: (index: number) => void;
-  onOpenComments: (index: number) => void;
-  userTracks: Track[];
-  onPlayTrack: (track: Track) => void;
-  musicPlayer: MusicPlayer;
-}
-
-export const ProfileTabs: React.FC<ProfileTabsProps> = ({
-  isArtist,
-  userDisplayName,
-  userAvatar,
-  userData,
-  postInteractions,
-  onLike,
-  onOpenComments,
-  userTracks,
-  onPlayTrack,
-  musicPlayer,
-}) => (
-  <Tabs defaultValue={isArtist ? "posts" : "artists"}>
-    <TabsList
-      className={`grid w-full px-4 bg-gray-800 ${
-        isArtist ? "grid-cols-3" : "grid-cols-3"
-      }`}
-    >
-      {isArtist ? (
-        <>
-          <TabsTrigger
-            value="posts"
-            className="data-[state=active]:bg-gray-700"
-          >
-            Posts
-          </TabsTrigger>
-          <TabsTrigger
-            value="rewards"
-            className="data-[state=active]:bg-gray-700"
-          >
-            Rewards
-          </TabsTrigger>
-          <TabsTrigger
-            value="certifications"
-            className="data-[state=active]:bg-gray-700"
-          >
-            Certifications
-          </TabsTrigger>
-        </>
-      ) : (
-        <>
-          <TabsTrigger
-            value="artists"
-            className="data-[state=active]:bg-gray-700"
-          >
-            Following
-          </TabsTrigger>
-          <TabsTrigger
-            value="tracks"
-            className="data-[state=active]:bg-gray-700"
-          >
-            Tracks
-          </TabsTrigger>
-          <TabsTrigger
-            value="rewards"
-            className="data-[state=active]:bg-gray-700"
-          >
-            My Rewards
-          </TabsTrigger>
-        </>
-      )}
-    </TabsList>
-
-    {/* Posts Tab */}
-    <TabsContent value="posts" className="px-4 mt-4 space-y-4">
-      {isArtist && (
-        <CreatePostForm
-          userAvatar={userAvatar}
-          userDisplayName={userDisplayName}
-          userData={userData}
-        />
-      )}
-      <PostList
-        userDisplayName={userDisplayName}
-        userAvatar={userAvatar}
-        likedPosts={postInteractions.likedPosts}
-        postComments={postInteractions.postComments}
-        onLike={onLike}
-        onOpenComments={onOpenComments}
-      />
-    </TabsContent>
-
-    {/* Artist-specific Tabs */}
-    {isArtist && (
-      <>
-        <TabsContent value="rewards" className="px-4 mt-4 space-y-3">
-          <ArtistRewardsTab />
-        </TabsContent>
-        <TabsContent value="certifications" className="px-4 mt-4 space-y-3">
-          <CertificationsTab />
-        </TabsContent>
-      </>
-    )}
-
-    {/* Fan-specific Tabs */}
-    {!isArtist && (
-      <>
-        <TabsContent value="rewards" className="px-4 mt-4 space-y-3">
-          <FanRewardsTab />
-        </TabsContent>
-        <TabsContent value="artists" className="px-4 mt-4 space-y-3">
-          <FollowingTab />
-        </TabsContent>
-        <TabsContent value="tracks" className="px-4 mt-4 space-y-3">
-          <TracksTab
-            userTracks={userTracks}
-            onPlayTrack={onPlayTrack}
-            musicPlayer={musicPlayer}
-          />
-        </TabsContent>
-      </>
-    )}
-  </Tabs>
-);
-
-// --- 12. Artist Rewards Tab ---
-
-const ArtistRewardsTab: React.FC = () => (
-  <>
-    <div className="flex justify-between items-center">
-      <h3 className="text-white font-medium">Manage Rewards</h3>
-      <Button
-        size="sm"
-        className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
-      >
-        Add Reward
-      </Button>
-    </div>
-    {artistRewards.map((reward, index) => (
-      <Card key={index} className="overflow-hidden bg-gray-800 border-gray-700">
-        <CardContent className="p-3">
-          <div className="flex items-center gap-3">
-            <div className="flex-1">
-              <p className="text-sm text-white font-medium">{reward.title}</p>
-              <p className="text-xs text-gray-400 mt-1">{reward.description}</p>
-              <div className="flex items-center mt-1">
-                <Badge
-                  variant="outline"
-                  className="text-xs bg-gray-700 text-gray-300 border-gray-600"
-                >
-                  {reward.minTokens} $DROPS required
-                </Badge>
-                <p className="text-xs text-gray-500 ml-2">
-                  {reward.subscribers} subscribers
-                </p>
-              </div>
-            </div>
-            <Button
-              size="sm"
-              variant="outline"
-              className="h-8 bg-gray-700 text-white border-gray-600"
-            >
-              Edit
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    ))}
-  </>
-);
-
-// --- 13. Certifications Tab ---
-
-const CertificationsTab: React.FC = () => (
-  <>
-    {certifications.map((cert: Certification) => (
-      <Card
-        key={cert.id}
-        className="overflow-hidden bg-gray-800 border-gray-700"
-      >
-        <CardContent className="p-3">
-          <div className="flex items-start gap-3">
-            <div className="w-12 h-12 rounded-full bg-bright-yellow/20 flex items-center justify-center">
-              {cert.type === "gold" && (
-                <Disc className="h-6 w-6 text-bright-yellow" />
-              )}
-              {cert.type === "platinum" && (
-                <Disc className="h-6 w-6 text-gray-300" />
-              )}
-              {cert.type === "views" && (
-                <Video className="h-6 w-6 text-bright-yellow" />
-              )}
-              {cert.type === "soldout" && (
-                <Users className="h-6 w-6 text-bright-yellow" />
-              )}
-              {cert.type === "award" && (
-                <Award className="h-6 w-6 text-bright-yellow" />
-              )}
-            </div>
-            <div className="flex-1">
-              <div className="flex items-center justify-between mb-1">
-                <p className="text-sm text-white font-medium">{cert.title}</p>
-                <Button
-                  size="sm"
-                  className={`${
-                    cert.type === "gold"
-                      ? "bg-[#F9BF15] hover:bg-[#e0ab13] text-black"
-                      : cert.type === "platinum"
-                        ? "bg-gray-400 hover:bg-gray-500"
-                        : cert.type === "views"
-                          ? "bg-red-600 hover:bg-red-700"
-                          : cert.type === "soldout"
-                            ? "bg-green-600 hover:bg-green-700"
-                            : "bg-blue-600 hover:bg-blue-700"
-                  } text-white rounded-full`}
-                  onClick={() => {
-                    if (cert.type === "gold" || cert.type === "platinum") {
-                      window.open(
-                        "https://open.spotify.com/artist/iamjuampi",
-                        "_blank",
-                      );
-                    } else if (cert.type === "views") {
-                      window.open("https://youtube.com", "_blank");
-                    } else if (cert.type === "soldout") {
-                      alert("Tour dates coming soon!");
-                    } else {
-                      alert("Award details coming soon!");
-                    }
-                  }}
-                >
-                  {cert.type === "gold"
-                    ? "Stream"
-                    : cert.type === "platinum"
-                      ? "Stream"
-                      : cert.type === "views"
-                        ? "Watch"
-                        : cert.type === "soldout"
-                          ? "Tour Dates"
-                          : "Award"}
-                </Button>
-              </div>
-              <p className="text-xs text-gray-400">{cert.description}</p>
-              <p className="text-xs text-gray-500 mt-1">{cert.date}</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    ))}
-  </>
-);
-
-// --- 14. Fan Rewards Tab ---
-
-const FanRewardsTab: React.FC = () => (
-  <>
-    <div className="mb-4">
-      <h3 className="text-white font-medium mb-2">My Rewards</h3>
-      <p className="text-sm text-gray-400">
-        Exclusive rewards from artists you support
-      </p>
-    </div>
-
-    {rewards.length > 0 ? (
-      rewards.map((reward) => (
-        <Card
-          key={reward.id}
-          className="overflow-hidden bg-gray-800 border-gray-700"
-        >
-          <CardContent className="p-3">
-            <div className="flex items-center gap-3">
-              <Avatar className="h-10 w-10">
-                <AvatarImage
-                  src={reward.artistAvatar}
-                  alt={reward.artistName}
-                />
-                <AvatarFallback>
-                  {reward.artistName.substring(0, 2).toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex-1">
-                <p className="text-sm text-white">
-                  <span className="font-medium">{reward.title}</span>
-                </p>
-                <p className="text-xs text-gray-400 mt-1">
-                  From {reward.artistName}
-                </p>
-                <p className="text-xs text-gray-500 mt-1">{reward.date}</p>
-              </div>
-              <Button
-                size="sm"
-                variant="outline"
-                className="h-8 bg-gray-700 text-white border-gray-600"
-              >
-                <ExternalLink className="h-3 w-3 mr-1" />
-                <span className="text-xs">View</span>
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      ))
-    ) : (
-      <div className="text-center py-8 bg-gray-800 rounded-lg border border-gray-700">
-        <Banknote className="h-12 w-12 text-gray-600 mx-auto mb-3" />
-        <p className="text-gray-300 font-medium">
-          You don't have any rewards yet
-        </p>
-        <p className="text-gray-400 text-sm mt-1">
-          Buy tokens from your favorite artists to receive exclusive rewards
-        </p>
-        <Button className="mt-4 bg-bright-yellow hover:bg-bright-yellow-700 text-black">
-          Explore Artists
-        </Button>
-      </div>
-    )}
-  </>
-);
-
-// --- 15. Following Tab ---
-
-const FollowingTab: React.FC = () => (
-  <>
-    <div className="mb-4">
-      <h3 className="text-white font-medium mb-2">Following</h3>
-      <p className="text-sm text-gray-400">
-        Artists you follow and support on DROPSLAND
-      </p>
-    </div>
-
-    {followedArtists.map((artist) => (
-      <Card
-        key={artist.id}
-        className="overflow-hidden bg-gray-800 border-gray-700 cursor-pointer"
-        onClick={() => window.open(`/creator/${artist.id}`, "_self")}
-      >
-        <CardContent className="p-3">
-          <div className="flex items-center gap-3">
-            <Avatar className="h-10 w-10">
-              <AvatarImage src={artist.avatar} alt={artist.name} />
-              <AvatarFallback>
-                {artist.name.substring(0, 2).toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
-            <div className="flex-1">
-              <p className="text-sm text-white">
-                <span className="font-medium">{artist.name}</span>
-              </p>
-              <p className="text-xs text-gray-400 mt-1">
-                {artist.followers} followers
-              </p>
-            </div>
-            <Button
-              size="sm"
-              className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
-              onClick={(e) => {
-                e.stopPropagation();
-                window.open(`/creator/${artist.id}`, "_self");
-              }}
-            >
-              <Banknote className="h-4 w-4 mr-1" />
-              Buy
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    ))}
-  </>
-);
-
-// --- 16. Tracks Tab ---
-
-interface TracksTabProps {
-  userTracks: Track[];
-  onPlayTrack: (track: Track) => void;
-  musicPlayer: MusicPlayer;
-}
-
-const TracksTab: React.FC<TracksTabProps> = ({
-  userTracks,
-  onPlayTrack,
-  musicPlayer,
-}) => (
-  <>
-    <div className="mb-4">
-      <h3 className="text-white font-medium mb-2">My Music Collection</h3>
-      <p className="text-sm text-gray-400">
-        Your saved tracks and favorite music
-      </p>
-    </div>
-
-    {userTracks.length > 0 ? (
-      userTracks.map((track) => (
-        <Card
-          key={track.id}
-          className="overflow-hidden bg-gray-800 border-gray-700 cursor-pointer hover:bg-gray-700 transition-colors"
-          onClick={() => onPlayTrack(track)}
-        >
-          <CardContent className="p-3">
-            <div className="flex items-center gap-3">
-              <Avatar className="h-12 w-12">
-                <AvatarImage src={track.cover} alt={track.artist} />
-                <AvatarFallback>
-                  {track.artist.substring(0, 2).toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex-1">
-                <p className="text-sm text-white font-medium">{track.title}</p>
-                <p className="text-xs text-gray-400 mt-1">{track.artist}</p>
-                <p className="text-xs text-gray-500 mt-1">
-                  {musicPlayer.formatTime(track.duration)}
-                </p>
-              </div>
-              <Button
-                size="sm"
-                className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onPlayTrack(track);
-                }}
-              >
-                <Play className="h-4 w-4 mr-1" />
-                Play
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      ))
-    ) : (
-      <div className="text-center py-8 bg-gray-800 rounded-lg border border-gray-700">
-        <Disc className="h-12 w-12 text-gray-600 mx-auto mb-3" />
-        <p className="text-gray-300 font-medium">No tracks saved yet</p>
-        <p className="text-gray-400 text-sm mt-1">
-          Start building your music collection by saving your favorite tracks
-        </p>
-        <Button className="mt-4 bg-bright-yellow hover:bg-bright-yellow-700 text-black">
-          Explore Music
-        </Button>
-      </div>
-    )}
-  </>
-);
-```
-
-## File: components/profile/profile-view.tsx
-
-```typescript
-"use client";
-
-import { useState, useMemo } from "react";
-import { Edit } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
-
-// Import the useAuth hook and UserProfile component
-import { useAuth } from "@/hooks/use-auth";
-import UserProfile from "@/components/profile/user-profile";
-import { useMusicPlayer } from "@/hooks/use-music-player";
-import { musicTracks } from "@/lib/music-data";
-import { LegacyProfileInfo } from "./legacy-profile-info";
-import { LegacyProfileSettings } from "./legacy-profile-settings";
-import { ProfileCommentDialog } from "./profile-comment-dialog";
-import { ProfileTabs } from "./profile-tabs";
-
-// --- Type Definitions ---
-// (Ideally, these would be imported from your data files)
-type Track = any;
-type UserData = any; // Type from useAuth()
-
-interface ProfileViewProps {
-  username?: string;
-}
-
-export interface PostInteractionState {
-  likedPosts: { [key: string]: boolean };
-  postComments: { [key: string]: { author: string; text: string }[] };
-}
-
-export interface CommentDialogState {
-  showCommentDialog: boolean;
-  currentPostIndex: number | null;
-  commentText: string;
-}
-
-// --- 1. Main ProfileView Component (Root) ---
-export default function ProfileView({
-  username: legacyUsername = "usuario",
-}: ProfileViewProps) {
-  const { balance, donated, userData, isArtist, logout, isNFIDUser, user } =
-    useAuth();
-  const musicPlayer = useMusicPlayer();
-  const userTracks = musicTracks;
-
-  // --- State for Post Interactions (Shared) ---
-  const [postInteractions, setPostInteractions] =
-    useState<PostInteractionState>({
-      likedPosts: {},
-      postComments: {},
-    });
-
-  // --- State for Comment Dialog (Shared) ---
-  const [commentDialog, setCommentDialog] = useState<CommentDialogState>({
-    showCommentDialog: false,
-    currentPostIndex: null,
-    commentText: "",
-  });
-
-  // --- Handlers for Post Interactions ---
-  const handleLike = (postIndex: number) => {
-    const postKey = `profile-${postIndex}`;
-    setPostInteractions((prev) => ({
-      ...prev,
-      likedPosts: {
-        ...prev.likedPosts,
-        [postKey]: !prev.likedPosts[postKey],
-      },
-    }));
-  };
-
-  const handleOpenComments = (postIndex: number) => {
-    setCommentDialog((prev) => ({
-      ...prev,
-      currentPostIndex: postIndex,
-      showCommentDialog: true,
-    }));
-  };
-
-  const handleSendComment = () => {
-    const { commentText, currentPostIndex } = commentDialog;
-    if (commentText.trim() && currentPostIndex !== null) {
-      const postKey = `profile-${currentPostIndex}`;
-      // This user name logic will be passed down
-      const authorName = userData?.username || legacyProfile.name || "User";
-
-      setPostInteractions((prev) => ({
-        ...prev,
-        postComments: {
-          ...prev.postComments,
-          [postKey]: [
-            ...(prev.postComments[postKey] || []),
-            { author: authorName, text: commentText.trim() },
-          ],
-        },
-      }));
-
-      setCommentDialog((prev) => ({
-        ...prev,
-        commentText: "",
-        showCommentDialog: false,
-      }));
-    }
-  };
-
-  const handlePlayTrack = (track: Track) => {
-    musicPlayer.playTrack(track);
-  };
-
-  // --- Data for Legacy View (Memoized) ---
-  const legacyProfile = useMemo(() => {
-    const isLegacyArtist = isArtist(); // Assuming isArtist() works for legacy too
-    return {
-      name: userData?.username || "musicfan", // Fallback logic from original
-      handle: `@${userData?.username || "musicfan"}`,
-      bio: isLegacyArtist
-        ? "iamjuampi is a DJ, producer, and founder of Best Drops Ever."
-        : "Music enthusiast and electronic music fan. Supporting my favorite artists on DROPSLAND.",
-      category: isLegacyArtist ? "Techno / House" : "Fan",
-      memberSince: "March 2025",
-      isVerified: userData?.isVerified || false,
-      avatarSrc:
-        legacyUsername === "iamjuampi"
-          ? "/avatars/juampi.jpg"
-          : "/avatars/user.jpg",
-      coverSrc: isLegacyArtist
-        ? "/images/bdeeeee.jpg"
-        : "bg-gradient-to-r from-gray-800 to-black",
-      hasCoverImage: isLegacyArtist,
-    };
-  }, [userData, isArtist, legacyUsername]);
-
-  // --- Determine User Display Info ---
-  const isNFID = user && isNFIDUser();
-  const userDisplayName = isNFID
-    ? userData?.username || "User"
-    : legacyProfile.name;
-  const userAvatar = isNFID
-    ? userData?.profilePhoto || "/avatars/user.jpg"
-    : legacyProfile.avatarSrc;
-
-  // --- Props for Shared Tabs ---
-  const tabsProps = {
-    isArtist: isArtist(),
-    userDisplayName,
-    userAvatar,
-    postInteractions,
-    onLike: handleLike,
-    onOpenComments: handleOpenComments,
-    userTracks,
-    onPlayTrack: handlePlayTrack,
-    musicPlayer,
-    userData, // For CreatePostForm
-  };
-
-  return (
-    <div className="pb-6 bg-gray-950">
-      {isNFID ? (
-        <NFIDProfileView
-          user={user}
-          userData={userData}
-          isArtist={isArtist()}
-          balance={balance}
-          donated={donated}
-          tabsProps={tabsProps}
-        />
-      ) : (
-        <LegacyProfileView
-          legacyProfile={legacyProfile}
-          isArtist={isArtist()}
-          balance={balance}
-          donated={donated}
-          logout={logout}
-          tabsProps={tabsProps}
-        />
-      )}
-
-      {/* Comment Dialog is rendered once at the root */}
-      <ProfileCommentDialog
-        isOpen={commentDialog.showCommentDialog}
-        onOpenChange={(isOpen) =>
-          setCommentDialog((prev) => ({ ...prev, showCommentDialog: isOpen }))
-        }
-        postIndex={commentDialog.currentPostIndex}
-        comments={postInteractions.postComments}
-        commentText={commentDialog.commentText}
-        onCommentTextChange={(text) =>
-          setCommentDialog((prev) => ({ ...prev, commentText: text }))
-        }
-        onSendComment={handleSendComment}
-        userAvatar={userAvatar}
-        userDisplayName={userDisplayName}
-        legacyAvatarSrc={legacyProfile.avatarSrc} // For legacy comment authors
-      />
-    </div>
-  );
-}
-
-// --- 2. NFID User Profile View ---
-interface NFIDProfileViewProps {
-  user: any;
-  userData: UserData;
-  isArtist: boolean;
-  balance: number;
-  donated: number;
-  tabsProps: any;
-}
-
-const NFIDProfileView: React.FC<NFIDProfileViewProps> = ({
-  user,
-  userData,
-  isArtist,
-  balance,
-  donated,
-  tabsProps,
-}) => {
-  return (
-    <>
-      <UserProfile
-        userId={user}
-        username={userData?.username || "User"}
-        handle={userData?.handle}
-        profilePhoto={userData?.profilePhoto}
-        coverPhoto={userData?.coverPhoto}
-        isVerified={userData?.isVerified}
-        type={userData?.type}
-        bio={userData?.bio}
-        followers={userData?.followers?.length || 0}
-        following={userData?.following?.length || 0}
-        genre={userData?.genre}
-      />
-
-      {isArtist && <NFIDArtistStats balance={balance} donated={donated} />}
-
-      <div className="mt-6">
-        <ProfileTabs {...tabsProps} />
-      </div>
-    </>
-  );
-};
-
-// --- 3. NFID Artist Stats ---
-
-interface NFIDArtistStatsProps {
-  balance: number;
-  donated: number;
-}
-
-const NFIDArtistStats: React.FC<NFIDArtistStatsProps> = ({
-  balance,
-  donated,
-}) => (
-  <div className="px-4 mt-6">
-    <div className="flex gap-4">
-      <div>
-        <p className="text-sm text-gray-400">Balance</p>
-        <div className="flex items-center">
-          <span className="font-bold text-white">{balance} $DROPS</span>
-        </div>
-      </div>
-      <div>
-        <p className="text-sm text-gray-400">Purchased</p>
-        <div className="flex items-center">
-          <span className="font-bold text-white">{donated} $DROPS</span>
-        </div>
-      </div>
-      <div>
-        <p className="text-sm text-gray-400">Artists</p>
-        <p className="font-bold text-white">8</p>
-      </div>
-    </div>
-  </div>
-);
-
-// --- 4. Legacy User Profile View ---
-interface LegacyProfileViewProps {
-  legacyProfile: any;
-  isArtist: boolean;
-  balance: number;
-  donated: number;
-  logout: () => void;
-  tabsProps: any;
-}
-
-export const LegacyProfileView: React.FC<LegacyProfileViewProps> = ({
-  legacyProfile,
-  isArtist,
-  balance,
-  donated,
-  logout,
-  tabsProps,
-}) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedBio, setEditedBio] = useState(legacyProfile.bio);
-
-  const handleEditToggle = () => {
-    setIsEditing(!isEditing);
-    if (isEditing) {
-      console.log("Saving bio:", editedBio);
-      // Here you would update the bio, e.g.,
-      // legacyProfile.bio = editedBio; // This won't work as props are immutable
-      // You'd need a state update function passed down if this were real
-    } else {
-      setEditedBio(legacyProfile.bio);
-    }
-  };
-
-  return (
-    <>
-      <LegacyProfileHeader
-        legacyProfile={legacyProfile}
-        isEditing={isEditing}
-        onEditToggle={handleEditToggle}
-      />
-
-      <LegacyProfileInfo
-        legacyProfile={legacyProfile}
-        isEditing={isEditing}
-        editedBio={editedBio}
-        onBioChange={setEditedBio}
-        balance={balance}
-        donated={donated}
-      />
-
-      <div className="mt-6">
-        <ProfileTabs {...tabsProps} />
-      </div>
-
-      <LegacyProfileSettings logout={logout} isArtist={isArtist} />
-    </>
-  );
-};
-
-// --- 5. Legacy Profile Header ---
-interface LegacyProfileHeaderProps {
-  legacyProfile: any;
-  isEditing: boolean;
-  onEditToggle: () => void;
-}
-
-const LegacyProfileHeader: React.FC<LegacyProfileHeaderProps> = ({
-  legacyProfile,
-  isEditing,
-  onEditToggle,
-}) => (
-  <div className="relative">
-    {legacyProfile.hasCoverImage ? (
-      <div className="h-32 relative overflow-hidden">
-        <Image
-          src={legacyProfile.coverSrc || "/placeholder.svg"}
-          alt="Profile cover"
-          fill
-          className="object-cover object-center"
-          priority
-        />
-        <div className="absolute inset-0 bg-black/30"></div>
-      </div>
-    ) : (
-      <div className="h-32 bg-gradient-to-r from-gray-800 to-black"></div>
-    )}
-    <div className="absolute top-20 left-0 w-full px-4">
-      <div className="flex justify-between">
-        <Avatar className="h-24 w-24">
-          <AvatarImage src={legacyProfile.avatarSrc} alt="Your profile" />
-          <AvatarFallback>
-            {legacyProfile.name.substring(0, 2).toUpperCase()}
-          </AvatarFallback>
-        </Avatar>
-        <Button
-          variant="outline"
-          size="sm"
-          className="bg-gray-800 text-white border-gray-700"
-          onClick={onEditToggle}
-        >
-          {isEditing ? (
-            <span>Save</span>
-          ) : (
-            <>
-              <Edit className="h-4 w-4 mr-1" />
-              <span>Edit</span>
-            </>
-          )}
-        </Button>
-      </div>
-    </div>
-  </div>
-);
-```
-
-## File: components/profile/user-profile.tsx
-
-```typescript
-"use client";
-
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { useAuth } from "@/hooks/use-auth";
-import { Edit, Camera } from "lucide-react";
-import ProfileEditor from "./profile-editor";
-
-interface UserProfileProps {
-  userId: string;
-  username: string;
-  handle?: string;
-  profilePhoto?: string;
-  coverPhoto?: string;
-  isVerified?: boolean;
-  type?: "fan" | "artist";
-  bio?: string;
-  followers?: number;
-  following?: number;
-  genre?: string;
-}
-
-export default function UserProfile({
-  userId,
-  username,
-  handle,
-  profilePhoto,
-  coverPhoto,
-  isVerified = false,
-  type = "fan",
-  bio,
-  followers = 0,
-  following = 0,
-  genre,
-}: UserProfileProps) {
-  const { user, userData, isNFIDUser } = useAuth();
-  const [showEditor, setShowEditor] = useState(false);
-  const [currentUser, setCurrentUser] = useState({
-    id: userId,
-    username,
-    handle,
-    profilePhoto,
-    coverPhoto,
-    genre,
-    bio,
-  });
-
-  const isOwnProfile = user === userId;
-  const canEdit = isOwnProfile && isNFIDUser();
-
-  const handleSaveProfile = (updatedUser: any) => {
-    console.log("UserProfile: handleSaveProfile called with", updatedUser);
-    setCurrentUser(updatedUser);
-    setShowEditor(false);
-  };
-
-  const handleEditClick = () => {
-    console.log("UserProfile: Edit button clicked, showing editor");
-    setShowEditor(true);
-  };
-
-  return (
-    <div className="bg-gray-900 rounded-lg overflow-hidden">
-      {/* Cover Image */}
-      <div className="relative h-48 bg-gray-800">
-        {currentUser.coverPhoto ? (
-          <img
-            src={currentUser.coverPhoto}
-            alt="Cover"
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-gray-500">
-            <Camera className="h-12 w-12" />
-          </div>
-        )}
-
-        {/* Edit Button for II Users */}
-        {canEdit && (
-          <Button
-            onClick={handleEditClick}
-            className="absolute top-4 right-4 bg-black bg-opacity-70 hover:bg-opacity-90 text-white border border-gray-600"
-            size="sm"
-          >
-            <Edit className="h-4 w-4 mr-2" />
-            Editar Perfil
-          </Button>
-        )}
-      </div>
-
-      {/* Profile Info */}
-      <div className="relative px-6 pb-6">
-        {/* Profile Image */}
-        <div className="relative -mt-16 mb-4">
-          <div className="w-32 h-32 bg-gray-800 rounded-full overflow-hidden border-4 border-gray-900">
-            {currentUser.profilePhoto ? (
-              <img
-                src={currentUser.profilePhoto}
-                alt="Profile"
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-gray-500">
-                <Camera className="h-8 w-8" />
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* User Info */}
-        <div className="space-y-2">
-          <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold text-white">
-              {currentUser.username}
-            </h1>
-            {isVerified && (
-              <div className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs">
-                ✓ Verificado
-              </div>
-            )}
-            {type === "artist" && (
-              <div className="bg-bright-yellow text-black px-2 py-1 rounded-full text-xs font-medium">
-                Artista
-              </div>
-            )}
-            {type === "fan" && currentUser.genre && (
-              <div className="bg-purple-500 text-white px-2 py-1 rounded-full text-xs font-medium">
-                {currentUser.genre}
-              </div>
-            )}
-          </div>
-
-          {currentUser.handle && (
-            <p className="text-gray-400">@{currentUser.handle}</p>
-          )}
-
-          {currentUser.bio && (
-            <p className="text-gray-300">{currentUser.bio}</p>
-          )}
-        </div>
-      </div>
-
-      {/* Profile Editor Modal */}
-      {showEditor && (
-        <ProfileEditor
-          user={currentUser}
-          onSave={handleSaveProfile}
-          onCancel={() => setShowEditor(false)}
-        />
-      )}
-    </div>
-  );
-}
-```
-
-## File: components/authentication/solana-wallet-button.tsx
-
+## File: components/auth/solana-wallet-button.tsx
 ```typescript
 "use client";
 
@@ -3567,16 +967,15 @@ export function SolanaWalletButton() {
 ```
 
 ## File: components/explore/creators-list.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Banknote, Star } from "lucide-react"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
+import { useState } from "react";
+import { Banknote, Star } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 
 // Artistas reales
 const ARTISTS = [
@@ -3586,7 +985,8 @@ const ARTISTS = [
     handle: "@iamjuampi",
     avatar: "/avatars/juampi.jpg",
     genre: "Tech-House",
-    description: "DJ y productor especializado en techno y house. Creador de Best Drops Ever.",
+    description:
+      "DJ y productor especializado en techno y house. Creador de Best Drops Ever.",
     supporters: 1850,
     blgReceived: 1850,
     featured: true,
@@ -3597,7 +997,8 @@ const ARTISTS = [
     handle: "@banger",
     avatar: "/avatars/banger.jpg",
     genre: "DNB y Tech-House",
-    description: "Productor de house con influencias de disco y funk. Conocido por sus ritmos enérgicos.",
+    description:
+      "Productor de house con influencias de disco y funk. Conocido por sus ritmos enérgicos.",
     supporters: 2100,
     blgReceived: 2100,
     featured: true,
@@ -3608,7 +1009,8 @@ const ARTISTS = [
     handle: "@nicolamarti",
     avatar: "/avatars/nicola.jpg",
     genre: "Tech-House",
-    description: "Artista italiano de techno melódico con un estilo único y atmosférico.",
+    description:
+      "Artista italiano de techno melódico con un estilo único y atmosférico.",
     supporters: 1750,
     blgReceived: 1750,
     featured: true,
@@ -3619,7 +1021,8 @@ const ARTISTS = [
     handle: "@flush",
     avatar: "/avatars/flush.jpg",
     genre: "Dubstep",
-    description: "Productor de drum & bass con un enfoque en sonidos futuristas y experimentales.",
+    description:
+      "Productor de drum & bass con un enfoque en sonidos futuristas y experimentales.",
     supporters: 1320,
     blgReceived: 1320,
     featured: false,
@@ -3630,7 +1033,8 @@ const ARTISTS = [
     handle: "@daniloDR",
     avatar: "/avatars/danilo.jpg",
     genre: "Trap",
-    description: "Creador de trance progresivo con elementos de música clásica y ambient.",
+    description:
+      "Creador de trance progresivo con elementos de música clásica y ambient.",
     supporters: 980,
     blgReceived: 980,
     featured: false,
@@ -3641,7 +1045,8 @@ const ARTISTS = [
     handle: "@spitflux",
     avatar: "/avatars/spitflux.jpg",
     genre: "Dubstep",
-    description: "Innovador en la escena dubstep con un estilo agresivo y detallado.",
+    description:
+      "Innovador en la escena dubstep con un estilo agresivo y detallado.",
     supporters: 1450,
     blgReceived: 1450,
     featured: false,
@@ -3652,7 +1057,8 @@ const ARTISTS = [
     handle: "@axs",
     avatar: "/avatars/axs.jpg",
     genre: "Riddim",
-    description: "Productor de techno industrial con influencias de EBM y post-punk.",
+    description:
+      "Productor de techno industrial con influencias de EBM y post-punk.",
     supporters: 1680,
     blgReceived: 1680,
     featured: true,
@@ -3663,22 +1069,23 @@ const ARTISTS = [
     handle: "@kr4d",
     avatar: "/avatars/kr4d.jpg",
     genre: "Electro",
-    description: "Artista de ambient y música experimental con enfoque en paisajes sonoros inmersivos.",
+    description:
+      "Artista de ambient y música experimental con enfoque en paisajes sonoros inmersivos.",
     supporters: 890,
     blgReceived: 890,
     featured: false,
   },
-]
+];
 
 export default function ArtistsList() {
-  const [searchQuery, setSearchQuery] = useState("")
+  const [searchQuery, setSearchQuery] = useState("");
 
   const filteredArtists = ARTISTS.filter(
     (artist) =>
       artist.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       artist.handle.toLowerCase().includes(searchQuery.toLowerCase()) ||
       artist.genre.toLowerCase().includes(searchQuery.toLowerCase()),
-  )
+  );
 
   return (
     <div className="space-y-4">
@@ -3694,17 +1101,24 @@ export default function ArtistsList() {
 
       <div className="space-y-3">
         {filteredArtists.map((artist) => (
-          <Card key={artist.id} className="overflow-hidden bg-gray-800 border-gray-700">
+          <Card
+            key={artist.id}
+            className="overflow-hidden bg-gray-800 border-gray-700"
+          >
             <CardContent className="p-3">
               <div className="flex items-center gap-3">
                 <Avatar className="h-12 w-12">
                   <AvatarImage src={artist.avatar} alt={artist.name} />
-                  <AvatarFallback>{artist.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                  <AvatarFallback>
+                    {artist.name.substring(0, 2).toUpperCase()}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
                   <div className="flex items-center">
                     <p className="font-medium text-white">{artist.name}</p>
-                    {artist.featured && <Star className="h-3 w-3 text-bright-yellow ml-1" />}
+                    {artist.featured && (
+                      <Star className="h-3 w-3 text-bright-yellow ml-1" />
+                    )}
                   </div>
                   <p className="text-xs text-gray-400">{artist.handle}</p>
                   <div className="flex items-center mt-1 text-xs">
@@ -3714,7 +1128,10 @@ export default function ArtistsList() {
                     <span>{artist.supporters.toLocaleString()} seguidores</span>
                   </div>
                 </div>
-                <Button size="sm" className="bg-bright-yellow hover:bg-bright-yellow-700 text-black">
+                <Button
+                  size="sm"
+                  className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
+                >
                   <Banknote className="h-4 w-4 mr-1" />
                   Buy
                 </Button>
@@ -3724,12 +1141,11 @@ export default function ArtistsList() {
         ))}
       </div>
     </div>
-  )
+  );
 }
 ```
 
 ## File: components/explore/explore-screen.tsx
-
 ```typescript
 "use client";
 
@@ -3925,7 +1341,6 @@ export default function ExploreScreen({ onSelectCreator }: ExploreScreenProps) {
 ```
 
 ## File: components/explore/explore-view.tsx
-
 ```typescript
 import { useState, useEffect } from "react";
 import {
@@ -4227,10 +1642,14 @@ export function ExploreView() {
 ```
 
 ## File: components/explore/loading-creators.tsx
-
 ```typescript
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function LoadingCreators() {
   return (
@@ -4261,12 +1680,1227 @@ export default function LoadingCreators() {
         </Card>
       ))}
     </div>
-  )
+  );
 }
 ```
 
-## File: components/home/activity-screen.tsx
+## File: components/feed/activity-screen.tsx
+```typescript
+"use client";
 
+import { ArrowDown, ArrowUp, Heart, MessageCircle, User } from "lucide-react";
+import { BanknoteIcon } from "@/components/icons/banknote-icon";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+// Importar el hook useAuth
+import { useAuth } from "@/hooks/use-auth";
+
+// Mock data for activity
+const ACTIVITIES = [
+  {
+    id: "a1",
+    type: "donation_sent",
+    user: {
+      name: "Elena Rodriguez",
+      avatar: "/placeholder.svg?height=40&width=40",
+    },
+    amount: 5,
+    time: "2 hours ago",
+  },
+  {
+    id: "a2",
+    type: "purchase",
+    amount: 50,
+    wldAmount: 0.5,
+    time: "1 day ago",
+  },
+  {
+    id: "a3",
+    type: "donation_received",
+    user: {
+      name: "Anonymous",
+      avatar: "/placeholder.svg?height=40&width=40",
+    },
+    amount: 10,
+    time: "3 days ago",
+  },
+  {
+    id: "a4",
+    type: "donation_sent",
+    user: {
+      name: "Marcus Chen",
+      avatar: "/placeholder.svg?height=40&width=40",
+    },
+    amount: 20,
+    time: "1 week ago",
+  },
+  {
+    id: "a5",
+    type: "purchase",
+    amount: 100,
+    wldAmount: 1,
+    time: "2 weeks ago",
+  },
+];
+
+// Mock data for social notifications
+const SOCIAL_NOTIFICATIONS = [
+  {
+    id: "n1",
+    type: "like",
+    user: {
+      name: "Juan Pablo",
+      avatar: "/avatars/user.jpg",
+    },
+    action: "liked your post",
+    postContent:
+      "Just finished a new track! Can't wait to share it with you all.",
+    time: "5 minutes ago",
+  },
+  {
+    id: "n2",
+    type: "comment",
+    user: {
+      name: "Banger",
+      avatar: "/avatars/banger.jpg",
+    },
+    action: "commented on your post",
+    comment: "Amazing track! 🔥",
+    time: "1 hour ago",
+  },
+  {
+    id: "n3",
+    type: "follow",
+    user: {
+      name: "Nicola Marti",
+      avatar: "/avatars/nicola.jpg",
+    },
+    action: "started following you",
+    time: "2 hours ago",
+  },
+  {
+    id: "n4",
+    type: "like",
+    user: {
+      name: "AXS",
+      avatar: "/avatars/axs.jpg",
+    },
+    action: "liked your post",
+    postContent: "Working on something special for my supporters. Stay tuned!",
+    time: "3 hours ago",
+  },
+  {
+    id: "n5",
+    type: "comment",
+    user: {
+      name: "FLUSH",
+      avatar: "/avatars/flush.jpg",
+    },
+    action: "commented on your post",
+    comment: "Can't wait to hear it! 🎵",
+    time: "1 day ago",
+  },
+];
+
+// Modificar la función ActivityScreen para mostrar el balance actual
+export default function ActivityScreen() {
+  const { balance } = useAuth(); // Obtener el balance del contexto
+
+  return (
+    <div className="h-full overflow-auto pb-20">
+      <div className="bg-primary p-4">
+        <h1 className="text-white font-bold text-xl mb-4">Activity</h1>
+        <div className="bg-white rounded-xl p-4 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-gray-500 text-sm">Available Balance</p>
+              <div className="flex items-center mt-1">
+                <BanknoteIcon className="h-6 w-6 text-primary mr-2" />
+                <span className="text-2xl font-bold">{balance} DROPS</span>
+              </div>
+            </div>
+            <button className="bg-primary text-white px-4 py-2 rounded-full text-sm font-medium">
+              Buy More
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-4">
+        <Tabs defaultValue="social" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 bg-gray-800">
+            <TabsTrigger
+              value="social"
+              className="data-[state=active]:bg-teal-600"
+            >
+              Social
+            </TabsTrigger>
+            <TabsTrigger
+              value="transactions"
+              className="data-[state=active]:bg-teal-600"
+            >
+              Transactions
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="social" className="mt-4">
+            <div className="space-y-3">
+              {SOCIAL_NOTIFICATIONS.map((notification) => (
+                <Card
+                  key={notification.id}
+                  className="bg-gray-800 border-gray-700"
+                >
+                  <CardContent className="p-4">
+                    <div className="flex items-start gap-3">
+                      <Avatar className="h-10 w-10">
+                        <AvatarImage
+                          src={notification.user.avatar}
+                          alt={notification.user.name}
+                        />
+                        <AvatarFallback>
+                          {notification.user.name.substring(0, 2).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="font-medium text-white">
+                            {notification.user.name}
+                          </span>
+                          <span className="text-gray-400">
+                            {notification.action}
+                          </span>
+                          {notification.type === "like" && (
+                            <Heart className="h-4 w-4 text-red-500 fill-current" />
+                          )}
+                          {notification.type === "comment" && (
+                            <MessageCircle className="h-4 w-4 text-blue-500" />
+                          )}
+                          {notification.type === "follow" && (
+                            <User className="h-4 w-4 text-green-500" />
+                          )}
+                        </div>
+                        {notification.postContent && (
+                          <p className="text-sm text-gray-300 mb-1">
+                            "{notification.postContent}"
+                          </p>
+                        )}
+                        {notification.comment && (
+                          <p className="text-sm text-gray-300 mb-1">
+                            "{notification.comment}"
+                          </p>
+                        )}
+                        <p className="text-xs text-gray-500">
+                          {notification.time}
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="transactions" className="mt-4">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-bold text-lg text-white">
+                Transaction History
+              </h2>
+              <button className="text-teal-400 text-sm font-medium">
+                Filter
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {ACTIVITIES.map((activity) => (
+                <Card key={activity.id} className="bg-gray-800 border-gray-700">
+                  <CardContent className="p-4">
+                    {activity.type === "donation_sent" && (
+                      <div className="flex items-center">
+                        <div className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center mr-3">
+                          <ArrowUp className="h-5 w-5 text-red-500" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between">
+                            <p className="font-medium text-white">
+                              Donation to {activity.user?.name || "Unknown"}
+                            </p>
+                            <p className="text-red-500 font-medium">
+                              -{activity.amount} DROPS
+                            </p>
+                          </div>
+                          <p className="text-xs text-gray-500">
+                            {activity.time}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {activity.type === "donation_received" && (
+                      <div className="flex items-center">
+                        <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center mr-3">
+                          <ArrowDown className="h-5 w-5 text-green-500" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between">
+                            <p className="font-medium text-white">
+                              Donation from {activity.user?.name || "Unknown"}
+                            </p>
+                            <p className="text-green-500 font-medium">
+                              +{activity.amount} DROPS
+                            </p>
+                          </div>
+                          <p className="text-xs text-gray-500">
+                            {activity.time}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {activity.type === "purchase" && (
+                      <div className="flex items-center">
+                        <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center mr-3">
+                          <BanknoteIcon className="h-6 w-6 text-blue-500" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between">
+                            <p className="font-medium text-white">
+                              Purchased DROPS
+                            </p>
+                            <p className="text-green-500 font-medium">
+                              +{activity.amount} DROPS
+                            </p>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <p className="text-xs text-gray-500">
+                              {activity.time}
+                            </p>
+                            <p className="text-xs text-gray-500">
+                              -{activity.wldAmount} WLD
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </div>
+  );
+}
+```
+
+## File: components/feed/activity-view.tsx
+```typescript
+"use client";
+
+import { useState, useEffect } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent } from "@/components/ui/card";
+import { useAuth } from "@/hooks/use-auth";
+import { userDataService } from "@/lib/user-data-service";
+import { Activity } from "@/lib/types";
+import { BanknoteIcon } from "@/components/icons/banknote-icon";
+
+interface ActivityViewProps {
+  onSelectArtist: (artistId: string) => void;
+}
+
+export default function ActivityView({ onSelectArtist }: ActivityViewProps) {
+  const { userData, isArtist, user } = useAuth();
+  const [activities, setActivities] = useState<Activity[]>([]);
+
+  // Load activities for the current user
+  useEffect(() => {
+    if (user) {
+      const userActivities = userDataService.getActivitiesForUser(user);
+      setActivities(userActivities);
+    }
+  }, [user]);
+
+  // Function to redirect to artist related to the activity
+  const handleSelectArtist = (artistId: string) => {
+    console.log("Activity view - Selected artist:", artistId);
+    onSelectArtist(artistId);
+  };
+
+  const formatTimeAgo = (dateString: string): string => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInMinutes = Math.floor(
+      (now.getTime() - date.getTime()) / (1000 * 60),
+    );
+
+    if (diffInMinutes < 1) return "Just now";
+    if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
+
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    if (diffInHours < 24) return `${diffInHours}h ago`;
+
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays < 7) return `${diffInDays}d ago`;
+
+    return date.toLocaleDateString();
+  };
+
+  return (
+    <div className="p-4 pb-6 bg-gray-50 dark:bg-gray-950">
+      <h1 className="text-xl font-bold mb-4 text-white">Activity</h1>
+
+      {activities.length > 0 ? (
+        <div className="space-y-3">
+          {activities.map((activity) => (
+            <ActivityCard
+              key={activity.id}
+              activity={activity}
+              onSelectArtist={handleSelectArtist}
+              formatTimeAgo={formatTimeAgo}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-8 bg-gray-800 rounded-lg border border-gray-700">
+          <p className="text-gray-300 font-medium">
+            You don't have any notifications yet
+          </p>
+          <p className="text-gray-400 text-sm mt-1">
+            {isArtist()
+              ? "Interactions with your followers will appear here"
+              : "Updates from artists you follow will appear here"}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ActivityCard({
+  activity,
+  onSelectArtist,
+  formatTimeAgo,
+}: {
+  activity: Activity;
+  onSelectArtist: (artistId: string) => void;
+  formatTimeAgo: (dateString: string) => string;
+}) {
+  return (
+    <Card className="overflow-hidden bg-gray-800 border-gray-700">
+      <CardContent className="p-3">
+        <div className="flex gap-3">
+          <Avatar
+            className="h-10 w-10 cursor-pointer"
+            onClick={() => onSelectArtist(activity.userId)}
+          >
+            <AvatarImage src={activity.userAvatar} alt={activity.userName} />
+            <AvatarFallback>
+              {activity.userName.substring(0, 2).toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex-1">
+            <p className="text-sm text-white">
+              <span
+                className="font-medium cursor-pointer"
+                onClick={() => onSelectArtist(activity.userId)}
+              >
+                {activity.userName}
+              </span>{" "}
+              {activity.action}
+            </p>
+            {activity.message && (
+              <p className="text-sm mt-1 bg-gray-700 p-2 rounded-lg text-gray-300">
+                {activity.message}
+              </p>
+            )}
+            <div className="flex items-center mt-1">
+              <p className="text-xs text-gray-400">
+                {formatTimeAgo(activity.createdAt)}
+              </p>
+              {activity.amount && activity.tokenName && (
+                <div className="flex items-center text-bright-yellow text-xs font-medium ml-2">
+                  <BanknoteIcon className="h-4 w-4 mr-1" />
+                  <span>
+                    {activity.amount} ${activity.tokenName}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+## File: components/feed/home-view.tsx
+```typescript
+"use client";
+
+import { useState, useEffect } from "react";
+import {
+  Heart,
+  MessageCircle,
+  Share2,
+  Send,
+  ImageIcon,
+  MapPin,
+  Hash,
+  BarChart2,
+  Paperclip,
+  X,
+} from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { BanknoteIcon } from "@/components/icons/banknote-icon";
+import { useAuth } from "@/hooks/use-auth";
+import { userDataService } from "@/lib/user-data-service";
+import { Post, Activity, FeedItem } from "@/lib/types";
+import MusicPlayer from "@/components/music-player/music-player";
+
+interface HomeViewProps {
+  onSelectArtist: (artistId: string) => void;
+  onNavigateToExplore?: () => void;
+}
+
+export default function HomeView({
+  onSelectArtist,
+  onNavigateToExplore,
+}: HomeViewProps) {
+  const { userData, isArtist, user } = useAuth();
+  const [feedItems, setFeedItems] = useState<FeedItem[]>([]);
+  const [showCommentDialog, setShowCommentDialog] = useState(false);
+  const [currentPostId, setCurrentPostId] = useState<string | null>(null);
+  const [commentText, setCommentText] = useState("");
+  const [showCreatePost, setShowCreatePost] = useState(false);
+  const [newPostContent, setNewPostContent] = useState("");
+  const [newPostImage, setNewPostImage] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [likedTracks, setLikedTracks] = useState<Set<string>>(new Set());
+  const [showLocationPicker, setShowLocationPicker] = useState(false);
+  const [showPollCreator, setShowPollCreator] = useState(false);
+  const [showFileUpload, setShowFileUpload] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState<string>("");
+  const [pollOptions, setPollOptions] = useState<string[]>(["", ""]);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [showWelcomeBanner, setShowWelcomeBanner] = useState(true); // Add state for welcome banner visibility
+
+  // Load feed data
+  useEffect(() => {
+    if (user) {
+      const feed = userDataService.getFeedForUser(user);
+      setFeedItems(feed);
+    }
+  }, [user]);
+
+  const handleSelectArtist = (artistId: string) => {
+    console.log("Home view - Selected artist:", artistId);
+    onSelectArtist(artistId);
+  };
+
+  const handleLike = (postId: string) => {
+    if (!user) return;
+
+    const success = userDataService.likePost(user, postId);
+    if (success) {
+      // Refresh feed
+      const feed = userDataService.getFeedForUser(user);
+      setFeedItems(feed);
+    }
+  };
+
+  const handleOpenComments = (postId: string) => {
+    setCurrentPostId(postId);
+    setShowCommentDialog(true);
+  };
+
+  const handleSendComment = () => {
+    if (!commentText.trim() || !currentPostId || !user) return;
+
+    const comment = userDataService.addComment(
+      user,
+      currentPostId,
+      commentText,
+    );
+    if (comment) {
+      // Refresh feed
+      const feed = userDataService.getFeedForUser(user);
+      setFeedItems(feed);
+      setCommentText("");
+    }
+  };
+
+  const handleCreatePost = () => {
+    if (!newPostContent.trim() || !user || !userData) return;
+
+    let content = newPostContent;
+
+    // Add location if selected
+    if (selectedLocation) {
+      content += ` 📍 ${selectedLocation}`;
+    }
+
+    // Add poll if created
+    if (pollOptions.some((option) => option.trim())) {
+      content += `\n\n📊 Poll:\n${pollOptions
+        .filter((option) => option.trim())
+        .map((option, index) => `${index + 1}. ${option}`)
+        .join("\n")}`;
+    }
+
+    const postData = {
+      authorId: user,
+      authorName: userData.username,
+      authorAvatar: userData.profilePhoto || "/avatars/user.jpg",
+      content: content,
+      image: previewUrl || undefined,
+      type: "post" as const,
+      tags: extractTags(newPostContent),
+    };
+
+    const newPost = userDataService.createPost(postData);
+    if (newPost) {
+      // Refresh feed
+      const feed = userDataService.getFeedForUser(user);
+      setFeedItems(feed);
+      setNewPostContent("");
+      setNewPostImage(null);
+      setPreviewUrl(null);
+      setSelectedLocation("");
+      setPollOptions(["", ""]);
+      setSelectedFile(null);
+      setShowCreatePost(false);
+    }
+  };
+
+  const extractTags = (content: string): string[] => {
+    const hashtagRegex = /#(\w+)/g;
+    const matches = content.match(hashtagRegex);
+    return matches ? matches.map((tag) => tag.slice(1)) : [];
+  };
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      if (!file.type.startsWith("image/")) {
+        alert("Please select an image file");
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        alert("Please select an image smaller than 5MB");
+        return;
+      }
+
+      setNewPostImage(file);
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+    }
+  };
+
+  const handleImageClick = () => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.onchange = (e) => handleImageUpload(e as any);
+    input.click();
+  };
+
+  const handleLocationClick = () => {
+    setShowLocationPicker(true);
+  };
+
+  const handleHashtagClick = () => {
+    setNewPostContent((prev) => prev + " #");
+  };
+
+  const handlePollClick = () => {
+    setShowPollCreator(true);
+  };
+
+  const handleFileClick = () => {
+    setShowFileUpload(true);
+  };
+
+  const handleAddPollOption = () => {
+    setPollOptions((prev) => [...prev, ""]);
+  };
+
+  const handlePollOptionChange = (index: number, value: string) => {
+    setPollOptions((prev) =>
+      prev.map((option, i) => (i === index ? value : option)),
+    );
+  };
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      if (file.size > 10 * 1024 * 1024) {
+        alert("Please select a file smaller than 10MB");
+        return;
+      }
+      setSelectedFile(file);
+      setNewPostContent((prev) => prev + ` 📎 ${file.name}`);
+    }
+  };
+
+  const formatTimeAgo = (dateString: string): string => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInMinutes = Math.floor(
+      (now.getTime() - date.getTime()) / (1000 * 60),
+    );
+
+    if (diffInMinutes < 1) return "Just now";
+    if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
+
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    if (diffInHours < 24) return `${diffInHours}h ago`;
+
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays < 7) return `${diffInDays}d ago`;
+
+    return date.toLocaleDateString();
+  };
+
+  const handleTrackChange = (track: any) => {
+    console.log("Now playing:", track.title, "by", track.artist);
+  };
+
+  const handleTrackLike = (trackId: string) => {
+    const newLikedTracks = new Set(likedTracks);
+    if (newLikedTracks.has(trackId)) {
+      newLikedTracks.delete(trackId);
+    } else {
+      newLikedTracks.add(trackId);
+    }
+    setLikedTracks(newLikedTracks);
+  };
+
+  const renderFeedItem = (item: FeedItem) => {
+    if (item.type === "post") {
+      const post = item.data as Post;
+      const isLiked = user ? post.likes.includes(user) : false;
+
+      return (
+        <Card key={item.id} className="bg-gray-800 border-gray-700">
+          <CardContent className="p-4">
+            <div className="flex items-center mb-3">
+              <Avatar
+                className="h-8 w-8 mr-2 cursor-pointer"
+                onClick={() => handleSelectArtist(post.authorId)}
+              >
+                <AvatarImage src={post.authorAvatar} alt={post.authorName} />
+                <AvatarFallback>
+                  {post.authorName.substring(0, 2).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                <p
+                  className="font-medium text-white cursor-pointer"
+                  onClick={() => handleSelectArtist(post.authorId)}
+                >
+                  {post.authorName}
+                </p>
+                <p className="text-gray-400 text-xs">
+                  {formatTimeAgo(post.createdAt)}
+                </p>
+              </div>
+            </div>
+            <p className="text-sm text-gray-300 mb-3">{post.content}</p>
+            {post.image && (
+              <div className="mb-3 rounded-lg overflow-hidden">
+                <img
+                  src={post.image}
+                  alt="Post image"
+                  className="w-full h-auto"
+                />
+              </div>
+            )}
+            <div className="flex items-center justify-between text-gray-400 text-sm">
+              <button
+                className="flex items-center"
+                onClick={() => handleLike(post.id)}
+                disabled={!user}
+              >
+                <Heart
+                  className={`h-4 w-4 mr-1 ${isLiked ? "fill-red-500 text-red-500" : ""}`}
+                />
+                {post.likes.length}
+              </button>
+              <button
+                className="flex items-center"
+                onClick={() => handleOpenComments(post.id)}
+                disabled={!user}
+              >
+                <MessageCircle className="h-4 w-4 mr-1" />
+                {post.comments.length}
+              </button>
+              <button className="flex items-center">
+                <Share2 className="h-4 w-4 mr-1" />
+                Share
+              </button>
+            </div>
+          </CardContent>
+        </Card>
+      );
+    } else if (item.type === "activity") {
+      const activity = item.data as Activity;
+
+      return (
+        <Card key={item.id} className="bg-gray-800 border-gray-700">
+          <CardContent className="p-3">
+            <div className="flex gap-3">
+              <Avatar
+                className="h-10 w-10 cursor-pointer"
+                onClick={() => handleSelectArtist(activity.userId)}
+              >
+                <AvatarImage
+                  src={activity.userAvatar}
+                  alt={activity.userName}
+                />
+                <AvatarFallback>
+                  {activity.userName.substring(0, 2).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex-1">
+                <p className="text-sm text-white">
+                  <span
+                    className="font-medium cursor-pointer"
+                    onClick={() => handleSelectArtist(activity.userId)}
+                  >
+                    {activity.userName}
+                  </span>{" "}
+                  {activity.action}
+                </p>
+                {activity.message && (
+                  <p className="text-sm mt-1 bg-gray-700 p-2 rounded-lg text-gray-300">
+                    {activity.message}
+                  </p>
+                )}
+                <div className="flex items-center mt-1">
+                  <p className="text-xs text-gray-400">
+                    {formatTimeAgo(activity.createdAt)}
+                  </p>
+                  {activity.amount && activity.tokenName && (
+                    <div className="flex items-center text-bright-yellow text-xs font-medium ml-2">
+                      <BanknoteIcon className="h-4 w-4 mr-1" />
+                      <span>
+                        {activity.amount} ${activity.tokenName}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      );
+    }
+
+    return null;
+  };
+
+  return (
+    <div className="pb-6 overflow-auto bg-gray-50 dark:bg-gray-950">
+      {/* Featured Artists */}
+      <div className="px-4 pt-6">
+        <h2 className="text-lg font-semibold mb-3 text-white">
+          Featured Artists
+        </h2>
+        <div className="flex overflow-x-auto gap-1 pb-2 -mx-4 px-4">
+          {featuredArtists.map((artist) => (
+            <div
+              key={artist.id}
+              className="flex-shrink-0 w-28"
+              onClick={() => handleSelectArtist(artist.id)}
+              style={{ cursor: "pointer" }}
+            >
+              <div className="flex flex-col items-center cursor-pointer">
+                <Avatar className="h-16 w-16">
+                  <AvatarImage src={artist.avatar} alt={artist.name} />
+                  <AvatarFallback>
+                    {artist.name.substring(0, 2).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                <p className="font-medium text-sm mt-2 text-center text-white">
+                  {artist.name}
+                </p>
+                <p className="text-xs text-gray-400">{artist.genre}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Message for fans */}
+      {!isArtist() && showWelcomeBanner && (
+        <div className="px-4 mt-4">
+          <Card className="bg-gray-800 border-gray-700">
+            <CardContent className="p-4">
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <h3 className="text-white font-medium mb-2">
+                    Welcome to DROPSLAND
+                  </h3>
+                  <p className="text-sm text-gray-300">
+                    Here you can discover artists, buy their tokens and receive
+                    exclusive rewards.
+                  </p>
+                  <div className="flex gap-2 mt-3">
+                    <Button
+                      size="sm"
+                      className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
+                    >
+                      <BanknoteIcon className="h-5 w-5 mr-1" />
+                      Buy Tokens
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="bg-gray-700 text-white border-gray-600"
+                      onClick={onNavigateToExplore}
+                    >
+                      Explore Artists
+                    </Button>
+                  </div>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowWelcomeBanner(false)}
+                  className="text-gray-400 hover:text-white ml-2"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {/* Tabs */}
+      <div className="px-4 mt-6">
+        <Tabs defaultValue="feed" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 bg-gray-800">
+            <TabsTrigger
+              value="feed"
+              className="data-[state=active]:bg-teal-600"
+            >
+              Feed
+            </TabsTrigger>
+            <TabsTrigger
+              value="music"
+              className="data-[state=active]:bg-teal-600"
+            >
+              Player
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="feed" className="mt-4">
+            {/* What's on your USB */}
+            {user && (
+              <div className="mb-4">
+                <Card className="bg-gray-800 border-gray-700">
+                  <CardContent className="p-4">
+                    <div className="flex items-start gap-3">
+                      <Avatar className="h-10 w-10">
+                        <AvatarImage
+                          src={
+                            userData?.profilePhoto &&
+                            userData.profilePhoto.trim() !== ""
+                              ? userData.profilePhoto
+                              : "/avatars/user.jpg"
+                          }
+                          alt="Your profile"
+                          onError={(e) => {
+                            e.currentTarget.src = "/avatars/user.jpg";
+                          }}
+                        />
+                        <AvatarFallback>
+                          {userData?.username?.substring(0, 2).toUpperCase() ||
+                            "U"}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1">
+                        <Textarea
+                          placeholder="What's on your USB?"
+                          value={newPostContent}
+                          onChange={(e) => setNewPostContent(e.target.value)}
+                          className="bg-gray-700 border-gray-600 text-white resize-none mb-3"
+                          rows={3}
+                        />
+                        <div className="flex flex-wrap gap-4 mb-3 justify-start">
+                          <ImageIcon
+                            className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer"
+                            onClick={handleImageClick}
+                          />
+                          <MapPin
+                            className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer"
+                            onClick={handleLocationClick}
+                          />
+                          <Hash
+                            className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer"
+                            onClick={handleHashtagClick}
+                          />
+                          <BarChart2
+                            className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer"
+                            onClick={handlePollClick}
+                          />
+                          <Paperclip
+                            className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer"
+                            onClick={handleFileClick}
+                          />
+                        </div>
+                        <div className="flex justify-end">
+                          <Button
+                            size="sm"
+                            onClick={handleCreatePost}
+                            disabled={!newPostContent.trim()}
+                            className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
+                          >
+                            <Send className="h-4 w-4 mr-2" />
+                            Post
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+
+            <div className="space-y-3">
+              {feedItems.length > 0 ? (
+                feedItems.map(renderFeedItem)
+              ) : (
+                <Card className="bg-gray-800 border-gray-700">
+                  <CardContent className="p-6 text-center">
+                    <p className="text-gray-300">No posts yet</p>
+                    <p className="text-gray-400 text-sm mt-1">
+                      Follow some artists to see their posts here
+                    </p>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="music" className="mt-4">
+            <MusicPlayer onTrackChange={handleTrackChange} />
+          </TabsContent>
+        </Tabs>
+      </div>
+
+      {/* Comment Dialog */}
+      <Dialog open={showCommentDialog} onOpenChange={setShowCommentDialog}>
+        <DialogContent className="bg-gray-800 border-gray-700">
+          <DialogHeader>
+            <DialogTitle className="text-white">Comments</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="max-h-[300px] overflow-y-auto space-y-3">
+              {currentPostId &&
+                (() => {
+                  const allPosts = userDataService.getAllPosts();
+                  const post = allPosts.find(
+                    (p: any) => p.id === currentPostId,
+                  );
+                  return post?.comments.map((comment: any, i: number) => (
+                    <div key={i} className="flex gap-2">
+                      <Avatar className="h-8 w-8">
+                        <AvatarImage
+                          src={comment.authorAvatar}
+                          alt={comment.authorName}
+                        />
+                        <AvatarFallback>
+                          {comment.authorName.substring(0, 2).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1 bg-gray-700 p-2 rounded-lg">
+                        <p className="text-sm font-medium text-white">
+                          {comment.authorName}
+                        </p>
+                        <p className="text-sm text-gray-300">
+                          {comment.content}
+                        </p>
+                      </div>
+                    </div>
+                  ));
+                })()}
+            </div>
+            <div className="flex gap-2">
+              <Input
+                placeholder="Write a comment..."
+                value={commentText}
+                onChange={(e) => setCommentText(e.target.value)}
+                className="flex-1 bg-gray-700 border-gray-600 text-white"
+              />
+              <Button
+                onClick={handleSendComment}
+                disabled={!commentText.trim()}
+                className="bg-teal-600 hover:bg-teal-700"
+              >
+                Send
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Location Picker Dialog */}
+      <Dialog open={showLocationPicker} onOpenChange={setShowLocationPicker}>
+        <DialogContent className="bg-gray-800 border-gray-700">
+          <DialogHeader>
+            <DialogTitle className="text-white">Add Location</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <Input
+              placeholder="Enter location..."
+              value={selectedLocation}
+              onChange={(e) => setSelectedLocation(e.target.value)}
+              className="bg-gray-700 border-gray-600 text-white"
+            />
+            <div className="flex gap-2">
+              <Button
+                onClick={() => setShowLocationPicker(false)}
+                variant="outline"
+                className="bg-gray-700 border-gray-600 text-white"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={() => setShowLocationPicker(false)}
+                className="bg-teal-600 hover:bg-teal-700"
+              >
+                Add
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Poll Creator Dialog */}
+      <Dialog open={showPollCreator} onOpenChange={setShowPollCreator}>
+        <DialogContent className="bg-gray-800 border-gray-700">
+          <DialogHeader>
+            <DialogTitle className="text-white">Create Poll</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <p className="text-gray-300 text-sm">Add poll options:</p>
+            {pollOptions.map((option, index) => (
+              <Input
+                key={index}
+                placeholder={`Option ${index + 1}`}
+                value={option}
+                onChange={(e) => handlePollOptionChange(index, e.target.value)}
+                className="bg-gray-700 border-gray-600 text-white"
+              />
+            ))}
+            <Button
+              onClick={handleAddPollOption}
+              variant="outline"
+              className="bg-gray-700 border-gray-600 text-white"
+            >
+              Add Option
+            </Button>
+            <div className="flex gap-2">
+              <Button
+                onClick={() => setShowPollCreator(false)}
+                variant="outline"
+                className="bg-gray-700 border-gray-600 text-white"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={() => setShowPollCreator(false)}
+                className="bg-teal-600 hover:bg-teal-700"
+              >
+                Create Poll
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* File Upload Dialog */}
+      <Dialog open={showFileUpload} onOpenChange={setShowFileUpload}>
+        <DialogContent className="bg-gray-800 border-gray-700">
+          <DialogHeader>
+            <DialogTitle className="text-white">Attach File</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <input
+              type="file"
+              onChange={handleFileUpload}
+              className="bg-gray-700 border-gray-600 text-white p-2 rounded"
+            />
+            <div className="flex gap-2">
+              <Button
+                onClick={() => setShowFileUpload(false)}
+                variant="outline"
+                className="bg-gray-700 border-gray-600 text-white"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={() => setShowFileUpload(false)}
+                className="bg-teal-600 hover:bg-teal-700"
+              >
+                Attach
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
+
+// Featured artists data
+const featuredArtists = [
+  {
+    id: "iamjuampi",
+    name: "iamjuampi",
+    genre: "Techno / House",
+    avatar: "/avatars/juampi.jpg",
+  },
+  {
+    id: "banger",
+    name: "banger",
+    genre: "Techno",
+    avatar: "/avatars/banger.jpg",
+  },
+  {
+    id: "nicolamarti",
+    name: "Nicola Marti",
+    genre: "House",
+    avatar: "/avatars/nicola.jpg",
+  },
+  {
+    id: "axs",
+    name: "AXS",
+    genre: "Techno",
+    avatar: "/avatars/axs.jpg",
+  },
+];
+```
+
+## File: components/home/activity-screen.tsx
 ```typescript
 "use client";
 
@@ -4578,7 +3212,6 @@ export default function ActivityScreen() {
 ```
 
 ## File: components/home/activity-view.tsx
-
 ```typescript
 "use client";
 
@@ -4721,7 +3354,6 @@ function ActivityCard({
 ```
 
 ## File: components/home/home-view.tsx
-
 ```typescript
 "use client";
 
@@ -5485,11 +4117,10 @@ const featuredArtists = [
 ```
 
 ## File: components/icons/banknote-icon.tsx
-
 ```typescript
 interface BanknoteIconProps {
-  className?: string
-  size?: number
+  className?: string;
+  size?: number;
 }
 
 export function BanknoteIcon({ className = "", size = 24 }: BanknoteIconProps) {
@@ -5518,15 +4149,14 @@ export function BanknoteIcon({ className = "", size = 24 }: BanknoteIconProps) {
         />
       </g>
     </svg>
-  )
+  );
 }
 ```
 
 ## File: components/icons/banknote-svg.tsx
-
 ```typescript
 interface BanknoteSvgProps {
-  className?: string
+  className?: string;
 }
 
 export function BanknoteSvg({ className = "" }: BanknoteSvgProps) {
@@ -5551,16 +4181,232 @@ export function BanknoteSvg({ className = "" }: BanknoteSvgProps) {
         />
       </g>
     </svg>
-  )
+  );
+}
+```
+
+## File: components/layout/header.tsx
+```typescript
+import { UserData } from "@/lib/types";
+import { UserPlus } from "lucide-react";
+import { SolanaWalletButton } from "@/components/auth/solana-wallet-button";
+import { Button } from "@/components/ui/button";
+
+export function Header({
+  userData,
+  isArtist,
+  activeTab,
+  handleOpenArtistDashboard,
+  user,
+  logout,
+}: {
+  userData: UserData | null;
+  isArtist: () => boolean;
+  activeTab: string;
+  handleOpenArtistDashboard: () => void;
+  user: string;
+  logout: () => void;
+}) {
+  return (
+    <header className="bg-gray-900 px-4 py-4 border-b border-gray-800 flex items-center justify-between">
+      <div className="flex items-center gap-3">
+        <img
+          src="/images/dropsland-logo.png"
+          alt="DROPSLAND"
+          className="h-12 max-w-[180px] object-contain"
+        />
+        <SolanaWalletButton />
+      </div>
+      <div className="flex items-center gap-2">
+        {userData && isArtist() && activeTab === "profile" && (
+          <Button
+            variant="outline"
+            size="sm"
+            className="bg-gray-800 text-white border-gray-700"
+            onClick={handleOpenArtistDashboard}
+          >
+            Artist Dashboard
+          </Button>
+        )}
+        {!userData && user && (
+          <button onClick={logout} className="flex items-center text-gray-300">
+            <UserPlus className="h-4 w-4 mr-1" />
+            <span className="text-sm">Logout</span>
+          </button>
+        )}
+      </div>
+    </header>
+  );
+}
+```
+
+## File: components/layout/main-app.tsx
+```typescript
+"use client";
+import HomeView from "@/components/feed/home-view";
+import SearchView from "@/components/search-view";
+import ActivityView from "@/components/feed/activity-view";
+import ProfileView from "@/components/profile/profile-view";
+import WalletView from "@/components/wallet/wallet-view";
+import ArtistDashboard from "@/components/artist-dashboard";
+import BuyView from "@/components/wallet/buy-view";
+import SendView from "@/components/send-view";
+import ReceiveView from "@/components/wallet/receive-view";
+import { Header } from "@/components/layout/header";
+import { TabBar } from "@/components/layout/tab-bar";
+import { useNavigation, useViewRenderer } from "@/hooks/use-navigation";
+import type { useNavigation as useNavigationType } from "@/hooks/use-navigation";
+import { useAuth } from "@/hooks/use-auth";
+import ArtistProfile from "@/components/profile/artist-profile";
+
+export default function MainApp() {
+  const { user, userData, login, logout, isArtist } = useAuth();
+  const navigation = useNavigation();
+  const { viewType } = useViewRenderer(
+    navigation.currentView,
+    navigation.activeTab,
+    navigation.selectedArtistId,
+    user,
+  );
+
+  return (
+    <>
+      <Header
+        userData={userData}
+        isArtist={isArtist}
+        activeTab={navigation.activeTab}
+        handleOpenArtistDashboard={navigation.navigateToArtistDashboard}
+        user={user || "iamjuampi"}
+        logout={logout}
+      />
+      <main className="flex-1 overflow-auto bg-gray-950 pb-24">
+        <ViewRenderer
+          viewType={viewType}
+          navigation={navigation}
+          user={user || "iamjuampi"}
+        />
+      </main>
+      <TabBar
+        activeTab={navigation.activeTab}
+        onTabChange={navigation.handleTabChange}
+      />
+    </>
+  );
+}
+
+export function ViewRenderer({
+  viewType,
+  navigation,
+  user,
+}: {
+  viewType: string | null;
+  navigation: ReturnType<typeof useNavigationType>;
+  user: string;
+}) {
+  const handleArtistClick = (artistId: string) => {
+    navigation.handleViewArtist(artistId, user);
+  };
+
+  switch (viewType) {
+    case "buy":
+      return <BuyView onBack={navigation.navigateBack} />;
+    case "send":
+      return <SendView onBack={navigation.navigateBack} />;
+    case "receive":
+      return <ReceiveView onBack={navigation.navigateBack} />;
+    case "artistDashboard":
+      return <ArtistDashboard onBack={navigation.navigateBack} />;
+    case "artist":
+      return (
+        <ArtistProfile
+          artistId={navigation.selectedArtistId!}
+          onBack={navigation.navigateBack}
+        />
+      );
+    case "home":
+      return <HomeView onSelectArtist={handleArtistClick} />;
+    case "search":
+      return <SearchView onSelectArtist={handleArtistClick} />;
+    case "wallet":
+      return (
+        <WalletView
+          onBuy={navigation.navigateToBuy}
+          onSend={navigation.navigateToSend}
+          onReceive={navigation.navigateToReceive}
+        />
+      );
+    case "activity":
+      return <ActivityView onSelectArtist={handleArtistClick} />;
+    case "profile":
+      return <ProfileView username={user} />;
+    default:
+      return null;
+  }
+}
+```
+
+## File: components/layout/tab-bar.tsx
+```typescript
+import { Heart, Home, Search, User, Wallet } from "lucide-react";
+
+export function TabBar({
+  activeTab,
+  onTabChange,
+}: {
+  activeTab: string;
+  onTabChange: (tab: string) => void;
+}) {
+  return (
+    <div className="fixed bottom-0 left-0 right-0 flex justify-center">
+      <div className="max-w-md w-full bg-gray-900 border-t border-gray-800">
+        <div className="flex justify-between items-center px-6 pt-2 pb-8">
+          <button
+            onClick={() => onTabChange("home")}
+            className={`flex flex-col items-center ${activeTab === "home" ? "text-bright-yellow" : "text-gray-400"}`}
+          >
+            <Home className="h-6 w-6" />
+            <span className="text-xs mt-1">Home</span>
+          </button>
+          <button
+            onClick={() => onTabChange("search")}
+            className={`flex flex-col items-center ${activeTab === "search" ? "text-bright-yellow" : "text-gray-400"}`}
+          >
+            <Search className="h-6 w-6" />
+            <span className="text-xs mt-1">Explore</span>
+          </button>
+          <button
+            onClick={() => onTabChange("wallet")}
+            className={`flex flex-col items-center ${activeTab === "wallet" ? "text-bright-yellow" : "text-gray-400"}`}
+          >
+            <Wallet className="h-6 w-6" />
+            <span className="text-xs mt-1">Wallet</span>
+          </button>
+          <button
+            onClick={() => onTabChange("activity")}
+            className={`flex flex-col items-center ${activeTab === "activity" ? "text-bright-yellow" : "text-gray-400"}`}
+          >
+            <Heart className="h-6 w-6" />
+            <span className="text-xs mt-1">Activity</span>
+          </button>
+          <button
+            onClick={() => onTabChange("profile")}
+            className={`flex flex-col items-center ${activeTab === "profile" ? "text-bright-yellow" : "text-gray-400"}`}
+          >
+            <User className="h-6 w-6" />
+            <span className="text-xs mt-1">Profile</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }
 ```
 
 ## File: components/music-player/expanded-player.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
 import {
   Play,
   Pause,
@@ -5574,54 +4420,54 @@ import {
   MoreHorizontal,
   List,
   Minimize2,
-  X
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Slider } from "@/components/ui/slider"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useMusicPlayer } from "@/hooks/use-music-player"
-import { musicTracks } from "@/lib/music-data"
+  X,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Slider } from "@/components/ui/slider";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useMusicPlayer } from "@/hooks/use-music-player";
+import { musicTracks } from "@/lib/music-data";
 
 export default function ExpandedPlayer() {
-  const [isShuffled, setIsShuffled] = useState(false)
-  const [isRepeated, setIsRepeated] = useState(false)
-  const [showPlaylist, setShowPlaylist] = useState(true) // Show queue by default
-  const [likedTracks, setLikedTracks] = useState<Set<string>>(new Set())
+  const [isShuffled, setIsShuffled] = useState(false);
+  const [isRepeated, setIsRepeated] = useState(false);
+  const [showPlaylist, setShowPlaylist] = useState(true); // Show queue by default
+  const [likedTracks, setLikedTracks] = useState<Set<string>>(new Set());
 
-  const musicPlayer = useMusicPlayer()
+  const musicPlayer = useMusicPlayer();
 
   if (!musicPlayer.isExpanded || !musicPlayer.currentTrack) {
-    return null
+    return null;
   }
 
   // Handle seek
   const handleSeek = (value: number[]) => {
-    const newTime = value[0]
-    musicPlayer.seek(newTime)
-  }
+    const newTime = value[0];
+    musicPlayer.seek(newTime);
+  };
 
   // Handle volume change
   const handleVolumeChange = (value: number[]) => {
-    const newVolume = value[0]
-    musicPlayer.setVolumeLevel(newVolume)
-  }
+    const newVolume = value[0];
+    musicPlayer.setVolumeLevel(newVolume);
+  };
 
   // Handle like toggle
   const toggleLike = () => {
-    const newLikedTracks = new Set(likedTracks)
+    const newLikedTracks = new Set(likedTracks);
     if (newLikedTracks.has(musicPlayer.currentTrack!.id)) {
-      newLikedTracks.delete(musicPlayer.currentTrack!.id)
+      newLikedTracks.delete(musicPlayer.currentTrack!.id);
     } else {
-      newLikedTracks.add(musicPlayer.currentTrack!.id)
+      newLikedTracks.add(musicPlayer.currentTrack!.id);
     }
-    setLikedTracks(newLikedTracks)
-  }
+    setLikedTracks(newLikedTracks);
+  };
 
   // Handle playlist track selection
   const playTrackFromPlaylist = (track: any, index: number) => {
-    musicPlayer.playTrack(track)
-  }
+    musicPlayer.playTrack(track);
+  };
 
   return (
     <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
@@ -5669,7 +4515,9 @@ export default function ExpandedPlayer() {
                     alt={`${musicPlayer.currentTrack.album} cover`}
                   />
                   <AvatarFallback className="bg-gray-700 text-white text-lg">
-                    {musicPlayer.currentTrack.artist.substring(0, 2).toUpperCase()}
+                    {musicPlayer.currentTrack.artist
+                      .substring(0, 2)
+                      .toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
                 {musicPlayer.isPlaying && (
@@ -5686,7 +4534,8 @@ export default function ExpandedPlayer() {
                 {musicPlayer.currentTrack.title}
               </h3>
               <p className="text-gray-400 text-sm mb-2">
-                {musicPlayer.currentTrack.artist} • {musicPlayer.currentTrack.album}
+                {musicPlayer.currentTrack.artist} •{" "}
+                {musicPlayer.currentTrack.album}
               </p>
 
               {/* Progress Bar */}
@@ -5711,7 +4560,7 @@ export default function ExpandedPlayer() {
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsShuffled(!isShuffled)}
-                className={`text-gray-400 hover:text-white ${isShuffled ? 'text-teal-400' : ''}`}
+                className={`text-gray-400 hover:text-white ${isShuffled ? "text-teal-400" : ""}`}
               >
                 <Shuffle className="h-4 w-4" />
               </Button>
@@ -5729,7 +4578,11 @@ export default function ExpandedPlayer() {
                 onClick={musicPlayer.togglePlay}
                 className="bg-teal-600 hover:bg-teal-700 text-white rounded-full h-12 w-12 p-0"
               >
-                {musicPlayer.isPlaying ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}
+                {musicPlayer.isPlaying ? (
+                  <Pause className="h-6 w-6" />
+                ) : (
+                  <Play className="h-6 w-6" />
+                )}
               </Button>
 
               <Button
@@ -5745,7 +4598,7 @@ export default function ExpandedPlayer() {
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsRepeated(!isRepeated)}
-                className={`text-gray-400 hover:text-white ${isRepeated ? 'text-teal-400' : ''}`}
+                className={`text-gray-400 hover:text-white ${isRepeated ? "text-teal-400" : ""}`}
               >
                 <Repeat className="h-4 w-4" />
               </Button>
@@ -5758,9 +4611,11 @@ export default function ExpandedPlayer() {
                   variant="ghost"
                   size="sm"
                   onClick={toggleLike}
-                  className={`text-gray-400 hover:text-white ${likedTracks.has(musicPlayer.currentTrack.id) ? 'text-red-500' : ''}`}
+                  className={`text-gray-400 hover:text-white ${likedTracks.has(musicPlayer.currentTrack.id) ? "text-red-500" : ""}`}
                 >
-                  <Heart className={`h-4 w-4 ${likedTracks.has(musicPlayer.currentTrack.id) ? 'fill-current' : ''}`} />
+                  <Heart
+                    className={`h-4 w-4 ${likedTracks.has(musicPlayer.currentTrack.id) ? "fill-current" : ""}`}
+                  />
                 </Button>
               </div>
 
@@ -5771,7 +4626,11 @@ export default function ExpandedPlayer() {
                   onClick={musicPlayer.toggleMute}
                   className="text-gray-400 hover:text-white"
                 >
-                  {musicPlayer.isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+                  {musicPlayer.isMuted ? (
+                    <VolumeX className="h-4 w-4" />
+                  ) : (
+                    <Volume2 className="h-4 w-4" />
+                  )}
                 </Button>
 
                 <div className="w-20">
@@ -5797,8 +4656,8 @@ export default function ExpandedPlayer() {
                   key={track.id}
                   className={`flex items-center gap-3 p-2 rounded cursor-pointer transition-colors ${
                     index === musicPlayer.currentTrackIndex
-                      ? 'bg-teal-600/20 border border-teal-500/30'
-                      : 'hover:bg-gray-700'
+                      ? "bg-teal-600/20 border border-teal-500/30"
+                      : "hover:bg-gray-700"
                   }`}
                   onClick={() => playTrackFromPlaylist(track, index)}
                 >
@@ -5809,9 +4668,13 @@ export default function ExpandedPlayer() {
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1 min-w-0">
-                    <p className={`text-sm font-medium truncate ${
-                      index === musicPlayer.currentTrackIndex ? 'text-teal-400' : 'text-white'
-                    }`}>
+                    <p
+                      className={`text-sm font-medium truncate ${
+                        index === musicPlayer.currentTrackIndex
+                          ? "text-teal-400"
+                          : "text-white"
+                      }`}
+                    >
                       {track.title}
                     </p>
                     <p className="text-xs text-gray-400 truncate">
@@ -5829,8 +4692,8 @@ export default function ExpandedPlayer() {
                       variant="ghost"
                       size="sm"
                       onClick={(e) => {
-                        e.stopPropagation()
-                        musicPlayer.playTrack(track)
+                        e.stopPropagation();
+                        musicPlayer.playTrack(track);
                       }}
                       className="text-gray-400 hover:text-white p-1"
                     >
@@ -5844,23 +4707,22 @@ export default function ExpandedPlayer() {
         </Card>
       </div>
     </div>
-  )
+  );
 }
 ```
 
 ## File: components/music-player/mini-player-wrapper.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import { useMusicPlayer } from "@/hooks/use-music-player"
-import MiniPlayer from "./mini-player"
+import { useMusicPlayer } from "@/hooks/use-music-player";
+import MiniPlayer from "./mini-player";
 
 export default function MiniPlayerWrapper() {
-  const musicPlayer = useMusicPlayer()
+  const musicPlayer = useMusicPlayer();
 
   if (!musicPlayer.showMiniPlayer || !musicPlayer.currentTrack) {
-    return null
+    return null;
   }
 
   return (
@@ -5875,47 +4737,46 @@ export default function MiniPlayerWrapper() {
       onSeek={musicPlayer.seek}
       onExpand={musicPlayer.expandPlayer}
       onStop={() => {
-        musicPlayer.hideMiniPlayer()
+        musicPlayer.hideMiniPlayer();
       }}
     />
-  )
+  );
 }
 ```
 
 ## File: components/music-player/mini-player.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import { useState, useRef, useEffect } from "react"
-import { Play, Pause, SkipBack, SkipForward, Volume2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Slider } from "@/components/ui/slider"
-import { useMusicPlayer } from "@/hooks/use-music-player"
-import { musicTracks } from "@/lib/music-data"
+import { useState, useRef, useEffect } from "react";
+import { Play, Pause, SkipBack, SkipForward, Volume2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Slider } from "@/components/ui/slider";
+import { useMusicPlayer } from "@/hooks/use-music-player";
+import { musicTracks } from "@/lib/music-data";
 
 interface Track {
-  id: string
-  title: string
-  artist: string
-  album: string
-  duration: number
-  cover: string
-  audioUrl?: string
+  id: string;
+  title: string;
+  artist: string;
+  album: string;
+  duration: number;
+  cover: string;
+  audioUrl?: string;
 }
 
 interface MiniPlayerProps {
-  track?: Track
-  isPlaying: boolean
-  currentTime: number
-  duration: number
-  onPlayPause: () => void
-  onNext: () => void
-  onPrevious: () => void
-  onSeek: (time: number) => void
-  onExpand?: () => void
-  onStop?: () => void
+  track?: Track;
+  isPlaying: boolean;
+  currentTime: number;
+  duration: number;
+  onPlayPause: () => void;
+  onNext: () => void;
+  onPrevious: () => void;
+  onSeek: (time: number) => void;
+  onExpand?: () => void;
+  onStop?: () => void;
 }
 
 export default function MiniPlayer({
@@ -5928,32 +4789,36 @@ export default function MiniPlayer({
   onPrevious,
   onSeek,
   onExpand,
-  onStop
+  onStop,
 }: MiniPlayerProps) {
-  if (!track) return null
+  if (!track) return null;
 
   const formatTime = (time: number) => {
-    const minutes = Math.floor(time / 60)
-    const seconds = Math.floor(time % 60)
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`
-  }
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  };
 
   return (
     <div className="fixed bottom-20 left-0 right-0 flex justify-center z-50">
-      <div className="w-full max-w-md bg-gray-900 border-t border-gray-800 rounded-t-xl shadow-lg px-3 py-2 cursor-pointer" onClick={onExpand}>
+      <div
+        className="w-full max-w-md bg-gray-900 border-t border-gray-800 rounded-t-xl shadow-lg px-3 py-2 cursor-pointer"
+        onClick={onExpand}
+      >
         <div className="flex items-center gap-3">
           {/* Track Info */}
           <div className="flex-1 min-w-0">
             <p className="text-white font-medium text-sm truncate">
               {track.title}
             </p>
-            <p className="text-gray-400 text-xs truncate">
-              {track.artist}
-            </p>
+            <p className="text-gray-400 text-xs truncate">{track.artist}</p>
           </div>
 
           {/* Controls */}
-          <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="flex items-center gap-1"
+            onClick={(e) => e.stopPropagation()}
+          >
             <Button
               variant="ghost"
               size="icon"
@@ -5967,7 +4832,11 @@ export default function MiniPlayer({
               onClick={onPlayPause}
               className="bg-teal-600 hover:bg-teal-700 text-white rounded-full h-7 w-7 p-0"
             >
-              {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+              {isPlaying ? (
+                <Pause className="h-4 w-4" />
+              ) : (
+                <Play className="h-4 w-4" />
+              )}
             </Button>
 
             <Button
@@ -5985,8 +4854,19 @@ export default function MiniPlayer({
               onClick={onStop}
               className="text-gray-400 hover:text-red-500 p-0 h-7 w-7"
             >
-              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3.13523 6.15803C3.3241 5.95657 3.64052 5.94637 3.84197 6.13523L7.5 9.56464L11.158 6.13523C11.3595 5.94637 11.6759 5.95657 11.8648 6.15803C12.0536 6.35949 12.0434 6.67591 11.842 6.86477L7.84197 10.6148C7.64964 10.7951 7.35036 10.7951 7.15803 10.6148L3.15803 6.86477C2.95657 6.67591 2.94637 6.35949 3.13523 6.15803Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"/>
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 15 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.13523 6.15803C3.3241 5.95657 3.64052 5.94637 3.84197 6.13523L7.5 9.56464L11.158 6.13523C11.3595 5.94637 11.6759 5.95657 11.8648 6.15803C12.0536 6.35949 12.0434 6.67591 11.842 6.86477L7.84197 10.6148C7.64964 10.7951 7.35036 10.7951 7.15803 10.6148L3.15803 6.86477C2.95657 6.67591 2.94637 6.35949 3.13523 6.15803Z"
+                  fill="currentColor"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                />
               </svg>
             </Button>
           </div>
@@ -6008,12 +4888,11 @@ export default function MiniPlayer({
         </div>
       </div>
     </div>
-  )
+  );
 }
 ```
 
 ## File: components/music-player/music-card.tsx
-
 ```typescript
 "use client";
 
@@ -6126,11 +5005,10 @@ export default function MusicCard({
 ```
 
 ## File: components/music-player/music-player.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect } from "react";
 import {
   Play,
   Pause,
@@ -6143,116 +5021,122 @@ import {
   Heart,
   MoreHorizontal,
   List,
-  Maximize2
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Slider } from "@/components/ui/slider"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useMusicPlayer } from "@/hooks/use-music-player"
-import { Track, musicTracks } from "@/lib/music-data"
+  Maximize2,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Slider } from "@/components/ui/slider";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useMusicPlayer } from "@/hooks/use-music-player";
+import { Track, musicTracks } from "@/lib/music-data";
 
 interface MusicPlayerProps {
-  tracks?: Track[]
-  onTrackChange?: (track: Track) => void
+  tracks?: Track[];
+  onTrackChange?: (track: Track) => void;
 }
 
-export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: MusicPlayerProps) {
-  const [currentTrackIndex, setCurrentTrackIndex] = useState(0)
-  const [isShuffled, setIsShuffled] = useState(false)
-  const [isRepeated, setIsRepeated] = useState(false)
-  const [showPlaylist, setShowPlaylist] = useState(false)
-  const [likedTracks, setLikedTracks] = useState<Set<string>>(new Set())
-  const [isFullscreen, setIsFullscreen] = useState(false)
+export default function MusicPlayer({
+  tracks = musicTracks,
+  onTrackChange,
+}: MusicPlayerProps) {
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [isShuffled, setIsShuffled] = useState(false);
+  const [isRepeated, setIsRepeated] = useState(false);
+  const [showPlaylist, setShowPlaylist] = useState(false);
+  const [likedTracks, setLikedTracks] = useState<Set<string>>(new Set());
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
-  const musicPlayer = useMusicPlayer()
-  const currentTrack = tracks[currentTrackIndex]
+  const musicPlayer = useMusicPlayer();
+  const currentTrack = tracks[currentTrackIndex];
 
   // Check if current track is playing
-  const isCurrentTrackPlaying = musicPlayer.currentTrack?.id === currentTrack.id && musicPlayer.isPlaying
+  const isCurrentTrackPlaying =
+    musicPlayer.currentTrack?.id === currentTrack.id && musicPlayer.isPlaying;
 
   // Handle fullscreen toggle
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen()
-      setIsFullscreen(true)
+      document.documentElement.requestFullscreen();
+      setIsFullscreen(true);
     } else {
-      document.exitFullscreen()
-      setIsFullscreen(false)
+      document.exitFullscreen();
+      setIsFullscreen(false);
     }
-  }
+  };
 
   // Listen for fullscreen changes
   useEffect(() => {
     const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement)
-    }
+      setIsFullscreen(!!document.fullscreenElement);
+    };
 
-    document.addEventListener('fullscreenchange', handleFullscreenChange)
-    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange)
-  }, [])
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () =>
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+  }, []);
 
   // Handle play/pause
   const togglePlay = () => {
     if (isCurrentTrackPlaying) {
-      musicPlayer.togglePlay()
+      musicPlayer.togglePlay();
     } else {
-      musicPlayer.playTrack(currentTrack)
+      musicPlayer.playTrack(currentTrack);
     }
-  }
+  };
 
   // Handle next track
   const nextTrack = () => {
     const nextIndex = isRepeated
       ? currentTrackIndex
-      : (currentTrackIndex + 1) % tracks.length
-    setCurrentTrackIndex(nextIndex)
+      : (currentTrackIndex + 1) % tracks.length;
+    setCurrentTrackIndex(nextIndex);
     if (onTrackChange) {
-      onTrackChange(tracks[nextIndex])
+      onTrackChange(tracks[nextIndex]);
     }
-  }
+  };
 
   // Handle previous track
   const prevTrack = () => {
-    const prevIndex = currentTrackIndex === 0 ? tracks.length - 1 : currentTrackIndex - 1
-    setCurrentTrackIndex(prevIndex)
+    const prevIndex =
+      currentTrackIndex === 0 ? tracks.length - 1 : currentTrackIndex - 1;
+    setCurrentTrackIndex(prevIndex);
     if (onTrackChange) {
-      onTrackChange(tracks[prevIndex])
+      onTrackChange(tracks[prevIndex]);
     }
-  }
+  };
 
   // Handle seek
   const handleSeek = (value: number[]) => {
-    const newTime = value[0]
-    musicPlayer.seek(newTime)
-  }
+    const newTime = value[0];
+    musicPlayer.seek(newTime);
+  };
 
   // Handle volume change
   const handleVolumeChange = (value: number[]) => {
-    const newVolume = value[0]
-    musicPlayer.setVolumeLevel(newVolume)
-  }
+    const newVolume = value[0];
+    musicPlayer.setVolumeLevel(newVolume);
+  };
 
   // Handle like toggle
   const toggleLike = () => {
-    const newLikedTracks = new Set(likedTracks)
+    const newLikedTracks = new Set(likedTracks);
     if (newLikedTracks.has(currentTrack.id)) {
-      newLikedTracks.delete(currentTrack.id)
+      newLikedTracks.delete(currentTrack.id);
     } else {
-      newLikedTracks.add(currentTrack.id)
+      newLikedTracks.add(currentTrack.id);
     }
-    setLikedTracks(newLikedTracks)
-  }
+    setLikedTracks(newLikedTracks);
+  };
 
   // Handle playlist track selection
   const playTrackFromPlaylist = (track: Track, index: number) => {
-    setCurrentTrackIndex(index)
-    musicPlayer.playTrack(track)
+    setCurrentTrackIndex(index);
+    musicPlayer.playTrack(track);
     if (onTrackChange) {
-      onTrackChange(track)
+      onTrackChange(track);
     }
-    setShowPlaylist(false)
-  }
+    setShowPlaylist(false);
+  };
 
   return (
     <div className="w-full max-w-md mx-auto space-y-4">
@@ -6310,7 +5194,7 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
               variant="ghost"
               size="sm"
               onClick={() => setIsShuffled(!isShuffled)}
-              className={`text-gray-400 hover:text-white ${isShuffled ? 'text-teal-400' : ''}`}
+              className={`text-gray-400 hover:text-white ${isShuffled ? "text-teal-400" : ""}`}
             >
               <Shuffle className="h-4 w-4" />
             </Button>
@@ -6328,7 +5212,11 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
               onClick={togglePlay}
               className="bg-teal-600 hover:bg-teal-700 text-white rounded-full h-12 w-12 p-0"
             >
-              {isCurrentTrackPlaying ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}
+              {isCurrentTrackPlaying ? (
+                <Pause className="h-6 w-6" />
+              ) : (
+                <Play className="h-6 w-6" />
+              )}
             </Button>
 
             <Button
@@ -6344,7 +5232,7 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
               variant="ghost"
               size="sm"
               onClick={() => setIsRepeated(!isRepeated)}
-              className={`text-gray-400 hover:text-white ${isRepeated ? 'text-teal-400' : ''}`}
+              className={`text-gray-400 hover:text-white ${isRepeated ? "text-teal-400" : ""}`}
             >
               <Repeat className="h-4 w-4" />
             </Button>
@@ -6357,9 +5245,11 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
                 variant="ghost"
                 size="sm"
                 onClick={toggleLike}
-                className={`text-gray-400 hover:text-white ${likedTracks.has(currentTrack.id) ? 'text-red-500' : ''}`}
+                className={`text-gray-400 hover:text-white ${likedTracks.has(currentTrack.id) ? "text-red-500" : ""}`}
               >
-                <Heart className={`h-4 w-4 ${likedTracks.has(currentTrack.id) ? 'fill-current' : ''}`} />
+                <Heart
+                  className={`h-4 w-4 ${likedTracks.has(currentTrack.id) ? "fill-current" : ""}`}
+                />
               </Button>
 
               <Button
@@ -6379,7 +5269,11 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
                 onClick={musicPlayer.toggleMute}
                 className="text-gray-400 hover:text-white"
               >
-                {musicPlayer.isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+                {musicPlayer.isMuted ? (
+                  <VolumeX className="h-4 w-4" />
+                ) : (
+                  <Volume2 className="h-4 w-4" />
+                )}
               </Button>
 
               <div className="w-20">
@@ -6397,7 +5291,9 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
                 onClick={toggleFullscreen}
                 className="text-gray-400 hover:text-white"
               >
-                <Maximize2 className={`h-4 w-4 ${isFullscreen ? 'fill-current' : ''}`} />
+                <Maximize2
+                  className={`h-4 w-4 ${isFullscreen ? "fill-current" : ""}`}
+                />
               </Button>
             </div>
           </div>
@@ -6415,8 +5311,8 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
                   key={track.id}
                   className={`flex items-center gap-3 p-2 rounded cursor-pointer transition-colors ${
                     index === currentTrackIndex
-                      ? 'bg-teal-600/20 border border-teal-500/30'
-                      : 'hover:bg-gray-700'
+                      ? "bg-teal-600/20 border border-teal-500/30"
+                      : "hover:bg-gray-700"
                   }`}
                   onClick={() => playTrackFromPlaylist(track, index)}
                 >
@@ -6427,9 +5323,13 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1 min-w-0">
-                    <p className={`text-sm font-medium truncate ${
-                      index === currentTrackIndex ? 'text-teal-400' : 'text-white'
-                    }`}>
+                    <p
+                      className={`text-sm font-medium truncate ${
+                        index === currentTrackIndex
+                          ? "text-teal-400"
+                          : "text-white"
+                      }`}
+                    >
                       {track.title}
                     </p>
                     <p className="text-xs text-gray-400 truncate">
@@ -6447,8 +5347,8 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
                       variant="ghost"
                       size="sm"
                       onClick={(e) => {
-                        e.stopPropagation()
-                        musicPlayer.playTrack(track)
+                        e.stopPropagation();
+                        musicPlayer.playTrack(track);
                       }}
                       className="text-gray-400 hover:text-white p-1"
                     >
@@ -6462,22 +5362,2592 @@ export default function MusicPlayer({ tracks = musicTracks, onTrackChange }: Mus
         </Card>
       )}
     </div>
-  )
+  );
+}
+```
+
+## File: components/profile/artist-certifications-tab.tsx
+```typescript
+import { Artist } from "@/types/artist";
+import { Disc, Video, Users, Award } from "lucide-react";
+import { Card, CardContent } from "../ui/card";
+import { TabsContent } from "../ui/tabs";
+import { Button } from "../ui/button";
+
+export function ArtistCertificationsTab({ artist }: { artist: Artist }) {
+  return (
+    <TabsContent value="certifications" className="mt-4 space-y-3">
+      <div className="mb-3">
+        <h3 className="text-white font-medium">Artist Certifications</h3>
+        <p className="text-sm text-gray-400">
+          Achievements and certifications earned by {artist.name}
+        </p>
+      </div>
+
+      {artist.certifications ? (
+        artist.certifications.map((cert, index) => (
+          <Card key={index} className="bg-gray-800 border-gray-700">
+            <CardContent className="p-3">
+              <div className="flex items-start gap-3">
+                <div className="w-12 h-12 rounded-full bg-bright-yellow/20 flex items-center justify-center">
+                  {cert.type === "gold" && (
+                    <Disc className="h-6 w-6 text-bright-yellow" />
+                  )}
+                  {cert.type === "platinum" && (
+                    <Disc className="h-6 w-6 text-gray-300" />
+                  )}
+                  {cert.type === "views" && (
+                    <Video className="h-6 w-6 text-bright-yellow" />
+                  )}
+                  {cert.type === "soldout" && (
+                    <Users className="h-6 w-6 text-bright-yellow" />
+                  )}
+                  {cert.type === "award" && (
+                    <Award className="h-6 w-6 text-bright-yellow" />
+                  )}
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center justify-between mb-1">
+                    <p className="text-sm text-white font-medium">
+                      {cert.title}
+                    </p>
+                    <Button
+                      size="sm"
+                      className={`${
+                        cert.type === "gold"
+                          ? "bg-[#F9BF15] hover:bg-[#e0ab13] text-black" // Changed from #082479 to #F9BF15 with black text
+                          : cert.type === "platinum"
+                            ? "bg-gray-400 hover:bg-gray-500"
+                            : cert.type === "views"
+                              ? "bg-red-600 hover:bg-red-700"
+                              : cert.type === "soldout"
+                                ? "bg-green-600 hover:bg-green-700"
+                                : "bg-blue-600 hover:bg-blue-700"
+                      } text-white rounded-full`}
+                    >
+                      {cert.type === "gold" || cert.type === "platinum"
+                        ? "Stream"
+                        : cert.type === "views"
+                          ? "Watch"
+                          : cert.type === "soldout"
+                            ? "Tour Dates"
+                            : "Award"}
+                    </Button>
+                  </div>
+                  <p className="text-xs text-gray-400">{cert.description}</p>
+                  <p className="text-xs text-gray-500 mt-1">{cert.date}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))
+      ) : (
+        <div className="text-center py-8 bg-gray-800 rounded-lg border border-gray-700">
+          <Award className="h-12 w-12 text-gray-600 mx-auto mb-3" />
+          <p className="text-gray-300 font-medium">No certifications yet</p>
+          <p className="text-gray-400 text-sm mt-1">
+            {artist.name} hasn't earned any certifications yet
+          </p>
+        </div>
+      )}
+    </TabsContent>
+  );
+}
+```
+
+## File: components/profile/artist-posts-tab.tsx
+```typescript
+import { Artist } from "@/types/artist";
+import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
+import { Heart, MessageCircle, Share2 } from "lucide-react";
+import { Card, CardContent } from "../ui/card";
+import { TabsContent } from "../ui/tabs";
+
+export function ArtistPostsTab({ artist }: { artist: Artist }) {
+  return (
+    <TabsContent value="posts" className="mt-4 space-y-4">
+      {artist.posts.map((post, index) => (
+        <Card key={index} className="bg-gray-800 border-gray-700">
+          <CardContent className="p-4">
+            <div className="flex items-center mb-3">
+              <Avatar className="h-8 w-8 mr-2">
+                <AvatarImage src={artist.avatar} alt={artist.name} />
+                <AvatarFallback>
+                  {artist.name.substring(0, 2).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="font-medium text-white">{artist.name}</p>
+                <p className="text-gray-400 text-xs">{post.time}</p>
+              </div>
+            </div>
+            <p className="text-sm text-gray-300 mb-3">{post.content}</p>
+            {post.image && (
+              <div className="mb-3 rounded-lg overflow-hidden">
+                <img
+                  src={post.image || "/placeholder.svg"}
+                  alt="Post image"
+                  className="w-full h-auto"
+                />
+              </div>
+            )}
+            <div className="flex items-center justify-between text-gray-400 text-sm">
+              <button className="flex items-center">
+                <Heart className="h-4 w-4 mr-1" />
+                {post.likes}
+              </button>
+              <button className="flex items-center">
+                <MessageCircle className="h-4 w-4 mr-1" />
+                {post.comments}
+              </button>
+              <button className="flex items-center">
+                <Share2 className="h-4 w-4 mr-1" />
+                Share
+              </button>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </TabsContent>
+  );
+}
+```
+
+## File: components/profile/artist-profile.tsx
+```typescript
+"use client";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/use-auth";
+import { artists } from "@/data/artist-profile";
+import { ArrowLeft, Lock } from "lucide-react";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { BanknoteIcon } from "@/components/icons/banknote-icon";
+import { ArtistTokenInfo } from "./artist-token-info";
+import { ArtistCertificationsTab } from "./artist-certifications-tab";
+import { ArtistRewardsTab } from "./artist-rewards-tab";
+import { ArtistPostsTab } from "./artist-posts-tab";
+
+interface ArtistProfileProps {
+  artistId: string;
+  onBack: () => void;
+}
+
+export default function ArtistProfile({
+  artistId,
+  onBack,
+}: ArtistProfileProps) {
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+  const { addToBalance, isArtist } = useAuth();
+
+  // Find artist by ID with better error handling
+  const artist = artists.find((a) => a.id === artistId);
+
+  console.log("Artist Profile - ID received:", artistId);
+  console.log("Artist Profile - Artist found:", artist);
+
+  // If artist not found, show an error message
+  if (!artist) {
+    return (
+      <div className="p-4 text-center">
+        <Button
+          variant="outline"
+          size="sm"
+          className="mb-4 bg-gray-800 text-white border-gray-700"
+          onClick={onBack}
+        >
+          <ArrowLeft className="h-4 w-4 mr-1" />
+          Back
+        </Button>
+        <p className="text-white">Artist not found. Please try again.</p>
+      </div>
+    );
+  }
+
+  // Simulate network delay
+  const handleBuyToken = () => {
+    setIsLoading(true);
+
+    // Simulate network delay
+    setTimeout(() => {
+      addToBalance(-10); // Subtract DROPS
+
+      toast({
+        title: "Purchase successful!",
+        description: `You've bought 10 $${artist.tokenName} from ${artist.name}`,
+      });
+      setIsLoading(false);
+    }, 1500);
+  };
+
+  return (
+    <div className="pb-6 bg-gray-950">
+      {/* Back button at the top */}
+
+      {/* Cover Image */}
+      <div className="relative h-36 bg-gradient-to-r from-gray-800 to-black">
+        {artist.coverImage && (
+          <img
+            src={artist.coverImage || "/placeholder.svg"}
+            alt={`${artist.name}'s cover`}
+            className="w-full h-full object-cover"
+          />
+        )}
+        <div className="absolute inset-0 bg-black/30"></div>
+      </div>
+
+      {/* Artist Info */}
+      <div className="px-4 relative">
+        <div className="flex items-start mt-[-40px]">
+          <Avatar className="h-20 w-20 border-4 border-gray-900">
+            <img
+              src={artist.avatar}
+              alt={artist.name}
+              className="h-full w-full rounded-full object-cover"
+            />
+            <AvatarFallback>
+              {artist.name.substring(0, 2).toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
+        </div>
+
+        <div className="mt-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="font-bold text-xl text-white">{artist.name}</h1>
+              <p className="text-gray-400 text-sm">{artist.handle}</p>
+            </div>
+            <Button
+              className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
+              onClick={handleBuyToken}
+              disabled={isLoading}
+            >
+              <BanknoteIcon className="h-4 w-4 mr-1" />
+              Buy ${artist.tokenName}
+            </Button>
+          </div>
+
+          <Badge
+            variant="outline"
+            className="mt-2 bg-gray-800 text-gray-300 border-gray-700"
+          >
+            {artist.genre}
+          </Badge>
+
+          <p className="mt-3 text-sm text-gray-300">{artist.description}</p>
+
+          <div className="flex mt-3 space-x-4 text-sm">
+            <div>
+              <span className="font-bold text-white">{artist.supporters}</span>
+              <span className="text-gray-400 ml-1">followers</span>
+            </div>
+            <div>
+              <span className="font-bold text-white">{artist.blgReceived}</span>
+              <span className="text-gray-400 ml-1">$DROPS received</span>
+            </div>
+          </div>
+        </div>
+
+        <ArtistTokenInfo
+          artist={artist}
+          handleBuyToken={handleBuyToken}
+          isLoading={isLoading}
+        />
+
+        <div className="mt-6">
+          <Tabs defaultValue="posts">
+            <TabsList className="grid w-full grid-cols-3 bg-gray-800">
+              <TabsTrigger
+                value="posts"
+                className="data-[state=active]:bg-gray-700"
+              >
+                Posts
+              </TabsTrigger>
+              <TabsTrigger
+                value="rewards"
+                className="data-[state=active]:bg-gray-700"
+              >
+                Rewards
+              </TabsTrigger>
+              <TabsTrigger
+                value="certifications"
+                className="data-[state=active]:bg-gray-700"
+              >
+                Certifications
+              </TabsTrigger>
+            </TabsList>
+
+            <ArtistPostsTab artist={artist} />
+            <ArtistRewardsTab artist={artist} />
+            <ArtistCertificationsTab artist={artist} />
+          </Tabs>
+        </div>
+
+        {/* Fan-only section */}
+        {!isArtist() && (
+          <Card className="mt-6 bg-gray-800 border-gray-700">
+            <CardContent className="p-4">
+              <div className="flex items-center">
+                <Lock className="h-5 w-5 text-bright-yellow mr-2" />
+                <div className="flex-1">
+                  <h3 className="text-white font-medium">
+                    Want to create content?
+                  </h3>
+                  <p className="text-sm text-gray-400">
+                    Apply to become an artist on DROPSLAND
+                  </p>
+                </div>
+                <Button className="bg-bright-yellow hover:bg-bright-yellow-700 text-black">
+                  Apply
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+      </div>
+    </div>
+  );
+}
+```
+
+## File: components/profile/artist-rewards-tab.tsx
+```typescript
+import { Artist } from "@/types/artist";
+import { TabsContent } from "@radix-ui/react-tabs";
+import { BanknoteIcon } from "lucide-react";
+import { Card, CardContent } from "../ui/card";
+import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
+import { Lock } from "lucide-react";
+
+export function ArtistRewardsTab({ artist }: { artist: Artist }) {
+  return (
+    <TabsContent value="rewards" className="mt-4 space-y-3">
+      <div className="mb-3">
+        <h3 className="text-white font-medium">Artist Rewards</h3>
+        <p className="text-sm text-gray-400">
+          Exclusive rewards for {artist.name}'s token holders
+        </p>
+      </div>
+
+      {artist.rewards ? (
+        artist.rewards.map((reward, index) => (
+          <Card key={index} className="bg-gray-800 border-gray-700">
+            <CardContent className="p-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-bright-yellow/20 flex items-center justify-center">
+                  <BanknoteIcon className="h-5 w-5 text-bright-yellow" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm text-white font-medium">
+                    {reward.title}
+                  </p>
+                  <p className="text-xs text-gray-400 mt-1">
+                    {reward.description}
+                  </p>
+                  <div className="flex items-center mt-1">
+                    <Badge
+                      variant="outline"
+                      className="text-xs bg-gray-700 text-gray-300 border-gray-600"
+                    >
+                      {reward.minTokens} $DROPS required
+                    </Badge>
+                  </div>
+                </div>
+                <Button
+                  size="sm"
+                  className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
+                >
+                  Get
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))
+      ) : (
+        <div className="text-center py-8 bg-gray-800 rounded-lg border border-gray-700">
+          <Lock className="h-12 w-12 text-gray-600 mx-auto mb-3" />
+          <p className="text-gray-300 font-medium">No rewards available yet</p>
+          <p className="text-gray-400 text-sm mt-1">
+            {artist.name} hasn't created any rewards yet
+          </p>
+        </div>
+      )}
+    </TabsContent>
+  );
+}
+```
+
+## File: components/profile/artist-token-info.tsx
+```typescript
+import { Artist } from "@/types/artist";
+import { Card, CardContent } from "../ui/card";
+import { Button } from "../ui/button";
+
+export function ArtistTokenInfo({
+  artist,
+  handleBuyToken,
+  isLoading,
+}: {
+  artist: Artist;
+  handleBuyToken: () => void;
+  isLoading: boolean;
+}) {
+  return (
+    <Card className="mt-4 bg-gray-800 border-gray-700">
+      <CardContent className="p-4">
+        <div className="flex justify-between items-center">
+          <div>
+            <h3 className="font-semibold text-white">${artist.tokenName}</h3>
+            <p className="text-xs text-gray-400">
+              {artist.name}'s personal token
+            </p>
+          </div>
+          <div className="text-right">
+            <p className="text-bright-yellow font-bold">
+              ${artist.tokenPrice} USD
+            </p>
+            <p className="text-xs text-gray-400">Current price</p>
+          </div>
+        </div>
+        <Button
+          className="w-full mt-3 bg-bright-yellow hover:bg-bright-yellow-700 text-black"
+          onClick={handleBuyToken}
+          disabled={isLoading}
+        >
+          {isLoading ? "Processing..." : `Buy $${artist.tokenName}`}
+        </Button>
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+## File: components/profile/legacy-profile-info.tsx
+```typescript
+import { Badge } from "../ui/badge";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+
+interface LegacyProfileInfoProps {
+  legacyProfile: any;
+  isEditing: boolean;
+  editedBio: string;
+  onBioChange: (bio: string) => void;
+  balance: number;
+  donated: number;
+}
+
+export const LegacyProfileInfo: React.FC<LegacyProfileInfoProps> = ({
+  legacyProfile,
+  isEditing,
+  editedBio,
+  onBioChange,
+  balance,
+  donated,
+}) => (
+  <div className="mt-16 px-4">
+    <div className="flex items-center">
+      <h1 className="text-xl font-bold text-white">{legacyProfile.name}</h1>
+      {legacyProfile.isVerified && (
+        <div className="ml-1 -mt-1">
+          {/* SVG for verified badge */}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 256 256"
+            className="inline-block"
+          >
+            <g transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+              <path
+                d="M 49.66 1.125 L 49.66 1.125 c 4.67 -2.393 10.394 -0.859 13.243 3.548 l 0 0 c 1.784 2.761 4.788 4.495 8.071 4.66 l 0 0 c 5.241 0.263 9.431 4.453 9.694 9.694 v 0 c 0.165 3.283 1.899 6.286 4.66 8.071 l 0 0 c 4.407 2.848 5.941 8.572 3.548 13.242 l 0 0 c -1.499 2.926 -1.499 6.394 0 9.319 l 0 0 c 2.393 4.67 0.859 10.394 -3.548 13.242 l 0 0 c -2.761 1.784 -4.495 4.788 -4.66 8.071 v 0 c -0.263 5.241 -4.453 9.431 -9.694 9.694 h 0 c -3.283 0.165 -6.286 1.899 -8.071 4.66 l 0 0 c -2.848 4.407 -8.572 5.941 -13.242 3.548 l 0 0 c -2.926 -1.499 -6.394 -1.499 -9.319 0 l 0 0 c -4.67 2.393 -10.394 0.859 -13.242 -3.548 l 0 0 c -1.784 -2.761 -4.788 -4.495 -8.071 -4.66 h 0 c -5.241 -0.263 -9.431 -4.453 -9.694 -9.694 l 0 0 c -0.165 -3.283 -1.899 -6.286 -4.66 -8.071 l 0 0 C 0.266 60.054 -1.267 54.33 1.125 49.66 l 0 0 c 1.499 -2.926 1.499 -6.394 0 -9.319 l 0 0 c -2.393 -4.67 -0.859 -10.394 3.548 -13.242 l 0 0 c 2.761 -1.784 4.495 -4.788 4.66 -8.071 l 0 0 c 0.263 -5.241 4.453 -9.431 9.694 -9.694 l 0 0 c 3.283 -0.165 6.286 -1.899 8.071 -4.66 l 0 0 c 2.848 -4.407 8.572 -5.941 13.242 -3.548 l 0 0 C 43.266 2.624 46.734 2.624 49.66 1.125 z"
+                fill="#0083f9"
+              />
+              <polygon
+                points="36.94,66.3 36.94,66.3 36.94,46.9 36.94,46.9 62.8,35.34 72.5,45.04"
+                fill="#0077e3"
+              />
+              <polygon
+                points="36.94,66.3 17.5,46.87 27.2,37.16 36.94,46.9 60.11,23.7 69.81,33.39"
+                fill="#ffffff"
+              />
+            </g>
+          </svg>
+        </div>
+      )}
+    </div>
+    <p className="text-gray-400">{legacyProfile.handle}</p>
+
+    <div className="flex items-center mt-2">
+      <Badge
+        variant="outline"
+        className="bg-gray-800 text-gray-300 border-gray-700"
+      >
+        {legacyProfile.category}
+      </Badge>
+      <span className="text-sm text-gray-400 ml-2">
+        Member since {legacyProfile.memberSince}
+      </span>
+    </div>
+
+    {isEditing ? (
+      <div className="mt-3 space-y-3">
+        <div>
+          <label className="text-xs text-gray-400 mb-1 block">Bio</label>
+          <Textarea
+            value={editedBio}
+            onChange={(e) => onBioChange(e.target.value)}
+            className="text-sm text-gray-300 border border-gray-700 p-2 rounded-md bg-gray-800 w-full"
+            placeholder="Tell us about yourself..."
+          />
+        </div>
+        <div>
+          <label className="text-xs text-gray-400 mb-1 block">Category</label>
+          <Input
+            defaultValue={legacyProfile.category}
+            className="text-sm text-gray-300 border border-gray-700 p-2 rounded-md bg-gray-800"
+          />
+        </div>
+      </div>
+    ) : (
+      <p className="text-sm mt-3 text-gray-300">{legacyProfile.bio}</p>
+    )}
+
+    {/* Stats for Legacy Profile */}
+    <div className="flex gap-4 mt-4">
+      <div>
+        <p className="text-sm text-gray-400">Balance</p>
+        <div className="flex items-center">
+          <span className="font-bold text-white">{balance} $DROPS</span>
+        </div>
+      </div>
+      <div>
+        <p className="text-sm text-gray-400">Purchased</p>
+        <div className="flex items-center">
+          <span className="font-bold text-white">{donated} $DROPS</span>
+        </div>
+      </div>
+      <div>
+        <p className="text-sm text-gray-400">Artists</p>
+        <p className="font-bold text-white">8</p>
+      </div>
+    </div>
+  </div>
+);
+```
+
+## File: components/profile/legacy-profile-settings.tsx
+```typescript
+// --- 7. Legacy Profile Settings ---
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogTitle,
+} from "@radix-ui/react-dialog";
+import { Settings, Banknote, LogOut, Lock } from "lucide-react";
+import { Card, CardContent } from "../ui/card";
+import { DialogHeader } from "../ui/dialog";
+import { Button } from "../ui/button";
+
+interface LegacyProfileSettingsProps {
+  logout: () => void;
+  isArtist: boolean;
+}
+
+export const LegacyProfileSettings: React.FC<LegacyProfileSettingsProps> = ({
+  logout,
+  isArtist,
+}) => (
+  <>
+    <div className="mt-8 px-4">
+      <h2 className="text-lg font-semibold mb-3 text-white">Settings</h2>
+      <div className="space-y-2">
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button
+              variant="outline"
+              className="w-full justify-start bg-gray-800 text-white border-gray-700"
+            >
+              <Settings className="h-4 w-4 mr-2" />
+              Account Settings
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="bg-gray-800 text-white border-gray-700">
+            <DialogHeader>
+              <DialogTitle>Account Settings</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 mt-4">
+              <Button
+                variant="outline"
+                className="w-full justify-start bg-gray-700 text-white border-gray-600"
+              >
+                <Settings className="h-4 w-4 mr-2" />
+                Profile Settings
+              </Button>
+              <Button
+                variant="outline"
+                className="w-full justify-start bg-gray-700 text-white border-gray-600"
+              >
+                <Banknote className="h-4 w-4 mr-2" />
+                Payment Methods
+              </Button>
+              <Button
+                variant="outline"
+                className="w-full justify-start bg-gray-700 text-white border-gray-600"
+                onClick={logout}
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Logout
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        <Button
+          variant="outline"
+          className="w-full justify-start bg-gray-800 text-white border-gray-700 mt-2"
+          onClick={logout}
+        >
+          <LogOut className="h-4 w-4 mr-2" />
+          Logout
+        </Button>
+
+        {!isArtist && (
+          <Card className="bg-gray-800 border-gray-700 mt-4">
+            <CardContent className="p-4">
+              <div className="flex items-center">
+                <Lock className="h-5 w-5 text-bright-yellow mr-2" />
+                <div>
+                  <h3 className="text-white font-medium">Become an Artist</h3>
+                  <p className="text-sm text-gray-400">
+                    Apply to become a verified artist on DROPSLAND
+                  </p>
+                </div>
+                <Button className="ml-auto bg-bright-yellow hover:bg-bright-yellow-700 text-black">
+                  Apply
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+      </div>
+    </div>
+    <div className="mt-8 px-4 pb-8">
+      <Button
+        variant="outline"
+        size="lg"
+        className="w-full bg-gray-800 text-red-400 border-red-500/30 hover:bg-red-500/10 hover:border-red-500"
+        onClick={logout}
+      >
+        <LogOut className="h-4 w-4 mr-2" />
+        Logout
+      </Button>
+    </div>
+  </>
+);
+```
+
+## File: components/profile/profile-comment-dialog.tsx
+```typescript
+// --- 17. Comment Dialog Component ---
+
+import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
+import { Dialog, DialogContent, DialogTitle } from "@radix-ui/react-dialog";
+import { Send } from "lucide-react";
+import { Button } from "react-day-picker";
+import { DialogHeader } from "../ui/dialog";
+import { Input } from "../ui/input";
+
+interface ProfileCommentDialogProps {
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+  postIndex: number | null;
+  comments: { [key: string]: { author: string; text: string }[] };
+  commentText: string;
+  onCommentTextChange: (text: string) => void;
+  onSendComment: () => void;
+  userAvatar: string;
+  userDisplayName: string;
+  legacyAvatarSrc: string; // For fallback
+}
+
+export const ProfileCommentDialog: React.FC<ProfileCommentDialogProps> = ({
+  isOpen,
+  onOpenChange,
+  postIndex,
+  comments,
+  commentText,
+  onCommentTextChange,
+  onSendComment,
+  userAvatar,
+  userDisplayName,
+  legacyAvatarSrc,
+}) => {
+  const currentComments =
+    postIndex !== null ? comments[`profile-${postIndex}`] || [] : [];
+
+  const getCommentAvatar = (author: string) => {
+    // This logic is flawed from the original, but preserved.
+    // It assumes the author's name *is* "iamjuampi" for the specific avatar.
+    // A better way would be to store userId with the comment.
+    if (author === userDisplayName) return userAvatar;
+    if (author === "iamjuampi") return "/avatars/juampi.jpg";
+    return "/avatars/user.jpg";
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+      <DialogContent className="bg-gray-800 text-white border-gray-700">
+        <DialogHeader>
+          <DialogTitle>Comments</DialogTitle>
+        </DialogHeader>
+        <div className="max-h-[300px] overflow-y-auto space-y-3 my-4">
+          {currentComments.length > 0 ? (
+            currentComments.map((comment, i) => (
+              <div key={i} className="flex gap-2">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage
+                    src={getCommentAvatar(comment.author)}
+                    alt={comment.author}
+                  />
+                  <AvatarFallback>
+                    {comment.author.substring(0, 2).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex-1 bg-gray-700 p-2 rounded-lg">
+                  <p className="text-sm font-medium">{comment.author}</p>
+                  <p className="text-sm text-gray-300">{comment.text}</p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-center text-gray-400 py-4">
+              No comments yet. Be the first to comment!
+            </p>
+          )}
+        </div>
+        <div className="flex gap-2">
+          <Input
+            placeholder="Add a comment..."
+            className="bg-gray-700 border-gray-600 text-white"
+            value={commentText}
+            onChange={(e) => onCommentTextChange(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                onSendComment();
+              }
+            }}
+          />
+          <Button
+            className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
+            onClick={onSendComment}
+            disabled={!commentText.trim()}
+          >
+            <Send className="h-4 w-4" />
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
+```
+
+## File: components/profile/profile-create-post-form.tsx
+```typescript
+import { UserData } from "@/lib/types";
+import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
+import { ImageIcon, MapPin, BarChart2, Paperclip, Hash } from "lucide-react";
+import { useState } from "react";
+import { Card, CardContent } from "../ui/card";
+import { Textarea } from "../ui/textarea";
+import { Button } from "../ui/button";
+
+interface CreatePostFormProps {
+  userAvatar: string;
+  userDisplayName: string;
+  userData: UserData; // Keeping userData prop for full profile data access if needed
+}
+
+export const CreatePostForm: React.FC<CreatePostFormProps> = ({
+  userAvatar,
+  userDisplayName,
+  userData,
+}) => {
+  const [postContent, setPostContent] = useState("");
+
+  const handlePostSubmit = () => {
+    if (postContent.trim()) {
+      console.log("New post:", postContent);
+      setPostContent("");
+      // Add submission logic here
+    }
+  };
+
+  return (
+    <Card className="bg-gray-800 border-gray-700">
+      <CardContent className="p-4">
+        <div className="flex items-start gap-3">
+          <Avatar className="h-10 w-10">
+            <AvatarImage
+              src={userData?.profilePhoto || userAvatar}
+              alt={userDisplayName}
+            />
+            <AvatarFallback>
+              {userDisplayName.substring(0, 2).toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex-1">
+            <Textarea
+              placeholder="What's on your USB?"
+              className="bg-gray-700 border-gray-600 text-white resize-none mb-3"
+              value={postContent}
+              onChange={(e) => setPostContent(e.target.value)}
+            />
+            <div className="flex flex-wrap gap-4 mb-3 justify-start">
+              <ImageIcon className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer" />
+              <MapPin className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer" />
+              <Hash className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer" />
+              <BarChart2 className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer" />
+              <Paperclip className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer" />
+            </div>
+            <Button
+              className="w-full bg-bright-yellow hover:bg-bright-yellow-700 text-black"
+              onClick={handlePostSubmit}
+              disabled={!postContent.trim()}
+            >
+              Post
+            </Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+```
+
+## File: components/profile/profile-editor.tsx
+```typescript
+"use client";
+
+import React, { useState, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/use-auth";
+import { Camera, Upload, X, Edit } from "lucide-react";
+
+interface ProfileEditorProps {
+  user: {
+    id: string;
+    username: string;
+    handle?: string;
+    profilePhoto?: string;
+    coverPhoto?: string;
+    genre?: string;
+    bio?: string;
+  };
+  onSave: (updatedUser: any) => void;
+  onCancel: () => void;
+}
+
+export default function ProfileEditor({
+  user,
+  onSave,
+  onCancel,
+}: ProfileEditorProps) {
+  const [username, setUsername] = useState(user.username);
+  const [handle, setHandle] = useState(user.handle || "");
+  const [profileImage, setProfileImage] = useState(user.profilePhoto || "");
+  const [coverImage, setCoverImage] = useState(user.coverPhoto || "");
+  const [genre, setGenre] = useState(user.genre || "");
+  const [bio, setBio] = useState(user.bio || "");
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+  const { updateBackendProfile } = useAuth();
+
+  const profileImageRef = useRef<HTMLInputElement>(null);
+  const coverImageRef = useRef<HTMLInputElement>(null);
+
+  // Sample genres for fans
+  const sampleGenres = [
+    "Techno",
+    "House",
+    "Tech-House",
+    "Progressive House",
+    "Deep House",
+    "Minimal Techno",
+    "Acid Techno",
+    "Industrial Techno",
+    "Melodic Techno",
+    "Trance",
+    "Progressive Trance",
+    "Psytrance",
+    "Drum & Bass",
+    "Dubstep",
+    "Ambient",
+    "Downtempo",
+  ];
+
+  const handleProfileImageUpload = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result as string;
+        setProfileImage(result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleCoverImageUpload = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result as string;
+        setCoverImage(result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSave = async () => {
+    console.log("ProfileEditor: handleSave called", {
+      username,
+      handle,
+      profileImage,
+      coverImage,
+      genre,
+      bio,
+    });
+
+    if (!username.trim()) {
+      toast({
+        title: "Error",
+        description: "El nombre de usuario es requerido",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      console.log("ProfileEditor: Calling updateBackendProfile");
+      // Update backend
+      const success = await updateBackendProfile(
+        username.trim(),
+        handle.trim() || undefined,
+        profileImage || undefined,
+        coverImage || undefined,
+        genre.trim() || undefined,
+        bio.trim() || undefined,
+      );
+
+      console.log("ProfileEditor: updateBackendProfile result", success);
+
+      if (success) {
+        const updatedUser = {
+          ...user,
+          username: username.trim(),
+          handle: handle.trim() || undefined,
+          profilePhoto: profileImage || undefined,
+          coverPhoto: coverImage || undefined,
+          genre: genre.trim() || undefined,
+          bio: bio.trim() || undefined,
+        };
+
+        console.log("ProfileEditor: Calling onSave with", updatedUser);
+        onSave(updatedUser);
+
+        toast({
+          title: "Perfil actualizado",
+          description: "Tu perfil se ha actualizado exitosamente",
+        });
+      } else {
+        throw new Error("Failed to update profile");
+      }
+    } catch (error) {
+      console.error("ProfileEditor: Error updating profile:", error);
+      toast({
+        title: "Error",
+        description: "No se pudo actualizar el perfil",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-gray-900 rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-xl font-bold text-white">Editar Perfil</h2>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onCancel}
+            className="text-gray-400 hover:text-white"
+          >
+            <X className="h-5 w-5" />
+          </Button>
+        </div>
+
+        <div className="space-y-6">
+          {/* Cover Image */}
+          <div>
+            <Label className="text-gray-300 mb-2 block">
+              Imagen de Portada
+            </Label>
+            <div
+              className="relative w-full h-32 bg-gray-800 rounded-lg overflow-hidden cursor-pointer group"
+              onClick={() => coverImageRef.current?.click()}
+            >
+              {coverImage ? (
+                <img
+                  src={coverImage}
+                  alt="Cover"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-gray-500">
+                  <Camera className="h-8 w-8" />
+                </div>
+              )}
+
+              {/* Overlay with edit icon */}
+              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center">
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  <Edit className="h-6 w-6 text-white" />
+                </div>
+              </div>
+
+              <input
+                ref={coverImageRef}
+                type="file"
+                accept="image/*"
+                onChange={handleCoverImageUpload}
+                className="hidden"
+              />
+            </div>
+            <p className="text-xs text-gray-500 mt-1">
+              Haz clic en la imagen para cambiar la portada
+            </p>
+          </div>
+
+          {/* Profile Image */}
+          <div>
+            <Label className="text-gray-300 mb-2 block">Foto de Perfil</Label>
+            <div className="flex justify-center">
+              <div
+                className="relative w-24 h-24 bg-gray-800 rounded-full overflow-hidden cursor-pointer group"
+                onClick={() => profileImageRef.current?.click()}
+              >
+                {profileImage ? (
+                  <img
+                    src={profileImage}
+                    alt="Profile"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-500">
+                    <Camera className="h-6 w-6" />
+                  </div>
+                )}
+
+                {/* Overlay with edit icon */}
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center rounded-full">
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    <Edit className="h-4 w-4 text-white" />
+                  </div>
+                </div>
+
+                <input
+                  ref={profileImageRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleProfileImageUpload}
+                  className="hidden"
+                />
+              </div>
+            </div>
+            <p className="text-xs text-gray-500 mt-1 text-center">
+              Haz clic en la imagen para cambiar la foto de perfil
+            </p>
+          </div>
+
+          {/* Username */}
+          <div>
+            <Label htmlFor="username" className="text-gray-300">
+              Nombre de Usuario *
+            </Label>
+            <Input
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="mt-1 bg-gray-800 text-white border-gray-700 focus:border-bright-yellow"
+              placeholder="Tu nombre de usuario"
+              required
+            />
+          </div>
+
+          {/* Handle */}
+          <div>
+            <Label htmlFor="handle" className="text-gray-300">
+              @handle
+            </Label>
+            <Input
+              id="handle"
+              type="text"
+              value={handle}
+              onChange={(e) => setHandle(e.target.value)}
+              className="mt-1 bg-gray-800 text-white border-gray-700 focus:border-bright-yellow"
+              placeholder="@tu_handle"
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Opcional - tu identificador único
+            </p>
+          </div>
+
+          {/* Genre */}
+          <div>
+            <Label htmlFor="genre" className="text-gray-300">
+              Género Musical
+            </Label>
+            <select
+              id="genre"
+              value={genre}
+              onChange={(e) => setGenre(e.target.value)}
+              className="mt-1 w-full bg-gray-800 text-white border border-gray-700 rounded-md px-3 py-2 focus:border-bright-yellow focus:outline-none"
+            >
+              <option value="">Selecciona tu género favorito</option>
+              {sampleGenres.map((g) => (
+                <option key={g} value={g}>
+                  {g}
+                </option>
+              ))}
+            </select>
+            <p className="text-xs text-gray-500 mt-1">
+              Opcional - tu género musical preferido
+            </p>
+          </div>
+
+          {/* Bio */}
+          <div>
+            <Label htmlFor="bio" className="text-gray-300">
+              Descripción
+            </Label>
+            <textarea
+              id="bio"
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+              className="mt-1 w-full bg-gray-800 text-white border border-gray-700 rounded-md px-3 py-2 focus:border-bright-yellow focus:outline-none"
+              rows={4}
+              placeholder="Escribe algo sobre ti..."
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Opcional - una breve descripción de tu perfil
+            </p>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex gap-3 pt-4">
+            <Button
+              onClick={handleSave}
+              disabled={isLoading || !username.trim()}
+              className="flex-1 bg-bright-yellow hover:bg-bright-yellow-700 text-black disabled:opacity-50"
+            >
+              {isLoading ? "Guardando..." : "Guardar Cambios"}
+            </Button>
+            <Button onClick={onCancel} variant="outline" className="flex-1">
+              Cancelar
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+## File: components/profile/profile-post-list.tsx
+```typescript
+import { userPosts } from "@/data/profile-view";
+import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
+import { Heart, MessageCircle, Share2 } from "lucide-react";
+import { Card, CardContent } from "../ui/card";
+import { Post } from "@/types/artist";
+
+interface PostListProps {
+  userDisplayName: string;
+  userAvatar: string;
+  likedPosts: { [key: string]: boolean };
+  postComments: { [key: string]: any[] };
+  onLike: (index: number) => void;
+  onOpenComments: (index: number) => void;
+}
+
+interface PostCardProps {
+  post: Post;
+  index: number;
+  userDisplayName: string;
+  userAvatar: string;
+  isLiked: boolean;
+  commentCount: number;
+  onLike: () => void;
+  onOpenComments: () => void;
+}
+
+export const PostList: React.FC<PostListProps> = ({
+  userDisplayName,
+  userAvatar,
+  likedPosts,
+  postComments,
+  onLike,
+  onOpenComments,
+}) => (
+  <>
+    {userPosts.map((post, index) => (
+      <PostCard
+        key={index}
+        post={post}
+        index={index}
+        userDisplayName={userDisplayName}
+        userAvatar={userAvatar}
+        isLiked={!!likedPosts[`profile-${index}`]}
+        commentCount={
+          post.comments + (postComments[`profile-${index}`]?.length || 0)
+        }
+        onLike={() => onLike(index)}
+        onOpenComments={() => onOpenComments(index)}
+      />
+    ))}
+  </>
+);
+
+// --- 11. Post Card Component ---
+export const PostCard: React.FC<PostCardProps> = ({
+  post,
+  userDisplayName,
+  userAvatar,
+  isLiked,
+  commentCount,
+  onLike,
+  onOpenComments,
+}) => (
+  <Card className="bg-gray-800 border-gray-700">
+    <CardContent className="p-4">
+      <div className="flex items-center mb-3">
+        <Avatar className="h-8 w-8 mr-2">
+          <AvatarImage src={userAvatar} alt={userDisplayName} />
+          <AvatarFallback>
+            {userDisplayName.substring(0, 2).toUpperCase()}
+          </AvatarFallback>
+        </Avatar>
+        <div>
+          <p className="font-medium text-white">{userDisplayName}</p>
+          <p className="text-gray-400 text-xs">{post.time}</p>
+        </div>
+      </div>
+      <p className="text-sm text-gray-300 mb-3">{post.content}</p>
+      {post.image && (
+        <div className="mb-3 rounded-lg overflow-hidden">
+          <img
+            src={post.image || "/placeholder.svg"}
+            alt="Post image"
+            className="w-full h-auto"
+          />
+        </div>
+      )}
+      <div className="flex items-center justify-between text-gray-400 text-sm">
+        <button className="flex items-center" onClick={onLike}>
+          <Heart
+            className={`h-4 w-4 mr-1 ${
+              isLiked ? "fill-red-500 text-red-500" : ""
+            }`}
+          />
+          {post.likes + (isLiked ? 1 : 0)}
+        </button>
+        <button className="flex items-center" onClick={onOpenComments}>
+          <MessageCircle className="h-4 w-4 mr-1" />
+          {commentCount}
+        </button>
+        <button className="flex items-center">
+          <Share2 className="h-4 w-4 mr-1" />
+          Share
+        </button>
+      </div>
+    </CardContent>
+  </Card>
+);
+```
+
+## File: components/profile/profile-screen.tsx
+```typescript
+"use client";
+
+import {
+  ArrowLeft,
+  Banknote,
+  Heart,
+  MessageCircle,
+  Share2,
+} from "lucide-react";
+import Image from "next/image";
+
+interface Creator {
+  id: string;
+  name: string;
+  handle: string;
+  avatar: string;
+  coverImage: string;
+  bio: string;
+  blgReceived: number;
+  supporters: number;
+  posts: any[];
+}
+
+interface ProfileScreenProps {
+  creator?: Creator | null;
+  onBack: () => void;
+  onDonate: () => void;
+  isCurrentUser?: boolean;
+}
+
+export default function ProfileScreen({
+  creator = null,
+  onBack,
+  onDonate,
+  isCurrentUser = false,
+}: ProfileScreenProps) {
+  // Default creator data for current user profile if no creator is provided
+  const profileData = creator || {
+    id: "current-user",
+    name: "Your Profile",
+    handle: "@yourhandle",
+    avatar: "/placeholder.svg?height=80&width=80",
+    coverImage: "/placeholder.svg?height=150&width=400",
+    bio: "This is your profile. You can edit your details and see your activity here.",
+    blgReceived: 0,
+    supporters: 0,
+    posts: [],
+  };
+
+  const defaultPosts = [
+    {
+      id: "p1",
+      content:
+        "Just released a new digital art collection! Check it out and let me know what you think.",
+      image: "/placeholder.svg?height=200&width=300",
+      likes: 42,
+      comments: 7,
+      time: "2h ago",
+    },
+    {
+      id: "p2",
+      content: "Working on something special for my supporters. Stay tuned!",
+      image: null,
+      likes: 28,
+      comments: 5,
+      time: "1d ago",
+    },
+  ];
+
+  const posts = profileData.posts || defaultPosts;
+
+  return (
+    <div className="h-full overflow-auto pb-4">
+      {/* Header */}
+      <div className="relative h-36">
+        <Image
+          src={
+            profileData.coverImage || "/placeholder.svg?height=150&width=400"
+          }
+          alt="Cover"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-black/30"></div>
+        <button
+          className="absolute top-4 left-4 w-8 h-8 bg-black/40 rounded-full flex items-center justify-center"
+          onClick={onBack}
+        >
+          <ArrowLeft className="h-5 w-5 text-white" />
+        </button>
+        <button className="absolute top-4 right-4 w-8 h-8 bg-black/40 rounded-full flex items-center justify-center">
+          <Share2 className="h-5 w-5 text-white" />
+        </button>
+      </div>
+
+      {/* Profile Info */}
+      <div className="px-4 relative">
+        <div className="flex justify-between items-end mt-[-40px]">
+          <div className="w-20 h-20 rounded-full overflow-hidden bg-white">
+            <Image
+              src={profileData.avatar || "/placeholder.svg"}
+              alt={profileData.name}
+              width={80}
+              height={80}
+              className="object-cover"
+            />
+          </div>
+          {!isCurrentUser && (
+            <button
+              className="bg-primary text-white px-4 py-2 rounded-full text-sm font-medium"
+              onClick={onDonate}
+            >
+              <Banknote className="h-5 w-5 inline mr-1" />
+              Donate BLG
+            </button>
+          )}
+          {isCurrentUser && (
+            <button className="bg-gray-200 text-gray-800 px-4 py-2 rounded-full text-sm font-medium">
+              Edit Profile
+            </button>
+          )}
+        </div>
+
+        <div className="mt-3">
+          <h1 className="font-bold text-xl">{profileData.name}</h1>
+          <p className="text-gray-500 text-sm">{profileData.handle}</p>
+
+          <p className="mt-2 text-sm">{profileData.bio}</p>
+
+          <div className="flex mt-3 space-x-4 text-sm">
+            <div>
+              <span className="font-bold">{profileData.supporters || 0}</span>
+              <span className="text-gray-500 ml-1">supporters</span>
+            </div>
+            <div>
+              <span className="font-bold">{profileData.blgReceived || 0}</span>
+              <span className="text-gray-500 ml-1">BLG received</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Tabs */}
+        <div className="flex border-b mt-4">
+          <button className="flex-1 py-2 font-medium text-primary border-b-2 border-primary">
+            Posts
+          </button>
+          <button className="flex-1 py-2 font-medium text-gray-500">
+            Rewards
+          </button>
+        </div>
+      </div>
+
+      {/* Posts */}
+      <div className="px-4 mt-4 space-y-4">
+        {posts.map((post) => (
+          <div key={post.id} className="bg-white rounded-xl p-4 shadow-sm">
+            <div className="flex items-center mb-3">
+              <div className="w-10 h-10 rounded-full overflow-hidden mr-3">
+                <Image
+                  src={profileData.avatar || "/placeholder.svg"}
+                  alt={profileData.name}
+                  width={40}
+                  height={40}
+                  className="object-cover"
+                />
+              </div>
+              <div>
+                <p className="font-medium">{profileData.name}</p>
+                <p className="text-gray-500 text-xs">{post.time}</p>
+              </div>
+            </div>
+
+            <p className="text-sm mb-3">{post.content}</p>
+
+            {post.image && (
+              <div className="rounded-lg overflow-hidden mb-3 h-48 relative">
+                <Image
+                  src={post.image || "/placeholder.svg"}
+                  alt="Post image"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            )}
+
+            <div className="flex items-center justify-between text-gray-500 text-sm">
+              <button className="flex items-center">
+                <Heart className="h-4 w-4 mr-1" />
+                {post.likes}
+              </button>
+              <button className="flex items-center">
+                <MessageCircle className="h-4 w-4 mr-1" />
+                {post.comments}
+              </button>
+              <button className="flex items-center">
+                <Share2 className="h-4 w-4 mr-1" />
+                Share
+              </button>
+            </div>
+          </div>
+        ))}
+
+        {posts.length === 0 && (
+          <div className="text-center py-8">
+            <p className="text-gray-500">No posts yet</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+```
+
+## File: components/profile/profile-tabs.tsx
+```typescript
+import { Track } from "@/lib/music-data";
+import { UserData } from "@/lib/types";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@radix-ui/react-tabs";
+import { PostInteractionState } from "./profile-view";
+import { CreatePostForm } from "./profile-create-post-form";
+import { PostList } from "./profile-post-list";
+import { Button } from "../ui/button";
+import {
+  artistRewards,
+  certifications,
+  followedArtists,
+  rewards,
+} from "@/data/profile-view";
+import { Certification } from "@/types/artist";
+import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
+import {
+  Disc,
+  Video,
+  Users,
+  Award,
+  ExternalLink,
+  Banknote,
+  Play,
+} from "lucide-react";
+import { Card, CardContent } from "../ui/card";
+import { Badge } from "../ui/badge";
+import { MusicPlayer } from "@/types/music-player";
+
+interface ProfileTabsProps {
+  isArtist: boolean;
+  userDisplayName: string;
+  userAvatar: string;
+  userData: UserData; // For CreatePostForm
+  postInteractions: PostInteractionState;
+  onLike: (index: number) => void;
+  onOpenComments: (index: number) => void;
+  userTracks: Track[];
+  onPlayTrack: (track: Track) => void;
+  musicPlayer: MusicPlayer;
+}
+
+export const ProfileTabs: React.FC<ProfileTabsProps> = ({
+  isArtist,
+  userDisplayName,
+  userAvatar,
+  userData,
+  postInteractions,
+  onLike,
+  onOpenComments,
+  userTracks,
+  onPlayTrack,
+  musicPlayer,
+}) => (
+  <Tabs defaultValue={isArtist ? "posts" : "artists"}>
+    <TabsList
+      className={`grid w-full px-4 bg-gray-800 ${
+        isArtist ? "grid-cols-3" : "grid-cols-3"
+      }`}
+    >
+      {isArtist ? (
+        <>
+          <TabsTrigger
+            value="posts"
+            className="data-[state=active]:bg-gray-700"
+          >
+            Posts
+          </TabsTrigger>
+          <TabsTrigger
+            value="rewards"
+            className="data-[state=active]:bg-gray-700"
+          >
+            Rewards
+          </TabsTrigger>
+          <TabsTrigger
+            value="certifications"
+            className="data-[state=active]:bg-gray-700"
+          >
+            Certifications
+          </TabsTrigger>
+        </>
+      ) : (
+        <>
+          <TabsTrigger
+            value="artists"
+            className="data-[state=active]:bg-gray-700"
+          >
+            Following
+          </TabsTrigger>
+          <TabsTrigger
+            value="tracks"
+            className="data-[state=active]:bg-gray-700"
+          >
+            Tracks
+          </TabsTrigger>
+          <TabsTrigger
+            value="rewards"
+            className="data-[state=active]:bg-gray-700"
+          >
+            My Rewards
+          </TabsTrigger>
+        </>
+      )}
+    </TabsList>
+
+    {/* Posts Tab */}
+    <TabsContent value="posts" className="px-4 mt-4 space-y-4">
+      {isArtist && (
+        <CreatePostForm
+          userAvatar={userAvatar}
+          userDisplayName={userDisplayName}
+          userData={userData}
+        />
+      )}
+      <PostList
+        userDisplayName={userDisplayName}
+        userAvatar={userAvatar}
+        likedPosts={postInteractions.likedPosts}
+        postComments={postInteractions.postComments}
+        onLike={onLike}
+        onOpenComments={onOpenComments}
+      />
+    </TabsContent>
+
+    {/* Artist-specific Tabs */}
+    {isArtist && (
+      <>
+        <TabsContent value="rewards" className="px-4 mt-4 space-y-3">
+          <ArtistRewardsTab />
+        </TabsContent>
+        <TabsContent value="certifications" className="px-4 mt-4 space-y-3">
+          <CertificationsTab />
+        </TabsContent>
+      </>
+    )}
+
+    {/* Fan-specific Tabs */}
+    {!isArtist && (
+      <>
+        <TabsContent value="rewards" className="px-4 mt-4 space-y-3">
+          <FanRewardsTab />
+        </TabsContent>
+        <TabsContent value="artists" className="px-4 mt-4 space-y-3">
+          <FollowingTab />
+        </TabsContent>
+        <TabsContent value="tracks" className="px-4 mt-4 space-y-3">
+          <TracksTab
+            userTracks={userTracks}
+            onPlayTrack={onPlayTrack}
+            musicPlayer={musicPlayer}
+          />
+        </TabsContent>
+      </>
+    )}
+  </Tabs>
+);
+
+// --- 12. Artist Rewards Tab ---
+
+const ArtistRewardsTab: React.FC = () => (
+  <>
+    <div className="flex justify-between items-center">
+      <h3 className="text-white font-medium">Manage Rewards</h3>
+      <Button
+        size="sm"
+        className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
+      >
+        Add Reward
+      </Button>
+    </div>
+    {artistRewards.map((reward, index) => (
+      <Card key={index} className="overflow-hidden bg-gray-800 border-gray-700">
+        <CardContent className="p-3">
+          <div className="flex items-center gap-3">
+            <div className="flex-1">
+              <p className="text-sm text-white font-medium">{reward.title}</p>
+              <p className="text-xs text-gray-400 mt-1">{reward.description}</p>
+              <div className="flex items-center mt-1">
+                <Badge
+                  variant="outline"
+                  className="text-xs bg-gray-700 text-gray-300 border-gray-600"
+                >
+                  {reward.minTokens} $DROPS required
+                </Badge>
+                <p className="text-xs text-gray-500 ml-2">
+                  {reward.subscribers} subscribers
+                </p>
+              </div>
+            </div>
+            <Button
+              size="sm"
+              variant="outline"
+              className="h-8 bg-gray-700 text-white border-gray-600"
+            >
+              Edit
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    ))}
+  </>
+);
+
+// --- 13. Certifications Tab ---
+
+const CertificationsTab: React.FC = () => (
+  <>
+    {certifications.map((cert: Certification) => (
+      <Card
+        key={cert.id}
+        className="overflow-hidden bg-gray-800 border-gray-700"
+      >
+        <CardContent className="p-3">
+          <div className="flex items-start gap-3">
+            <div className="w-12 h-12 rounded-full bg-bright-yellow/20 flex items-center justify-center">
+              {cert.type === "gold" && (
+                <Disc className="h-6 w-6 text-bright-yellow" />
+              )}
+              {cert.type === "platinum" && (
+                <Disc className="h-6 w-6 text-gray-300" />
+              )}
+              {cert.type === "views" && (
+                <Video className="h-6 w-6 text-bright-yellow" />
+              )}
+              {cert.type === "soldout" && (
+                <Users className="h-6 w-6 text-bright-yellow" />
+              )}
+              {cert.type === "award" && (
+                <Award className="h-6 w-6 text-bright-yellow" />
+              )}
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center justify-between mb-1">
+                <p className="text-sm text-white font-medium">{cert.title}</p>
+                <Button
+                  size="sm"
+                  className={`${
+                    cert.type === "gold"
+                      ? "bg-[#F9BF15] hover:bg-[#e0ab13] text-black"
+                      : cert.type === "platinum"
+                        ? "bg-gray-400 hover:bg-gray-500"
+                        : cert.type === "views"
+                          ? "bg-red-600 hover:bg-red-700"
+                          : cert.type === "soldout"
+                            ? "bg-green-600 hover:bg-green-700"
+                            : "bg-blue-600 hover:bg-blue-700"
+                  } text-white rounded-full`}
+                  onClick={() => {
+                    if (cert.type === "gold" || cert.type === "platinum") {
+                      window.open(
+                        "https://open.spotify.com/artist/iamjuampi",
+                        "_blank",
+                      );
+                    } else if (cert.type === "views") {
+                      window.open("https://youtube.com", "_blank");
+                    } else if (cert.type === "soldout") {
+                      alert("Tour dates coming soon!");
+                    } else {
+                      alert("Award details coming soon!");
+                    }
+                  }}
+                >
+                  {cert.type === "gold"
+                    ? "Stream"
+                    : cert.type === "platinum"
+                      ? "Stream"
+                      : cert.type === "views"
+                        ? "Watch"
+                        : cert.type === "soldout"
+                          ? "Tour Dates"
+                          : "Award"}
+                </Button>
+              </div>
+              <p className="text-xs text-gray-400">{cert.description}</p>
+              <p className="text-xs text-gray-500 mt-1">{cert.date}</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    ))}
+  </>
+);
+
+// --- 14. Fan Rewards Tab ---
+
+const FanRewardsTab: React.FC = () => (
+  <>
+    <div className="mb-4">
+      <h3 className="text-white font-medium mb-2">My Rewards</h3>
+      <p className="text-sm text-gray-400">
+        Exclusive rewards from artists you support
+      </p>
+    </div>
+
+    {rewards.length > 0 ? (
+      rewards.map((reward) => (
+        <Card
+          key={reward.id}
+          className="overflow-hidden bg-gray-800 border-gray-700"
+        >
+          <CardContent className="p-3">
+            <div className="flex items-center gap-3">
+              <Avatar className="h-10 w-10">
+                <AvatarImage
+                  src={reward.artistAvatar}
+                  alt={reward.artistName}
+                />
+                <AvatarFallback>
+                  {reward.artistName.substring(0, 2).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex-1">
+                <p className="text-sm text-white">
+                  <span className="font-medium">{reward.title}</span>
+                </p>
+                <p className="text-xs text-gray-400 mt-1">
+                  From {reward.artistName}
+                </p>
+                <p className="text-xs text-gray-500 mt-1">{reward.date}</p>
+              </div>
+              <Button
+                size="sm"
+                variant="outline"
+                className="h-8 bg-gray-700 text-white border-gray-600"
+              >
+                <ExternalLink className="h-3 w-3 mr-1" />
+                <span className="text-xs">View</span>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      ))
+    ) : (
+      <div className="text-center py-8 bg-gray-800 rounded-lg border border-gray-700">
+        <Banknote className="h-12 w-12 text-gray-600 mx-auto mb-3" />
+        <p className="text-gray-300 font-medium">
+          You don't have any rewards yet
+        </p>
+        <p className="text-gray-400 text-sm mt-1">
+          Buy tokens from your favorite artists to receive exclusive rewards
+        </p>
+        <Button className="mt-4 bg-bright-yellow hover:bg-bright-yellow-700 text-black">
+          Explore Artists
+        </Button>
+      </div>
+    )}
+  </>
+);
+
+// --- 15. Following Tab ---
+
+const FollowingTab: React.FC = () => (
+  <>
+    <div className="mb-4">
+      <h3 className="text-white font-medium mb-2">Following</h3>
+      <p className="text-sm text-gray-400">
+        Artists you follow and support on DROPSLAND
+      </p>
+    </div>
+
+    {followedArtists.map((artist) => (
+      <Card
+        key={artist.id}
+        className="overflow-hidden bg-gray-800 border-gray-700 cursor-pointer"
+        onClick={() => window.open(`/creator/${artist.id}`, "_self")}
+      >
+        <CardContent className="p-3">
+          <div className="flex items-center gap-3">
+            <Avatar className="h-10 w-10">
+              <AvatarImage src={artist.avatar} alt={artist.name} />
+              <AvatarFallback>
+                {artist.name.substring(0, 2).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex-1">
+              <p className="text-sm text-white">
+                <span className="font-medium">{artist.name}</span>
+              </p>
+              <p className="text-xs text-gray-400 mt-1">
+                {artist.followers} followers
+              </p>
+            </div>
+            <Button
+              size="sm"
+              className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
+              onClick={(e) => {
+                e.stopPropagation();
+                window.open(`/creator/${artist.id}`, "_self");
+              }}
+            >
+              <Banknote className="h-4 w-4 mr-1" />
+              Buy
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    ))}
+  </>
+);
+
+// --- 16. Tracks Tab ---
+
+interface TracksTabProps {
+  userTracks: Track[];
+  onPlayTrack: (track: Track) => void;
+  musicPlayer: MusicPlayer;
+}
+
+const TracksTab: React.FC<TracksTabProps> = ({
+  userTracks,
+  onPlayTrack,
+  musicPlayer,
+}) => (
+  <>
+    <div className="mb-4">
+      <h3 className="text-white font-medium mb-2">My Music Collection</h3>
+      <p className="text-sm text-gray-400">
+        Your saved tracks and favorite music
+      </p>
+    </div>
+
+    {userTracks.length > 0 ? (
+      userTracks.map((track) => (
+        <Card
+          key={track.id}
+          className="overflow-hidden bg-gray-800 border-gray-700 cursor-pointer hover:bg-gray-700 transition-colors"
+          onClick={() => onPlayTrack(track)}
+        >
+          <CardContent className="p-3">
+            <div className="flex items-center gap-3">
+              <Avatar className="h-12 w-12">
+                <AvatarImage src={track.cover} alt={track.artist} />
+                <AvatarFallback>
+                  {track.artist.substring(0, 2).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex-1">
+                <p className="text-sm text-white font-medium">{track.title}</p>
+                <p className="text-xs text-gray-400 mt-1">{track.artist}</p>
+                <p className="text-xs text-gray-500 mt-1">
+                  {musicPlayer.formatTime(track.duration)}
+                </p>
+              </div>
+              <Button
+                size="sm"
+                className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onPlayTrack(track);
+                }}
+              >
+                <Play className="h-4 w-4 mr-1" />
+                Play
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      ))
+    ) : (
+      <div className="text-center py-8 bg-gray-800 rounded-lg border border-gray-700">
+        <Disc className="h-12 w-12 text-gray-600 mx-auto mb-3" />
+        <p className="text-gray-300 font-medium">No tracks saved yet</p>
+        <p className="text-gray-400 text-sm mt-1">
+          Start building your music collection by saving your favorite tracks
+        </p>
+        <Button className="mt-4 bg-bright-yellow hover:bg-bright-yellow-700 text-black">
+          Explore Music
+        </Button>
+      </div>
+    )}
+  </>
+);
+```
+
+## File: components/profile/profile-view.tsx
+```typescript
+"use client";
+
+import { useState, useMemo } from "react";
+import { Edit } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+
+// Import the useAuth hook and UserProfile component
+import { useAuth } from "@/hooks/use-auth";
+import UserProfile from "@/components/profile/user-profile";
+import { useMusicPlayer } from "@/hooks/use-music-player";
+import { musicTracks } from "@/lib/music-data";
+import { LegacyProfileInfo } from "./legacy-profile-info";
+import { LegacyProfileSettings } from "./legacy-profile-settings";
+import { ProfileCommentDialog } from "./profile-comment-dialog";
+import { ProfileTabs } from "./profile-tabs";
+
+// --- Type Definitions ---
+// (Ideally, these would be imported from your data files)
+type Track = any;
+type UserData = any; // Type from useAuth()
+
+interface ProfileViewProps {
+  username?: string;
+}
+
+export interface PostInteractionState {
+  likedPosts: { [key: string]: boolean };
+  postComments: { [key: string]: { author: string; text: string }[] };
+}
+
+export interface CommentDialogState {
+  showCommentDialog: boolean;
+  currentPostIndex: number | null;
+  commentText: string;
+}
+
+// --- 1. Main ProfileView Component (Root) ---
+export default function ProfileView({
+  username: legacyUsername = "usuario",
+}: ProfileViewProps) {
+  const { balance, donated, userData, isArtist, logout, isNFIDUser, user } =
+    useAuth();
+  const musicPlayer = useMusicPlayer();
+  const userTracks = musicTracks;
+
+  // --- State for Post Interactions (Shared) ---
+  const [postInteractions, setPostInteractions] =
+    useState<PostInteractionState>({
+      likedPosts: {},
+      postComments: {},
+    });
+
+  // --- State for Comment Dialog (Shared) ---
+  const [commentDialog, setCommentDialog] = useState<CommentDialogState>({
+    showCommentDialog: false,
+    currentPostIndex: null,
+    commentText: "",
+  });
+
+  // --- Handlers for Post Interactions ---
+  const handleLike = (postIndex: number) => {
+    const postKey = `profile-${postIndex}`;
+    setPostInteractions((prev) => ({
+      ...prev,
+      likedPosts: {
+        ...prev.likedPosts,
+        [postKey]: !prev.likedPosts[postKey],
+      },
+    }));
+  };
+
+  const handleOpenComments = (postIndex: number) => {
+    setCommentDialog((prev) => ({
+      ...prev,
+      currentPostIndex: postIndex,
+      showCommentDialog: true,
+    }));
+  };
+
+  const handleSendComment = () => {
+    const { commentText, currentPostIndex } = commentDialog;
+    if (commentText.trim() && currentPostIndex !== null) {
+      const postKey = `profile-${currentPostIndex}`;
+      // This user name logic will be passed down
+      const authorName = userData?.username || legacyProfile.name || "User";
+
+      setPostInteractions((prev) => ({
+        ...prev,
+        postComments: {
+          ...prev.postComments,
+          [postKey]: [
+            ...(prev.postComments[postKey] || []),
+            { author: authorName, text: commentText.trim() },
+          ],
+        },
+      }));
+
+      setCommentDialog((prev) => ({
+        ...prev,
+        commentText: "",
+        showCommentDialog: false,
+      }));
+    }
+  };
+
+  const handlePlayTrack = (track: Track) => {
+    musicPlayer.playTrack(track);
+  };
+
+  // --- Data for Legacy View (Memoized) ---
+  const legacyProfile = useMemo(() => {
+    const isLegacyArtist = isArtist(); // Assuming isArtist() works for legacy too
+    return {
+      name: userData?.username || "musicfan", // Fallback logic from original
+      handle: `@${userData?.username || "musicfan"}`,
+      bio: isLegacyArtist
+        ? "iamjuampi is a DJ, producer, and founder of Best Drops Ever."
+        : "Music enthusiast and electronic music fan. Supporting my favorite artists on DROPSLAND.",
+      category: isLegacyArtist ? "Techno / House" : "Fan",
+      memberSince: "March 2025",
+      isVerified: userData?.isVerified || false,
+      avatarSrc:
+        legacyUsername === "iamjuampi"
+          ? "/avatars/juampi.jpg"
+          : "/avatars/user.jpg",
+      coverSrc: isLegacyArtist
+        ? "/images/bdeeeee.jpg"
+        : "bg-gradient-to-r from-gray-800 to-black",
+      hasCoverImage: isLegacyArtist,
+    };
+  }, [userData, isArtist, legacyUsername]);
+
+  // --- Determine User Display Info ---
+  const isNFID = user && isNFIDUser();
+  const userDisplayName = isNFID
+    ? userData?.username || "User"
+    : legacyProfile.name;
+  const userAvatar = isNFID
+    ? userData?.profilePhoto || "/avatars/user.jpg"
+    : legacyProfile.avatarSrc;
+
+  // --- Props for Shared Tabs ---
+  const tabsProps = {
+    isArtist: isArtist(),
+    userDisplayName,
+    userAvatar,
+    postInteractions,
+    onLike: handleLike,
+    onOpenComments: handleOpenComments,
+    userTracks,
+    onPlayTrack: handlePlayTrack,
+    musicPlayer,
+    userData, // For CreatePostForm
+  };
+
+  return (
+    <div className="pb-6 bg-gray-950">
+      {isNFID ? (
+        <NFIDProfileView
+          user={user}
+          userData={userData}
+          isArtist={isArtist()}
+          balance={balance}
+          donated={donated}
+          tabsProps={tabsProps}
+        />
+      ) : (
+        <LegacyProfileView
+          legacyProfile={legacyProfile}
+          isArtist={isArtist()}
+          balance={balance}
+          donated={donated}
+          logout={logout}
+          tabsProps={tabsProps}
+        />
+      )}
+
+      {/* Comment Dialog is rendered once at the root */}
+      <ProfileCommentDialog
+        isOpen={commentDialog.showCommentDialog}
+        onOpenChange={(isOpen) =>
+          setCommentDialog((prev) => ({ ...prev, showCommentDialog: isOpen }))
+        }
+        postIndex={commentDialog.currentPostIndex}
+        comments={postInteractions.postComments}
+        commentText={commentDialog.commentText}
+        onCommentTextChange={(text) =>
+          setCommentDialog((prev) => ({ ...prev, commentText: text }))
+        }
+        onSendComment={handleSendComment}
+        userAvatar={userAvatar}
+        userDisplayName={userDisplayName}
+        legacyAvatarSrc={legacyProfile.avatarSrc} // For legacy comment authors
+      />
+    </div>
+  );
+}
+
+// --- 2. NFID User Profile View ---
+interface NFIDProfileViewProps {
+  user: any;
+  userData: UserData;
+  isArtist: boolean;
+  balance: number;
+  donated: number;
+  tabsProps: any;
+}
+
+const NFIDProfileView: React.FC<NFIDProfileViewProps> = ({
+  user,
+  userData,
+  isArtist,
+  balance,
+  donated,
+  tabsProps,
+}) => {
+  return (
+    <>
+      <UserProfile
+        userId={user}
+        username={userData?.username || "User"}
+        handle={userData?.handle}
+        profilePhoto={userData?.profilePhoto}
+        coverPhoto={userData?.coverPhoto}
+        isVerified={userData?.isVerified}
+        type={userData?.type}
+        bio={userData?.bio}
+        followers={userData?.followers?.length || 0}
+        following={userData?.following?.length || 0}
+        genre={userData?.genre}
+      />
+
+      {isArtist && <NFIDArtistStats balance={balance} donated={donated} />}
+
+      <div className="mt-6">
+        <ProfileTabs {...tabsProps} />
+      </div>
+    </>
+  );
+};
+
+// --- 3. NFID Artist Stats ---
+
+interface NFIDArtistStatsProps {
+  balance: number;
+  donated: number;
+}
+
+const NFIDArtistStats: React.FC<NFIDArtistStatsProps> = ({
+  balance,
+  donated,
+}) => (
+  <div className="px-4 mt-6">
+    <div className="flex gap-4">
+      <div>
+        <p className="text-sm text-gray-400">Balance</p>
+        <div className="flex items-center">
+          <span className="font-bold text-white">{balance} $DROPS</span>
+        </div>
+      </div>
+      <div>
+        <p className="text-sm text-gray-400">Purchased</p>
+        <div className="flex items-center">
+          <span className="font-bold text-white">{donated} $DROPS</span>
+        </div>
+      </div>
+      <div>
+        <p className="text-sm text-gray-400">Artists</p>
+        <p className="font-bold text-white">8</p>
+      </div>
+    </div>
+  </div>
+);
+
+// --- 4. Legacy User Profile View ---
+interface LegacyProfileViewProps {
+  legacyProfile: any;
+  isArtist: boolean;
+  balance: number;
+  donated: number;
+  logout: () => void;
+  tabsProps: any;
+}
+
+export const LegacyProfileView: React.FC<LegacyProfileViewProps> = ({
+  legacyProfile,
+  isArtist,
+  balance,
+  donated,
+  logout,
+  tabsProps,
+}) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedBio, setEditedBio] = useState(legacyProfile.bio);
+
+  const handleEditToggle = () => {
+    setIsEditing(!isEditing);
+    if (isEditing) {
+      console.log("Saving bio:", editedBio);
+      // Here you would update the bio, e.g.,
+      // legacyProfile.bio = editedBio; // This won't work as props are immutable
+      // You'd need a state update function passed down if this were real
+    } else {
+      setEditedBio(legacyProfile.bio);
+    }
+  };
+
+  return (
+    <>
+      <LegacyProfileHeader
+        legacyProfile={legacyProfile}
+        isEditing={isEditing}
+        onEditToggle={handleEditToggle}
+      />
+
+      <LegacyProfileInfo
+        legacyProfile={legacyProfile}
+        isEditing={isEditing}
+        editedBio={editedBio}
+        onBioChange={setEditedBio}
+        balance={balance}
+        donated={donated}
+      />
+
+      <div className="mt-6">
+        <ProfileTabs {...tabsProps} />
+      </div>
+
+      <LegacyProfileSettings logout={logout} isArtist={isArtist} />
+    </>
+  );
+};
+
+// --- 5. Legacy Profile Header ---
+interface LegacyProfileHeaderProps {
+  legacyProfile: any;
+  isEditing: boolean;
+  onEditToggle: () => void;
+}
+
+const LegacyProfileHeader: React.FC<LegacyProfileHeaderProps> = ({
+  legacyProfile,
+  isEditing,
+  onEditToggle,
+}) => (
+  <div className="relative">
+    {legacyProfile.hasCoverImage ? (
+      <div className="h-32 relative overflow-hidden">
+        <Image
+          src={legacyProfile.coverSrc || "/placeholder.svg"}
+          alt="Profile cover"
+          fill
+          className="object-cover object-center"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/30"></div>
+      </div>
+    ) : (
+      <div className="h-32 bg-gradient-to-r from-gray-800 to-black"></div>
+    )}
+    <div className="absolute top-20 left-0 w-full px-4">
+      <div className="flex justify-between">
+        <Avatar className="h-24 w-24">
+          <AvatarImage src={legacyProfile.avatarSrc} alt="Your profile" />
+          <AvatarFallback>
+            {legacyProfile.name.substring(0, 2).toUpperCase()}
+          </AvatarFallback>
+        </Avatar>
+        <Button
+          variant="outline"
+          size="sm"
+          className="bg-gray-800 text-white border-gray-700"
+          onClick={onEditToggle}
+        >
+          {isEditing ? (
+            <span>Save</span>
+          ) : (
+            <>
+              <Edit className="h-4 w-4 mr-1" />
+              <span>Edit</span>
+            </>
+          )}
+        </Button>
+      </div>
+    </div>
+  </div>
+);
+```
+
+## File: components/profile/user-profile.tsx
+```typescript
+"use client";
+
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/use-auth";
+import { Edit, Camera } from "lucide-react";
+import ProfileEditor from "./profile-editor";
+
+interface UserProfileProps {
+  userId: string;
+  username: string;
+  handle?: string;
+  profilePhoto?: string;
+  coverPhoto?: string;
+  isVerified?: boolean;
+  type?: "fan" | "artist";
+  bio?: string;
+  followers?: number;
+  following?: number;
+  genre?: string;
+}
+
+export default function UserProfile({
+  userId,
+  username,
+  handle,
+  profilePhoto,
+  coverPhoto,
+  isVerified = false,
+  type = "fan",
+  bio,
+  followers = 0,
+  following = 0,
+  genre,
+}: UserProfileProps) {
+  const { user, userData, isNFIDUser } = useAuth();
+  const [showEditor, setShowEditor] = useState(false);
+  const [currentUser, setCurrentUser] = useState({
+    id: userId,
+    username,
+    handle,
+    profilePhoto,
+    coverPhoto,
+    genre,
+    bio,
+  });
+
+  const isOwnProfile = user === userId;
+  const canEdit = isOwnProfile && isNFIDUser();
+
+  const handleSaveProfile = (updatedUser: any) => {
+    console.log("UserProfile: handleSaveProfile called with", updatedUser);
+    setCurrentUser(updatedUser);
+    setShowEditor(false);
+  };
+
+  const handleEditClick = () => {
+    console.log("UserProfile: Edit button clicked, showing editor");
+    setShowEditor(true);
+  };
+
+  return (
+    <div className="bg-gray-900 rounded-lg overflow-hidden">
+      {/* Cover Image */}
+      <div className="relative h-48 bg-gray-800">
+        {currentUser.coverPhoto ? (
+          <img
+            src={currentUser.coverPhoto}
+            alt="Cover"
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-gray-500">
+            <Camera className="h-12 w-12" />
+          </div>
+        )}
+
+        {/* Edit Button for II Users */}
+        {canEdit && (
+          <Button
+            onClick={handleEditClick}
+            className="absolute top-4 right-4 bg-black bg-opacity-70 hover:bg-opacity-90 text-white border border-gray-600"
+            size="sm"
+          >
+            <Edit className="h-4 w-4 mr-2" />
+            Editar Perfil
+          </Button>
+        )}
+      </div>
+
+      {/* Profile Info */}
+      <div className="relative px-6 pb-6">
+        {/* Profile Image */}
+        <div className="relative -mt-16 mb-4">
+          <div className="w-32 h-32 bg-gray-800 rounded-full overflow-hidden border-4 border-gray-900">
+            {currentUser.profilePhoto ? (
+              <img
+                src={currentUser.profilePhoto}
+                alt="Profile"
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-gray-500">
+                <Camera className="h-8 w-8" />
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* User Info */}
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <h1 className="text-2xl font-bold text-white">
+              {currentUser.username}
+            </h1>
+            {isVerified && (
+              <div className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs">
+                ✓ Verificado
+              </div>
+            )}
+            {type === "artist" && (
+              <div className="bg-bright-yellow text-black px-2 py-1 rounded-full text-xs font-medium">
+                Artista
+              </div>
+            )}
+            {type === "fan" && currentUser.genre && (
+              <div className="bg-purple-500 text-white px-2 py-1 rounded-full text-xs font-medium">
+                {currentUser.genre}
+              </div>
+            )}
+          </div>
+
+          {currentUser.handle && (
+            <p className="text-gray-400">@{currentUser.handle}</p>
+          )}
+
+          {currentUser.bio && (
+            <p className="text-gray-300">{currentUser.bio}</p>
+          )}
+        </div>
+      </div>
+
+      {/* Profile Editor Modal */}
+      {showEditor && (
+        <ProfileEditor
+          user={currentUser}
+          onSave={handleSaveProfile}
+          onCancel={() => setShowEditor(false)}
+        />
+      )}
+    </div>
+  );
 }
 ```
 
 ## File: components/ui/accordion.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as AccordionPrimitive from "@radix-ui/react-accordion"
-import { ChevronDown } from "lucide-react"
+import * as React from "react";
+import * as AccordionPrimitive from "@radix-ui/react-accordion";
+import { ChevronDown } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const Accordion = AccordionPrimitive.Root
+const Accordion = AccordionPrimitive.Root;
 
 const AccordionItem = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,
@@ -6488,8 +7958,8 @@ const AccordionItem = React.forwardRef<
     className={cn("border-b", className)}
     {...props}
   />
-))
-AccordionItem.displayName = "AccordionItem"
+));
+AccordionItem.displayName = "AccordionItem";
 
 const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
@@ -6500,7 +7970,7 @@ const AccordionTrigger = React.forwardRef<
       ref={ref}
       className={cn(
         "flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180",
-        className
+        className,
       )}
       {...props}
     >
@@ -6508,8 +7978,8 @@ const AccordionTrigger = React.forwardRef<
       <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
-))
-AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName
+));
+AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
 
 const AccordionContent = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Content>,
@@ -6522,29 +7992,28 @@ const AccordionContent = React.forwardRef<
   >
     <div className={cn("pb-4 pt-0", className)}>{children}</div>
   </AccordionPrimitive.Content>
-))
+));
 
-AccordionContent.displayName = AccordionPrimitive.Content.displayName
+AccordionContent.displayName = AccordionPrimitive.Content.displayName;
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent }
+export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
 ```
 
 ## File: components/ui/alert-dialog.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog"
+import * as React from "react";
+import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
 
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 
-const AlertDialog = AlertDialogPrimitive.Root
+const AlertDialog = AlertDialogPrimitive.Root;
 
-const AlertDialogTrigger = AlertDialogPrimitive.Trigger
+const AlertDialogTrigger = AlertDialogPrimitive.Trigger;
 
-const AlertDialogPortal = AlertDialogPrimitive.Portal
+const AlertDialogPortal = AlertDialogPrimitive.Portal;
 
 const AlertDialogOverlay = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Overlay>,
@@ -6553,13 +8022,13 @@ const AlertDialogOverlay = React.forwardRef<
   <AlertDialogPrimitive.Overlay
     className={cn(
       "fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-      className
+      className,
     )}
     {...props}
     ref={ref}
   />
-))
-AlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName
+));
+AlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName;
 
 const AlertDialogContent = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Content>,
@@ -6571,13 +8040,13 @@ const AlertDialogContent = React.forwardRef<
       ref={ref}
       className={cn(
         "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
-        className
+        className,
       )}
       {...props}
     />
   </AlertDialogPortal>
-))
-AlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName
+));
+AlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName;
 
 const AlertDialogHeader = ({
   className,
@@ -6586,12 +8055,12 @@ const AlertDialogHeader = ({
   <div
     className={cn(
       "flex flex-col space-y-2 text-center sm:text-left",
-      className
+      className,
     )}
     {...props}
   />
-)
-AlertDialogHeader.displayName = "AlertDialogHeader"
+);
+AlertDialogHeader.displayName = "AlertDialogHeader";
 
 const AlertDialogFooter = ({
   className,
@@ -6600,12 +8069,12 @@ const AlertDialogFooter = ({
   <div
     className={cn(
       "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
-      className
+      className,
     )}
     {...props}
   />
-)
-AlertDialogFooter.displayName = "AlertDialogFooter"
+);
+AlertDialogFooter.displayName = "AlertDialogFooter";
 
 const AlertDialogTitle = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Title>,
@@ -6616,8 +8085,8 @@ const AlertDialogTitle = React.forwardRef<
     className={cn("text-lg font-semibold", className)}
     {...props}
   />
-))
-AlertDialogTitle.displayName = AlertDialogPrimitive.Title.displayName
+));
+AlertDialogTitle.displayName = AlertDialogPrimitive.Title.displayName;
 
 const AlertDialogDescription = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Description>,
@@ -6628,9 +8097,9 @@ const AlertDialogDescription = React.forwardRef<
     className={cn("text-sm text-muted-foreground", className)}
     {...props}
   />
-))
+));
 AlertDialogDescription.displayName =
-  AlertDialogPrimitive.Description.displayName
+  AlertDialogPrimitive.Description.displayName;
 
 const AlertDialogAction = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Action>,
@@ -6641,8 +8110,8 @@ const AlertDialogAction = React.forwardRef<
     className={cn(buttonVariants(), className)}
     {...props}
   />
-))
-AlertDialogAction.displayName = AlertDialogPrimitive.Action.displayName
+));
+AlertDialogAction.displayName = AlertDialogPrimitive.Action.displayName;
 
 const AlertDialogCancel = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Cancel>,
@@ -6653,12 +8122,12 @@ const AlertDialogCancel = React.forwardRef<
     className={cn(
       buttonVariants({ variant: "outline" }),
       "mt-2 sm:mt-0",
-      className
+      className,
     )}
     {...props}
   />
-))
-AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName
+));
+AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName;
 
 export {
   AlertDialog,
@@ -6672,16 +8141,15 @@ export {
   AlertDialogDescription,
   AlertDialogAction,
   AlertDialogCancel,
-}
+};
 ```
 
 ## File: components/ui/alert.tsx
-
 ```typescript
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const alertVariants = cva(
   "relative w-full rounded-lg border p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground",
@@ -6696,8 +8164,8 @@ const alertVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  }
-)
+  },
+);
 
 const Alert = React.forwardRef<
   HTMLDivElement,
@@ -6709,8 +8177,8 @@ const Alert = React.forwardRef<
     className={cn(alertVariants({ variant }), className)}
     {...props}
   />
-))
-Alert.displayName = "Alert"
+));
+Alert.displayName = "Alert";
 
 const AlertTitle = React.forwardRef<
   HTMLParagraphElement,
@@ -6721,8 +8189,8 @@ const AlertTitle = React.forwardRef<
     className={cn("mb-1 font-medium leading-none tracking-tight", className)}
     {...props}
   />
-))
-AlertTitle.displayName = "AlertTitle"
+));
+AlertTitle.displayName = "AlertTitle";
 
 const AlertDescription = React.forwardRef<
   HTMLParagraphElement,
@@ -6733,14 +8201,13 @@ const AlertDescription = React.forwardRef<
     className={cn("text-sm [&_p]:leading-relaxed", className)}
     {...props}
   />
-))
-AlertDescription.displayName = "AlertDescription"
+));
+AlertDescription.displayName = "AlertDescription";
 
-export { Alert, AlertTitle, AlertDescription }
+export { Alert, AlertTitle, AlertDescription };
 ```
 
 ## File: components/ui/aspect-ratio.tsx
-
 ```typescript
 "use client";
 
@@ -6752,14 +8219,13 @@ export { AspectRatio };
 ```
 
 ## File: components/ui/avatar.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as AvatarPrimitive from "@radix-ui/react-avatar"
+import * as React from "react";
+import * as AvatarPrimitive from "@radix-ui/react-avatar";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Avatar = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Root>,
@@ -6769,12 +8235,12 @@ const Avatar = React.forwardRef<
     ref={ref}
     className={cn(
       "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
-      className
+      className,
     )}
     {...props}
   />
-))
-Avatar.displayName = AvatarPrimitive.Root.displayName
+));
+Avatar.displayName = AvatarPrimitive.Root.displayName;
 
 const AvatarImage = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Image>,
@@ -6785,8 +8251,8 @@ const AvatarImage = React.forwardRef<
     className={cn("aspect-square h-full w-full", className)}
     {...props}
   />
-))
-AvatarImage.displayName = AvatarPrimitive.Image.displayName
+));
+AvatarImage.displayName = AvatarPrimitive.Image.displayName;
 
 const AvatarFallback = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Fallback>,
@@ -6796,23 +8262,22 @@ const AvatarFallback = React.forwardRef<
     ref={ref}
     className={cn(
       "flex h-full w-full items-center justify-center rounded-full bg-muted",
-      className
+      className,
     )}
     {...props}
   />
-))
-AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName
+));
+AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
-export { Avatar, AvatarImage, AvatarFallback }
+export { Avatar, AvatarImage, AvatarFallback };
 ```
 
 ## File: components/ui/badge.tsx
-
 ```typescript
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
   "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
@@ -6831,8 +8296,8 @@ const badgeVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  }
-)
+  },
+);
 
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,
@@ -6841,28 +8306,27 @@ export interface BadgeProps
 function Badge({ className, variant, ...props }: BadgeProps) {
   return (
     <div className={cn(badgeVariants({ variant }), className)} {...props} />
-  )
+  );
 }
 
-export { Badge, badgeVariants }
+export { Badge, badgeVariants };
 ```
 
 ## File: components/ui/breadcrumb.tsx
-
 ```typescript
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { ChevronRight, MoreHorizontal } from "lucide-react"
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { ChevronRight, MoreHorizontal } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Breadcrumb = React.forwardRef<
   HTMLElement,
   React.ComponentPropsWithoutRef<"nav"> & {
-    separator?: React.ReactNode
+    separator?: React.ReactNode;
   }
->(({ ...props }, ref) => <nav ref={ref} aria-label="breadcrumb" {...props} />)
-Breadcrumb.displayName = "Breadcrumb"
+>(({ ...props }, ref) => <nav ref={ref} aria-label="breadcrumb" {...props} />);
+Breadcrumb.displayName = "Breadcrumb";
 
 const BreadcrumbList = React.forwardRef<
   HTMLOListElement,
@@ -6872,12 +8336,12 @@ const BreadcrumbList = React.forwardRef<
     ref={ref}
     className={cn(
       "flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5",
-      className
+      className,
     )}
     {...props}
   />
-))
-BreadcrumbList.displayName = "BreadcrumbList"
+));
+BreadcrumbList.displayName = "BreadcrumbList";
 
 const BreadcrumbItem = React.forwardRef<
   HTMLLIElement,
@@ -6888,16 +8352,16 @@ const BreadcrumbItem = React.forwardRef<
     className={cn("inline-flex items-center gap-1.5", className)}
     {...props}
   />
-))
-BreadcrumbItem.displayName = "BreadcrumbItem"
+));
+BreadcrumbItem.displayName = "BreadcrumbItem";
 
 const BreadcrumbLink = React.forwardRef<
   HTMLAnchorElement,
   React.ComponentPropsWithoutRef<"a"> & {
-    asChild?: boolean
+    asChild?: boolean;
   }
 >(({ asChild, className, ...props }, ref) => {
-  const Comp = asChild ? Slot : "a"
+  const Comp = asChild ? Slot : "a";
 
   return (
     <Comp
@@ -6905,9 +8369,9 @@ const BreadcrumbLink = React.forwardRef<
       className={cn("transition-colors hover:text-foreground", className)}
       {...props}
     />
-  )
-})
-BreadcrumbLink.displayName = "BreadcrumbLink"
+  );
+});
+BreadcrumbLink.displayName = "BreadcrumbLink";
 
 const BreadcrumbPage = React.forwardRef<
   HTMLSpanElement,
@@ -6921,8 +8385,8 @@ const BreadcrumbPage = React.forwardRef<
     className={cn("font-normal text-foreground", className)}
     {...props}
   />
-))
-BreadcrumbPage.displayName = "BreadcrumbPage"
+));
+BreadcrumbPage.displayName = "BreadcrumbPage";
 
 const BreadcrumbSeparator = ({
   children,
@@ -6937,8 +8401,8 @@ const BreadcrumbSeparator = ({
   >
     {children ?? <ChevronRight />}
   </li>
-)
-BreadcrumbSeparator.displayName = "BreadcrumbSeparator"
+);
+BreadcrumbSeparator.displayName = "BreadcrumbSeparator";
 
 const BreadcrumbEllipsis = ({
   className,
@@ -6953,8 +8417,8 @@ const BreadcrumbEllipsis = ({
     <MoreHorizontal className="h-4 w-4" />
     <span className="sr-only">More</span>
   </span>
-)
-BreadcrumbEllipsis.displayName = "BreadcrumbElipssis"
+);
+BreadcrumbEllipsis.displayName = "BreadcrumbElipssis";
 
 export {
   Breadcrumb,
@@ -6964,17 +8428,16 @@ export {
   BreadcrumbPage,
   BreadcrumbSeparator,
   BreadcrumbEllipsis,
-}
+};
 ```
 
 ## File: components/ui/button.tsx
-
 ```typescript
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
@@ -7002,45 +8465,44 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
-)
+  },
+);
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  asChild?: boolean
+  asChild?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button"
+    const Comp = asChild ? Slot : "button";
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
       />
-    )
-  }
-)
-Button.displayName = "Button"
+    );
+  },
+);
+Button.displayName = "Button";
 
-export { Button, buttonVariants }
+export { Button, buttonVariants };
 ```
 
 ## File: components/ui/calendar.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { DayPicker } from "react-day-picker"
+import * as React from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { DayPicker } from "react-day-picker";
 
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker>
+export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
 function Calendar({
   className,
@@ -7060,7 +8522,7 @@ function Calendar({
         nav: "space-x-1 flex items-center",
         nav_button: cn(
           buttonVariants({ variant: "outline" }),
-          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100"
+          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100",
         ),
         nav_button_previous: "absolute left-1",
         nav_button_next: "absolute right-1",
@@ -7072,7 +8534,7 @@ function Calendar({
         cell: "h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
         day: cn(
           buttonVariants({ variant: "ghost" }),
-          "h-9 w-9 p-0 font-normal aria-selected:opacity-100"
+          "h-9 w-9 p-0 font-normal aria-selected:opacity-100",
         ),
         day_range_end: "day-range-end",
         day_selected:
@@ -7092,19 +8554,18 @@ function Calendar({
       }}
       {...props}
     />
-  )
+  );
 }
-Calendar.displayName = "Calendar"
+Calendar.displayName = "Calendar";
 
-export { Calendar }
+export { Calendar };
 ```
 
 ## File: components/ui/card.tsx
-
 ```typescript
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Card = React.forwardRef<
   HTMLDivElement,
@@ -7114,12 +8575,12 @@ const Card = React.forwardRef<
     ref={ref}
     className={cn(
       "rounded-lg border bg-card text-card-foreground shadow-sm",
-      className
+      className,
     )}
     {...props}
   />
-))
-Card.displayName = "Card"
+));
+Card.displayName = "Card";
 
 const CardHeader = React.forwardRef<
   HTMLDivElement,
@@ -7130,8 +8591,8 @@ const CardHeader = React.forwardRef<
     className={cn("flex flex-col space-y-1.5 p-6", className)}
     {...props}
   />
-))
-CardHeader.displayName = "CardHeader"
+));
+CardHeader.displayName = "CardHeader";
 
 const CardTitle = React.forwardRef<
   HTMLDivElement,
@@ -7141,12 +8602,12 @@ const CardTitle = React.forwardRef<
     ref={ref}
     className={cn(
       "text-2xl font-semibold leading-none tracking-tight",
-      className
+      className,
     )}
     {...props}
   />
-))
-CardTitle.displayName = "CardTitle"
+));
+CardTitle.displayName = "CardTitle";
 
 const CardDescription = React.forwardRef<
   HTMLDivElement,
@@ -7157,16 +8618,16 @@ const CardDescription = React.forwardRef<
     className={cn("text-sm text-muted-foreground", className)}
     {...props}
   />
-))
-CardDescription.displayName = "CardDescription"
+));
+CardDescription.displayName = "CardDescription";
 
 const CardContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
   <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
-))
-CardContent.displayName = "CardContent"
+));
+CardContent.displayName = "CardContent";
 
 const CardFooter = React.forwardRef<
   HTMLDivElement,
@@ -7177,57 +8638,63 @@ const CardFooter = React.forwardRef<
     className={cn("flex items-center p-6 pt-0", className)}
     {...props}
   />
-))
-CardFooter.displayName = "CardFooter"
+));
+CardFooter.displayName = "CardFooter";
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
+export {
+  Card,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardDescription,
+  CardContent,
+};
 ```
 
 ## File: components/ui/carousel.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
-} from "embla-carousel-react"
-import { ArrowLeft, ArrowRight } from "lucide-react"
+} from "embla-carousel-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
-type CarouselApi = UseEmblaCarouselType[1]
-type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
-type CarouselOptions = UseCarouselParameters[0]
-type CarouselPlugin = UseCarouselParameters[1]
+type CarouselApi = UseEmblaCarouselType[1];
+type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
+type CarouselOptions = UseCarouselParameters[0];
+type CarouselPlugin = UseCarouselParameters[1];
 
 type CarouselProps = {
-  opts?: CarouselOptions
-  plugins?: CarouselPlugin
-  orientation?: "horizontal" | "vertical"
-  setApi?: (api: CarouselApi) => void
-}
+  opts?: CarouselOptions;
+  plugins?: CarouselPlugin;
+  orientation?: "horizontal" | "vertical";
+  setApi?: (api: CarouselApi) => void;
+};
 
 type CarouselContextProps = {
-  carouselRef: ReturnType<typeof useEmblaCarousel>[0]
-  api: ReturnType<typeof useEmblaCarousel>[1]
-  scrollPrev: () => void
-  scrollNext: () => void
-  canScrollPrev: boolean
-  canScrollNext: boolean
-} & CarouselProps
+  carouselRef: ReturnType<typeof useEmblaCarousel>[0];
+  api: ReturnType<typeof useEmblaCarousel>[1];
+  scrollPrev: () => void;
+  scrollNext: () => void;
+  canScrollPrev: boolean;
+  canScrollNext: boolean;
+} & CarouselProps;
 
-const CarouselContext = React.createContext<CarouselContextProps | null>(null)
+const CarouselContext = React.createContext<CarouselContextProps | null>(null);
 
 function useCarousel() {
-  const context = React.useContext(CarouselContext)
+  const context = React.useContext(CarouselContext);
 
   if (!context) {
-    throw new Error("useCarousel must be used within a <Carousel />")
+    throw new Error("useCarousel must be used within a <Carousel />");
   }
 
-  return context
+  return context;
 }
 
 const Carousel = React.forwardRef<
@@ -7244,69 +8711,69 @@ const Carousel = React.forwardRef<
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [carouselRef, api] = useEmblaCarousel(
       {
         ...opts,
         axis: orientation === "horizontal" ? "x" : "y",
       },
-      plugins
-    )
-    const [canScrollPrev, setCanScrollPrev] = React.useState(false)
-    const [canScrollNext, setCanScrollNext] = React.useState(false)
+      plugins,
+    );
+    const [canScrollPrev, setCanScrollPrev] = React.useState(false);
+    const [canScrollNext, setCanScrollNext] = React.useState(false);
 
     const onSelect = React.useCallback((api: CarouselApi) => {
       if (!api) {
-        return
+        return;
       }
 
-      setCanScrollPrev(api.canScrollPrev())
-      setCanScrollNext(api.canScrollNext())
-    }, [])
+      setCanScrollPrev(api.canScrollPrev());
+      setCanScrollNext(api.canScrollNext());
+    }, []);
 
     const scrollPrev = React.useCallback(() => {
-      api?.scrollPrev()
-    }, [api])
+      api?.scrollPrev();
+    }, [api]);
 
     const scrollNext = React.useCallback(() => {
-      api?.scrollNext()
-    }, [api])
+      api?.scrollNext();
+    }, [api]);
 
     const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent<HTMLDivElement>) => {
         if (event.key === "ArrowLeft") {
-          event.preventDefault()
-          scrollPrev()
+          event.preventDefault();
+          scrollPrev();
         } else if (event.key === "ArrowRight") {
-          event.preventDefault()
-          scrollNext()
+          event.preventDefault();
+          scrollNext();
         }
       },
-      [scrollPrev, scrollNext]
-    )
+      [scrollPrev, scrollNext],
+    );
 
     React.useEffect(() => {
       if (!api || !setApi) {
-        return
+        return;
       }
 
-      setApi(api)
-    }, [api, setApi])
+      setApi(api);
+    }, [api, setApi]);
 
     React.useEffect(() => {
       if (!api) {
-        return
+        return;
       }
 
-      onSelect(api)
-      api.on("reInit", onSelect)
-      api.on("select", onSelect)
+      onSelect(api);
+      api.on("reInit", onSelect);
+      api.on("select", onSelect);
 
       return () => {
-        api?.off("select", onSelect)
-      }
-    }, [api, onSelect])
+        api?.off("select", onSelect);
+      };
+    }, [api, onSelect]);
 
     return (
       <CarouselContext.Provider
@@ -7333,16 +8800,16 @@ const Carousel = React.forwardRef<
           {children}
         </div>
       </CarouselContext.Provider>
-    )
-  }
-)
-Carousel.displayName = "Carousel"
+    );
+  },
+);
+Carousel.displayName = "Carousel";
 
 const CarouselContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
-  const { carouselRef, orientation } = useCarousel()
+  const { carouselRef, orientation } = useCarousel();
 
   return (
     <div ref={carouselRef} className="overflow-hidden">
@@ -7351,20 +8818,20 @@ const CarouselContent = React.forwardRef<
         className={cn(
           "flex",
           orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
-          className
+          className,
         )}
         {...props}
       />
     </div>
-  )
-})
-CarouselContent.displayName = "CarouselContent"
+  );
+});
+CarouselContent.displayName = "CarouselContent";
 
 const CarouselItem = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
-  const { orientation } = useCarousel()
+  const { orientation } = useCarousel();
 
   return (
     <div
@@ -7374,19 +8841,19 @@ const CarouselItem = React.forwardRef<
       className={cn(
         "min-w-0 shrink-0 grow-0 basis-full",
         orientation === "horizontal" ? "pl-4" : "pt-4",
-        className
+        className,
       )}
       {...props}
     />
-  )
-})
-CarouselItem.displayName = "CarouselItem"
+  );
+});
+CarouselItem.displayName = "CarouselItem";
 
 const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
 >(({ className, variant = "outline", size = "icon", ...props }, ref) => {
-  const { orientation, scrollPrev, canScrollPrev } = useCarousel()
+  const { orientation, scrollPrev, canScrollPrev } = useCarousel();
 
   return (
     <Button
@@ -7398,7 +8865,7 @@ const CarouselPrevious = React.forwardRef<
         orientation === "horizontal"
           ? "-left-12 top-1/2 -translate-y-1/2"
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
-        className
+        className,
       )}
       disabled={!canScrollPrev}
       onClick={scrollPrev}
@@ -7407,15 +8874,15 @@ const CarouselPrevious = React.forwardRef<
       <ArrowLeft className="h-4 w-4" />
       <span className="sr-only">Previous slide</span>
     </Button>
-  )
-})
-CarouselPrevious.displayName = "CarouselPrevious"
+  );
+});
+CarouselPrevious.displayName = "CarouselPrevious";
 
 const CarouselNext = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
 >(({ className, variant = "outline", size = "icon", ...props }, ref) => {
-  const { orientation, scrollNext, canScrollNext } = useCarousel()
+  const { orientation, scrollNext, canScrollNext } = useCarousel();
 
   return (
     <Button
@@ -7427,7 +8894,7 @@ const CarouselNext = React.forwardRef<
         orientation === "horizontal"
           ? "-right-12 top-1/2 -translate-y-1/2"
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
-        className
+        className,
       )}
       disabled={!canScrollNext}
       onClick={scrollNext}
@@ -7436,9 +8903,9 @@ const CarouselNext = React.forwardRef<
       <ArrowRight className="h-4 w-4" />
       <span className="sr-only">Next slide</span>
     </Button>
-  )
-})
-CarouselNext.displayName = "CarouselNext"
+  );
+});
+CarouselNext.displayName = "CarouselNext";
 
 export {
   type CarouselApi,
@@ -7447,59 +8914,58 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
-}
+};
 ```
 
 ## File: components/ui/chart.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as RechartsPrimitive from "recharts"
+import * as React from "react";
+import * as RechartsPrimitive from "recharts";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 // Format: { THEME_NAME: CSS_SELECTOR }
-const THEMES = { light: "", dark: ".dark" } as const
+const THEMES = { light: "", dark: ".dark" } as const;
 
 export type ChartConfig = {
   [k in string]: {
-    label?: React.ReactNode
-    icon?: React.ComponentType
+    label?: React.ReactNode;
+    icon?: React.ComponentType;
   } & (
     | { color?: string; theme?: never }
     | { color?: never; theme: Record<keyof typeof THEMES, string> }
-  )
-}
+  );
+};
 
 type ChartContextProps = {
-  config: ChartConfig
-}
+  config: ChartConfig;
+};
 
-const ChartContext = React.createContext<ChartContextProps | null>(null)
+const ChartContext = React.createContext<ChartContextProps | null>(null);
 
 function useChart() {
-  const context = React.useContext(ChartContext)
+  const context = React.useContext(ChartContext);
 
   if (!context) {
-    throw new Error("useChart must be used within a <ChartContainer />")
+    throw new Error("useChart must be used within a <ChartContainer />");
   }
 
-  return context
+  return context;
 }
 
 const ChartContainer = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div"> & {
-    config: ChartConfig
+    config: ChartConfig;
     children: React.ComponentProps<
       typeof RechartsPrimitive.ResponsiveContainer
-    >["children"]
+    >["children"];
   }
 >(({ id, className, children, config, ...props }, ref) => {
-  const uniqueId = React.useId()
-  const chartId = `chart-${id || uniqueId.replace(/:/g, "")}`
+  const uniqueId = React.useId();
+  const chartId = `chart-${id || uniqueId.replace(/:/g, "")}`;
 
   return (
     <ChartContext.Provider value={{ config }}>
@@ -7508,7 +8974,7 @@ const ChartContainer = React.forwardRef<
         ref={ref}
         className={cn(
           "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-none [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-sector]:outline-none [&_.recharts-surface]:outline-none",
-          className
+          className,
         )}
         {...props}
       >
@@ -7518,17 +8984,17 @@ const ChartContainer = React.forwardRef<
         </RechartsPrimitive.ResponsiveContainer>
       </div>
     </ChartContext.Provider>
-  )
-})
-ChartContainer.displayName = "Chart"
+  );
+});
+ChartContainer.displayName = "Chart";
 
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   const colorConfig = Object.entries(config).filter(
-    ([_, config]) => config.theme || config.color
-  )
+    ([_, config]) => config.theme || config.color,
+  );
 
   if (!colorConfig.length) {
-    return null
+    return null;
   }
 
   return (
@@ -7542,30 +9008,30 @@ ${colorConfig
   .map(([key, itemConfig]) => {
     const color =
       itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
-      itemConfig.color
-    return color ? `  --color-${key}: ${color};` : null
+      itemConfig.color;
+    return color ? `  --color-${key}: ${color};` : null;
   })
   .join("\n")}
 }
-`
+`,
           )
           .join("\n"),
       }}
     />
-  )
-}
+  );
+};
 
-const ChartTooltip = RechartsPrimitive.Tooltip
+const ChartTooltip = RechartsPrimitive.Tooltip;
 
 const ChartTooltipContent = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
     React.ComponentProps<"div"> & {
-      hideLabel?: boolean
-      hideIndicator?: boolean
-      indicator?: "line" | "dot" | "dashed"
-      nameKey?: string
-      labelKey?: string
+      hideLabel?: boolean;
+      hideIndicator?: boolean;
+      indicator?: "line" | "dot" | "dashed";
+      nameKey?: string;
+      labelKey?: string;
     }
 >(
   (
@@ -7584,36 +9050,36 @@ const ChartTooltipContent = React.forwardRef<
       nameKey,
       labelKey,
     },
-    ref
+    ref,
   ) => {
-    const { config } = useChart()
+    const { config } = useChart();
 
     const tooltipLabel = React.useMemo(() => {
       if (hideLabel || !payload?.length) {
-        return null
+        return null;
       }
 
-      const [item] = payload
-      const key = `${labelKey || item.dataKey || item.name || "value"}`
-      const itemConfig = getPayloadConfigFromPayload(config, item, key)
+      const [item] = payload;
+      const key = `${labelKey || item.dataKey || item.name || "value"}`;
+      const itemConfig = getPayloadConfigFromPayload(config, item, key);
       const value =
         !labelKey && typeof label === "string"
           ? config[label as keyof typeof config]?.label || label
-          : itemConfig?.label
+          : itemConfig?.label;
 
       if (labelFormatter) {
         return (
           <div className={cn("font-medium", labelClassName)}>
             {labelFormatter(value, payload)}
           </div>
-        )
+        );
       }
 
       if (!value) {
-        return null
+        return null;
       }
 
-      return <div className={cn("font-medium", labelClassName)}>{value}</div>
+      return <div className={cn("font-medium", labelClassName)}>{value}</div>;
     }, [
       label,
       labelFormatter,
@@ -7622,35 +9088,35 @@ const ChartTooltipContent = React.forwardRef<
       labelClassName,
       config,
       labelKey,
-    ])
+    ]);
 
     if (!active || !payload?.length) {
-      return null
+      return null;
     }
 
-    const nestLabel = payload.length === 1 && indicator !== "dot"
+    const nestLabel = payload.length === 1 && indicator !== "dot";
 
     return (
       <div
         ref={ref}
         className={cn(
           "grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl",
-          className
+          className,
         )}
       >
         {!nestLabel ? tooltipLabel : null}
         <div className="grid gap-1.5">
           {payload.map((item, index) => {
-            const key = `${nameKey || item.name || item.dataKey || "value"}`
-            const itemConfig = getPayloadConfigFromPayload(config, item, key)
-            const indicatorColor = color || item.payload.fill || item.color
+            const key = `${nameKey || item.name || item.dataKey || "value"}`;
+            const itemConfig = getPayloadConfigFromPayload(config, item, key);
+            const indicatorColor = color || item.payload.fill || item.color;
 
             return (
               <div
                 key={item.dataKey}
                 className={cn(
                   "flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
-                  indicator === "dot" && "items-center"
+                  indicator === "dot" && "items-center",
                 )}
               >
                 {formatter && item?.value !== undefined && item.name ? (
@@ -7670,7 +9136,7 @@ const ChartTooltipContent = React.forwardRef<
                               "w-0 border-[1.5px] border-dashed bg-transparent":
                                 indicator === "dashed",
                               "my-0.5": nestLabel && indicator === "dashed",
-                            }
+                            },
                           )}
                           style={
                             {
@@ -7684,7 +9150,7 @@ const ChartTooltipContent = React.forwardRef<
                     <div
                       className={cn(
                         "flex flex-1 justify-between leading-none",
-                        nestLabel ? "items-end" : "items-center"
+                        nestLabel ? "items-end" : "items-center",
                       )}
                     >
                       <div className="grid gap-1.5">
@@ -7702,33 +9168,33 @@ const ChartTooltipContent = React.forwardRef<
                   </>
                 )}
               </div>
-            )
+            );
           })}
         </div>
       </div>
-    )
-  }
-)
-ChartTooltipContent.displayName = "ChartTooltip"
+    );
+  },
+);
+ChartTooltipContent.displayName = "ChartTooltip";
 
-const ChartLegend = RechartsPrimitive.Legend
+const ChartLegend = RechartsPrimitive.Legend;
 
 const ChartLegendContent = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div"> &
     Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
-      hideIcon?: boolean
-      nameKey?: string
+      hideIcon?: boolean;
+      nameKey?: string;
     }
 >(
   (
     { className, hideIcon = false, payload, verticalAlign = "bottom", nameKey },
-    ref
+    ref,
   ) => {
-    const { config } = useChart()
+    const { config } = useChart();
 
     if (!payload?.length) {
-      return null
+      return null;
     }
 
     return (
@@ -7737,18 +9203,18 @@ const ChartLegendContent = React.forwardRef<
         className={cn(
           "flex items-center justify-center gap-4",
           verticalAlign === "top" ? "pb-3" : "pt-3",
-          className
+          className,
         )}
       >
         {payload.map((item) => {
-          const key = `${nameKey || item.dataKey || "value"}`
-          const itemConfig = getPayloadConfigFromPayload(config, item, key)
+          const key = `${nameKey || item.dataKey || "value"}`;
+          const itemConfig = getPayloadConfigFromPayload(config, item, key);
 
           return (
             <div
               key={item.value}
               className={cn(
-                "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground"
+                "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground",
               )}
             >
               {itemConfig?.icon && !hideIcon ? (
@@ -7763,22 +9229,22 @@ const ChartLegendContent = React.forwardRef<
               )}
               {itemConfig?.label}
             </div>
-          )
+          );
         })}
       </div>
-    )
-  }
-)
-ChartLegendContent.displayName = "ChartLegend"
+    );
+  },
+);
+ChartLegendContent.displayName = "ChartLegend";
 
 // Helper to extract item config from a payload.
 function getPayloadConfigFromPayload(
   config: ChartConfig,
   payload: unknown,
-  key: string
+  key: string,
 ) {
   if (typeof payload !== "object" || payload === null) {
-    return undefined
+    return undefined;
   }
 
   const payloadPayload =
@@ -7786,15 +9252,15 @@ function getPayloadConfigFromPayload(
     typeof payload.payload === "object" &&
     payload.payload !== null
       ? payload.payload
-      : undefined
+      : undefined;
 
-  let configLabelKey: string = key
+  let configLabelKey: string = key;
 
   if (
     key in payload &&
     typeof payload[key as keyof typeof payload] === "string"
   ) {
-    configLabelKey = payload[key as keyof typeof payload] as string
+    configLabelKey = payload[key as keyof typeof payload] as string;
   } else if (
     payloadPayload &&
     key in payloadPayload &&
@@ -7802,12 +9268,12 @@ function getPayloadConfigFromPayload(
   ) {
     configLabelKey = payloadPayload[
       key as keyof typeof payloadPayload
-    ] as string
+    ] as string;
   }
 
   return configLabelKey in config
     ? config[configLabelKey]
-    : config[key as keyof typeof config]
+    : config[key as keyof typeof config];
 }
 
 export {
@@ -7817,19 +9283,18 @@ export {
   ChartLegend,
   ChartLegendContent,
   ChartStyle,
-}
+};
 ```
 
 ## File: components/ui/checkbox.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
-import { Check } from "lucide-react"
+import * as React from "react";
+import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
+import { Check } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
@@ -7839,7 +9304,7 @@ const Checkbox = React.forwardRef<
     ref={ref}
     className={cn(
       "peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
-      className
+      className,
     )}
     {...props}
   >
@@ -7849,14 +9314,13 @@ const Checkbox = React.forwardRef<
       <Check className="h-4 w-4" />
     </CheckboxPrimitive.Indicator>
   </CheckboxPrimitive.Root>
-))
-Checkbox.displayName = CheckboxPrimitive.Root.displayName
+));
+Checkbox.displayName = CheckboxPrimitive.Root.displayName;
 
-export { Checkbox }
+export { Checkbox };
 ```
 
 ## File: components/ui/collapsible.tsx
-
 ```typescript
 "use client";
 
@@ -7872,17 +9336,16 @@ export { Collapsible, CollapsibleTrigger, CollapsibleContent };
 ```
 
 ## File: components/ui/command.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import { type DialogProps } from "@radix-ui/react-dialog"
-import { Command as CommandPrimitive } from "cmdk"
-import { Search } from "lucide-react"
+import * as React from "react";
+import { type DialogProps } from "@radix-ui/react-dialog";
+import { Command as CommandPrimitive } from "cmdk";
+import { Search } from "lucide-react";
 
-import { cn } from "@/lib/utils"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { cn } from "@/lib/utils";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 const Command = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive>,
@@ -7892,12 +9355,12 @@ const Command = React.forwardRef<
     ref={ref}
     className={cn(
       "flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground",
-      className
+      className,
     )}
     {...props}
   />
-))
-Command.displayName = CommandPrimitive.displayName
+));
+Command.displayName = CommandPrimitive.displayName;
 
 const CommandDialog = ({ children, ...props }: DialogProps) => {
   return (
@@ -7908,8 +9371,8 @@ const CommandDialog = ({ children, ...props }: DialogProps) => {
         </Command>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
 
 const CommandInput = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.Input>,
@@ -7921,14 +9384,14 @@ const CommandInput = React.forwardRef<
       ref={ref}
       className={cn(
         "flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
-        className
+        className,
       )}
       {...props}
     />
   </div>
-))
+));
 
-CommandInput.displayName = CommandPrimitive.Input.displayName
+CommandInput.displayName = CommandPrimitive.Input.displayName;
 
 const CommandList = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.List>,
@@ -7939,9 +9402,9 @@ const CommandList = React.forwardRef<
     className={cn("max-h-[300px] overflow-y-auto overflow-x-hidden", className)}
     {...props}
   />
-))
+));
 
-CommandList.displayName = CommandPrimitive.List.displayName
+CommandList.displayName = CommandPrimitive.List.displayName;
 
 const CommandEmpty = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.Empty>,
@@ -7952,9 +9415,9 @@ const CommandEmpty = React.forwardRef<
     className="py-6 text-center text-sm"
     {...props}
   />
-))
+));
 
-CommandEmpty.displayName = CommandPrimitive.Empty.displayName
+CommandEmpty.displayName = CommandPrimitive.Empty.displayName;
 
 const CommandGroup = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.Group>,
@@ -7964,13 +9427,13 @@ const CommandGroup = React.forwardRef<
     ref={ref}
     className={cn(
       "overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground",
-      className
+      className,
     )}
     {...props}
   />
-))
+));
 
-CommandGroup.displayName = CommandPrimitive.Group.displayName
+CommandGroup.displayName = CommandPrimitive.Group.displayName;
 
 const CommandSeparator = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.Separator>,
@@ -7981,8 +9444,8 @@ const CommandSeparator = React.forwardRef<
     className={cn("-mx-1 h-px bg-border", className)}
     {...props}
   />
-))
-CommandSeparator.displayName = CommandPrimitive.Separator.displayName
+));
+CommandSeparator.displayName = CommandPrimitive.Separator.displayName;
 
 const CommandItem = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.Item>,
@@ -7992,13 +9455,13 @@ const CommandItem = React.forwardRef<
     ref={ref}
     className={cn(
       "relative flex cursor-default gap-2 select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled=true]:pointer-events-none data-[selected='true']:bg-accent data-[selected=true]:text-accent-foreground data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
-      className
+      className,
     )}
     {...props}
   />
-))
+));
 
-CommandItem.displayName = CommandPrimitive.Item.displayName
+CommandItem.displayName = CommandPrimitive.Item.displayName;
 
 const CommandShortcut = ({
   className,
@@ -8008,13 +9471,13 @@ const CommandShortcut = ({
     <span
       className={cn(
         "ml-auto text-xs tracking-widest text-muted-foreground",
-        className
+        className,
       )}
       {...props}
     />
-  )
-}
-CommandShortcut.displayName = "CommandShortcut"
+  );
+};
+CommandShortcut.displayName = "CommandShortcut";
 
 export {
   Command,
@@ -8026,36 +9489,35 @@ export {
   CommandItem,
   CommandShortcut,
   CommandSeparator,
-}
+};
 ```
 
 ## File: components/ui/context-menu.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as ContextMenuPrimitive from "@radix-ui/react-context-menu"
-import { Check, ChevronRight, Circle } from "lucide-react"
+import * as React from "react";
+import * as ContextMenuPrimitive from "@radix-ui/react-context-menu";
+import { Check, ChevronRight, Circle } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const ContextMenu = ContextMenuPrimitive.Root
+const ContextMenu = ContextMenuPrimitive.Root;
 
-const ContextMenuTrigger = ContextMenuPrimitive.Trigger
+const ContextMenuTrigger = ContextMenuPrimitive.Trigger;
 
-const ContextMenuGroup = ContextMenuPrimitive.Group
+const ContextMenuGroup = ContextMenuPrimitive.Group;
 
-const ContextMenuPortal = ContextMenuPrimitive.Portal
+const ContextMenuPortal = ContextMenuPrimitive.Portal;
 
-const ContextMenuSub = ContextMenuPrimitive.Sub
+const ContextMenuSub = ContextMenuPrimitive.Sub;
 
-const ContextMenuRadioGroup = ContextMenuPrimitive.RadioGroup
+const ContextMenuRadioGroup = ContextMenuPrimitive.RadioGroup;
 
 const ContextMenuSubTrigger = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.SubTrigger>,
   React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.SubTrigger> & {
-    inset?: boolean
+    inset?: boolean;
   }
 >(({ className, inset, children, ...props }, ref) => (
   <ContextMenuPrimitive.SubTrigger
@@ -8063,15 +9525,15 @@ const ContextMenuSubTrigger = React.forwardRef<
     className={cn(
       "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
       inset && "pl-8",
-      className
+      className,
     )}
     {...props}
   >
     {children}
     <ChevronRight className="ml-auto h-4 w-4" />
   </ContextMenuPrimitive.SubTrigger>
-))
-ContextMenuSubTrigger.displayName = ContextMenuPrimitive.SubTrigger.displayName
+));
+ContextMenuSubTrigger.displayName = ContextMenuPrimitive.SubTrigger.displayName;
 
 const ContextMenuSubContent = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.SubContent>,
@@ -8081,12 +9543,12 @@ const ContextMenuSubContent = React.forwardRef<
     ref={ref}
     className={cn(
       "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-      className
+      className,
     )}
     {...props}
   />
-))
-ContextMenuSubContent.displayName = ContextMenuPrimitive.SubContent.displayName
+));
+ContextMenuSubContent.displayName = ContextMenuPrimitive.SubContent.displayName;
 
 const ContextMenuContent = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.Content>,
@@ -8097,18 +9559,18 @@ const ContextMenuContent = React.forwardRef<
       ref={ref}
       className={cn(
         "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md animate-in fade-in-80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-        className
+        className,
       )}
       {...props}
     />
   </ContextMenuPrimitive.Portal>
-))
-ContextMenuContent.displayName = ContextMenuPrimitive.Content.displayName
+));
+ContextMenuContent.displayName = ContextMenuPrimitive.Content.displayName;
 
 const ContextMenuItem = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Item> & {
-    inset?: boolean
+    inset?: boolean;
   }
 >(({ className, inset, ...props }, ref) => (
   <ContextMenuPrimitive.Item
@@ -8116,12 +9578,12 @@ const ContextMenuItem = React.forwardRef<
     className={cn(
       "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       inset && "pl-8",
-      className
+      className,
     )}
     {...props}
   />
-))
-ContextMenuItem.displayName = ContextMenuPrimitive.Item.displayName
+));
+ContextMenuItem.displayName = ContextMenuPrimitive.Item.displayName;
 
 const ContextMenuCheckboxItem = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.CheckboxItem>,
@@ -8131,7 +9593,7 @@ const ContextMenuCheckboxItem = React.forwardRef<
     ref={ref}
     className={cn(
       "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-      className
+      className,
     )}
     checked={checked}
     {...props}
@@ -8143,9 +9605,9 @@ const ContextMenuCheckboxItem = React.forwardRef<
     </span>
     {children}
   </ContextMenuPrimitive.CheckboxItem>
-))
+));
 ContextMenuCheckboxItem.displayName =
-  ContextMenuPrimitive.CheckboxItem.displayName
+  ContextMenuPrimitive.CheckboxItem.displayName;
 
 const ContextMenuRadioItem = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.RadioItem>,
@@ -8155,7 +9617,7 @@ const ContextMenuRadioItem = React.forwardRef<
     ref={ref}
     className={cn(
       "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-      className
+      className,
     )}
     {...props}
   >
@@ -8166,13 +9628,13 @@ const ContextMenuRadioItem = React.forwardRef<
     </span>
     {children}
   </ContextMenuPrimitive.RadioItem>
-))
-ContextMenuRadioItem.displayName = ContextMenuPrimitive.RadioItem.displayName
+));
+ContextMenuRadioItem.displayName = ContextMenuPrimitive.RadioItem.displayName;
 
 const ContextMenuLabel = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.Label>,
   React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Label> & {
-    inset?: boolean
+    inset?: boolean;
   }
 >(({ className, inset, ...props }, ref) => (
   <ContextMenuPrimitive.Label
@@ -8180,12 +9642,12 @@ const ContextMenuLabel = React.forwardRef<
     className={cn(
       "px-2 py-1.5 text-sm font-semibold text-foreground",
       inset && "pl-8",
-      className
+      className,
     )}
     {...props}
   />
-))
-ContextMenuLabel.displayName = ContextMenuPrimitive.Label.displayName
+));
+ContextMenuLabel.displayName = ContextMenuPrimitive.Label.displayName;
 
 const ContextMenuSeparator = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.Separator>,
@@ -8196,8 +9658,8 @@ const ContextMenuSeparator = React.forwardRef<
     className={cn("-mx-1 my-1 h-px bg-border", className)}
     {...props}
   />
-))
-ContextMenuSeparator.displayName = ContextMenuPrimitive.Separator.displayName
+));
+ContextMenuSeparator.displayName = ContextMenuPrimitive.Separator.displayName;
 
 const ContextMenuShortcut = ({
   className,
@@ -8207,13 +9669,13 @@ const ContextMenuShortcut = ({
     <span
       className={cn(
         "ml-auto text-xs tracking-widest text-muted-foreground",
-        className
+        className,
       )}
       {...props}
     />
-  )
-}
-ContextMenuShortcut.displayName = "ContextMenuShortcut"
+  );
+};
+ContextMenuShortcut.displayName = "ContextMenuShortcut";
 
 export {
   ContextMenu,
@@ -8231,27 +9693,26 @@ export {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuRadioGroup,
-}
+};
 ```
 
 ## File: components/ui/dialog.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as DialogPrimitive from "@radix-ui/react-dialog"
-import { X } from "lucide-react"
+import * as React from "react";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { X } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const Dialog = DialogPrimitive.Root
+const Dialog = DialogPrimitive.Root;
 
-const DialogTrigger = DialogPrimitive.Trigger
+const DialogTrigger = DialogPrimitive.Trigger;
 
-const DialogPortal = DialogPrimitive.Portal
+const DialogPortal = DialogPrimitive.Portal;
 
-const DialogClose = DialogPrimitive.Close
+const DialogClose = DialogPrimitive.Close;
 
 const DialogOverlay = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Overlay>,
@@ -8261,12 +9722,12 @@ const DialogOverlay = React.forwardRef<
     ref={ref}
     className={cn(
       "fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-      className
+      className,
     )}
     {...props}
   />
-))
-DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
+));
+DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
@@ -8278,7 +9739,7 @@ const DialogContent = React.forwardRef<
       ref={ref}
       className={cn(
         "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
-        className
+        className,
       )}
       {...props}
     >
@@ -8289,8 +9750,8 @@ const DialogContent = React.forwardRef<
       </DialogPrimitive.Close>
     </DialogPrimitive.Content>
   </DialogPortal>
-))
-DialogContent.displayName = DialogPrimitive.Content.displayName
+));
+DialogContent.displayName = DialogPrimitive.Content.displayName;
 
 const DialogHeader = ({
   className,
@@ -8299,12 +9760,12 @@ const DialogHeader = ({
   <div
     className={cn(
       "flex flex-col space-y-1.5 text-center sm:text-left",
-      className
+      className,
     )}
     {...props}
   />
-)
-DialogHeader.displayName = "DialogHeader"
+);
+DialogHeader.displayName = "DialogHeader";
 
 const DialogFooter = ({
   className,
@@ -8313,12 +9774,12 @@ const DialogFooter = ({
   <div
     className={cn(
       "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
-      className
+      className,
     )}
     {...props}
   />
-)
-DialogFooter.displayName = "DialogFooter"
+);
+DialogFooter.displayName = "DialogFooter";
 
 const DialogTitle = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Title>,
@@ -8328,12 +9789,12 @@ const DialogTitle = React.forwardRef<
     ref={ref}
     className={cn(
       "text-lg font-semibold leading-none tracking-tight",
-      className
+      className,
     )}
     {...props}
   />
-))
-DialogTitle.displayName = DialogPrimitive.Title.displayName
+));
+DialogTitle.displayName = DialogPrimitive.Title.displayName;
 
 const DialogDescription = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Description>,
@@ -8344,8 +9805,8 @@ const DialogDescription = React.forwardRef<
     className={cn("text-sm text-muted-foreground", className)}
     {...props}
   />
-))
-DialogDescription.displayName = DialogPrimitive.Description.displayName
+));
+DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
 export {
   Dialog,
@@ -8358,18 +9819,17 @@ export {
   DialogFooter,
   DialogTitle,
   DialogDescription,
-}
+};
 ```
 
 ## File: components/ui/drawer.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import { Drawer as DrawerPrimitive } from "vaul"
+import * as React from "react";
+import { Drawer as DrawerPrimitive } from "vaul";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Drawer = ({
   shouldScaleBackground = true,
@@ -8379,14 +9839,14 @@ const Drawer = ({
     shouldScaleBackground={shouldScaleBackground}
     {...props}
   />
-)
-Drawer.displayName = "Drawer"
+);
+Drawer.displayName = "Drawer";
 
-const DrawerTrigger = DrawerPrimitive.Trigger
+const DrawerTrigger = DrawerPrimitive.Trigger;
 
-const DrawerPortal = DrawerPrimitive.Portal
+const DrawerPortal = DrawerPrimitive.Portal;
 
-const DrawerClose = DrawerPrimitive.Close
+const DrawerClose = DrawerPrimitive.Close;
 
 const DrawerOverlay = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Overlay>,
@@ -8397,8 +9857,8 @@ const DrawerOverlay = React.forwardRef<
     className={cn("fixed inset-0 z-50 bg-black/80", className)}
     {...props}
   />
-))
-DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName
+));
+DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName;
 
 const DrawerContent = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Content>,
@@ -8410,7 +9870,7 @@ const DrawerContent = React.forwardRef<
       ref={ref}
       className={cn(
         "fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border bg-background",
-        className
+        className,
       )}
       {...props}
     >
@@ -8418,8 +9878,8 @@ const DrawerContent = React.forwardRef<
       {children}
     </DrawerPrimitive.Content>
   </DrawerPortal>
-))
-DrawerContent.displayName = "DrawerContent"
+));
+DrawerContent.displayName = "DrawerContent";
 
 const DrawerHeader = ({
   className,
@@ -8429,8 +9889,8 @@ const DrawerHeader = ({
     className={cn("grid gap-1.5 p-4 text-center sm:text-left", className)}
     {...props}
   />
-)
-DrawerHeader.displayName = "DrawerHeader"
+);
+DrawerHeader.displayName = "DrawerHeader";
 
 const DrawerFooter = ({
   className,
@@ -8440,8 +9900,8 @@ const DrawerFooter = ({
     className={cn("mt-auto flex flex-col gap-2 p-4", className)}
     {...props}
   />
-)
-DrawerFooter.displayName = "DrawerFooter"
+);
+DrawerFooter.displayName = "DrawerFooter";
 
 const DrawerTitle = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Title>,
@@ -8451,12 +9911,12 @@ const DrawerTitle = React.forwardRef<
     ref={ref}
     className={cn(
       "text-lg font-semibold leading-none tracking-tight",
-      className
+      className,
     )}
     {...props}
   />
-))
-DrawerTitle.displayName = DrawerPrimitive.Title.displayName
+));
+DrawerTitle.displayName = DrawerPrimitive.Title.displayName;
 
 const DrawerDescription = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Description>,
@@ -8467,8 +9927,8 @@ const DrawerDescription = React.forwardRef<
     className={cn("text-sm text-muted-foreground", className)}
     {...props}
   />
-))
-DrawerDescription.displayName = DrawerPrimitive.Description.displayName
+));
+DrawerDescription.displayName = DrawerPrimitive.Description.displayName;
 
 export {
   Drawer,
@@ -8481,36 +9941,35 @@ export {
   DrawerFooter,
   DrawerTitle,
   DrawerDescription,
-}
+};
 ```
 
 ## File: components/ui/dropdown-menu.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
-import { Check, ChevronRight, Circle } from "lucide-react"
+import * as React from "react";
+import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
+import { Check, ChevronRight, Circle } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const DropdownMenu = DropdownMenuPrimitive.Root
+const DropdownMenu = DropdownMenuPrimitive.Root;
 
-const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger
+const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
 
-const DropdownMenuGroup = DropdownMenuPrimitive.Group
+const DropdownMenuGroup = DropdownMenuPrimitive.Group;
 
-const DropdownMenuPortal = DropdownMenuPrimitive.Portal
+const DropdownMenuPortal = DropdownMenuPrimitive.Portal;
 
-const DropdownMenuSub = DropdownMenuPrimitive.Sub
+const DropdownMenuSub = DropdownMenuPrimitive.Sub;
 
-const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup
+const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
 
 const DropdownMenuSubTrigger = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.SubTrigger>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubTrigger> & {
-    inset?: boolean
+    inset?: boolean;
   }
 >(({ className, inset, children, ...props }, ref) => (
   <DropdownMenuPrimitive.SubTrigger
@@ -8518,16 +9977,16 @@ const DropdownMenuSubTrigger = React.forwardRef<
     className={cn(
       "flex cursor-default gap-2 select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent data-[state=open]:bg-accent [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
       inset && "pl-8",
-      className
+      className,
     )}
     {...props}
   >
     {children}
     <ChevronRight className="ml-auto" />
   </DropdownMenuPrimitive.SubTrigger>
-))
+));
 DropdownMenuSubTrigger.displayName =
-  DropdownMenuPrimitive.SubTrigger.displayName
+  DropdownMenuPrimitive.SubTrigger.displayName;
 
 const DropdownMenuSubContent = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.SubContent>,
@@ -8537,13 +9996,13 @@ const DropdownMenuSubContent = React.forwardRef<
     ref={ref}
     className={cn(
       "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-      className
+      className,
     )}
     {...props}
   />
-))
+));
 DropdownMenuSubContent.displayName =
-  DropdownMenuPrimitive.SubContent.displayName
+  DropdownMenuPrimitive.SubContent.displayName;
 
 const DropdownMenuContent = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Content>,
@@ -8555,18 +10014,18 @@ const DropdownMenuContent = React.forwardRef<
       sideOffset={sideOffset}
       className={cn(
         "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-        className
+        className,
       )}
       {...props}
     />
   </DropdownMenuPrimitive.Portal>
-))
-DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName
+));
+DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName;
 
 const DropdownMenuItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & {
-    inset?: boolean
+    inset?: boolean;
   }
 >(({ className, inset, ...props }, ref) => (
   <DropdownMenuPrimitive.Item
@@ -8574,12 +10033,12 @@ const DropdownMenuItem = React.forwardRef<
     className={cn(
       "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
       inset && "pl-8",
-      className
+      className,
     )}
     {...props}
   />
-))
-DropdownMenuItem.displayName = DropdownMenuPrimitive.Item.displayName
+));
+DropdownMenuItem.displayName = DropdownMenuPrimitive.Item.displayName;
 
 const DropdownMenuCheckboxItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>,
@@ -8589,7 +10048,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
     ref={ref}
     className={cn(
       "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-      className
+      className,
     )}
     checked={checked}
     {...props}
@@ -8601,9 +10060,9 @@ const DropdownMenuCheckboxItem = React.forwardRef<
     </span>
     {children}
   </DropdownMenuPrimitive.CheckboxItem>
-))
+));
 DropdownMenuCheckboxItem.displayName =
-  DropdownMenuPrimitive.CheckboxItem.displayName
+  DropdownMenuPrimitive.CheckboxItem.displayName;
 
 const DropdownMenuRadioItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.RadioItem>,
@@ -8613,7 +10072,7 @@ const DropdownMenuRadioItem = React.forwardRef<
     ref={ref}
     className={cn(
       "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-      className
+      className,
     )}
     {...props}
   >
@@ -8624,13 +10083,13 @@ const DropdownMenuRadioItem = React.forwardRef<
     </span>
     {children}
   </DropdownMenuPrimitive.RadioItem>
-))
-DropdownMenuRadioItem.displayName = DropdownMenuPrimitive.RadioItem.displayName
+));
+DropdownMenuRadioItem.displayName = DropdownMenuPrimitive.RadioItem.displayName;
 
 const DropdownMenuLabel = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Label>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> & {
-    inset?: boolean
+    inset?: boolean;
   }
 >(({ className, inset, ...props }, ref) => (
   <DropdownMenuPrimitive.Label
@@ -8638,12 +10097,12 @@ const DropdownMenuLabel = React.forwardRef<
     className={cn(
       "px-2 py-1.5 text-sm font-semibold",
       inset && "pl-8",
-      className
+      className,
     )}
     {...props}
   />
-))
-DropdownMenuLabel.displayName = DropdownMenuPrimitive.Label.displayName
+));
+DropdownMenuLabel.displayName = DropdownMenuPrimitive.Label.displayName;
 
 const DropdownMenuSeparator = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Separator>,
@@ -8654,8 +10113,8 @@ const DropdownMenuSeparator = React.forwardRef<
     className={cn("-mx-1 my-1 h-px bg-muted", className)}
     {...props}
   />
-))
-DropdownMenuSeparator.displayName = DropdownMenuPrimitive.Separator.displayName
+));
+DropdownMenuSeparator.displayName = DropdownMenuPrimitive.Separator.displayName;
 
 const DropdownMenuShortcut = ({
   className,
@@ -8666,9 +10125,9 @@ const DropdownMenuShortcut = ({
       className={cn("ml-auto text-xs tracking-widest opacity-60", className)}
       {...props}
     />
-  )
-}
-DropdownMenuShortcut.displayName = "DropdownMenuShortcut"
+  );
+};
+DropdownMenuShortcut.displayName = "DropdownMenuShortcut";
 
 export {
   DropdownMenu,
@@ -8686,17 +10145,16 @@ export {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuRadioGroup,
-}
+};
 ```
 
 ## File: components/ui/form.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as LabelPrimitive from "@radix-ui/react-label"
-import { Slot } from "@radix-ui/react-slot"
+import * as React from "react";
+import * as LabelPrimitive from "@radix-ui/react-label";
+import { Slot } from "@radix-ui/react-slot";
 import {
   Controller,
   ControllerProps,
@@ -8704,27 +10162,27 @@ import {
   FieldValues,
   FormProvider,
   useFormContext,
-} from "react-hook-form"
+} from "react-hook-form";
 
-import { cn } from "@/lib/utils"
-import { Label } from "@/components/ui/label"
+import { cn } from "@/lib/utils";
+import { Label } from "@/components/ui/label";
 
-const Form = FormProvider
+const Form = FormProvider;
 
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > = {
-  name: TName
-}
+  name: TName;
+};
 
 const FormFieldContext = React.createContext<FormFieldContextValue>(
-  {} as FormFieldContextValue
-)
+  {} as FormFieldContextValue,
+);
 
 const FormField = <
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
   ...props
 }: ControllerProps<TFieldValues, TName>) => {
@@ -8732,21 +10190,21 @@ const FormField = <
     <FormFieldContext.Provider value={{ name: props.name }}>
       <Controller {...props} />
     </FormFieldContext.Provider>
-  )
-}
+  );
+};
 
 const useFormField = () => {
-  const fieldContext = React.useContext(FormFieldContext)
-  const itemContext = React.useContext(FormItemContext)
-  const { getFieldState, formState } = useFormContext()
+  const fieldContext = React.useContext(FormFieldContext);
+  const itemContext = React.useContext(FormItemContext);
+  const { getFieldState, formState } = useFormContext();
 
-  const fieldState = getFieldState(fieldContext.name, formState)
+  const fieldState = getFieldState(fieldContext.name, formState);
 
   if (!fieldContext) {
-    throw new Error("useFormField should be used within <FormField>")
+    throw new Error("useFormField should be used within <FormField>");
   }
 
-  const { id } = itemContext
+  const { id } = itemContext;
 
   return {
     id,
@@ -8755,36 +10213,36 @@ const useFormField = () => {
     formDescriptionId: `${id}-form-item-description`,
     formMessageId: `${id}-form-item-message`,
     ...fieldState,
-  }
-}
+  };
+};
 
 type FormItemContextValue = {
-  id: string
-}
+  id: string;
+};
 
 const FormItemContext = React.createContext<FormItemContextValue>(
-  {} as FormItemContextValue
-)
+  {} as FormItemContextValue,
+);
 
 const FormItem = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
-  const id = React.useId()
+  const id = React.useId();
 
   return (
     <FormItemContext.Provider value={{ id }}>
       <div ref={ref} className={cn("space-y-2", className)} {...props} />
     </FormItemContext.Provider>
-  )
-})
-FormItem.displayName = "FormItem"
+  );
+});
+FormItem.displayName = "FormItem";
 
 const FormLabel = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
 >(({ className, ...props }, ref) => {
-  const { error, formItemId } = useFormField()
+  const { error, formItemId } = useFormField();
 
   return (
     <Label
@@ -8793,15 +10251,16 @@ const FormLabel = React.forwardRef<
       htmlFor={formItemId}
       {...props}
     />
-  )
-})
-FormLabel.displayName = "FormLabel"
+  );
+});
+FormLabel.displayName = "FormLabel";
 
 const FormControl = React.forwardRef<
   React.ElementRef<typeof Slot>,
   React.ComponentPropsWithoutRef<typeof Slot>
 >(({ ...props }, ref) => {
-  const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
+  const { error, formItemId, formDescriptionId, formMessageId } =
+    useFormField();
 
   return (
     <Slot
@@ -8815,15 +10274,15 @@ const FormControl = React.forwardRef<
       aria-invalid={!!error}
       {...props}
     />
-  )
-})
-FormControl.displayName = "FormControl"
+  );
+});
+FormControl.displayName = "FormControl";
 
 const FormDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => {
-  const { formDescriptionId } = useFormField()
+  const { formDescriptionId } = useFormField();
 
   return (
     <p
@@ -8832,19 +10291,19 @@ const FormDescription = React.forwardRef<
       className={cn("text-sm text-muted-foreground", className)}
       {...props}
     />
-  )
-})
-FormDescription.displayName = "FormDescription"
+  );
+});
+FormDescription.displayName = "FormDescription";
 
 const FormMessage = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, children, ...props }, ref) => {
-  const { error, formMessageId } = useFormField()
-  const body = error ? String(error?.message) : children
+  const { error, formMessageId } = useFormField();
+  const body = error ? String(error?.message) : children;
 
   if (!body) {
-    return null
+    return null;
   }
 
   return (
@@ -8856,9 +10315,9 @@ const FormMessage = React.forwardRef<
     >
       {body}
     </p>
-  )
-})
-FormMessage.displayName = "FormMessage"
+  );
+});
+FormMessage.displayName = "FormMessage";
 
 export {
   useFormField,
@@ -8869,22 +10328,21 @@ export {
   FormDescription,
   FormMessage,
   FormField,
-}
+};
 ```
 
 ## File: components/ui/hover-card.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as HoverCardPrimitive from "@radix-ui/react-hover-card"
+import * as React from "react";
+import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const HoverCard = HoverCardPrimitive.Root
+const HoverCard = HoverCardPrimitive.Root;
 
-const HoverCardTrigger = HoverCardPrimitive.Trigger
+const HoverCardTrigger = HoverCardPrimitive.Trigger;
 
 const HoverCardContent = React.forwardRef<
   React.ElementRef<typeof HoverCardPrimitive.Content>,
@@ -8896,26 +10354,25 @@ const HoverCardContent = React.forwardRef<
     sideOffset={sideOffset}
     className={cn(
       "z-50 w-64 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-      className
+      className,
     )}
     {...props}
   />
-))
-HoverCardContent.displayName = HoverCardPrimitive.Content.displayName
+));
+HoverCardContent.displayName = HoverCardPrimitive.Content.displayName;
 
-export { HoverCard, HoverCardTrigger, HoverCardContent }
+export { HoverCard, HoverCardTrigger, HoverCardContent };
 ```
 
 ## File: components/ui/input-otp.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import { OTPInput, OTPInputContext } from "input-otp"
-import { Dot } from "lucide-react"
+import * as React from "react";
+import { OTPInput, OTPInputContext } from "input-otp";
+import { Dot } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const InputOTP = React.forwardRef<
   React.ElementRef<typeof OTPInput>,
@@ -8925,28 +10382,28 @@ const InputOTP = React.forwardRef<
     ref={ref}
     containerClassName={cn(
       "flex items-center gap-2 has-[:disabled]:opacity-50",
-      containerClassName
+      containerClassName,
     )}
     className={cn("disabled:cursor-not-allowed", className)}
     {...props}
   />
-))
-InputOTP.displayName = "InputOTP"
+));
+InputOTP.displayName = "InputOTP";
 
 const InputOTPGroup = React.forwardRef<
   React.ElementRef<"div">,
   React.ComponentPropsWithoutRef<"div">
 >(({ className, ...props }, ref) => (
   <div ref={ref} className={cn("flex items-center", className)} {...props} />
-))
-InputOTPGroup.displayName = "InputOTPGroup"
+));
+InputOTPGroup.displayName = "InputOTPGroup";
 
 const InputOTPSlot = React.forwardRef<
   React.ElementRef<"div">,
   React.ComponentPropsWithoutRef<"div"> & { index: number }
 >(({ index, className, ...props }, ref) => {
-  const inputOTPContext = React.useContext(OTPInputContext)
-  const { char, hasFakeCaret, isActive } = inputOTPContext.slots[index]
+  const inputOTPContext = React.useContext(OTPInputContext);
+  const { char, hasFakeCaret, isActive } = inputOTPContext.slots[index];
 
   return (
     <div
@@ -8954,7 +10411,7 @@ const InputOTPSlot = React.forwardRef<
       className={cn(
         "relative flex h-10 w-10 items-center justify-center border-y border-r border-input text-sm transition-all first:rounded-l-md first:border-l last:rounded-r-md",
         isActive && "z-10 ring-2 ring-ring ring-offset-background",
-        className
+        className,
       )}
       {...props}
     >
@@ -8965,9 +10422,9 @@ const InputOTPSlot = React.forwardRef<
         </div>
       )}
     </div>
-  )
-})
-InputOTPSlot.displayName = "InputOTPSlot"
+  );
+});
+InputOTPSlot.displayName = "InputOTPSlot";
 
 const InputOTPSeparator = React.forwardRef<
   React.ElementRef<"div">,
@@ -8976,18 +10433,17 @@ const InputOTPSeparator = React.forwardRef<
   <div ref={ref} role="separator" {...props}>
     <Dot />
   </div>
-))
-InputOTPSeparator.displayName = "InputOTPSeparator"
+));
+InputOTPSeparator.displayName = "InputOTPSeparator";
 
-export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator }
+export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator };
 ```
 
 ## File: components/ui/input.tsx
-
 ```typescript
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
   ({ className, type, ...props }, ref) => {
@@ -8996,33 +10452,32 @@ const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
         type={type}
         className={cn(
           "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-          className
+          className,
         )}
         ref={ref}
         {...props}
       />
-    )
-  }
-)
-Input.displayName = "Input"
+    );
+  },
+);
+Input.displayName = "Input";
 
-export { Input }
+export { Input };
 ```
 
 ## File: components/ui/label.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as LabelPrimitive from "@radix-ui/react-label"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import * as LabelPrimitive from "@radix-ui/react-label";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const labelVariants = cva(
-  "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-)
+  "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+);
 
 const Label = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
@@ -9034,32 +10489,31 @@ const Label = React.forwardRef<
     className={cn(labelVariants(), className)}
     {...props}
   />
-))
-Label.displayName = LabelPrimitive.Root.displayName
+));
+Label.displayName = LabelPrimitive.Root.displayName;
 
-export { Label }
+export { Label };
 ```
 
 ## File: components/ui/menubar.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as MenubarPrimitive from "@radix-ui/react-menubar"
-import { Check, ChevronRight, Circle } from "lucide-react"
+import * as React from "react";
+import * as MenubarPrimitive from "@radix-ui/react-menubar";
+import { Check, ChevronRight, Circle } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const MenubarMenu = MenubarPrimitive.Menu
+const MenubarMenu = MenubarPrimitive.Menu;
 
-const MenubarGroup = MenubarPrimitive.Group
+const MenubarGroup = MenubarPrimitive.Group;
 
-const MenubarPortal = MenubarPrimitive.Portal
+const MenubarPortal = MenubarPrimitive.Portal;
 
-const MenubarSub = MenubarPrimitive.Sub
+const MenubarSub = MenubarPrimitive.Sub;
 
-const MenubarRadioGroup = MenubarPrimitive.RadioGroup
+const MenubarRadioGroup = MenubarPrimitive.RadioGroup;
 
 const Menubar = React.forwardRef<
   React.ElementRef<typeof MenubarPrimitive.Root>,
@@ -9069,12 +10523,12 @@ const Menubar = React.forwardRef<
     ref={ref}
     className={cn(
       "flex h-10 items-center space-x-1 rounded-md border bg-background p-1",
-      className
+      className,
     )}
     {...props}
   />
-))
-Menubar.displayName = MenubarPrimitive.Root.displayName
+));
+Menubar.displayName = MenubarPrimitive.Root.displayName;
 
 const MenubarTrigger = React.forwardRef<
   React.ElementRef<typeof MenubarPrimitive.Trigger>,
@@ -9084,17 +10538,17 @@ const MenubarTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       "flex cursor-default select-none items-center rounded-sm px-3 py-1.5 text-sm font-medium outline-none focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
-      className
+      className,
     )}
     {...props}
   />
-))
-MenubarTrigger.displayName = MenubarPrimitive.Trigger.displayName
+));
+MenubarTrigger.displayName = MenubarPrimitive.Trigger.displayName;
 
 const MenubarSubTrigger = React.forwardRef<
   React.ElementRef<typeof MenubarPrimitive.SubTrigger>,
   React.ComponentPropsWithoutRef<typeof MenubarPrimitive.SubTrigger> & {
-    inset?: boolean
+    inset?: boolean;
   }
 >(({ className, inset, children, ...props }, ref) => (
   <MenubarPrimitive.SubTrigger
@@ -9102,15 +10556,15 @@ const MenubarSubTrigger = React.forwardRef<
     className={cn(
       "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
       inset && "pl-8",
-      className
+      className,
     )}
     {...props}
   >
     {children}
     <ChevronRight className="ml-auto h-4 w-4" />
   </MenubarPrimitive.SubTrigger>
-))
-MenubarSubTrigger.displayName = MenubarPrimitive.SubTrigger.displayName
+));
+MenubarSubTrigger.displayName = MenubarPrimitive.SubTrigger.displayName;
 
 const MenubarSubContent = React.forwardRef<
   React.ElementRef<typeof MenubarPrimitive.SubContent>,
@@ -9120,12 +10574,12 @@ const MenubarSubContent = React.forwardRef<
     ref={ref}
     className={cn(
       "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-      className
+      className,
     )}
     {...props}
   />
-))
-MenubarSubContent.displayName = MenubarPrimitive.SubContent.displayName
+));
+MenubarSubContent.displayName = MenubarPrimitive.SubContent.displayName;
 
 const MenubarContent = React.forwardRef<
   React.ElementRef<typeof MenubarPrimitive.Content>,
@@ -9133,7 +10587,7 @@ const MenubarContent = React.forwardRef<
 >(
   (
     { className, align = "start", alignOffset = -4, sideOffset = 8, ...props },
-    ref
+    ref,
   ) => (
     <MenubarPrimitive.Portal>
       <MenubarPrimitive.Content
@@ -9143,19 +10597,19 @@ const MenubarContent = React.forwardRef<
         sideOffset={sideOffset}
         className={cn(
           "z-50 min-w-[12rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-          className
+          className,
         )}
         {...props}
       />
     </MenubarPrimitive.Portal>
-  )
-)
-MenubarContent.displayName = MenubarPrimitive.Content.displayName
+  ),
+);
+MenubarContent.displayName = MenubarPrimitive.Content.displayName;
 
 const MenubarItem = React.forwardRef<
   React.ElementRef<typeof MenubarPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Item> & {
-    inset?: boolean
+    inset?: boolean;
   }
 >(({ className, inset, ...props }, ref) => (
   <MenubarPrimitive.Item
@@ -9163,12 +10617,12 @@ const MenubarItem = React.forwardRef<
     className={cn(
       "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       inset && "pl-8",
-      className
+      className,
     )}
     {...props}
   />
-))
-MenubarItem.displayName = MenubarPrimitive.Item.displayName
+));
+MenubarItem.displayName = MenubarPrimitive.Item.displayName;
 
 const MenubarCheckboxItem = React.forwardRef<
   React.ElementRef<typeof MenubarPrimitive.CheckboxItem>,
@@ -9178,7 +10632,7 @@ const MenubarCheckboxItem = React.forwardRef<
     ref={ref}
     className={cn(
       "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-      className
+      className,
     )}
     checked={checked}
     {...props}
@@ -9190,8 +10644,8 @@ const MenubarCheckboxItem = React.forwardRef<
     </span>
     {children}
   </MenubarPrimitive.CheckboxItem>
-))
-MenubarCheckboxItem.displayName = MenubarPrimitive.CheckboxItem.displayName
+));
+MenubarCheckboxItem.displayName = MenubarPrimitive.CheckboxItem.displayName;
 
 const MenubarRadioItem = React.forwardRef<
   React.ElementRef<typeof MenubarPrimitive.RadioItem>,
@@ -9201,7 +10655,7 @@ const MenubarRadioItem = React.forwardRef<
     ref={ref}
     className={cn(
       "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-      className
+      className,
     )}
     {...props}
   >
@@ -9212,13 +10666,13 @@ const MenubarRadioItem = React.forwardRef<
     </span>
     {children}
   </MenubarPrimitive.RadioItem>
-))
-MenubarRadioItem.displayName = MenubarPrimitive.RadioItem.displayName
+));
+MenubarRadioItem.displayName = MenubarPrimitive.RadioItem.displayName;
 
 const MenubarLabel = React.forwardRef<
   React.ElementRef<typeof MenubarPrimitive.Label>,
   React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Label> & {
-    inset?: boolean
+    inset?: boolean;
   }
 >(({ className, inset, ...props }, ref) => (
   <MenubarPrimitive.Label
@@ -9226,12 +10680,12 @@ const MenubarLabel = React.forwardRef<
     className={cn(
       "px-2 py-1.5 text-sm font-semibold",
       inset && "pl-8",
-      className
+      className,
     )}
     {...props}
   />
-))
-MenubarLabel.displayName = MenubarPrimitive.Label.displayName
+));
+MenubarLabel.displayName = MenubarPrimitive.Label.displayName;
 
 const MenubarSeparator = React.forwardRef<
   React.ElementRef<typeof MenubarPrimitive.Separator>,
@@ -9242,8 +10696,8 @@ const MenubarSeparator = React.forwardRef<
     className={cn("-mx-1 my-1 h-px bg-muted", className)}
     {...props}
   />
-))
-MenubarSeparator.displayName = MenubarPrimitive.Separator.displayName
+));
+MenubarSeparator.displayName = MenubarPrimitive.Separator.displayName;
 
 const MenubarShortcut = ({
   className,
@@ -9253,13 +10707,13 @@ const MenubarShortcut = ({
     <span
       className={cn(
         "ml-auto text-xs tracking-widest text-muted-foreground",
-        className
+        className,
       )}
       {...props}
     />
-  )
-}
-MenubarShortcut.displayname = "MenubarShortcut"
+  );
+};
+MenubarShortcut.displayname = "MenubarShortcut";
 
 export {
   Menubar,
@@ -9278,18 +10732,17 @@ export {
   MenubarGroup,
   MenubarSub,
   MenubarShortcut,
-}
+};
 ```
 
 ## File: components/ui/navigation-menu.tsx
-
 ```typescript
-import * as React from "react"
-import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu"
-import { cva } from "class-variance-authority"
-import { ChevronDown } from "lucide-react"
+import * as React from "react";
+import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
+import { cva } from "class-variance-authority";
+import { ChevronDown } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const NavigationMenu = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Root>,
@@ -9299,15 +10752,15 @@ const NavigationMenu = React.forwardRef<
     ref={ref}
     className={cn(
       "relative z-10 flex max-w-max flex-1 items-center justify-center",
-      className
+      className,
     )}
     {...props}
   >
     {children}
     <NavigationMenuViewport />
   </NavigationMenuPrimitive.Root>
-))
-NavigationMenu.displayName = NavigationMenuPrimitive.Root.displayName
+));
+NavigationMenu.displayName = NavigationMenuPrimitive.Root.displayName;
 
 const NavigationMenuList = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.List>,
@@ -9317,18 +10770,18 @@ const NavigationMenuList = React.forwardRef<
     ref={ref}
     className={cn(
       "group flex flex-1 list-none items-center justify-center space-x-1",
-      className
+      className,
     )}
     {...props}
   />
-))
-NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName
+));
+NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName;
 
-const NavigationMenuItem = NavigationMenuPrimitive.Item
+const NavigationMenuItem = NavigationMenuPrimitive.Item;
 
 const navigationMenuTriggerStyle = cva(
-  "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-)
+  "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50",
+);
 
 const NavigationMenuTrigger = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Trigger>,
@@ -9345,8 +10798,8 @@ const NavigationMenuTrigger = React.forwardRef<
       aria-hidden="true"
     />
   </NavigationMenuPrimitive.Trigger>
-))
-NavigationMenuTrigger.displayName = NavigationMenuPrimitive.Trigger.displayName
+));
+NavigationMenuTrigger.displayName = NavigationMenuPrimitive.Trigger.displayName;
 
 const NavigationMenuContent = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Content>,
@@ -9356,14 +10809,14 @@ const NavigationMenuContent = React.forwardRef<
     ref={ref}
     className={cn(
       "left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 md:absolute md:w-auto ",
-      className
+      className,
     )}
     {...props}
   />
-))
-NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName
+));
+NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName;
 
-const NavigationMenuLink = NavigationMenuPrimitive.Link
+const NavigationMenuLink = NavigationMenuPrimitive.Link;
 
 const NavigationMenuViewport = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Viewport>,
@@ -9373,15 +10826,15 @@ const NavigationMenuViewport = React.forwardRef<
     <NavigationMenuPrimitive.Viewport
       className={cn(
         "origin-top-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)]",
-        className
+        className,
       )}
       ref={ref}
       {...props}
     />
   </div>
-))
+));
 NavigationMenuViewport.displayName =
-  NavigationMenuPrimitive.Viewport.displayName
+  NavigationMenuPrimitive.Viewport.displayName;
 
 const NavigationMenuIndicator = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Indicator>,
@@ -9391,15 +10844,15 @@ const NavigationMenuIndicator = React.forwardRef<
     ref={ref}
     className={cn(
       "top-full z-[1] flex h-1.5 items-end justify-center overflow-hidden data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in",
-      className
+      className,
     )}
     {...props}
   >
     <div className="relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm bg-border shadow-md" />
   </NavigationMenuPrimitive.Indicator>
-))
+));
 NavigationMenuIndicator.displayName =
-  NavigationMenuPrimitive.Indicator.displayName
+  NavigationMenuPrimitive.Indicator.displayName;
 
 export {
   navigationMenuTriggerStyle,
@@ -9411,17 +10864,16 @@ export {
   NavigationMenuLink,
   NavigationMenuIndicator,
   NavigationMenuViewport,
-}
+};
 ```
 
 ## File: components/ui/pagination.tsx
-
 ```typescript
-import * as React from "react"
-import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react"
+import * as React from "react";
+import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 
-import { cn } from "@/lib/utils"
-import { ButtonProps, buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils";
+import { ButtonProps, buttonVariants } from "@/components/ui/button";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
@@ -9430,8 +10882,8 @@ const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
     className={cn("mx-auto flex w-full justify-center", className)}
     {...props}
   />
-)
-Pagination.displayName = "Pagination"
+);
+Pagination.displayName = "Pagination";
 
 const PaginationContent = React.forwardRef<
   HTMLUListElement,
@@ -9442,21 +10894,21 @@ const PaginationContent = React.forwardRef<
     className={cn("flex flex-row items-center gap-1", className)}
     {...props}
   />
-))
-PaginationContent.displayName = "PaginationContent"
+));
+PaginationContent.displayName = "PaginationContent";
 
 const PaginationItem = React.forwardRef<
   HTMLLIElement,
   React.ComponentProps<"li">
 >(({ className, ...props }, ref) => (
   <li ref={ref} className={cn("", className)} {...props} />
-))
-PaginationItem.displayName = "PaginationItem"
+));
+PaginationItem.displayName = "PaginationItem";
 
 type PaginationLinkProps = {
-  isActive?: boolean
+  isActive?: boolean;
 } & Pick<ButtonProps, "size"> &
-  React.ComponentProps<"a">
+  React.ComponentProps<"a">;
 
 const PaginationLink = ({
   className,
@@ -9471,12 +10923,12 @@ const PaginationLink = ({
         variant: isActive ? "outline" : "ghost",
         size,
       }),
-      className
+      className,
     )}
     {...props}
   />
-)
-PaginationLink.displayName = "PaginationLink"
+);
+PaginationLink.displayName = "PaginationLink";
 
 const PaginationPrevious = ({
   className,
@@ -9491,8 +10943,8 @@ const PaginationPrevious = ({
     <ChevronLeft className="h-4 w-4" />
     <span>Previous</span>
   </PaginationLink>
-)
-PaginationPrevious.displayName = "PaginationPrevious"
+);
+PaginationPrevious.displayName = "PaginationPrevious";
 
 const PaginationNext = ({
   className,
@@ -9507,8 +10959,8 @@ const PaginationNext = ({
     <span>Next</span>
     <ChevronRight className="h-4 w-4" />
   </PaginationLink>
-)
-PaginationNext.displayName = "PaginationNext"
+);
+PaginationNext.displayName = "PaginationNext";
 
 const PaginationEllipsis = ({
   className,
@@ -9522,8 +10974,8 @@ const PaginationEllipsis = ({
     <MoreHorizontal className="h-4 w-4" />
     <span className="sr-only">More pages</span>
   </span>
-)
-PaginationEllipsis.displayName = "PaginationEllipsis"
+);
+PaginationEllipsis.displayName = "PaginationEllipsis";
 
 export {
   Pagination,
@@ -9533,22 +10985,21 @@ export {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-}
+};
 ```
 
 ## File: components/ui/popover.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as PopoverPrimitive from "@radix-ui/react-popover"
+import * as React from "react";
+import * as PopoverPrimitive from "@radix-ui/react-popover";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const Popover = PopoverPrimitive.Root
+const Popover = PopoverPrimitive.Root;
 
-const PopoverTrigger = PopoverPrimitive.Trigger
+const PopoverTrigger = PopoverPrimitive.Trigger;
 
 const PopoverContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Content>,
@@ -9561,26 +11012,25 @@ const PopoverContent = React.forwardRef<
       sideOffset={sideOffset}
       className={cn(
         "z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-        className
+        className,
       )}
       {...props}
     />
   </PopoverPrimitive.Portal>
-))
-PopoverContent.displayName = PopoverPrimitive.Content.displayName
+));
+PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
-export { Popover, PopoverTrigger, PopoverContent }
+export { Popover, PopoverTrigger, PopoverContent };
 ```
 
 ## File: components/ui/progress.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as ProgressPrimitive from "@radix-ui/react-progress"
+import * as React from "react";
+import * as ProgressPrimitive from "@radix-ui/react-progress";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Progress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
@@ -9590,7 +11040,7 @@ const Progress = React.forwardRef<
     ref={ref}
     className={cn(
       "relative h-4 w-full overflow-hidden rounded-full bg-secondary",
-      className
+      className,
     )}
     {...props}
   >
@@ -9599,22 +11049,21 @@ const Progress = React.forwardRef<
       style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
     />
   </ProgressPrimitive.Root>
-))
-Progress.displayName = ProgressPrimitive.Root.displayName
+));
+Progress.displayName = ProgressPrimitive.Root.displayName;
 
-export { Progress }
+export { Progress };
 ```
 
 ## File: components/ui/radio-group.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as RadioGroupPrimitive from "@radix-ui/react-radio-group"
-import { Circle } from "lucide-react"
+import * as React from "react";
+import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
+import { Circle } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const RadioGroup = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Root>,
@@ -9626,9 +11075,9 @@ const RadioGroup = React.forwardRef<
       {...props}
       ref={ref}
     />
-  )
-})
-RadioGroup.displayName = RadioGroupPrimitive.Root.displayName
+  );
+});
+RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;
 
 const RadioGroupItem = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Item>,
@@ -9639,7 +11088,7 @@ const RadioGroupItem = React.forwardRef<
       ref={ref}
       className={cn(
         "aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-        className
+        className,
       )}
       {...props}
     >
@@ -9647,22 +11096,21 @@ const RadioGroupItem = React.forwardRef<
         <Circle className="h-2.5 w-2.5 fill-current text-current" />
       </RadioGroupPrimitive.Indicator>
     </RadioGroupPrimitive.Item>
-  )
-})
-RadioGroupItem.displayName = RadioGroupPrimitive.Item.displayName
+  );
+});
+RadioGroupItem.displayName = RadioGroupPrimitive.Item.displayName;
 
-export { RadioGroup, RadioGroupItem }
+export { RadioGroup, RadioGroupItem };
 ```
 
 ## File: components/ui/resizable.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import { GripVertical } from "lucide-react"
-import * as ResizablePrimitive from "react-resizable-panels"
+import { GripVertical } from "lucide-react";
+import * as ResizablePrimitive from "react-resizable-panels";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const ResizablePanelGroup = ({
   className,
@@ -9671,25 +11119,25 @@ const ResizablePanelGroup = ({
   <ResizablePrimitive.PanelGroup
     className={cn(
       "flex h-full w-full data-[panel-group-direction=vertical]:flex-col",
-      className
+      className,
     )}
     {...props}
   />
-)
+);
 
-const ResizablePanel = ResizablePrimitive.Panel
+const ResizablePanel = ResizablePrimitive.Panel;
 
 const ResizableHandle = ({
   withHandle,
   className,
   ...props
 }: React.ComponentProps<typeof ResizablePrimitive.PanelResizeHandle> & {
-  withHandle?: boolean
+  withHandle?: boolean;
 }) => (
   <ResizablePrimitive.PanelResizeHandle
     className={cn(
       "relative flex w-px items-center justify-center bg-border after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-1 data-[panel-group-direction=vertical]:h-px data-[panel-group-direction=vertical]:w-full data-[panel-group-direction=vertical]:after:left-0 data-[panel-group-direction=vertical]:after:h-1 data-[panel-group-direction=vertical]:after:w-full data-[panel-group-direction=vertical]:after:-translate-y-1/2 data-[panel-group-direction=vertical]:after:translate-x-0 [&[data-panel-group-direction=vertical]>div]:rotate-90",
-      className
+      className,
     )}
     {...props}
   >
@@ -9699,20 +11147,19 @@ const ResizableHandle = ({
       </div>
     )}
   </ResizablePrimitive.PanelResizeHandle>
-)
+);
 
-export { ResizablePanelGroup, ResizablePanel, ResizableHandle }
+export { ResizablePanelGroup, ResizablePanel, ResizableHandle };
 ```
 
 ## File: components/ui/scroll-area.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area"
+import * as React from "react";
+import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const ScrollArea = React.forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.Root>,
@@ -9729,8 +11176,8 @@ const ScrollArea = React.forwardRef<
     <ScrollBar />
     <ScrollAreaPrimitive.Corner />
   </ScrollAreaPrimitive.Root>
-))
-ScrollArea.displayName = ScrollAreaPrimitive.Root.displayName
+));
+ScrollArea.displayName = ScrollAreaPrimitive.Root.displayName;
 
 const ScrollBar = React.forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>,
@@ -9745,34 +11192,33 @@ const ScrollBar = React.forwardRef<
         "h-full w-2.5 border-l border-l-transparent p-[1px]",
       orientation === "horizontal" &&
         "h-2.5 flex-col border-t border-t-transparent p-[1px]",
-      className
+      className,
     )}
     {...props}
   >
     <ScrollAreaPrimitive.ScrollAreaThumb className="relative flex-1 rounded-full bg-border" />
   </ScrollAreaPrimitive.ScrollAreaScrollbar>
-))
-ScrollBar.displayName = ScrollAreaPrimitive.ScrollAreaScrollbar.displayName
+));
+ScrollBar.displayName = ScrollAreaPrimitive.ScrollAreaScrollbar.displayName;
 
-export { ScrollArea, ScrollBar }
+export { ScrollArea, ScrollBar };
 ```
 
 ## File: components/ui/select.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as SelectPrimitive from "@radix-ui/react-select"
-import { Check, ChevronDown, ChevronUp } from "lucide-react"
+import * as React from "react";
+import * as SelectPrimitive from "@radix-ui/react-select";
+import { Check, ChevronDown, ChevronUp } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const Select = SelectPrimitive.Root
+const Select = SelectPrimitive.Root;
 
-const SelectGroup = SelectPrimitive.Group
+const SelectGroup = SelectPrimitive.Group;
 
-const SelectValue = SelectPrimitive.Value
+const SelectValue = SelectPrimitive.Value;
 
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
@@ -9782,7 +11228,7 @@ const SelectTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
-      className
+      className,
     )}
     {...props}
   >
@@ -9791,8 +11237,8 @@ const SelectTrigger = React.forwardRef<
       <ChevronDown className="h-4 w-4 opacity-50" />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
-))
-SelectTrigger.displayName = SelectPrimitive.Trigger.displayName
+));
+SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
 
 const SelectScrollUpButton = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.ScrollUpButton>,
@@ -9802,14 +11248,14 @@ const SelectScrollUpButton = React.forwardRef<
     ref={ref}
     className={cn(
       "flex cursor-default items-center justify-center py-1",
-      className
+      className,
     )}
     {...props}
   >
     <ChevronUp className="h-4 w-4" />
   </SelectPrimitive.ScrollUpButton>
-))
-SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName
+));
+SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName;
 
 const SelectScrollDownButton = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.ScrollDownButton>,
@@ -9819,15 +11265,15 @@ const SelectScrollDownButton = React.forwardRef<
     ref={ref}
     className={cn(
       "flex cursor-default items-center justify-center py-1",
-      className
+      className,
     )}
     {...props}
   >
     <ChevronDown className="h-4 w-4" />
   </SelectPrimitive.ScrollDownButton>
-))
+));
 SelectScrollDownButton.displayName =
-  SelectPrimitive.ScrollDownButton.displayName
+  SelectPrimitive.ScrollDownButton.displayName;
 
 const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
@@ -9840,7 +11286,7 @@ const SelectContent = React.forwardRef<
         "relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
         position === "popper" &&
           "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
-        className
+        className,
       )}
       position={position}
       {...props}
@@ -9850,7 +11296,7 @@ const SelectContent = React.forwardRef<
         className={cn(
           "p-1",
           position === "popper" &&
-            "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"
+            "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]",
         )}
       >
         {children}
@@ -9858,8 +11304,8 @@ const SelectContent = React.forwardRef<
       <SelectScrollDownButton />
     </SelectPrimitive.Content>
   </SelectPrimitive.Portal>
-))
-SelectContent.displayName = SelectPrimitive.Content.displayName
+));
+SelectContent.displayName = SelectPrimitive.Content.displayName;
 
 const SelectLabel = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Label>,
@@ -9870,8 +11316,8 @@ const SelectLabel = React.forwardRef<
     className={cn("py-1.5 pl-8 pr-2 text-sm font-semibold", className)}
     {...props}
   />
-))
-SelectLabel.displayName = SelectPrimitive.Label.displayName
+));
+SelectLabel.displayName = SelectPrimitive.Label.displayName;
 
 const SelectItem = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Item>,
@@ -9881,7 +11327,7 @@ const SelectItem = React.forwardRef<
     ref={ref}
     className={cn(
       "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-      className
+      className,
     )}
     {...props}
   >
@@ -9893,8 +11339,8 @@ const SelectItem = React.forwardRef<
 
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
   </SelectPrimitive.Item>
-))
-SelectItem.displayName = SelectPrimitive.Item.displayName
+));
+SelectItem.displayName = SelectPrimitive.Item.displayName;
 
 const SelectSeparator = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Separator>,
@@ -9905,8 +11351,8 @@ const SelectSeparator = React.forwardRef<
     className={cn("-mx-1 my-1 h-px bg-muted", className)}
     {...props}
   />
-))
-SelectSeparator.displayName = SelectPrimitive.Separator.displayName
+));
+SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 
 export {
   Select,
@@ -9919,18 +11365,17 @@ export {
   SelectSeparator,
   SelectScrollUpButton,
   SelectScrollDownButton,
-}
+};
 ```
 
 ## File: components/ui/separator.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as SeparatorPrimitive from "@radix-ui/react-separator"
+import * as React from "react";
+import * as SeparatorPrimitive from "@radix-ui/react-separator";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Separator = React.forwardRef<
   React.ElementRef<typeof SeparatorPrimitive.Root>,
@@ -9938,7 +11383,7 @@ const Separator = React.forwardRef<
 >(
   (
     { className, orientation = "horizontal", decorative = true, ...props },
-    ref
+    ref,
   ) => (
     <SeparatorPrimitive.Root
       ref={ref}
@@ -9947,36 +11392,35 @@ const Separator = React.forwardRef<
       className={cn(
         "shrink-0 bg-border",
         orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]",
-        className
+        className,
       )}
       {...props}
     />
-  )
-)
-Separator.displayName = SeparatorPrimitive.Root.displayName
+  ),
+);
+Separator.displayName = SeparatorPrimitive.Root.displayName;
 
-export { Separator }
+export { Separator };
 ```
 
 ## File: components/ui/sheet.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as SheetPrimitive from "@radix-ui/react-dialog"
-import { cva, type VariantProps } from "class-variance-authority"
-import { X } from "lucide-react"
+import * as React from "react";
+import * as SheetPrimitive from "@radix-ui/react-dialog";
+import { cva, type VariantProps } from "class-variance-authority";
+import { X } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const Sheet = SheetPrimitive.Root
+const Sheet = SheetPrimitive.Root;
 
-const SheetTrigger = SheetPrimitive.Trigger
+const SheetTrigger = SheetPrimitive.Trigger;
 
-const SheetClose = SheetPrimitive.Close
+const SheetClose = SheetPrimitive.Close;
 
-const SheetPortal = SheetPrimitive.Portal
+const SheetPortal = SheetPrimitive.Portal;
 
 const SheetOverlay = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Overlay>,
@@ -9985,13 +11429,13 @@ const SheetOverlay = React.forwardRef<
   <SheetPrimitive.Overlay
     className={cn(
       "fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-      className
+      className,
     )}
     {...props}
     ref={ref}
   />
-))
-SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
+));
+SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const sheetVariants = cva(
   "fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
@@ -10009,8 +11453,8 @@ const sheetVariants = cva(
     defaultVariants: {
       side: "right",
     },
-  }
-)
+  },
+);
 
 interface SheetContentProps
   extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
@@ -10034,8 +11478,8 @@ const SheetContent = React.forwardRef<
       </SheetPrimitive.Close>
     </SheetPrimitive.Content>
   </SheetPortal>
-))
-SheetContent.displayName = SheetPrimitive.Content.displayName
+));
+SheetContent.displayName = SheetPrimitive.Content.displayName;
 
 const SheetHeader = ({
   className,
@@ -10044,12 +11488,12 @@ const SheetHeader = ({
   <div
     className={cn(
       "flex flex-col space-y-2 text-center sm:text-left",
-      className
+      className,
     )}
     {...props}
   />
-)
-SheetHeader.displayName = "SheetHeader"
+);
+SheetHeader.displayName = "SheetHeader";
 
 const SheetFooter = ({
   className,
@@ -10058,12 +11502,12 @@ const SheetFooter = ({
   <div
     className={cn(
       "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
-      className
+      className,
     )}
     {...props}
   />
-)
-SheetFooter.displayName = "SheetFooter"
+);
+SheetFooter.displayName = "SheetFooter";
 
 const SheetTitle = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Title>,
@@ -10074,8 +11518,8 @@ const SheetTitle = React.forwardRef<
     className={cn("text-lg font-semibold text-foreground", className)}
     {...props}
   />
-))
-SheetTitle.displayName = SheetPrimitive.Title.displayName
+));
+SheetTitle.displayName = SheetPrimitive.Title.displayName;
 
 const SheetDescription = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Description>,
@@ -10086,8 +11530,8 @@ const SheetDescription = React.forwardRef<
     className={cn("text-sm text-muted-foreground", className)}
     {...props}
   />
-))
-SheetDescription.displayName = SheetPrimitive.Description.displayName
+));
+SheetDescription.displayName = SheetPrimitive.Description.displayName;
 
 export {
   Sheet,
@@ -10100,67 +11544,66 @@ export {
   SheetFooter,
   SheetTitle,
   SheetDescription,
-}
+};
 ```
 
 ## File: components/ui/sidebar.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { VariantProps, cva } from "class-variance-authority"
-import { PanelLeft } from "lucide-react"
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { VariantProps, cva } from "class-variance-authority";
+import { PanelLeft } from "lucide-react";
 
-import { useIsMobile } from "@/hooks/use-mobile"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Separator } from "@/components/ui/separator"
-import { Sheet, SheetContent } from "@/components/ui/sheet"
-import { Skeleton } from "@/components/ui/skeleton"
+import { useIsMobile } from "@/hooks/use-mobile";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "@/components/ui/tooltip";
 
-const SIDEBAR_COOKIE_NAME = "sidebar:state"
-const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
-const SIDEBAR_WIDTH = "16rem"
-const SIDEBAR_WIDTH_MOBILE = "18rem"
-const SIDEBAR_WIDTH_ICON = "3rem"
-const SIDEBAR_KEYBOARD_SHORTCUT = "b"
+const SIDEBAR_COOKIE_NAME = "sidebar:state";
+const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
+const SIDEBAR_WIDTH = "16rem";
+const SIDEBAR_WIDTH_MOBILE = "18rem";
+const SIDEBAR_WIDTH_ICON = "3rem";
+const SIDEBAR_KEYBOARD_SHORTCUT = "b";
 
 type SidebarContext = {
-  state: "expanded" | "collapsed"
-  open: boolean
-  setOpen: (open: boolean) => void
-  openMobile: boolean
-  setOpenMobile: (open: boolean) => void
-  isMobile: boolean
-  toggleSidebar: () => void
-}
+  state: "expanded" | "collapsed";
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  openMobile: boolean;
+  setOpenMobile: (open: boolean) => void;
+  isMobile: boolean;
+  toggleSidebar: () => void;
+};
 
-const SidebarContext = React.createContext<SidebarContext | null>(null)
+const SidebarContext = React.createContext<SidebarContext | null>(null);
 
 function useSidebar() {
-  const context = React.useContext(SidebarContext)
+  const context = React.useContext(SidebarContext);
   if (!context) {
-    throw new Error("useSidebar must be used within a SidebarProvider.")
+    throw new Error("useSidebar must be used within a SidebarProvider.");
   }
 
-  return context
+  return context;
 }
 
 const SidebarProvider = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div"> & {
-    defaultOpen?: boolean
-    open?: boolean
-    onOpenChange?: (open: boolean) => void
+    defaultOpen?: boolean;
+    open?: boolean;
+    onOpenChange?: (open: boolean) => void;
   }
 >(
   (
@@ -10173,36 +11616,36 @@ const SidebarProvider = React.forwardRef<
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
-    const isMobile = useIsMobile()
-    const [openMobile, setOpenMobile] = React.useState(false)
+    const isMobile = useIsMobile();
+    const [openMobile, setOpenMobile] = React.useState(false);
 
     // This is the internal state of the sidebar.
     // We use openProp and setOpenProp for control from outside the component.
-    const [_open, _setOpen] = React.useState(defaultOpen)
-    const open = openProp ?? _open
+    const [_open, _setOpen] = React.useState(defaultOpen);
+    const open = openProp ?? _open;
     const setOpen = React.useCallback(
       (value: boolean | ((value: boolean) => boolean)) => {
-        const openState = typeof value === "function" ? value(open) : value
+        const openState = typeof value === "function" ? value(open) : value;
         if (setOpenProp) {
-          setOpenProp(openState)
+          setOpenProp(openState);
         } else {
-          _setOpen(openState)
+          _setOpen(openState);
         }
 
         // This sets the cookie to keep the sidebar state.
-        document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
+        document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
       },
-      [setOpenProp, open]
-    )
+      [setOpenProp, open],
+    );
 
     // Helper to toggle the sidebar.
     const toggleSidebar = React.useCallback(() => {
       return isMobile
         ? setOpenMobile((open) => !open)
-        : setOpen((open) => !open)
-    }, [isMobile, setOpen, setOpenMobile])
+        : setOpen((open) => !open);
+    }, [isMobile, setOpen, setOpenMobile]);
 
     // Adds a keyboard shortcut to toggle the sidebar.
     React.useEffect(() => {
@@ -10211,18 +11654,18 @@ const SidebarProvider = React.forwardRef<
           event.key === SIDEBAR_KEYBOARD_SHORTCUT &&
           (event.metaKey || event.ctrlKey)
         ) {
-          event.preventDefault()
-          toggleSidebar()
+          event.preventDefault();
+          toggleSidebar();
         }
-      }
+      };
 
-      window.addEventListener("keydown", handleKeyDown)
-      return () => window.removeEventListener("keydown", handleKeyDown)
-    }, [toggleSidebar])
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [toggleSidebar]);
 
     // We add a state so that we can do data-state="expanded" or "collapsed".
     // This makes it easier to style the sidebar with Tailwind classes.
-    const state = open ? "expanded" : "collapsed"
+    const state = open ? "expanded" : "collapsed";
 
     const contextValue = React.useMemo<SidebarContext>(
       () => ({
@@ -10234,8 +11677,16 @@ const SidebarProvider = React.forwardRef<
         setOpenMobile,
         toggleSidebar,
       }),
-      [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
-    )
+      [
+        state,
+        open,
+        setOpen,
+        isMobile,
+        openMobile,
+        setOpenMobile,
+        toggleSidebar,
+      ],
+    );
 
     return (
       <SidebarContext.Provider value={contextValue}>
@@ -10250,7 +11701,7 @@ const SidebarProvider = React.forwardRef<
             }
             className={cn(
               "group/sidebar-wrapper flex min-h-svh w-full has-[[data-variant=inset]]:bg-sidebar",
-              className
+              className,
             )}
             ref={ref}
             {...props}
@@ -10259,17 +11710,17 @@ const SidebarProvider = React.forwardRef<
           </div>
         </TooltipProvider>
       </SidebarContext.Provider>
-    )
-  }
-)
-SidebarProvider.displayName = "SidebarProvider"
+    );
+  },
+);
+SidebarProvider.displayName = "SidebarProvider";
 
 const Sidebar = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div"> & {
-    side?: "left" | "right"
-    variant?: "sidebar" | "floating" | "inset"
-    collapsible?: "offcanvas" | "icon" | "none"
+    side?: "left" | "right";
+    variant?: "sidebar" | "floating" | "inset";
+    collapsible?: "offcanvas" | "icon" | "none";
   }
 >(
   (
@@ -10281,23 +11732,23 @@ const Sidebar = React.forwardRef<
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
-    const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
+    const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
 
     if (collapsible === "none") {
       return (
         <div
           className={cn(
             "flex h-full w-[--sidebar-width] flex-col bg-sidebar text-sidebar-foreground",
-            className
+            className,
           )}
           ref={ref}
           {...props}
         >
           {children}
         </div>
-      )
+      );
     }
 
     if (isMobile) {
@@ -10317,7 +11768,7 @@ const Sidebar = React.forwardRef<
             <div className="flex h-full w-full flex-col">{children}</div>
           </SheetContent>
         </Sheet>
-      )
+      );
     }
 
     return (
@@ -10337,7 +11788,7 @@ const Sidebar = React.forwardRef<
             "group-data-[side=right]:rotate-180",
             variant === "floating" || variant === "inset"
               ? "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4))]"
-              : "group-data-[collapsible=icon]:w-[--sidebar-width-icon]"
+              : "group-data-[collapsible=icon]:w-[--sidebar-width-icon]",
           )}
         />
         <div
@@ -10350,7 +11801,7 @@ const Sidebar = React.forwardRef<
             variant === "floating" || variant === "inset"
               ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4)_+2px)]"
               : "group-data-[collapsible=icon]:w-[--sidebar-width-icon] group-data-[side=left]:border-r group-data-[side=right]:border-l",
-            className
+            className,
           )}
           {...props}
         >
@@ -10362,16 +11813,16 @@ const Sidebar = React.forwardRef<
           </div>
         </div>
       </div>
-    )
-  }
-)
-Sidebar.displayName = "Sidebar"
+    );
+  },
+);
+Sidebar.displayName = "Sidebar";
 
 const SidebarTrigger = React.forwardRef<
   React.ElementRef<typeof Button>,
   React.ComponentProps<typeof Button>
 >(({ className, onClick, ...props }, ref) => {
-  const { toggleSidebar } = useSidebar()
+  const { toggleSidebar } = useSidebar();
 
   return (
     <Button
@@ -10381,23 +11832,23 @@ const SidebarTrigger = React.forwardRef<
       size="icon"
       className={cn("h-7 w-7", className)}
       onClick={(event) => {
-        onClick?.(event)
-        toggleSidebar()
+        onClick?.(event);
+        toggleSidebar();
       }}
       {...props}
     >
       <PanelLeft />
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
-  )
-})
-SidebarTrigger.displayName = "SidebarTrigger"
+  );
+});
+SidebarTrigger.displayName = "SidebarTrigger";
 
 const SidebarRail = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<"button">
 >(({ className, ...props }, ref) => {
-  const { toggleSidebar } = useSidebar()
+  const { toggleSidebar } = useSidebar();
 
   return (
     <button
@@ -10414,13 +11865,13 @@ const SidebarRail = React.forwardRef<
         "group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full group-data-[collapsible=offcanvas]:hover:bg-sidebar",
         "[[data-side=left][data-collapsible=offcanvas]_&]:-right-2",
         "[[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
-        className
+        className,
       )}
       {...props}
     />
-  )
-})
-SidebarRail.displayName = "SidebarRail"
+  );
+});
+SidebarRail.displayName = "SidebarRail";
 
 const SidebarInset = React.forwardRef<
   HTMLDivElement,
@@ -10432,13 +11883,13 @@ const SidebarInset = React.forwardRef<
       className={cn(
         "relative flex min-h-svh flex-1 flex-col bg-background",
         "peer-data-[variant=inset]:min-h-[calc(100svh-theme(spacing.4))] md:peer-data-[variant=inset]:m-2 md:peer-data-[state=collapsed]:peer-data-[variant=inset]:ml-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow",
-        className
+        className,
       )}
       {...props}
     />
-  )
-})
-SidebarInset.displayName = "SidebarInset"
+  );
+});
+SidebarInset.displayName = "SidebarInset";
 
 const SidebarInput = React.forwardRef<
   React.ElementRef<typeof Input>,
@@ -10450,13 +11901,13 @@ const SidebarInput = React.forwardRef<
       data-sidebar="input"
       className={cn(
         "h-8 w-full bg-background shadow-none focus-visible:ring-2 focus-visible:ring-sidebar-ring",
-        className
+        className,
       )}
       {...props}
     />
-  )
-})
-SidebarInput.displayName = "SidebarInput"
+  );
+});
+SidebarInput.displayName = "SidebarInput";
 
 const SidebarHeader = React.forwardRef<
   HTMLDivElement,
@@ -10469,9 +11920,9 @@ const SidebarHeader = React.forwardRef<
       className={cn("flex flex-col gap-2 p-2", className)}
       {...props}
     />
-  )
-})
-SidebarHeader.displayName = "SidebarHeader"
+  );
+});
+SidebarHeader.displayName = "SidebarHeader";
 
 const SidebarFooter = React.forwardRef<
   HTMLDivElement,
@@ -10484,9 +11935,9 @@ const SidebarFooter = React.forwardRef<
       className={cn("flex flex-col gap-2 p-2", className)}
       {...props}
     />
-  )
-})
-SidebarFooter.displayName = "SidebarFooter"
+  );
+});
+SidebarFooter.displayName = "SidebarFooter";
 
 const SidebarSeparator = React.forwardRef<
   React.ElementRef<typeof Separator>,
@@ -10499,9 +11950,9 @@ const SidebarSeparator = React.forwardRef<
       className={cn("mx-2 w-auto bg-sidebar-border", className)}
       {...props}
     />
-  )
-})
-SidebarSeparator.displayName = "SidebarSeparator"
+  );
+});
+SidebarSeparator.displayName = "SidebarSeparator";
 
 const SidebarContent = React.forwardRef<
   HTMLDivElement,
@@ -10513,13 +11964,13 @@ const SidebarContent = React.forwardRef<
       data-sidebar="content"
       className={cn(
         "flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden",
-        className
+        className,
       )}
       {...props}
     />
-  )
-})
-SidebarContent.displayName = "SidebarContent"
+  );
+});
+SidebarContent.displayName = "SidebarContent";
 
 const SidebarGroup = React.forwardRef<
   HTMLDivElement,
@@ -10532,15 +11983,15 @@ const SidebarGroup = React.forwardRef<
       className={cn("relative flex w-full min-w-0 flex-col p-2", className)}
       {...props}
     />
-  )
-})
-SidebarGroup.displayName = "SidebarGroup"
+  );
+});
+SidebarGroup.displayName = "SidebarGroup";
 
 const SidebarGroupLabel = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div"> & { asChild?: boolean }
 >(({ className, asChild = false, ...props }, ref) => {
-  const Comp = asChild ? Slot : "div"
+  const Comp = asChild ? Slot : "div";
 
   return (
     <Comp
@@ -10549,19 +12000,19 @@ const SidebarGroupLabel = React.forwardRef<
       className={cn(
         "duration-200 flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium text-sidebar-foreground/70 outline-none ring-sidebar-ring transition-[margin,opa] ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
         "group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0",
-        className
+        className,
       )}
       {...props}
     />
-  )
-})
-SidebarGroupLabel.displayName = "SidebarGroupLabel"
+  );
+});
+SidebarGroupLabel.displayName = "SidebarGroupLabel";
 
 const SidebarGroupAction = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<"button"> & { asChild?: boolean }
 >(({ className, asChild = false, ...props }, ref) => {
-  const Comp = asChild ? Slot : "button"
+  const Comp = asChild ? Slot : "button";
 
   return (
     <Comp
@@ -10572,13 +12023,13 @@ const SidebarGroupAction = React.forwardRef<
         // Increases the hit area of the button on mobile.
         "after:absolute after:-inset-2 after:md:hidden",
         "group-data-[collapsible=icon]:hidden",
-        className
+        className,
       )}
       {...props}
     />
-  )
-})
-SidebarGroupAction.displayName = "SidebarGroupAction"
+  );
+});
+SidebarGroupAction.displayName = "SidebarGroupAction";
 
 const SidebarGroupContent = React.forwardRef<
   HTMLDivElement,
@@ -10590,8 +12041,8 @@ const SidebarGroupContent = React.forwardRef<
     className={cn("w-full text-sm", className)}
     {...props}
   />
-))
-SidebarGroupContent.displayName = "SidebarGroupContent"
+));
+SidebarGroupContent.displayName = "SidebarGroupContent";
 
 const SidebarMenu = React.forwardRef<
   HTMLUListElement,
@@ -10603,8 +12054,8 @@ const SidebarMenu = React.forwardRef<
     className={cn("flex w-full min-w-0 flex-col gap-1", className)}
     {...props}
   />
-))
-SidebarMenu.displayName = "SidebarMenu"
+));
+SidebarMenu.displayName = "SidebarMenu";
 
 const SidebarMenuItem = React.forwardRef<
   HTMLLIElement,
@@ -10616,8 +12067,8 @@ const SidebarMenuItem = React.forwardRef<
     className={cn("group/menu-item relative", className)}
     {...props}
   />
-))
-SidebarMenuItem.displayName = "SidebarMenuItem"
+));
+SidebarMenuItem.displayName = "SidebarMenuItem";
 
 const sidebarMenuButtonVariants = cva(
   "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-none ring-sidebar-ring transition-[width,height,padding] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
@@ -10638,15 +12089,15 @@ const sidebarMenuButtonVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
-)
+  },
+);
 
 const SidebarMenuButton = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<"button"> & {
-    asChild?: boolean
-    isActive?: boolean
-    tooltip?: string | React.ComponentProps<typeof TooltipContent>
+    asChild?: boolean;
+    isActive?: boolean;
+    tooltip?: string | React.ComponentProps<typeof TooltipContent>;
   } & VariantProps<typeof sidebarMenuButtonVariants>
 >(
   (
@@ -10659,10 +12110,10 @@ const SidebarMenuButton = React.forwardRef<
       className,
       ...props
     },
-    ref
+    ref,
   ) => {
-    const Comp = asChild ? Slot : "button"
-    const { isMobile, state } = useSidebar()
+    const Comp = asChild ? Slot : "button";
+    const { isMobile, state } = useSidebar();
 
     const button = (
       <Comp
@@ -10673,16 +12124,16 @@ const SidebarMenuButton = React.forwardRef<
         className={cn(sidebarMenuButtonVariants({ variant, size }), className)}
         {...props}
       />
-    )
+    );
 
     if (!tooltip) {
-      return button
+      return button;
     }
 
     if (typeof tooltip === "string") {
       tooltip = {
         children: tooltip,
-      }
+      };
     }
 
     return (
@@ -10695,19 +12146,19 @@ const SidebarMenuButton = React.forwardRef<
           {...tooltip}
         />
       </Tooltip>
-    )
-  }
-)
-SidebarMenuButton.displayName = "SidebarMenuButton"
+    );
+  },
+);
+SidebarMenuButton.displayName = "SidebarMenuButton";
 
 const SidebarMenuAction = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<"button"> & {
-    asChild?: boolean
-    showOnHover?: boolean
+    asChild?: boolean;
+    showOnHover?: boolean;
   }
 >(({ className, asChild = false, showOnHover = false, ...props }, ref) => {
-  const Comp = asChild ? Slot : "button"
+  const Comp = asChild ? Slot : "button";
 
   return (
     <Comp
@@ -10723,13 +12174,13 @@ const SidebarMenuAction = React.forwardRef<
         "group-data-[collapsible=icon]:hidden",
         showOnHover &&
           "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 peer-data-[active=true]/menu-button:text-sidebar-accent-foreground md:opacity-0",
-        className
+        className,
       )}
       {...props}
     />
-  )
-})
-SidebarMenuAction.displayName = "SidebarMenuAction"
+  );
+});
+SidebarMenuAction.displayName = "SidebarMenuAction";
 
 const SidebarMenuBadge = React.forwardRef<
   HTMLDivElement,
@@ -10745,23 +12196,23 @@ const SidebarMenuBadge = React.forwardRef<
       "peer-data-[size=default]/menu-button:top-1.5",
       "peer-data-[size=lg]/menu-button:top-2.5",
       "group-data-[collapsible=icon]:hidden",
-      className
+      className,
     )}
     {...props}
   />
-))
-SidebarMenuBadge.displayName = "SidebarMenuBadge"
+));
+SidebarMenuBadge.displayName = "SidebarMenuBadge";
 
 const SidebarMenuSkeleton = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div"> & {
-    showIcon?: boolean
+    showIcon?: boolean;
   }
 >(({ className, showIcon = false, ...props }, ref) => {
   // Random width between 50 to 90%.
   const width = React.useMemo(() => {
-    return `${Math.floor(Math.random() * 40) + 50}%`
-  }, [])
+    return `${Math.floor(Math.random() * 40) + 50}%`;
+  }, []);
 
   return (
     <div
@@ -10786,9 +12237,9 @@ const SidebarMenuSkeleton = React.forwardRef<
         }
       />
     </div>
-  )
-})
-SidebarMenuSkeleton.displayName = "SidebarMenuSkeleton"
+  );
+});
+SidebarMenuSkeleton.displayName = "SidebarMenuSkeleton";
 
 const SidebarMenuSub = React.forwardRef<
   HTMLUListElement,
@@ -10800,28 +12251,28 @@ const SidebarMenuSub = React.forwardRef<
     className={cn(
       "mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l border-sidebar-border px-2.5 py-0.5",
       "group-data-[collapsible=icon]:hidden",
-      className
+      className,
     )}
     {...props}
   />
-))
-SidebarMenuSub.displayName = "SidebarMenuSub"
+));
+SidebarMenuSub.displayName = "SidebarMenuSub";
 
 const SidebarMenuSubItem = React.forwardRef<
   HTMLLIElement,
   React.ComponentProps<"li">
->(({ ...props }, ref) => <li ref={ref} {...props} />)
-SidebarMenuSubItem.displayName = "SidebarMenuSubItem"
+>(({ ...props }, ref) => <li ref={ref} {...props} />);
+SidebarMenuSubItem.displayName = "SidebarMenuSubItem";
 
 const SidebarMenuSubButton = React.forwardRef<
   HTMLAnchorElement,
   React.ComponentProps<"a"> & {
-    asChild?: boolean
-    size?: "sm" | "md"
-    isActive?: boolean
+    asChild?: boolean;
+    size?: "sm" | "md";
+    isActive?: boolean;
   }
 >(({ asChild = false, size = "md", isActive, className, ...props }, ref) => {
-  const Comp = asChild ? Slot : "a"
+  const Comp = asChild ? Slot : "a";
 
   return (
     <Comp
@@ -10835,13 +12286,13 @@ const SidebarMenuSubButton = React.forwardRef<
         size === "sm" && "text-xs",
         size === "md" && "text-sm",
         "group-data-[collapsible=icon]:hidden",
-        className
+        className,
       )}
       {...props}
     />
-  )
-})
-SidebarMenuSubButton.displayName = "SidebarMenuSubButton"
+  );
+});
+SidebarMenuSubButton.displayName = "SidebarMenuSubButton";
 
 export {
   Sidebar,
@@ -10868,13 +12319,12 @@ export {
   SidebarSeparator,
   SidebarTrigger,
   useSidebar,
-}
+};
 ```
 
 ## File: components/ui/skeleton.tsx
-
 ```typescript
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 function Skeleton({
   className,
@@ -10885,21 +12335,20 @@ function Skeleton({
       className={cn("animate-pulse rounded-md bg-muted", className)}
       {...props}
     />
-  )
+  );
 }
 
-export { Skeleton }
+export { Skeleton };
 ```
 
 ## File: components/ui/slider.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as SliderPrimitive from "@radix-ui/react-slider"
+import * as React from "react";
+import * as SliderPrimitive from "@radix-ui/react-slider";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
@@ -10909,7 +12358,7 @@ const Slider = React.forwardRef<
     ref={ref}
     className={cn(
       "relative flex w-full touch-none select-none items-center",
-      className
+      className,
     )}
     {...props}
   >
@@ -10918,24 +12367,23 @@ const Slider = React.forwardRef<
     </SliderPrimitive.Track>
     <SliderPrimitive.Thumb className="block h-5 w-5 rounded-full border-2 border-teal-500 bg-white ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50" />
   </SliderPrimitive.Root>
-))
-Slider.displayName = SliderPrimitive.Root.displayName
+));
+Slider.displayName = SliderPrimitive.Root.displayName;
 
-export { Slider }
+export { Slider };
 ```
 
 ## File: components/ui/sonner.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import { useTheme } from "next-themes"
-import { Toaster as Sonner } from "sonner"
+import { useTheme } from "next-themes";
+import { Toaster as Sonner } from "sonner";
 
-type ToasterProps = React.ComponentProps<typeof Sonner>
+type ToasterProps = React.ComponentProps<typeof Sonner>;
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = "system" } = useTheme()
+  const { theme = "system" } = useTheme();
 
   return (
     <Sonner
@@ -10954,21 +12402,20 @@ const Toaster = ({ ...props }: ToasterProps) => {
       }}
       {...props}
     />
-  )
-}
+  );
+};
 
-export { Toaster }
+export { Toaster };
 ```
 
 ## File: components/ui/switch.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as SwitchPrimitives from "@radix-ui/react-switch"
+import * as React from "react";
+import * as SwitchPrimitives from "@radix-ui/react-switch";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitives.Root>,
@@ -10977,29 +12424,28 @@ const Switch = React.forwardRef<
   <SwitchPrimitives.Root
     className={cn(
       "peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input",
-      className
+      className,
     )}
     {...props}
     ref={ref}
   >
     <SwitchPrimitives.Thumb
       className={cn(
-        "pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0"
+        "pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0",
       )}
     />
   </SwitchPrimitives.Root>
-))
-Switch.displayName = SwitchPrimitives.Root.displayName
+));
+Switch.displayName = SwitchPrimitives.Root.displayName;
 
-export { Switch }
+export { Switch };
 ```
 
 ## File: components/ui/table.tsx
-
 ```typescript
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Table = React.forwardRef<
   HTMLTableElement,
@@ -11012,16 +12458,16 @@ const Table = React.forwardRef<
       {...props}
     />
   </div>
-))
-Table.displayName = "Table"
+));
+Table.displayName = "Table";
 
 const TableHeader = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => (
   <thead ref={ref} className={cn("[&_tr]:border-b", className)} {...props} />
-))
-TableHeader.displayName = "TableHeader"
+));
+TableHeader.displayName = "TableHeader";
 
 const TableBody = React.forwardRef<
   HTMLTableSectionElement,
@@ -11032,8 +12478,8 @@ const TableBody = React.forwardRef<
     className={cn("[&_tr:last-child]:border-0", className)}
     {...props}
   />
-))
-TableBody.displayName = "TableBody"
+));
+TableBody.displayName = "TableBody";
 
 const TableFooter = React.forwardRef<
   HTMLTableSectionElement,
@@ -11043,12 +12489,12 @@ const TableFooter = React.forwardRef<
     ref={ref}
     className={cn(
       "border-t bg-muted/50 font-medium [&>tr]:last:border-b-0",
-      className
+      className,
     )}
     {...props}
   />
-))
-TableFooter.displayName = "TableFooter"
+));
+TableFooter.displayName = "TableFooter";
 
 const TableRow = React.forwardRef<
   HTMLTableRowElement,
@@ -11058,12 +12504,12 @@ const TableRow = React.forwardRef<
     ref={ref}
     className={cn(
       "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted",
-      className
+      className,
     )}
     {...props}
   />
-))
-TableRow.displayName = "TableRow"
+));
+TableRow.displayName = "TableRow";
 
 const TableHead = React.forwardRef<
   HTMLTableCellElement,
@@ -11073,12 +12519,12 @@ const TableHead = React.forwardRef<
     ref={ref}
     className={cn(
       "h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0",
-      className
+      className,
     )}
     {...props}
   />
-))
-TableHead.displayName = "TableHead"
+));
+TableHead.displayName = "TableHead";
 
 const TableCell = React.forwardRef<
   HTMLTableCellElement,
@@ -11089,8 +12535,8 @@ const TableCell = React.forwardRef<
     className={cn("p-4 align-middle [&:has([role=checkbox])]:pr-0", className)}
     {...props}
   />
-))
-TableCell.displayName = "TableCell"
+));
+TableCell.displayName = "TableCell";
 
 const TableCaption = React.forwardRef<
   HTMLTableCaptionElement,
@@ -11101,8 +12547,8 @@ const TableCaption = React.forwardRef<
     className={cn("mt-4 text-sm text-muted-foreground", className)}
     {...props}
   />
-))
-TableCaption.displayName = "TableCaption"
+));
+TableCaption.displayName = "TableCaption";
 
 export {
   Table,
@@ -11113,20 +12559,19 @@ export {
   TableRow,
   TableCell,
   TableCaption,
-}
+};
 ```
 
 ## File: components/ui/tabs.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as TabsPrimitive from "@radix-ui/react-tabs"
+import * as React from "react";
+import * as TabsPrimitive from "@radix-ui/react-tabs";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const Tabs = TabsPrimitive.Root
+const Tabs = TabsPrimitive.Root;
 
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
@@ -11136,12 +12581,12 @@ const TabsList = React.forwardRef<
     ref={ref}
     className={cn(
       "inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground",
-      className
+      className,
     )}
     {...props}
   />
-))
-TabsList.displayName = TabsPrimitive.List.displayName
+));
+TabsList.displayName = TabsPrimitive.List.displayName;
 
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
@@ -11151,12 +12596,12 @@ const TabsTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm",
-      className
+      className,
     )}
     {...props}
   />
-))
-TabsTrigger.displayName = TabsPrimitive.Trigger.displayName
+));
+TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 
 const TabsContent = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Content>,
@@ -11166,22 +12611,21 @@ const TabsContent = React.forwardRef<
     ref={ref}
     className={cn(
       "mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-      className
+      className,
     )}
     {...props}
   />
-))
-TabsContent.displayName = TabsPrimitive.Content.displayName
+));
+TabsContent.displayName = TabsPrimitive.Content.displayName;
 
-export { Tabs, TabsList, TabsTrigger, TabsContent }
+export { Tabs, TabsList, TabsTrigger, TabsContent };
 ```
 
 ## File: components/ui/textarea.tsx
-
 ```typescript
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Textarea = React.forwardRef<
   HTMLTextAreaElement,
@@ -11191,31 +12635,30 @@ const Textarea = React.forwardRef<
     <textarea
       className={cn(
         "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-        className
+        className,
       )}
       ref={ref}
       {...props}
     />
-  )
-})
-Textarea.displayName = "Textarea"
+  );
+});
+Textarea.displayName = "Textarea";
 
-export { Textarea }
+export { Textarea };
 ```
 
 ## File: components/ui/toast.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as ToastPrimitives from "@radix-ui/react-toast"
-import { cva, type VariantProps } from "class-variance-authority"
-import { X } from "lucide-react"
+import * as React from "react";
+import * as ToastPrimitives from "@radix-ui/react-toast";
+import { cva, type VariantProps } from "class-variance-authority";
+import { X } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const ToastProvider = ToastPrimitives.Provider
+const ToastProvider = ToastPrimitives.Provider;
 
 const ToastViewport = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Viewport>,
@@ -11225,12 +12668,12 @@ const ToastViewport = React.forwardRef<
     ref={ref}
     className={cn(
       "fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]",
-      className
+      className,
     )}
     {...props}
   />
-))
-ToastViewport.displayName = ToastPrimitives.Viewport.displayName
+));
+ToastViewport.displayName = ToastPrimitives.Viewport.displayName;
 
 const toastVariants = cva(
   "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border p-6 pr-8 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full",
@@ -11245,8 +12688,8 @@ const toastVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  }
-)
+  },
+);
 
 const Toast = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Root>,
@@ -11259,9 +12702,9 @@ const Toast = React.forwardRef<
       className={cn(toastVariants({ variant }), className)}
       {...props}
     />
-  )
-})
-Toast.displayName = ToastPrimitives.Root.displayName
+  );
+});
+Toast.displayName = ToastPrimitives.Root.displayName;
 
 const ToastAction = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Action>,
@@ -11271,12 +12714,12 @@ const ToastAction = React.forwardRef<
     ref={ref}
     className={cn(
       "inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium ring-offset-background transition-colors hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-muted/40 group-[.destructive]:hover:border-destructive/30 group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground group-[.destructive]:focus:ring-destructive",
-      className
+      className,
     )}
     {...props}
   />
-))
-ToastAction.displayName = ToastPrimitives.Action.displayName
+));
+ToastAction.displayName = ToastPrimitives.Action.displayName;
 
 const ToastClose = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Close>,
@@ -11286,15 +12729,15 @@ const ToastClose = React.forwardRef<
     ref={ref}
     className={cn(
       "absolute right-2 top-2 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600",
-      className
+      className,
     )}
     toast-close=""
     {...props}
   >
     <X className="h-4 w-4" />
   </ToastPrimitives.Close>
-))
-ToastClose.displayName = ToastPrimitives.Close.displayName
+));
+ToastClose.displayName = ToastPrimitives.Close.displayName;
 
 const ToastTitle = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Title>,
@@ -11305,8 +12748,8 @@ const ToastTitle = React.forwardRef<
     className={cn("text-sm font-semibold", className)}
     {...props}
   />
-))
-ToastTitle.displayName = ToastPrimitives.Title.displayName
+));
+ToastTitle.displayName = ToastPrimitives.Title.displayName;
 
 const ToastDescription = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Description>,
@@ -11317,12 +12760,12 @@ const ToastDescription = React.forwardRef<
     className={cn("text-sm opacity-90", className)}
     {...props}
   />
-))
-ToastDescription.displayName = ToastPrimitives.Description.displayName
+));
+ToastDescription.displayName = ToastPrimitives.Description.displayName;
 
-type ToastProps = React.ComponentPropsWithoutRef<typeof Toast>
+type ToastProps = React.ComponentPropsWithoutRef<typeof Toast>;
 
-type ToastActionElement = React.ReactElement<typeof ToastAction>
+type ToastActionElement = React.ReactElement<typeof ToastAction>;
 
 export {
   type ToastProps,
@@ -11334,15 +12777,14 @@ export {
   ToastDescription,
   ToastClose,
   ToastAction,
-}
+};
 ```
 
 ## File: components/ui/toaster.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast";
 import {
   Toast,
   ToastClose,
@@ -11350,10 +12792,10 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from "@/components/ui/toast"
+} from "@/components/ui/toast";
 
 export function Toaster() {
-  const { toasts } = useToast()
+  const { toasts } = useToast();
 
   return (
     <ToastProvider>
@@ -11369,32 +12811,31 @@ export function Toaster() {
             {action}
             <ToastClose />
           </Toast>
-        )
+        );
       })}
       <ToastViewport />
     </ToastProvider>
-  )
+  );
 }
 ```
 
 ## File: components/ui/toggle-group.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group"
-import { type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group";
+import { type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils"
-import { toggleVariants } from "@/components/ui/toggle"
+import { cn } from "@/lib/utils";
+import { toggleVariants } from "@/components/ui/toggle";
 
 const ToggleGroupContext = React.createContext<
   VariantProps<typeof toggleVariants>
 >({
   size: "default",
   variant: "default",
-})
+});
 
 const ToggleGroup = React.forwardRef<
   React.ElementRef<typeof ToggleGroupPrimitive.Root>,
@@ -11410,16 +12851,16 @@ const ToggleGroup = React.forwardRef<
       {children}
     </ToggleGroupContext.Provider>
   </ToggleGroupPrimitive.Root>
-))
+));
 
-ToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName
+ToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName;
 
 const ToggleGroupItem = React.forwardRef<
   React.ElementRef<typeof ToggleGroupPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item> &
     VariantProps<typeof toggleVariants>
 >(({ className, children, variant, size, ...props }, ref) => {
-  const context = React.useContext(ToggleGroupContext)
+  const context = React.useContext(ToggleGroupContext);
 
   return (
     <ToggleGroupPrimitive.Item
@@ -11429,30 +12870,29 @@ const ToggleGroupItem = React.forwardRef<
           variant: context.variant || variant,
           size: context.size || size,
         }),
-        className
+        className,
       )}
       {...props}
     >
       {children}
     </ToggleGroupPrimitive.Item>
-  )
-})
+  );
+});
 
-ToggleGroupItem.displayName = ToggleGroupPrimitive.Item.displayName
+ToggleGroupItem.displayName = ToggleGroupPrimitive.Item.displayName;
 
-export { ToggleGroup, ToggleGroupItem }
+export { ToggleGroup, ToggleGroupItem };
 ```
 
 ## File: components/ui/toggle.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as TogglePrimitive from "@radix-ui/react-toggle"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import * as TogglePrimitive from "@radix-ui/react-toggle";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const toggleVariants = cva(
   "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 gap-2",
@@ -11473,8 +12913,8 @@ const toggleVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
-)
+  },
+);
 
 const Toggle = React.forwardRef<
   React.ElementRef<typeof TogglePrimitive.Root>,
@@ -11486,28 +12926,27 @@ const Toggle = React.forwardRef<
     className={cn(toggleVariants({ variant, size, className }))}
     {...props}
   />
-))
+));
 
-Toggle.displayName = TogglePrimitive.Root.displayName
+Toggle.displayName = TogglePrimitive.Root.displayName;
 
-export { Toggle, toggleVariants }
+export { Toggle, toggleVariants };
 ```
 
 ## File: components/ui/tooltip.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import * as React from "react"
-import * as TooltipPrimitive from "@radix-ui/react-tooltip"
+import * as React from "react";
+import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const TooltipProvider = TooltipPrimitive.Provider
+const TooltipProvider = TooltipPrimitive.Provider;
 
-const Tooltip = TooltipPrimitive.Root
+const Tooltip = TooltipPrimitive.Root;
 
-const TooltipTrigger = TooltipPrimitive.Trigger
+const TooltipTrigger = TooltipPrimitive.Trigger;
 
 const TooltipContent = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Content>,
@@ -11518,18 +12957,17 @@ const TooltipContent = React.forwardRef<
     sideOffset={sideOffset}
     className={cn(
       "z-50 overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-      className
+      className,
     )}
     {...props}
   />
-))
-TooltipContent.displayName = TooltipPrimitive.Content.displayName
+));
+TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
 ```
 
 ## File: components/ui/use-mobile.tsx
-
 ```typescript
 import * as React from "react";
 
@@ -11555,7 +12993,6 @@ export function useIsMobile() {
 ```
 
 ## File: components/ui/use-toast.ts
-
 ```typescript
 "use client";
 
@@ -11751,25 +13188,30 @@ export { useToast, toast };
 ```
 
 ## File: components/ui/user-avatar.tsx
-
 ```typescript
-import React from "react"
-import { User } from "lucide-react"
+import React from "react";
+import { User } from "lucide-react";
 
 interface UserAvatarProps {
-  src?: string
-  alt?: string
-  username?: string
-  size?: "sm" | "md" | "lg"
-  className?: string
+  src?: string;
+  alt?: string;
+  username?: string;
+  size?: "sm" | "md" | "lg";
+  className?: string;
 }
 
-export function UserAvatar({ src, alt, username, size = "md", className = "" }: UserAvatarProps) {
+export function UserAvatar({
+  src,
+  alt,
+  username,
+  size = "md",
+  className = "",
+}: UserAvatarProps) {
   const sizeClasses = {
     sm: "w-6 h-6 text-xs",
     md: "w-8 h-8 text-sm",
     lg: "w-12 h-12 text-base",
-  }
+  };
 
   const getInitials = (name: string) => {
     return name
@@ -11777,8 +13219,8 @@ export function UserAvatar({ src, alt, username, size = "md", className = "" }: 
       .map((word) => word[0])
       .join("")
       .toUpperCase()
-      .slice(0, 2)
-  }
+      .slice(0, 2);
+  };
 
   if (src) {
     return (
@@ -11787,7 +13229,7 @@ export function UserAvatar({ src, alt, username, size = "md", className = "" }: 
         alt={alt || "Profile"}
         className={`rounded-full object-cover border-2 border-teal-200 ${sizeClasses[size]} ${className}`}
       />
-    )
+    );
   }
 
   return (
@@ -11796,12 +13238,11 @@ export function UserAvatar({ src, alt, username, size = "md", className = "" }: 
     >
       {username ? getInitials(username) : <User className="w-1/2 h-1/2" />}
     </div>
-  )
+  );
 }
 ```
 
 ## File: components/wallet/buy-view.tsx
-
 ```typescript
 "use client";
 
@@ -11954,47 +13395,61 @@ export default function BuyView({ onBack }: BuyViewProps) {
 ```
 
 ## File: components/wallet/donate-form.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Info } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Slider } from "@/components/ui/slider"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { donateToCreator } from "@/lib/blockchain"
-import { BanknoteIcon } from "@/components/icons/banknote-icon"
+import { useState } from "react";
+import { Info } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Slider } from "@/components/ui/slider";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { donateToCreator } from "@/lib/blockchain";
+import { BanknoteIcon } from "@/components/icons/banknote-icon";
 
 interface DonateFormProps {
-  creatorId: string
-  creatorName: string
+  creatorId: string;
+  creatorName: string;
 }
 
-export default function DonateForm({ creatorId, creatorName }: DonateFormProps) {
-  const [amount, setAmount] = useState(5)
-  const [message, setMessage] = useState("")
-  const [isAnonymous, setIsAnonymous] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+export default function DonateForm({
+  creatorId,
+  creatorName,
+}: DonateFormProps) {
+  const [amount, setAmount] = useState(5);
+  const [message, setMessage] = useState("");
+  const [isAnonymous, setIsAnonymous] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handlePurchase = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       // In a real app, this would call the actual blockchain function
-      await donateToCreator(creatorId, amount, message, isAnonymous)
-      alert(`Successfully purchased ${amount} $DROPS from ${creatorName}!`)
-      setAmount(5)
-      setMessage("")
+      await donateToCreator(creatorId, amount, message, isAnonymous);
+      alert(`Successfully purchased ${amount} $DROPS from ${creatorName}!`);
+      setAmount(5);
+      setMessage("");
     } catch (error) {
-      console.error("Purchase failed:", error)
-      alert("Purchase failed. Please try again.")
+      console.error("Purchase failed:", error);
+      alert("Purchase failed. Please try again.");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <Card>
@@ -12003,7 +13458,9 @@ export default function DonateForm({ creatorId, creatorName }: DonateFormProps) 
           <BanknoteIcon className="mr-2 h-5 w-5 text-primary" />
           Buy $DROPS
         </CardTitle>
-        <CardDescription>Support {creatorName} with music tokens</CardDescription>
+        <CardDescription>
+          Support {creatorName} with music tokens
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
@@ -12056,7 +13513,8 @@ export default function DonateForm({ creatorId, creatorName }: DonateFormProps) 
               </TooltipTrigger>
               <TooltipContent>
                 <p className="max-w-xs text-xs">
-                  Your purchase will be recorded on the blockchain, but your identity won't be shown publicly.
+                  Your purchase will be recorded on the blockchain, but your
+                  identity won't be shown publicly.
                 </p>
               </TooltipContent>
             </Tooltip>
@@ -12064,17 +13522,20 @@ export default function DonateForm({ creatorId, creatorName }: DonateFormProps) 
         </div>
       </CardContent>
       <CardFooter>
-        <Button className="w-full" onClick={handlePurchase} disabled={isLoading}>
+        <Button
+          className="w-full"
+          onClick={handlePurchase}
+          disabled={isLoading}
+        >
           {isLoading ? "Processing..." : `Buy ${amount} $DROPS`}
         </Button>
       </CardFooter>
     </Card>
-  )
+  );
 }
 ```
 
 ## File: components/wallet/donate-screen.tsx
-
 ```typescript
 "use client";
 
@@ -12305,7 +13766,6 @@ export default function DonateScreen({ creator, onBack }: DonateScreenProps) {
 ```
 
 ## File: components/wallet/receive-view.tsx
-
 ```typescript
 "use client";
 
@@ -12483,76 +13943,81 @@ export default function ReceiveView({ onBack }: ReceiveViewProps) {
 ```
 
 ## File: components/wallet/ticket-minter.tsx
-
 ```typescript
-'use client'
+"use client";
 
 /**
  * Componente ejemplo para mintear tickets usando Solana
  * Este componente muestra cómo conectar tu frontend con el programa Solana
  */
 
-import { useState } from 'react'
-import { useWallet } from '@solana/wallet-adapter-react'
-import { useConnection } from '@solana/wallet-adapter-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { useToast } from '@/hooks/use-toast'
+import { useState } from "react";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useConnection } from "@solana/wallet-adapter-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { useToast } from "@/hooks/use-toast";
 
 export function TicketMinter() {
-  const { publicKey, connected } = useWallet()
-  const { connection } = useConnection()
-  const { toast } = useToast()
+  const { publicKey, connected } = useWallet();
+  const { connection } = useConnection();
+  const { toast } = useToast();
 
   const [ticketData, setTicketData] = useState({
-    buyerName: '',
-    exhibitionName: '',
+    buyerName: "",
+    exhibitionName: "",
     ticketNumber: 1,
-  })
-  const [minting, setMinting] = useState(false)
+  });
+  const [minting, setMinting] = useState(false);
 
   const handleMintTicket = async () => {
     if (!connected || !publicKey) {
       toast({
         title: "Wallet not connected",
         description: "Please connect your Solana wallet first",
-        variant: "destructive"
-      })
-      return
+        variant: "destructive",
+      });
+      return;
     }
 
-    setMinting(true)
+    setMinting(true);
 
     try {
       // Aquí llamarías a tu función del programa Solana
       // const tx = await mintTicket(program, publicKey, ticketData)
 
       // Por ahora, simulamos la transacción
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       toast({
         title: "Ticket Minted! 🎫",
         description: `Ticket #${ticketData.ticketNumber} for ${ticketData.buyerName}`,
-      })
+      });
 
       // Resetear form
       setTicketData({
-        buyerName: '',
-        exhibitionName: '',
+        buyerName: "",
+        exhibitionName: "",
         ticketNumber: ticketData.ticketNumber + 1,
-      })
+      });
     } catch (error) {
-      console.error("Error minting ticket:", error)
+      console.error("Error minting ticket:", error);
       toast({
         title: "Error",
         description: "Failed to mint ticket. Please try again.",
-        variant: "destructive"
-      })
+        variant: "destructive",
+      });
     } finally {
-      setMinting(false)
+      setMinting(false);
     }
-  }
+  };
 
   return (
     <Card className="w-full max-w-md mx-auto">
@@ -12576,7 +14041,9 @@ export function TicketMinter() {
               <Input
                 placeholder="Adam"
                 value={ticketData.buyerName}
-                onChange={(e) => setTicketData({...ticketData, buyerName: e.target.value})}
+                onChange={(e) =>
+                  setTicketData({ ...ticketData, buyerName: e.target.value })
+                }
               />
             </div>
 
@@ -12585,7 +14052,12 @@ export function TicketMinter() {
               <Input
                 placeholder="My Exhibition 2025"
                 value={ticketData.exhibitionName}
-                onChange={(e) => setTicketData({...ticketData, exhibitionName: e.target.value})}
+                onChange={(e) =>
+                  setTicketData({
+                    ...ticketData,
+                    exhibitionName: e.target.value,
+                  })
+                }
               />
             </div>
 
@@ -12594,16 +14066,23 @@ export function TicketMinter() {
               <Input
                 type="number"
                 value={ticketData.ticketNumber}
-                onChange={(e) => setTicketData({...ticketData, ticketNumber: parseInt(e.target.value)})}
+                onChange={(e) =>
+                  setTicketData({
+                    ...ticketData,
+                    ticketNumber: parseInt(e.target.value),
+                  })
+                }
               />
             </div>
 
             <Button
               onClick={handleMintTicket}
-              disabled={minting || !ticketData.buyerName || !ticketData.exhibitionName}
+              disabled={
+                minting || !ticketData.buyerName || !ticketData.exhibitionName
+              }
               className="w-full"
             >
-              {minting ? 'Minting...' : 'Mint Ticket NFT'}
+              {minting ? "Minting..." : "Mint Ticket NFT"}
             </Button>
 
             {publicKey && (
@@ -12620,12 +14099,11 @@ export function TicketMinter() {
         )}
       </CardContent>
     </Card>
-  )
+  );
 }
 ```
 
 ## File: components/wallet/wallet-view.tsx
-
 ```typescript
 "use client";
 
@@ -12862,7 +14340,6 @@ export default function WalletView({
 ```
 
 ## File: components/artist-dashboard.tsx
-
 ```typescript
 "use client";
 
@@ -13283,170 +14760,7 @@ const supporters = [
 ];
 ```
 
-## File: components/header.tsx
-
-```typescript
-import { UserData } from "@/lib/types";
-import { SolanaWalletButton } from "./authentication/solana-wallet-button";
-import { Button } from "./ui/button";
-import { UserPlus } from "lucide-react";
-
-export function Header({
-  userData,
-  isArtist,
-  activeTab,
-  handleOpenArtistDashboard,
-  user,
-  logout,
-}: {
-  userData: UserData | null;
-  isArtist: () => boolean;
-  activeTab: string;
-  handleOpenArtistDashboard: () => void;
-  user: string;
-  logout: () => void;
-}) {
-  return (
-    <header className="bg-gray-900 px-4 py-4 border-b border-gray-800 flex items-center justify-between">
-      <div className="flex items-center gap-3">
-        <img
-          src="/images/dropsland-logo.png"
-          alt="DROPSLAND"
-          className="h-12 max-w-[180px] object-contain"
-        />
-        <SolanaWalletButton />
-      </div>
-      <div className="flex items-center gap-2">
-        {userData && isArtist() && activeTab === "profile" && (
-          <Button
-            variant="outline"
-            size="sm"
-            className="bg-gray-800 text-white border-gray-700"
-            onClick={handleOpenArtistDashboard}
-          >
-            Artist Dashboard
-          </Button>
-        )}
-        {!userData && user && (
-          <button onClick={logout} className="flex items-center text-gray-300">
-            <UserPlus className="h-4 w-4 mr-1" />
-            <span className="text-sm">Logout</span>
-          </button>
-        )}
-      </div>
-    </header>
-  );
-}
-```
-
-## File: components/main-app.tsx
-
-```typescript
-"use client";
-import HomeView from "@/components/home/home-view";
-import SearchView from "@/components/search-view";
-import ActivityView from "@/components/home/activity-view";
-import ProfileView from "@/components/profile/profile-view";
-import WalletView from "@/components/wallet/wallet-view";
-import ArtistDashboard from "@/components/artist-dashboard";
-import BuyView from "@/components/wallet/buy-view";
-import SendView from "@/components/send-view";
-import ReceiveView from "@/components/wallet/receive-view";
-import ArtistProfile from "@/components/profile/artist-profile";
-import { useAuth } from "@/hooks/use-auth";
-import { Header } from "./header";
-import { TabBar } from "./tab-bar";
-import { useNavigation, useViewRenderer } from "@/hooks/use-navigation";
-import type { useNavigation as useNavigationType } from "@/hooks/use-navigation";
-
-export default function MainApp() {
-  const { user, userData, login, logout, isArtist } = useAuth();
-  const navigation = useNavigation();
-  const { viewType } = useViewRenderer(
-    navigation.currentView,
-    navigation.activeTab,
-    navigation.selectedArtistId,
-    user,
-  );
-
-  return (
-    <>
-      <Header
-        userData={userData}
-        isArtist={isArtist}
-        activeTab={navigation.activeTab}
-        handleOpenArtistDashboard={navigation.navigateToArtistDashboard}
-        user={user || "iamjuampi"}
-        logout={logout}
-      />
-      <main className="flex-1 overflow-auto bg-gray-950 pb-24">
-        <ViewRenderer
-          viewType={viewType}
-          navigation={navigation}
-          user={user || "iamjuampi"}
-        />
-      </main>
-      <TabBar
-        activeTab={navigation.activeTab}
-        onTabChange={navigation.handleTabChange}
-      />
-    </>
-  );
-}
-
-export function ViewRenderer({
-  viewType,
-  navigation,
-  user,
-}: {
-  viewType: string | null;
-  navigation: ReturnType<typeof useNavigationType>;
-  user: string;
-}) {
-  const handleArtistClick = (artistId: string) => {
-    navigation.handleViewArtist(artistId, user);
-  };
-
-  switch (viewType) {
-    case "buy":
-      return <BuyView onBack={navigation.navigateBack} />;
-    case "send":
-      return <SendView onBack={navigation.navigateBack} />;
-    case "receive":
-      return <ReceiveView onBack={navigation.navigateBack} />;
-    case "artistDashboard":
-      return <ArtistDashboard onBack={navigation.navigateBack} />;
-    case "artist":
-      return (
-        <ArtistProfile
-          artistId={navigation.selectedArtistId!}
-          onBack={navigation.navigateBack}
-        />
-      );
-    case "home":
-      return <HomeView onSelectArtist={handleArtistClick} />;
-    case "search":
-      return <SearchView onSelectArtist={handleArtistClick} />;
-    case "wallet":
-      return (
-        <WalletView
-          onBuy={navigation.navigateToBuy}
-          onSend={navigation.navigateToSend}
-          onReceive={navigation.navigateToReceive}
-        />
-      );
-    case "activity":
-      return <ActivityView onSelectArtist={handleArtistClick} />;
-    case "profile":
-      return <ProfileView username={user} />;
-    default:
-      return null;
-  }
-}
-```
-
 ## File: components/notification-badge.tsx
-
 ```typescript
 "use client";
 import { useState, useEffect } from "react";
@@ -13487,7 +14801,6 @@ export default function NotificationBadge({ onClick }: NotificationBadgeProps) {
 ```
 
 ## File: components/search-view.tsx
-
 ```typescript
 "use client";
 
@@ -13640,7 +14953,6 @@ export default function SearchView({ onSelectArtist }: SearchViewProps) {
 ```
 
 ## File: components/send-view.tsx
-
 ```typescript
 "use client";
 
@@ -13890,21 +15202,32 @@ export default function SendView({ onBack }: SendViewProps) {
 ```
 
 ## File: components/stats-card.tsx
-
 ```typescript
-import type { ReactNode } from "react"
-import { ArrowDown, ArrowUp } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import type { ReactNode } from "react";
+import { ArrowDown, ArrowUp } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 interface StatsCardProps {
-  icon: ReactNode
-  title: string
-  value: string
-  trend: string
-  trendUp: boolean
+  icon: ReactNode;
+  title: string;
+  value: string;
+  trend: string;
+  trendUp: boolean;
 }
 
-export default function StatsCard({ icon, title, value, trend, trendUp }: StatsCardProps) {
+export default function StatsCard({
+  icon,
+  title,
+  value,
+  trend,
+  trendUp,
+}: StatsCardProps) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -13929,315 +15252,272 @@ export default function StatsCard({ icon, title, value, trend, trendUp }: StatsC
         </CardDescription>
       </CardContent>
     </Card>
-  )
-}
-```
-
-## File: components/tab-bar.tsx
-
-```typescript
-import { Heart, Home, Search, User, Wallet } from "lucide-react";
-
-export function TabBar({
-  activeTab,
-  onTabChange,
-}: {
-  activeTab: string;
-  onTabChange: (tab: string) => void;
-}) {
-  return (
-    <div className="fixed bottom-0 left-0 right-0 flex justify-center">
-      <div className="max-w-md w-full bg-gray-900 border-t border-gray-800">
-        <div className="flex justify-between items-center px-6 pt-2 pb-8">
-          <button
-            onClick={() => onTabChange("home")}
-            className={`flex flex-col items-center ${activeTab === "home" ? "text-bright-yellow" : "text-gray-400"}`}
-          >
-            <Home className="h-6 w-6" />
-            <span className="text-xs mt-1">Home</span>
-          </button>
-          <button
-            onClick={() => onTabChange("search")}
-            className={`flex flex-col items-center ${activeTab === "search" ? "text-bright-yellow" : "text-gray-400"}`}
-          >
-            <Search className="h-6 w-6" />
-            <span className="text-xs mt-1">Explore</span>
-          </button>
-          <button
-            onClick={() => onTabChange("wallet")}
-            className={`flex flex-col items-center ${activeTab === "wallet" ? "text-bright-yellow" : "text-gray-400"}`}
-          >
-            <Wallet className="h-6 w-6" />
-            <span className="text-xs mt-1">Wallet</span>
-          </button>
-          <button
-            onClick={() => onTabChange("activity")}
-            className={`flex flex-col items-center ${activeTab === "activity" ? "text-bright-yellow" : "text-gray-400"}`}
-          >
-            <Heart className="h-6 w-6" />
-            <span className="text-xs mt-1">Activity</span>
-          </button>
-          <button
-            onClick={() => onTabChange("profile")}
-            className={`flex flex-col items-center ${activeTab === "profile" ? "text-bright-yellow" : "text-gray-400"}`}
-          >
-            <User className="h-6 w-6" />
-            <span className="text-xs mt-1">Profile</span>
-          </button>
-        </div>
-      </div>
-    </div>
   );
 }
 ```
 
 ## File: components/theme-provider.tsx
-
 ```typescript
-"use client"
-import { ThemeProvider as NextThemesProvider, type ThemeProviderProps } from "next-themes"
+"use client";
+import {
+  ThemeProvider as NextThemesProvider,
+  type ThemeProviderProps,
+} from "next-themes";
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
-  return <NextThemesProvider {...props}>{children}</NextThemesProvider>
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
 }
 ```
 
 ## File: contexts/music-player-context.tsx
-
 ```typescript
-"use client"
+"use client";
 
-import React, { useState, useRef, useEffect, useCallback, useContext, createContext, ReactNode } from 'react'
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useContext,
+  createContext,
+  ReactNode,
+} from "react";
 
 export interface Track {
-  id: string
-  title: string
-  artist: string
-  album: string
-  duration: number
-  cover: string
-  audioUrl?: string
-  isLiked?: boolean
+  id: string;
+  title: string;
+  artist: string;
+  album: string;
+  duration: number;
+  cover: string;
+  audioUrl?: string;
+  isLiked?: boolean;
 }
 
 interface MusicPlayerContextProps {
-  currentTrack: Track | null
-  isPlaying: boolean
-  currentTime: number
-  duration: number
-  volume: number
-  isMuted: boolean
-  showMiniPlayer: boolean
-  isExpanded: boolean
-  currentTrackIndex: number
-  playTrack: (track: Track) => void
-  togglePlay: () => void
-  seek: (time: number) => void
-  setVolumeLevel: (volume: number) => void
-  toggleMute: () => void
-  hideMiniPlayer: () => void
-  expandPlayer: () => void
-  collapsePlayer: () => void
-  nextTrack: () => void
-  previousTrack: () => void
-  formatTime: (time: number) => string
-  audioRef: React.RefObject<HTMLAudioElement | null>
+  currentTrack: Track | null;
+  isPlaying: boolean;
+  currentTime: number;
+  duration: number;
+  volume: number;
+  isMuted: boolean;
+  showMiniPlayer: boolean;
+  isExpanded: boolean;
+  currentTrackIndex: number;
+  playTrack: (track: Track) => void;
+  togglePlay: () => void;
+  seek: (time: number) => void;
+  setVolumeLevel: (volume: number) => void;
+  toggleMute: () => void;
+  hideMiniPlayer: () => void;
+  expandPlayer: () => void;
+  collapsePlayer: () => void;
+  nextTrack: () => void;
+  previousTrack: () => void;
+  formatTime: (time: number) => string;
+  audioRef: React.RefObject<HTMLAudioElement | null>;
 }
 
-const MusicPlayerContext = createContext<MusicPlayerContextProps | undefined>(undefined)
+const MusicPlayerContext = createContext<MusicPlayerContextProps | undefined>(
+  undefined,
+);
 
 export function MusicPlayerProvider({ children }: { children: ReactNode }) {
-  const [currentTrack, setCurrentTrack] = useState<Track | null>(null)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [currentTime, setCurrentTime] = useState(0)
-  const [duration, setDuration] = useState(0)
-  const [volume, setVolume] = useState(80)
-  const [isMuted, setIsMuted] = useState(false)
-  const [showMiniPlayer, setShowMiniPlayer] = useState(false)
-  const [isExpanded, setIsExpanded] = useState(false)
-  const [currentTrackIndex, setCurrentTrackIndex] = useState(0)
-  const [playlist, setPlaylist] = useState<Track[]>([])
+  const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(80);
+  const [isMuted, setIsMuted] = useState(false);
+  const [showMiniPlayer, setShowMiniPlayer] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [playlist, setPlaylist] = useState<Track[]>([]);
 
-  const audioRef = useRef<HTMLAudioElement>(null)
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   // Format time from seconds to MM:SS
   const formatTime = useCallback((time: number) => {
-    const minutes = Math.floor(time / 60)
-    const seconds = Math.floor(time % 60)
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`
-  }, [])
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  }, []);
 
   // Play a track
-  const playTrack = useCallback((track: Track) => {
-    try {
-      const isNewTrack = currentTrack?.id !== track.id
-      setCurrentTrack(track)
-      setIsPlaying(true)
-      setShowMiniPlayer(true)
+  const playTrack = useCallback(
+    (track: Track) => {
+      try {
+        const isNewTrack = currentTrack?.id !== track.id;
+        setCurrentTrack(track);
+        setIsPlaying(true);
+        setShowMiniPlayer(true);
 
-      // Update playlist and track index
-      if (isNewTrack) {
-        // Import musicTracks dynamically to avoid circular dependency
-        import('@/lib/music-data').then(({ musicTracks }) => {
-          const trackIndex = musicTracks.findIndex(t => t.id === track.id)
-          setPlaylist(musicTracks)
-          setCurrentTrackIndex(trackIndex >= 0 ? trackIndex : 0)
-        })
-        setCurrentTime(0)
-      }
-
-      if (audioRef.current && track.audioUrl) {
-        // Only set src if it's a new track or if there's no src
-        if (isNewTrack || !audioRef.current.src) {
-          audioRef.current.src = track.audioUrl
+        // Update playlist and track index
+        if (isNewTrack) {
+          // Import musicTracks dynamically to avoid circular dependency
+          import("@/lib/music-data").then(({ musicTracks }) => {
+            const trackIndex = musicTracks.findIndex((t) => t.id === track.id);
+            setPlaylist(musicTracks);
+            setCurrentTrackIndex(trackIndex >= 0 ? trackIndex : 0);
+          });
+          setCurrentTime(0);
         }
-        audioRef.current.play().catch((error) => {
-          console.error('Error playing track:', error)
-          setIsPlaying(false)
-          setShowMiniPlayer(false)
-        })
+
+        if (audioRef.current && track.audioUrl) {
+          // Only set src if it's a new track or if there's no src
+          if (isNewTrack || !audioRef.current.src) {
+            audioRef.current.src = track.audioUrl;
+          }
+          audioRef.current.play().catch((error) => {
+            console.error("Error playing track:", error);
+            setIsPlaying(false);
+            setShowMiniPlayer(false);
+          });
+        }
+      } catch (error) {
+        console.error("Error in playTrack:", error);
+        setIsPlaying(false);
+        setShowMiniPlayer(false);
       }
-    } catch (error) {
-      console.error('Error in playTrack:', error)
-      setIsPlaying(false)
-      setShowMiniPlayer(false)
-    }
-  }, [currentTrack?.id])
+    },
+    [currentTrack?.id],
+  );
 
   // Next track
   const nextTrack = useCallback(() => {
-    if (playlist.length === 0) return
+    if (playlist.length === 0) return;
 
-    const nextIndex = (currentTrackIndex + 1) % playlist.length
-    const nextTrack = playlist[nextIndex]
+    const nextIndex = (currentTrackIndex + 1) % playlist.length;
+    const nextTrack = playlist[nextIndex];
     if (nextTrack) {
-      playTrack(nextTrack)
+      playTrack(nextTrack);
     }
-  }, [playlist, currentTrackIndex, playTrack])
+  }, [playlist, currentTrackIndex, playTrack]);
 
   // Previous track
   const previousTrack = useCallback(() => {
-    if (playlist.length === 0) return
+    if (playlist.length === 0) return;
 
-    const prevIndex = currentTrackIndex === 0 ? playlist.length - 1 : currentTrackIndex - 1
-    const prevTrack = playlist[prevIndex]
+    const prevIndex =
+      currentTrackIndex === 0 ? playlist.length - 1 : currentTrackIndex - 1;
+    const prevTrack = playlist[prevIndex];
     if (prevTrack) {
-      playTrack(prevTrack)
+      playTrack(prevTrack);
     }
-  }, [playlist, currentTrackIndex, playTrack])
+  }, [playlist, currentTrackIndex, playTrack]);
 
   // Expand player
   const expandPlayer = useCallback(() => {
-    setIsExpanded(true)
-  }, [])
+    setIsExpanded(true);
+  }, []);
 
   // Collapse player
   const collapsePlayer = useCallback(() => {
-    setIsExpanded(false)
-  }, [])
+    setIsExpanded(false);
+  }, []);
 
   // Toggle play/pause
   const togglePlay = useCallback(() => {
-    if (!currentTrack) return
+    if (!currentTrack) return;
 
     try {
       if (audioRef.current) {
         if (isPlaying) {
-          audioRef.current.pause()
-          setIsPlaying(false)
+          audioRef.current.pause();
+          setIsPlaying(false);
         } else {
           audioRef.current.play().catch((error) => {
-            console.error('Error playing audio:', error)
-            setIsPlaying(false)
-          })
-          setIsPlaying(true)
+            console.error("Error playing audio:", error);
+            setIsPlaying(false);
+          });
+          setIsPlaying(true);
         }
       }
     } catch (error) {
-      console.error('Error in togglePlay:', error)
-      setIsPlaying(false)
+      console.error("Error in togglePlay:", error);
+      setIsPlaying(false);
     }
-  }, [currentTrack, isPlaying])
+  }, [currentTrack, isPlaying]);
 
   // Seek to specific time
   const seek = useCallback((time: number) => {
     try {
-      setCurrentTime(time)
+      setCurrentTime(time);
       if (audioRef.current) {
-        audioRef.current.currentTime = time
+        audioRef.current.currentTime = time;
       }
     } catch (error) {
-      console.error('Error in seek:', error)
+      console.error("Error in seek:", error);
     }
-  }, [])
+  }, []);
 
   // Set volume
   const setVolumeLevel = useCallback((newVolume: number) => {
     try {
-      setVolume(newVolume)
+      setVolume(newVolume);
       if (audioRef.current) {
-        audioRef.current.volume = newVolume / 100
+        audioRef.current.volume = newVolume / 100;
       }
     } catch (error) {
-      console.error('Error in setVolumeLevel:', error)
+      console.error("Error in setVolumeLevel:", error);
     }
-  }, [])
+  }, []);
 
   // Toggle mute
   const toggleMute = useCallback(() => {
     try {
       setIsMuted((prev) => {
         if (audioRef.current) {
-          audioRef.current.muted = !prev
+          audioRef.current.muted = !prev;
         }
-        return !prev
-      })
+        return !prev;
+      });
     } catch (error) {
-      console.error('Error in toggleMute:', error)
+      console.error("Error in toggleMute:", error);
     }
-  }, [])
+  }, []);
 
   // Hide mini player
   const hideMiniPlayer = useCallback(() => {
-    setShowMiniPlayer(false)
-  }, [])
+    setShowMiniPlayer(false);
+  }, []);
 
   // Audio event handlers
   useEffect(() => {
-    const audio = audioRef.current
-    if (!audio) return
+    const audio = audioRef.current;
+    if (!audio) return;
 
     const handleTimeUpdate = () => {
-      setCurrentTime(audio.currentTime)
-    }
+      setCurrentTime(audio.currentTime);
+    };
 
     const handleLoadedMetadata = () => {
-      setDuration(audio.duration)
-    }
+      setDuration(audio.duration);
+    };
 
     const handleEnded = () => {
-      setIsPlaying(false)
-      setCurrentTime(0)
-    }
+      setIsPlaying(false);
+      setCurrentTime(0);
+    };
 
     const handleError = (error: Event) => {
-      console.error('Audio error:', error)
-      setIsPlaying(false)
-      setShowMiniPlayer(false)
-    }
+      console.error("Audio error:", error);
+      setIsPlaying(false);
+      setShowMiniPlayer(false);
+    };
 
-    audio.addEventListener('timeupdate', handleTimeUpdate)
-    audio.addEventListener('loadedmetadata', handleLoadedMetadata)
-    audio.addEventListener('ended', handleEnded)
-    audio.addEventListener('error', handleError)
+    audio.addEventListener("timeupdate", handleTimeUpdate);
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+    audio.addEventListener("ended", handleEnded);
+    audio.addEventListener("error", handleError);
 
     return () => {
-      audio.removeEventListener('timeupdate', handleTimeUpdate)
-      audio.removeEventListener('loadedmetadata', handleLoadedMetadata)
-      audio.removeEventListener('ended', handleEnded)
-      audio.removeEventListener('error', handleError)
-    }
-  }, [])
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      audio.removeEventListener("ended", handleEnded);
+      audio.removeEventListener("error", handleError);
+    };
+  }, []);
 
   return (
     <MusicPlayerContext.Provider
@@ -14262,45 +15542,55 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
         nextTrack,
         previousTrack,
         formatTime,
-        audioRef
+        audioRef,
       }}
     >
       {children}
       {/* Hidden Audio Element - Global */}
       <audio ref={audioRef} preload="metadata" />
     </MusicPlayerContext.Provider>
-  )
+  );
 }
 
 export function useMusicPlayer() {
-  const context = useContext(MusicPlayerContext)
+  const context = useContext(MusicPlayerContext);
   if (!context) {
-    throw new Error('useMusicPlayer must be used within a MusicPlayerProvider')
+    throw new Error("useMusicPlayer must be used within a MusicPlayerProvider");
   }
-  return context
+  return context;
 }
 ```
 
 ## File: contexts/solana-wallet-context.tsx
-
 ```typescript
-'use client'
+"use client";
 
-import React, { useMemo, useEffect, useState } from 'react'
-import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react'
-import { WalletModalProvider } from '@solana/wallet-adapter-react-ui'
-import { PhantomWalletAdapter, SolflareWalletAdapter, TorusWalletAdapter } from '@solana/wallet-adapter-wallets'
-import { clusterApiUrl } from '@solana/web3.js'
+import React, { useMemo, useEffect, useState } from "react";
+import {
+  ConnectionProvider,
+  WalletProvider,
+} from "@solana/wallet-adapter-react";
+import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
+import {
+  PhantomWalletAdapter,
+  SolflareWalletAdapter,
+  TorusWalletAdapter,
+} from "@solana/wallet-adapter-wallets";
+import { clusterApiUrl } from "@solana/web3.js";
 
 // Import wallet adapter CSS
-import '@solana/wallet-adapter-react-ui/styles.css'
+import "@solana/wallet-adapter-react-ui/styles.css";
 
-export function SolanaWalletProvider({ children }: { children: React.ReactNode }) {
-  const [mounted, setMounted] = useState(false)
+export function SolanaWalletProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [mounted, setMounted] = useState(false);
 
   // You can use 'devnet', 'testnet', or 'mainnet-beta'
-  const network = 'mainnet-beta'
-  const endpoint = useMemo(() => clusterApiUrl(network), [network])
+  const network = "mainnet-beta";
+  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
   const wallets = useMemo(
     () => [
@@ -14308,31 +15598,28 @@ export function SolanaWalletProvider({ children }: { children: React.ReactNode }
       new SolflareWalletAdapter(),
       new TorusWalletAdapter(),
     ],
-    []
-  )
+    [],
+  );
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   if (!mounted) {
-    return <>{children}</>
+    return <>{children}</>;
   }
 
   return (
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets} autoConnect>
-        <WalletModalProvider>
-          {children}
-        </WalletModalProvider>
+        <WalletModalProvider>{children}</WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
-  )
+  );
 }
 ```
 
 ## File: data/artist-profile.ts
-
 ```typescript
 // Vamos a actualizar los datos de los artistas para que cada uno tenga contenido único
 // Reemplazaremos la constante artists con datos más personalizados
@@ -15329,7 +16616,6 @@ export const artists: Artist[] = [
 ```
 
 ## File: data/profile-view.ts
-
 ```typescript
 // Sample posts data
 export const userPosts = [
@@ -15431,7 +16717,6 @@ export const followedArtists = [
 ```
 
 ## File: data/search-view.ts
-
 ```typescript
 // Electronic music genre data
 export const genres = [
@@ -15547,7 +16832,6 @@ export const trendingTopics = [
 ```
 
 ## File: data/wallet-view.ts
-
 ```typescript
 // Artist tokens data
 export const artistTokens = [
@@ -15630,7 +16914,6 @@ export const transactions = [
 ```
 
 ## File: hooks/use-auth.tsx
-
 ```typescript
 "use client";
 
@@ -15971,7 +17254,6 @@ export const useAuth = () => useContext(AuthContext);
 ```
 
 ## File: hooks/use-mobile.tsx
-
 ```typescript
 import * as React from "react";
 
@@ -15997,7 +17279,6 @@ export function useIsMobile() {
 ```
 
 ## File: hooks/use-music-player.ts
-
 ```typescript
 // Re-export from the new context
 export {
@@ -16008,7 +17289,6 @@ export type { Track } from "../contexts/music-player-context";
 ```
 
 ## File: hooks/use-music-storage.ts
-
 ```typescript
 "use client";
 
@@ -16207,7 +17487,6 @@ export function useMusicStorage(): UseMusicStorageReturn {
 ```
 
 ## File: hooks/use-navigation.ts
-
 ```typescript
 import { useState, useEffect, useCallback } from "react";
 
@@ -16326,7 +17605,6 @@ export function useViewRenderer(
 ```
 
 ## File: hooks/use-toast.ts
-
 ```typescript
 "use client";
 
@@ -16521,222 +17799,7 @@ function useToast() {
 export { useToast, toast };
 ```
 
-## File: hooks/use-user-data.ts
-
-```typescript
-import { useState, useEffect, useCallback } from "react";
-import { userDataService } from "@/lib/user-data-service";
-import {
-  UserData,
-  Post,
-  Activity,
-  Notification,
-  UserStats,
-  FeedItem,
-} from "@/lib/types";
-import { useAuth } from "@/features/authentication";
-
-export function useUserData() {
-  const { user } = useAuth();
-  const [userData, setUserData] = useState<UserData | null>(null);
-  const [userStats, setUserStats] = useState<UserStats | null>(null);
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [activities, setActivities] = useState<Activity[]>([]);
-  const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [feed, setFeed] = useState<FeedItem[]>([]);
-
-  // Load user data
-  const loadUserData = useCallback(() => {
-    if (!user) return;
-
-    const data = userDataService.getUser(user);
-    const stats = userDataService.getUserStats(user);
-    const userPosts = userDataService.getPostsByUser(user);
-    const userActivities = userDataService.getActivitiesForUser(user);
-    const userNotifications = userDataService.getNotificationsForUser(user);
-    const userFeed = userDataService.getFeedForUser(user);
-
-    setUserData(data);
-    setUserStats(stats);
-    setPosts(userPosts);
-    setActivities(userActivities);
-    setNotifications(userNotifications);
-    setFeed(userFeed);
-  }, [user]);
-
-  // Refresh all data
-  const refreshData = useCallback(() => {
-    loadUserData();
-  }, [loadUserData]);
-
-  // Follow a user
-  const followUser = useCallback(
-    (targetUserId: string) => {
-      if (!user) return false;
-
-      const success = userDataService.followUser(user, targetUserId);
-      if (success) {
-        refreshData();
-      }
-      return success;
-    },
-    [user, refreshData],
-  );
-
-  // Unfollow a user
-  const unfollowUser = useCallback(
-    (targetUserId: string) => {
-      if (!user) return false;
-
-      const success = userDataService.unfollowUser(user, targetUserId);
-      if (success) {
-        refreshData();
-      }
-      return success;
-    },
-    [user, refreshData],
-  );
-
-  // Like a post
-  const likePost = useCallback(
-    (postId: string) => {
-      if (!user) return false;
-
-      const success = userDataService.likePost(user, postId);
-      if (success) {
-        refreshData();
-      }
-      return success;
-    },
-    [user, refreshData],
-  );
-
-  // Unlike a post
-  const unlikePost = useCallback(
-    (postId: string) => {
-      if (!user) return false;
-
-      const success = userDataService.unlikePost(user, postId);
-      if (success) {
-        refreshData();
-      }
-      return success;
-    },
-    [user, refreshData],
-  );
-
-  // Add a comment
-  const addComment = useCallback(
-    (postId: string, content: string) => {
-      if (!user) return null;
-
-      const comment = userDataService.addComment(user, postId, content);
-      if (comment) {
-        refreshData();
-      }
-      return comment;
-    },
-    [user, refreshData],
-  );
-
-  // Create a post
-  const createPost = useCallback(
-    (postData: Omit<Post, "id" | "createdAt" | "likes" | "comments">) => {
-      const post = userDataService.createPost(postData);
-      if (post) {
-        refreshData();
-      }
-      return post;
-    },
-    [refreshData],
-  );
-
-  // Mark notification as read
-  const markNotificationAsRead = useCallback(
-    (notificationId: string) => {
-      if (!user) return;
-
-      userDataService.markNotificationAsRead(user, notificationId);
-      refreshData();
-    },
-    [user, refreshData],
-  );
-
-  // Search users
-  const searchUsers = useCallback((query: string) => {
-    return userDataService.searchUsers(query);
-  }, []);
-
-  // Search posts
-  const searchPosts = useCallback((query: string) => {
-    return userDataService.searchPosts(query);
-  }, []);
-
-  // Get user by ID
-  const getUser = useCallback((userId: string) => {
-    return userDataService.getUser(userId);
-  }, []);
-
-  // Get user stats
-  const getUserStats = useCallback((userId: string) => {
-    return userDataService.getUserStats(userId);
-  }, []);
-
-  // Get posts by user
-  const getPostsByUser = useCallback((userId: string) => {
-    return userDataService.getPostsByUser(userId);
-  }, []);
-
-  // Get tokens by artist
-  const getTokensByArtist = useCallback((artistId: string) => {
-    return userDataService.getTokensByArtist(artistId);
-  }, []);
-
-  // Get all tokens
-  const getAllTokens = useCallback(() => {
-    return userDataService.getAllTokens();
-  }, []);
-
-  // Load data on mount and when user changes
-  useEffect(() => {
-    loadUserData();
-  }, [loadUserData]);
-
-  return {
-    // Data
-    userData,
-    userStats,
-    posts,
-    activities,
-    notifications,
-    feed,
-
-    // Actions
-    refreshData,
-    followUser,
-    unfollowUser,
-    likePost,
-    unlikePost,
-    addComment,
-    createPost,
-    markNotificationAsRead,
-
-    // Search
-    searchUsers,
-    searchPosts,
-
-    // Getters
-    getUser,
-    getUserStats,
-    getPostsByUser,
-    getTokensByArtist,
-    getAllTokens,
-  };
-}
-```
-
 ## File: lib/backend-service.ts
-
 ```typescript
 class BackendService {
   constructor() {
@@ -16892,7 +17955,6 @@ export const backendService = new BackendService();
 ```
 
 ## File: lib/blockchain.ts
-
 ```typescript
 // This file would contain the actual blockchain interactions
 // For this demo, we're using mock implementations
@@ -17056,7 +18118,6 @@ export const getCreatorInfo = async (creatorId: string) => {
 ```
 
 ## File: lib/music-data.ts
-
 ```typescript
 export interface Track {
   id: string;
@@ -17174,7 +18235,6 @@ export function searchTracks(query: string): Track[] {
 ```
 
 ## File: lib/music-service.ts
-
 ```typescript
 import { musicTracks } from "./music-data"; // Import mock data
 
@@ -17335,7 +18395,6 @@ export const musicService = new MockMusicService();
 ```
 
 ## File: lib/solana-program-client.ts
-
 ```typescript
 /**
  * Cliente para interactuar con programas de Solana desde el frontend
@@ -17484,7 +18543,6 @@ export async function getSolBalance(
 ```
 
 ## File: lib/types.ts
-
 ```typescript
 export type UserType = "fan" | "artist";
 
@@ -17607,7 +18665,6 @@ export interface FeedItem {
 ```
 
 ## File: lib/user-data-service.ts
-
 ```typescript
 import {
   UserData,
@@ -18663,7 +19720,6 @@ export const userDataService = new UserDataService();
 ```
 
 ## File: lib/utils.ts
-
 ```typescript
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -18674,7 +19730,6 @@ export function cn(...inputs: ClassValue[]) {
 ```
 
 ## File: public/images/banknote-custom.svg
-
 ```
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
@@ -18757,7 +19812,6 @@ export function cn(...inputs: ClassValue[]) {
 ```
 
 ## File: public/images/dropsland-logo.svg
-
 ```
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
@@ -18853,7 +19907,6 @@ export function cn(...inputs: ClassValue[]) {
 ```
 
 ## File: public/images/internet-identity-logo.svg
-
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -18865,7 +19918,6 @@ export function cn(...inputs: ClassValue[]) {
 ```
 
 ## File: public/images/nfid-logo.svg
-
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18876,7 +19928,6 @@ export function cn(...inputs: ClassValue[]) {
 ```
 
 ## File: public/images/verified-badge.svg
-
 ```
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
 <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
@@ -18888,19 +19939,16 @@ export function cn(...inputs: ClassValue[]) {
 ```
 
 ## File: public/placeholder-logo.svg
-
 ```
 <svg xmlns="http://www.w3.org/2000/svg" width="215" height="48" fill="none"><path fill="#000" d="M57.588 9.6h6L73.828 38h-5.2l-2.36-6.88h-11.36L52.548 38h-5.2l10.24-28.4Zm7.16 17.16-4.16-12.16-4.16 12.16h8.32Zm23.694-2.24c-.186-1.307-.706-2.32-1.56-3.04-.853-.72-1.866-1.08-3.04-1.08-1.68 0-2.986.613-3.92 1.84-.906 1.227-1.36 2.947-1.36 5.16s.454 3.933 1.36 5.16c.934 1.227 2.24 1.84 3.92 1.84 1.254 0 2.307-.373 3.16-1.12.854-.773 1.387-1.867 1.6-3.28l5.12.24c-.186 1.68-.733 3.147-1.64 4.4-.906 1.227-2.08 2.173-3.52 2.84-1.413.667-2.986 1-4.72 1-2.08 0-3.906-.453-5.48-1.36-1.546-.907-2.76-2.2-3.64-3.88-.853-1.68-1.28-3.627-1.28-5.84 0-2.24.427-4.187 1.28-5.84.88-1.68 2.094-2.973 3.64-3.88 1.574-.907 3.4-1.36 5.48-1.36 1.68 0 3.227.32 4.64.96 1.414.64 2.56 1.56 3.44 2.76.907 1.2 1.454 2.6 1.64 4.2l-5.12.28Zm11.486-7.72.12 3.4c.534-1.227 1.307-2.173 2.32-2.84 1.04-.693 2.267-1.04 3.68-1.04 1.494 0 2.76.387 3.8 1.16 1.067.747 1.827 1.813 2.28 3.2.507-1.44 1.294-2.52 2.36-3.24 1.094-.747 2.414-1.12 3.96-1.12 1.414 0 2.64.307 3.68.92s1.84 1.52 2.4 2.72c.56 1.2.84 2.667.84 4.4V38h-4.96V25.92c0-1.813-.293-3.187-.88-4.12-.56-.96-1.413-1.44-2.56-1.44-.906 0-1.68.213-2.32.64-.64.427-1.133 1.053-1.48 1.88-.32.827-.48 1.84-.48 3.04V38h-4.56V25.92c0-1.2-.133-2.213-.4-3.04-.24-.827-.626-1.453-1.16-1.88-.506-.427-1.133-.64-1.88-.64-.906 0-1.68.227-2.32.68-.64.427-1.133 1.053-1.48 1.88-.32.827-.48 1.827-.48 3V38h-4.96V16.8h4.48Zm26.723 10.6c0-2.24.427-4.187 1.28-5.84.854-1.68 2.067-2.973 3.64-3.88 1.574-.907 3.4-1.36 5.48-1.36 1.84 0 3.494.413 4.96 1.24 1.467.827 2.64 2.08 3.52 3.76.88 1.653 1.347 3.693 1.4 6.12v1.32h-15.08c.107 1.813.614 3.227 1.52 4.24.907.987 2.134 1.48 3.68 1.48.987 0 1.88-.253 2.68-.76a4.803 4.803 0 0 0 1.84-2.2l5.08.36c-.64 2.027-1.84 3.64-3.6 4.84-1.733 1.173-3.733 1.76-6 1.76-2.08 0-3.906-.453-5.48-1.36-1.573-.907-2.786-2.2-3.64-3.88-.853-1.68-1.28-3.627-1.28-5.84Zm15.16-2.04c-.213-1.733-.76-3.013-1.64-3.84-.853-.827-1.893-1.24-3.12-1.24-1.44 0-2.6.453-3.48 1.36-.88.88-1.44 2.12-1.68 3.72h9.92ZM163.139 9.6V38h-5.04V9.6h5.04Zm8.322 7.2.24 5.88-.64-.36c.32-2.053 1.094-3.56 2.32-4.52 1.254-.987 2.787-1.48 4.6-1.48 2.32 0 4.107.733 5.36 2.2 1.254 1.44 1.88 3.387 1.88 5.84V38h-4.96V25.92c0-1.253-.12-2.28-.36-3.08-.24-.8-.64-1.413-1.2-1.84-.533-.427-1.253-.64-2.16-.64-1.44 0-2.573.48-3.4 1.44-.8.933-1.2 2.307-1.2 4.12V38h-4.96V16.8h4.48Zm30.003 7.72c-.186-1.307-.706-2.32-1.56-3.04-.853-.72-1.866-1.08-3.04-1.08-1.68 0-2.986.613-3.92 1.84-.906 1.227-1.36 2.947-1.36 5.16s.454 3.933 1.36 5.16c.934 1.227 2.24 1.84 3.92 1.84 1.254 0 2.307-.373 3.16-1.12.854-.773 1.387-1.867 1.6-3.28l5.12.24c-.186 1.68-.733 3.147-1.64 4.4-.906 1.227-2.08 2.173-3.52 2.84-1.413.667-2.986 1-4.72 1-2.08 0-3.906-.453-5.48-1.36-1.546-.907-2.76-2.2-3.64-3.88-.853-1.68-1.28-3.627-1.28-5.84 0-2.24.427-4.187 1.28-5.84.88-1.68 2.094-2.973 3.64-3.88 1.574-.907 3.4-1.36 5.48-1.36 1.68 0 3.227.32 4.64.96 1.414.64 2.56 1.56 3.44 2.76.907 1.2 1.454 2.6 1.64 4.2l-5.12.28Zm11.443 8.16V38h-5.6v-5.32h5.6Z"/><path fill="#171717" fill-rule="evenodd" d="m7.839 40.783 16.03-28.054L20 6 0 40.783h7.839Zm8.214 0H40L27.99 19.894l-4.02 7.032 3.976 6.914H20.02l-3.967 6.943Z" clip-rule="evenodd"/></svg>
 ```
 
 ## File: public/placeholder.svg
-
 ```
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" fill="none"><rect width="1200" height="1200" fill="#EAEAEA" rx="3"/><g opacity=".5"><g opacity=".5"><path fill="#FAFAFA" d="M600.709 736.5c-75.454 0-136.621-61.167-136.621-136.62 0-75.454 61.167-136.621 136.621-136.621 75.453 0 136.62 61.167 136.62 136.621 0 75.453-61.167 136.62-136.62 136.62Z"/><path stroke="#C9C9C9" stroke-width="2.418" d="M600.709 736.5c-75.454 0-136.621-61.167-136.621-136.62 0-75.454 61.167-136.621 136.621-136.621 75.453 0 136.62 61.167 136.62 136.621 0 75.453-61.167 136.62-136.62 136.62Z"/></g><path stroke="url(#a)" stroke-width="2.418" d="M0-1.209h553.581" transform="scale(1 -1) rotate(45 1163.11 91.165)"/><path stroke="url(#b)" stroke-width="2.418" d="M404.846 598.671h391.726"/><path stroke="url(#c)" stroke-width="2.418" d="M599.5 795.742V404.017"/><path stroke="url(#d)" stroke-width="2.418" d="m795.717 796.597-391.441-391.44"/><path fill="#fff" d="M600.709 656.704c-31.384 0-56.825-25.441-56.825-56.824 0-31.384 25.441-56.825 56.825-56.825 31.383 0 56.824 25.441 56.824 56.825 0 31.383-25.441 56.824-56.824 56.824Z"/><g clip-path="url(#e)"><path fill="#666" fill-rule="evenodd" d="M616.426 586.58h-31.434v16.176l3.553-3.554.531-.531h9.068l.074-.074 8.463-8.463h2.565l7.18 7.181V586.58Zm-15.715 14.654 3.698 3.699 1.283 1.282-2.565 2.565-1.282-1.283-5.2-5.199h-6.066l-5.514 5.514-.073.073v2.876a2.418 2.418 0 0 0 2.418 2.418h26.598a2.418 2.418 0 0 0 2.418-2.418v-8.317l-8.463-8.463-7.181 7.181-.071.072Zm-19.347 5.442v4.085a6.045 6.045 0 0 0 6.046 6.045h26.598a6.044 6.044 0 0 0 6.045-6.045v-7.108l1.356-1.355-1.282-1.283-.074-.073v-17.989h-38.689v23.43l-.146.146.146.147Z" clip-rule="evenodd"/></g><path stroke="#C9C9C9" stroke-width="2.418" d="M600.709 656.704c-31.384 0-56.825-25.441-56.825-56.824 0-31.384 25.441-56.825 56.825-56.825 31.383 0 56.824 25.441 56.824 56.825 0 31.383-25.441 56.824-56.824 56.824Z"/></g><defs><linearGradient id="a" x1="554.061" x2="-.48" y1=".083" y2=".087" gradientUnits="userSpaceOnUse"><stop stop-color="#C9C9C9" stop-opacity="0"/><stop offset=".208" stop-color="#C9C9C9"/><stop offset=".792" stop-color="#C9C9C9"/><stop offset="1" stop-color="#C9C9C9" stop-opacity="0"/></linearGradient><linearGradient id="b" x1="796.912" x2="404.507" y1="599.963" y2="599.965" gradientUnits="userSpaceOnUse"><stop stop-color="#C9C9C9" stop-opacity="0"/><stop offset=".208" stop-color="#C9C9C9"/><stop offset=".792" stop-color="#C9C9C9"/><stop offset="1" stop-color="#C9C9C9" stop-opacity="0"/></linearGradient><linearGradient id="c" x1="600.792" x2="600.794" y1="403.677" y2="796.082" gradientUnits="userSpaceOnUse"><stop stop-color="#C9C9C9" stop-opacity="0"/><stop offset=".208" stop-color="#C9C9C9"/><stop offset=".792" stop-color="#C9C9C9"/><stop offset="1" stop-color="#C9C9C9" stop-opacity="0"/></linearGradient><linearGradient id="d" x1="404.85" x2="796.972" y1="403.903" y2="796.02" gradientUnits="userSpaceOnUse"><stop stop-color="#C9C9C9" stop-opacity="0"/><stop offset=".208" stop-color="#C9C9C9"/><stop offset=".792" stop-color="#C9C9C9"/><stop offset="1" stop-color="#C9C9C9" stop-opacity="0"/></linearGradient><clipPath id="e"><path fill="#fff" d="M581.364 580.535h38.689v38.689h-38.689z"/></clipPath></defs></svg>
 ```
 
 ## File: styles/globals.css
-
 ```css
 @tailwind base;
 @tailwind components;
@@ -18999,7 +20047,6 @@ body {
 ```
 
 ## File: types/artist.ts
-
 ```typescript
 export interface Post {
   content: string;
@@ -19051,7 +20098,6 @@ export interface Artist {
 ```
 
 ## File: types/music-player.ts
-
 ```typescript
 export interface Track {
   id: string;
@@ -19090,13 +20136,11 @@ export interface MusicPlayer {
 ```
 
 ## File: .gitignore
-
 ```
 .repomixignore
 ```
 
 ## File: package.json
-
 ```json
 {
   "name": "my-v0-project",
@@ -19109,6 +20153,7 @@ export interface MusicPlayer {
     "lint": "next lint"
   },
   "dependencies": {
+    "@coral-xyz/anchor": "^0.32.1",
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-accordion": "1.2.2",
     "@radix-ui/react-alert-dialog": "1.1.4",
@@ -19177,7 +20222,6 @@ export interface MusicPlayer {
 ```
 
 ## File: tailwind.config.ts
-
 ```typescript
 import type { Config } from "tailwindcss";
 
@@ -19270,7 +20314,6 @@ export default config;
 ```
 
 ## File: tsconfig.json
-
 ```json
 {
   "compilerOptions": {
