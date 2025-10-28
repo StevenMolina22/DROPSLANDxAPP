@@ -28,7 +28,7 @@ export default function ArtistDashboard({ onBack }: ArtistDashboardProps) {
 
   // Artist data would come from the backend in a real app
   const artistData = {
-    name: userData?.username || "iamjuampi",
+    name: userData?.username || "banger",
     supporters: 1850,
     totalReceived: 1850,
     growth: "+12%",

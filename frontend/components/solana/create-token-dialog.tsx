@@ -26,6 +26,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast"; // Example for notifications
+import { SendTransactionError } from "@solana/web3.js";
 
 // ------------------------------
 
@@ -50,46 +51,77 @@ export const CreateTokenDialog: React.FC = () => {
     e.preventDefault();
     if (!connected || !publicKey || !umi) {
       setError("Please connect your wallet first.");
+      toast({
+        title: "Error",
+        description: "Wallet not connected.",
+        variant: "destructive",
+      });
       return;
     }
 
     setIsLoading(true);
     setError(null);
 
-    try {
-      // 1. Generate a new keypair for the Mint account
-      const mint = generateSigner(umi);
+    // 1. Generate a new keypair for the Mint account
+    const mint = generateSigner(umi);
 
+    try {
       // 2. Parse form inputs
       const parsedDecimals = parseInt(decimals, 10);
-      const parsedSellerFee = parseFloat(sellerFee);
-
-      if (isNaN(parsedDecimals) || isNaN(parsedSellerFee)) {
-        throw new Error("Invalid decimals or seller fee.");
+      const parsedSellerFee = parseFloat(sellerFee); // Keep as float for percentAmount
+      if (isNaN(parsedDecimals) || parsedDecimals < 0 || parsedDecimals > 9) {
+        throw new Error("Invalid decimals value. Must be between 0 and 9.");
+      }
+      if (
+        isNaN(parsedSellerFee) ||
+        parsedSellerFee < 0 ||
+        parsedSellerFee > 100
+      ) {
+        throw new Error(
+          "Invalid royalty percentage. Must be between 0 and 100.",
+        );
       }
 
       // 3. Call the Metaplex createFungible function
-      const tx = await createFungible(umi, {
+      console.log("🚀 Attempting to create token with Umi...");
+      const builder = createFungible(umi, {
         mint,
         name: name,
         symbol: symbol,
         uri: uri,
-        sellerFeeBasisPoints: percentAmount(parsedSellerFee),
+        sellerFeeBasisPoints: percentAmount(parsedSellerFee), // Convert percentage to basis points
         decimals: some(parsedDecimals),
-      }).sendAndConfirm(umi, {
-        confirm: { commitment: "processed" },
+        // By default, umi uses the connected wallet as payer and authority
       });
 
-      if (tx.result.value.err) {
-        throw new Error(`Transaction failed: ${tx.result.value.err}`);
-      }
+      console.log("✅ Builder created. Sending transaction...");
+      const tx = await builder.sendAndConfirm(umi, {
+        confirm: { commitment: "processed" },
+        send: { skipPreflight: true }, // Often helpful for debugging simulation errors
+      });
+      console.log("🔍 Transaction response:", tx);
 
+      // Check for errors within the transaction result (Umi specific)
+      if (tx.result.value.err) {
+        console.error("Transaction failed:", tx.result.value.err);
+        // Attempt to map common errors
+        if (
+          JSON.stringify(tx.result.value.err).includes(
+            "Attempt to debit an account but found no record",
+          )
+        ) {
+          throw new Error(
+            `Simulation failed: Likely insufficient SOL in your wallet (${publicKey.toBase58()}) to cover fees/rent.`,
+          );
+        }
+        throw new Error(
+          `Transaction failed on-chain: ${JSON.stringify(tx.result.value.err)}`,
+        );
+      }
       const mintAddress = mint.publicKey.toString();
       console.log(`✅ Token created successfully! Mint: ${mintAddress}`);
 
       // 4. (Required) Save to your Dropsland backend
-      // This step is crucial. You must associate the artist's
-      // profile with their new token mint address.
       await saveTokenToBackend(mintAddress, name, symbol, uri);
 
       toast({
@@ -104,12 +136,73 @@ export const CreateTokenDialog: React.FC = () => {
       setUri("");
     } catch (err: any) {
       console.error("Token creation failed:", err);
-      setError(err.message || "An unknown error occurred.");
+
+      // --- Specific Error Handling ---
+      if (err instanceof SendTransactionError) {
+        console.warn("Caught SendTransactionError:");
+        // Extract logs if available
+        const logs = err.logs; // Direct access might work, or use getLogs() if available/needed
+        if (logs) {
+          console.error("Detailed Logs:", logs.join("\n"));
+          setError(
+            `Transaction failed: ${err.message}. Check console logs for details.`,
+          );
+        } else {
+          setError(
+            `Transaction failed: ${err.message}. No detailed logs available.`,
+          );
+        }
+        // Provide specific advice for the "debit" error
+        if (
+          err.message.includes(
+            "Attempt to debit an account but found no record",
+          )
+        ) {
+          setError(
+            `Simulation failed: Ensure your wallet (${publicKey.toBase58()}) has enough SOL for transaction fees and rent.`,
+          );
+          toast({
+            title: "Simulation Failed",
+            description:
+              "Insufficient SOL balance likely. Please add SOL to your wallet and try again.",
+            variant: "destructive",
+            duration: 7000,
+          });
+        } else {
+          toast({
+            title: "Transaction Error",
+            description: err.message,
+            variant: "destructive",
+          });
+        }
+      } else if (
+        err.message.includes("Simulation failed: Likely insufficient SOL")
+      ) {
+        // Catch the specific error thrown above for Umi tx errors
+        setError(err.message);
+        toast({
+          title: "Simulation Failed",
+          description:
+            "Insufficient SOL balance likely. Please add SOL to your wallet and try again.",
+          variant: "destructive",
+          duration: 7000,
+        });
+      } else {
+        // Generic error
+        setError(
+          err.message || "An unknown error occurred during token creation.",
+        );
+        toast({
+          title: "Error",
+          description: err.message || "An unknown error occurred.",
+          variant: "destructive",
+        });
+      }
+      // --- End Specific Error Handling ---
     } finally {
       setIsLoading(false);
     }
   };
-
   /**
    * Mock function to save token data to your application's backend.
    * Replace this with your actual API call.

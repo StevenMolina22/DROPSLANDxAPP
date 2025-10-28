@@ -32,14 +32,14 @@ export default function MainApp() {
         isArtist={isArtist}
         activeTab={navigation.activeTab}
         handleOpenArtistDashboard={navigation.navigateToArtistDashboard}
-        user={user || "iamjuampi"}
+        user={user || "banger"}
         logout={logout}
       />
       <main className="flex-1 overflow-auto bg-gray-950 pb-24">
         <ViewRenderer
           viewType={viewType}
           navigation={navigation}
-          user={user || "iamjuampi"}
+          user={user || "banger"}
         />
       </main>
       <TabBar

@@ -1,5 +1,5 @@
 import { UserData } from "@/types";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@radix-ui/react-tabs";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { PostInteractionState } from "./profile-view";
 import { CreatePostForm } from "./profile-create-post-form";
 import { PostList } from "./profile-post-list";
@@ -154,8 +154,6 @@ export const ProfileTabs: React.FC<ProfileTabsProps> = ({
   </Tabs>
 );
 
-// --- 12. Artist Rewards Tab ---
-
 const ArtistRewardsTab: React.FC = () => (
   <>
     <div className="flex justify-between items-center">
@@ -199,8 +197,6 @@ const ArtistRewardsTab: React.FC = () => (
     ))}
   </>
 );
-
-// --- 13. Certifications Tab ---
 
 const CertificationsTab: React.FC = () => (
   <>
@@ -280,8 +276,6 @@ const CertificationsTab: React.FC = () => (
   </>
 );
 
-// --- 14. Fan Rewards Tab ---
-
 const FanRewardsTab: React.FC = () => (
   <>
     <div className="mb-4">
@@ -346,8 +340,6 @@ const FanRewardsTab: React.FC = () => (
   </>
 );
 
-// --- 15. Following Tab ---
-
 const FollowingTab: React.FC = () => (
   <>
     <div className="mb-4">
@@ -396,8 +388,6 @@ const FollowingTab: React.FC = () => (
     ))}
   </>
 );
-
-// --- 16. Tracks Tab ---
 
 interface TracksTabProps {
   userTracks: Track[];
