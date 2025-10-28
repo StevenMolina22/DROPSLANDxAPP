@@ -36,6 +36,34 @@ interface HomeViewProps {
   onNavigateToExplore?: () => void;
 }
 
+// Featured artists data
+const featuredArtists = [
+  {
+    id: "iamjuampi",
+    name: "iamjuampi",
+    genre: "Techno / House",
+    avatar: "/avatars/juampi.jpg",
+  },
+  {
+    id: "banger",
+    name: "banger",
+    genre: "Techno",
+    avatar: "/avatars/banger.jpg",
+  },
+  {
+    id: "nicolamarti",
+    name: "Nicola Marti",
+    genre: "House",
+    avatar: "/avatars/nicola.jpg",
+  },
+  {
+    id: "axs",
+    name: "AXS",
+    genre: "Techno",
+    avatar: "/avatars/axs.jpg",
+  },
+];
+
 export default function HomeView({
   onSelectArtist,
   onNavigateToExplore,
@@ -452,24 +480,6 @@ export default function HomeView({
         </div>
       )}
 
-      {/* Solana Status Banner */}
-      <div className="px-4 mt-4">
-        <SolanaStatusBanner
-          onMintProfile={() => {
-            // Refresh or show success message
-            console.log("Profile NFT minted successfully");
-          }}
-          onMintMusic={() => {
-            // Navigate to music minting
-            console.log("Navigate to music minting");
-          }}
-          onViewNFTs={() => {
-            // Navigate to wallet or NFT view
-            console.log("Navigate to NFT view");
-          }}
-        />
-      </div>
-
       {/* Tabs */}
       <div className="px-4 mt-6">
         <Tabs defaultValue="feed" className="w-full">
@@ -747,31 +757,3 @@ export default function HomeView({
     </div>
   );
 }
-
-// Featured artists data
-const featuredArtists = [
-  {
-    id: "iamjuampi",
-    name: "iamjuampi",
-    genre: "Techno / House",
-    avatar: "/avatars/juampi.jpg",
-  },
-  {
-    id: "banger",
-    name: "banger",
-    genre: "Techno",
-    avatar: "/avatars/banger.jpg",
-  },
-  {
-    id: "nicolamarti",
-    name: "Nicola Marti",
-    genre: "House",
-    avatar: "/avatars/nicola.jpg",
-  },
-  {
-    id: "axs",
-    name: "AXS",
-    genre: "Techno",
-    avatar: "/avatars/axs.jpg",
-  },
-];

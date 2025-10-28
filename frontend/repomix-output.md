@@ -91,6 +91,7 @@ components/
     profile-view.tsx
     user-profile.tsx
   solana/
+    create-token-dialog.tsx
     solana-status-banner.tsx
   ui/
     accordion.tsx
@@ -144,7 +145,6 @@ components/
     use-dropsland-nfts.ts
     use-integrated-auth.tsx
     use-mobile.tsx
-    use-real-solana-balance.ts
     use-solana-cluster.ts
     use-solana-connection.ts
     use-solana-endpoints.ts
@@ -180,6 +180,7 @@ hooks/
   use-music-player.ts
   use-music-storage.ts
   use-navigation.ts
+  use-solana-umi.ts
   use-toast.ts
 lib/
   backend-service.ts
@@ -719,8 +720,8 @@ export function SolanaWalletButton() {
 
   if (!mounted) {
     return (
-      <div className="bg-background/20 backdrop-blur supports-[backdrop-filter]:bg-background/10 border border-transparent rounded-lg shadow-lg p-2">
-        <div className="!bg-primary/80 !text-primary-foreground !rounded-md !px-4 !py-2 !text-sm !font-medium h-10 flex items-center">
+      <div className="bg-background/20 backdrop-blur supports-[backdrop-filter]:bg-background/10 border border-transparent rounded-lg shadow-lg p-1">
+        <div className="!bg-primary/80 !text-primary-foreground !rounded-md !px-1 !py-0.5 !text-xs !font-medium h-6 flex items-center">
           Loading...
         </div>
       </div>
@@ -728,14 +729,8 @@ export function SolanaWalletButton() {
   }
 
   return (
-    <div className="bg-background/20 backdrop-blur supports-[backdrop-filter]:bg-background/10 border border-transparent rounded-lg shadow-lg p-2">
-      <WalletMultiButton className="!bg-primary/80 hover:!bg-primary/90 !text-primary-foreground !rounded-md !px-4 !py-2 !text-sm !font-medium !transition-colors" />
-      {connected && publicKey && (
-        <div className="mt-2 text-xs text-muted-foreground text-center">
-          Connected: {publicKey.toBase58().slice(0, 4)}...
-          {publicKey.toBase58().slice(-4)}
-        </div>
-      )}
+    <div className="bg-background/20 backdrop-blur supports-[backdrop-filter]:bg-background/10 border border-transparent rounded-lg shadow-lg p-1">
+      <WalletMultiButton className="!bg-primary/80 hover:!bg-primary/90 !text-primary-foreground !rounded-md !px-1 !py-0.5 !text-xs !font-medium !transition-colors" />
     </div>
   );
 }
@@ -2443,6 +2438,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/hooks/use-auth";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
+import { CreateTokenDialog } from "../solana/create-token-dialog";
 
 interface ArtistDashboardProps {
   onBack: () => void;
@@ -2454,7 +2450,7 @@ export default function ArtistDashboard({ onBack }: ArtistDashboardProps) {
 
   // Artist data would come from the backend in a real app
   const artistData = {
-    name: userData?.username || "iamjuampi",
+    name: userData?.username || "banger",
     supporters: 1850,
     totalReceived: 1850,
     growth: "+12%",
@@ -2529,6 +2525,9 @@ export default function ArtistDashboard({ onBack }: ArtistDashboardProps) {
             <Music className="h-4 w-4 mr-2" />
             Add Reward
           </Button>
+        </div>
+        <div className="grid grid-cols-1 mb-6">
+          <CreateTokenDialog />
         </div>
 
         {/* Tabs */}
@@ -2844,7 +2843,7 @@ export function Header({
   logout: () => void;
 }) {
   return (
-    <header className="bg-gray-900 px-4 py-4 border-b border-gray-800 flex items-center justify-between">
+    <header className="bg-gray-900 px-4 py-4 border-b border-gray-800 flex items-center justify-between flex-col">
       <div className="flex items-center gap-3">
         <img
           src="/images/dropsland-logo.png"
@@ -2861,7 +2860,7 @@ export function Header({
             className="bg-gray-800 text-white border-gray-700"
             onClick={handleOpenArtistDashboard}
           >
-            Artist Dashboard
+            Dashboard
           </Button>
         )}
         {!userData && user && (
@@ -2912,14 +2911,14 @@ export default function MainApp() {
         isArtist={isArtist}
         activeTab={navigation.activeTab}
         handleOpenArtistDashboard={navigation.navigateToArtistDashboard}
-        user={user || "iamjuampi"}
+        user={user || "banger"}
         logout={logout}
       />
       <main className="flex-1 overflow-auto bg-gray-950 pb-24">
         <ViewRenderer
           viewType={viewType}
           navigation={navigation}
-          user={user || "iamjuampi"}
+          user={user || "banger"}
         />
       </main>
       <TabBar
@@ -4896,10 +4895,10 @@ export const ProfileCommentDialog: React.FC<ProfileCommentDialogProps> = ({
 
   const getCommentAvatar = (author: string) => {
     // This logic is flawed from the original, but preserved.
-    // It assumes the author's name *is* "iamjuampi" for the specific avatar.
+    // It assumes the author's name *is* "banger" for the specific avatar.
     // A better way would be to store userId with the comment.
     if (author === userDisplayName) return userAvatar;
-    if (author === "iamjuampi") return "/avatars/juampi.jpg";
+    if (author === "banger") return "/avatars/banger.jpg";
     return "/avatars/user.jpg";
   };
 
@@ -5716,7 +5715,7 @@ export default function ProfileScreen({
 ## File: components/profile/profile-tabs.tsx
 ```typescript
 import { UserData } from "@/types";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@radix-ui/react-tabs";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { PostInteractionState } from "./profile-view";
 import { CreatePostForm } from "./profile-create-post-form";
 import { PostList } from "./profile-post-list";
@@ -5871,8 +5870,6 @@ export const ProfileTabs: React.FC<ProfileTabsProps> = ({
   </Tabs>
 );
 
-// --- 12. Artist Rewards Tab ---
-
 const ArtistRewardsTab: React.FC = () => (
   <>
     <div className="flex justify-between items-center">
@@ -5916,8 +5913,6 @@ const ArtistRewardsTab: React.FC = () => (
     ))}
   </>
 );
-
-// --- 13. Certifications Tab ---
 
 const CertificationsTab: React.FC = () => (
   <>
@@ -5997,8 +5992,6 @@ const CertificationsTab: React.FC = () => (
   </>
 );
 
-// --- 14. Fan Rewards Tab ---
-
 const FanRewardsTab: React.FC = () => (
   <>
     <div className="mb-4">
@@ -6063,8 +6056,6 @@ const FanRewardsTab: React.FC = () => (
   </>
 );
 
-// --- 15. Following Tab ---
-
 const FollowingTab: React.FC = () => (
   <>
     <div className="mb-4">
@@ -6113,8 +6104,6 @@ const FollowingTab: React.FC = () => (
     ))}
   </>
 );
-
-// --- 16. Tracks Tab ---
 
 interface TracksTabProps {
   userTracks: Track[];
@@ -6611,6 +6600,342 @@ export default function UserProfile({
     </div>
   );
 }
+```
+
+## File: components/solana/create-token-dialog.tsx
+```typescript
+import React, { useState } from "react";
+import { useWallet } from "@solana/wallet-adapter-react";
+import {
+  createFungible,
+  mplTokenMetadata,
+} from "@metaplex-foundation/mpl-token-metadata";
+import {
+  generateSigner,
+  percentAmount,
+  some,
+  PublicKey,
+} from "@metaplex-foundation/umi";
+import { useSolanaUmi } from "@/hooks/use-solana-umi"; // Adjust path as needed
+
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast"; // Example for notifications
+import { SendTransactionError } from "@solana/web3.js";
+
+// ------------------------------
+
+export const CreateTokenDialog: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Form state
+  const [name, setName] = useState("");
+  const [symbol, setSymbol] = useState("");
+  const [uri, setUri] = useState("");
+  const [decimals, setDecimals] = useState("6");
+  const [sellerFee, setSellerFee] = useState("5.5");
+
+  // Solana hooks
+  const { connected, publicKey } = useWallet();
+  const umi = useSolanaUmi();
+  const { toast } = useToast(); // Example notification
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!connected || !publicKey || !umi) {
+      setError("Please connect your wallet first.");
+      toast({
+        title: "Error",
+        description: "Wallet not connected.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    // 1. Generate a new keypair for the Mint account
+    const mint = generateSigner(umi);
+
+    try {
+      // 2. Parse form inputs
+      const parsedDecimals = parseInt(decimals, 10);
+      const parsedSellerFee = parseFloat(sellerFee); // Keep as float for percentAmount
+      if (isNaN(parsedDecimals) || parsedDecimals < 0 || parsedDecimals > 9) {
+        throw new Error("Invalid decimals value. Must be between 0 and 9.");
+      }
+      if (
+        isNaN(parsedSellerFee) ||
+        parsedSellerFee < 0 ||
+        parsedSellerFee > 100
+      ) {
+        throw new Error(
+          "Invalid royalty percentage. Must be between 0 and 100.",
+        );
+      }
+
+      // 3. Call the Metaplex createFungible function
+      console.log("🚀 Attempting to create token with Umi...");
+      const builder = createFungible(umi, {
+        mint,
+        name: name,
+        symbol: symbol,
+        uri: uri,
+        sellerFeeBasisPoints: percentAmount(parsedSellerFee), // Convert percentage to basis points
+        decimals: some(parsedDecimals),
+        // By default, umi uses the connected wallet as payer and authority
+      });
+
+      console.log("✅ Builder created. Sending transaction...");
+      const tx = await builder.sendAndConfirm(umi, {
+        confirm: { commitment: "processed" },
+        send: { skipPreflight: true }, // Often helpful for debugging simulation errors
+      });
+      console.log("🔍 Transaction response:", tx);
+
+      // Check for errors within the transaction result (Umi specific)
+      if (tx.result.value.err) {
+        console.error("Transaction failed:", tx.result.value.err);
+        // Attempt to map common errors
+        if (
+          JSON.stringify(tx.result.value.err).includes(
+            "Attempt to debit an account but found no record",
+          )
+        ) {
+          throw new Error(
+            `Simulation failed: Likely insufficient SOL in your wallet (${publicKey.toBase58()}) to cover fees/rent.`,
+          );
+        }
+        throw new Error(
+          `Transaction failed on-chain: ${JSON.stringify(tx.result.value.err)}`,
+        );
+      }
+      const mintAddress = mint.publicKey.toString();
+      console.log(`✅ Token created successfully! Mint: ${mintAddress}`);
+
+      // 4. (Required) Save to your Dropsland backend
+      await saveTokenToBackend(mintAddress, name, symbol, uri);
+
+      toast({
+        title: "Token Created! 🚀",
+        description: `${name} (${symbol}) is now live. Mint: ${mintAddress}`,
+      });
+
+      // 5. Reset form and close dialog
+      setIsOpen(false);
+      setName("");
+      setSymbol("");
+      setUri("");
+    } catch (err: any) {
+      console.error("Token creation failed:", err);
+
+      // --- Specific Error Handling ---
+      if (err instanceof SendTransactionError) {
+        console.warn("Caught SendTransactionError:");
+        // Extract logs if available
+        const logs = err.logs; // Direct access might work, or use getLogs() if available/needed
+        if (logs) {
+          console.error("Detailed Logs:", logs.join("\n"));
+          setError(
+            `Transaction failed: ${err.message}. Check console logs for details.`,
+          );
+        } else {
+          setError(
+            `Transaction failed: ${err.message}. No detailed logs available.`,
+          );
+        }
+        // Provide specific advice for the "debit" error
+        if (
+          err.message.includes(
+            "Attempt to debit an account but found no record",
+          )
+        ) {
+          setError(
+            `Simulation failed: Ensure your wallet (${publicKey.toBase58()}) has enough SOL for transaction fees and rent.`,
+          );
+          toast({
+            title: "Simulation Failed",
+            description:
+              "Insufficient SOL balance likely. Please add SOL to your wallet and try again.",
+            variant: "destructive",
+            duration: 7000,
+          });
+        } else {
+          toast({
+            title: "Transaction Error",
+            description: err.message,
+            variant: "destructive",
+          });
+        }
+      } else if (
+        err.message.includes("Simulation failed: Likely insufficient SOL")
+      ) {
+        // Catch the specific error thrown above for Umi tx errors
+        setError(err.message);
+        toast({
+          title: "Simulation Failed",
+          description:
+            "Insufficient SOL balance likely. Please add SOL to your wallet and try again.",
+          variant: "destructive",
+          duration: 7000,
+        });
+      } else {
+        // Generic error
+        setError(
+          err.message || "An unknown error occurred during token creation.",
+        );
+        toast({
+          title: "Error",
+          description: err.message || "An unknown error occurred.",
+          variant: "destructive",
+        });
+      }
+      // --- End Specific Error Handling ---
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  /**
+   * Mock function to save token data to your application's backend.
+   * Replace this with your actual API call.
+   */
+  const saveTokenToBackend = async (
+    mint: string,
+    name: string,
+    symbol: string,
+    uri: string,
+  ) => {
+    console.log("Saving to backend:", { mint, name, symbol, uri });
+    // Example:
+    // await fetch('/api/artists/me/token', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ mint, name, symbol, uri }),
+    // });
+    // This associates the artist (from their session) with the new mint.
+    return new Promise((resolve) => setTimeout(resolve, 500)); // Simulate API call
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>
+        <Button>
+          <span className="text-lg mr-2">🪙</span> Create Token
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Create Your Artist Token</DialogTitle>
+          <DialogDescription>
+            This token represents your brand. Fans will buy it to get exclusive
+            perks.
+          </DialogDescription>
+        </DialogHeader>
+        <form onSubmit={handleSubmit}>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="name" className="text-right">
+                Token Name
+              </Label>
+              <Input
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="e.g., DJ Banana"
+                className="col-span-3"
+                required
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="symbol" className="text-right">
+                Symbol
+              </Label>
+              <Input
+                id="symbol"
+                value={symbol}
+                onChange={(e) => setSymbol(e.target.value.toUpperCase())}
+                placeholder="e.g., BANANA"
+                className="col-span-3"
+                maxLength={10}
+                required
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="uri" className="text-right">
+                Metadata URI
+              </Label>
+              <Input
+                id="uri"
+                value={uri}
+                onChange={(e) => setUri(e.target.value)}
+                placeholder="https://.../my-token.json"
+                className="col-span-3"
+                type="url"
+                required
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="decimals" className="text-right">
+                Decimals
+              </Label>
+              <Input
+                id="decimals"
+                value={decimals}
+                onChange={(e) => setDecimals(e.target.value)}
+                type="number"
+                min="0"
+                max="9"
+                step="1"
+                className="col-span-3"
+                required
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="sellerFee" className="text-right">
+                Royalty (%)
+              </Label>
+              <Input
+                id="sellerFee"
+                value={sellerFee}
+                onChange={(e) => setSellerFee(e.target.value)}
+                type="number"
+                min="0"
+                max="100"
+                step="0.1"
+                className="col-span-3"
+                required
+              />
+            </div>
+          </div>
+
+          {error && (
+            <p className="text-red-500 text-sm text-center mb-4">{error}</p>
+          )}
+
+          <DialogFooter>
+            <Button type="submit" disabled={isLoading || !connected}>
+              {isLoading ? "Creating Token..." : "Create and Sign"}
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+};
 ```
 
 ## File: components/solana/solana-status-banner.tsx
@@ -12486,80 +12811,11 @@ export function useIsMobile() {
 }
 ```
 
-## File: components/ui/use-real-solana-balance.ts
-```typescript
-/**
- * Hook para obtener el balance real de SOL
- * 
- * Funcionalidades:
- * - Obtiene balance real de SOL desde la blockchain
- * - Actualiza automáticamente
- * - Maneja errores de conexión
- */
-
-import { useState, useEffect, useCallback } from 'react';
-import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { LAMPORTS_PER_SOL } from '@solana/web3.js';
-
-export function useRealSolanaBalance() {
-  const { connection } = useConnection();
-  const { publicKey, connected } = useWallet();
-  const [balance, setBalance] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchBalance = useCallback(async () => {
-    if (!connected || !publicKey) {
-      setBalance(0);
-      return;
-    }
-
-    setLoading(true);
-    setError(null);
-
-    try {
-      const balance = await connection.getBalance(publicKey);
-      setBalance(balance / LAMPORTS_PER_SOL);
-    } catch (err: any) {
-      console.error('Error fetching SOL balance:', err);
-      setError(err.message || 'Failed to fetch balance');
-    } finally {
-      setLoading(false);
-    }
-  }, [connection, publicKey, connected]);
-
-  // Fetch balance when wallet connects
-  useEffect(() => {
-    if (connected && publicKey) {
-      fetchBalance();
-    } else {
-      setBalance(0);
-      setError(null);
-    }
-  }, [connected, publicKey, fetchBalance]);
-
-  // Auto-refresh every 30 seconds
-  useEffect(() => {
-    if (!connected) return;
-
-    const interval = setInterval(fetchBalance, 30000);
-    return () => clearInterval(interval);
-  }, [connected, fetchBalance]);
-
-  return {
-    balance,
-    loading,
-    error,
-    refresh: fetchBalance
-  };
-}
-```
-
 ## File: components/ui/use-solana-cluster.ts
 ```typescript
 /**
  * Hook para manejar clusters de Solana
- * 
+ *
  * Funcionalidades:
  * - Soporte para mainnet-beta, testnet, devnet
  * - Cambio de cluster
@@ -12567,9 +12823,9 @@ export function useRealSolanaBalance() {
  * - Endpoints por cluster
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 
-export type SolanaCluster = 'mainnet-beta' | 'testnet' | 'devnet';
+export type SolanaCluster = "mainnet-beta" | "testnet" | "devnet";
 
 interface ClusterInfo {
   name: string;
@@ -12580,50 +12836,55 @@ interface ClusterInfo {
 }
 
 export function useSolanaCluster() {
-  const [currentCluster, setCurrentCluster] = useState<SolanaCluster>('mainnet-beta');
-  const [currentEndpoint, setCurrentEndpoint] = useState<string>('https://api.mainnet-beta.solana.com');
+  const [currentCluster, setCurrentCluster] = useState<SolanaCluster>("devnet");
+  const [currentEndpoint, setCurrentEndpoint] = useState<string>(
+    "https://api.devnet.solana.com",
+  );
 
   // Cluster configuration
   const clusterConfig: Record<SolanaCluster, ClusterInfo> = {
-    'mainnet-beta': {
-      name: 'mainnet-beta',
-      displayName: 'Mainnet',
-      color: 'green',
-      description: 'Production network with real SOL',
+    "mainnet-beta": {
+      name: "mainnet-beta",
+      displayName: "Mainnet",
+      color: "green",
+      description: "Production network with real SOL",
       endpoints: [
-        'https://api.mainnet-beta.solana.com',
-        'https://rpc.ankr.com/solana',
-        'https://solana-api.projectserum.com'
-      ]
+        "https://api.mainnet-beta.solana.com",
+        "https://rpc.ankr.com/solana",
+        "https://solana-api.projectserum.com",
+      ],
     },
-    'testnet': {
-      name: 'testnet',
-      displayName: 'Testnet',
-      color: 'blue',
-      description: 'Testing network with test SOL',
+    testnet: {
+      name: "testnet",
+      displayName: "Testnet",
+      color: "blue",
+      description: "Testing network with test SOL",
       endpoints: [
-        'https://api.testnet.solana.com',
-        'https://testnet.helius-rpc.com/?api-key=demo'
-      ]
+        "https://api.testnet.solana.com",
+        "https://testnet.helius-rpc.com/?api-key=demo",
+      ],
     },
-    'devnet': {
-      name: 'devnet',
-      displayName: 'Devnet',
-      color: 'purple',
-      description: 'Development network with free SOL',
+    devnet: {
+      name: "devnet",
+      displayName: "Devnet",
+      color: "purple",
+      description: "Development network with free SOL",
       endpoints: [
-        'https://api.devnet.solana.com',
-        'https://devnet.helius-rpc.com/?api-key=demo'
-      ]
-    }
+        "https://api.devnet.solana.com",
+        "https://devnet.helius-rpc.com/?api-key=demo",
+      ],
+    },
   };
 
   // Update endpoint when cluster changes
   useEffect(() => {
     const config = clusterConfig[currentCluster];
     const primaryEndpoint = config.endpoints[0];
-    
-    console.log(`🔗 Setting Solana endpoint for ${currentCluster}:`, primaryEndpoint);
+
+    console.log(
+      `🔗 Setting Solana endpoint for ${currentCluster}:`,
+      primaryEndpoint,
+    );
     setCurrentEndpoint(primaryEndpoint);
   }, [currentCluster]);
 
@@ -12644,35 +12905,38 @@ export function useSolanaCluster() {
   }, []);
 
   // Test endpoint connectivity
-  const testEndpoint = useCallback(async (endpoint: string): Promise<boolean> => {
-    try {
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          jsonrpc: '2.0',
-          id: 1,
-          method: 'getHealth'
-        })
-      });
-      
-      return response.ok;
-    } catch (error) {
-      console.warn(`❌ Endpoint ${endpoint} failed:`, error);
-      return false;
-    }
-  }, []);
+  const testEndpoint = useCallback(
+    async (endpoint: string): Promise<boolean> => {
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            jsonrpc: "2.0",
+            id: 1,
+            method: "getHealth",
+          }),
+        });
+
+        return response.ok;
+      } catch (error) {
+        console.warn(`❌ Endpoint ${endpoint} failed:`, error);
+        return false;
+      }
+    },
+    [],
+  );
 
   // Test all endpoints for current cluster
   const testCurrentClusterEndpoints = useCallback(async () => {
     const config = clusterConfig[currentCluster];
     const results = await Promise.all(
-      config.endpoints.map(endpoint => testEndpoint(endpoint))
+      config.endpoints.map((endpoint) => testEndpoint(endpoint)),
     );
-    
+
     return config.endpoints.map((endpoint, index) => ({
       endpoint,
-      working: results[index]
+      working: results[index],
     }));
   }, [currentCluster, testEndpoint]);
 
@@ -12684,7 +12948,7 @@ export function useSolanaCluster() {
     getCurrentClusterInfo,
     getAvailableClusters,
     testEndpoint,
-    testCurrentClusterEndpoints
+    testCurrentClusterEndpoints,
   };
 }
 ```
@@ -12693,7 +12957,7 @@ export function useSolanaCluster() {
 ```typescript
 /**
  * Hook para conexión real con Solana
- * 
+ *
  * Funcionalidades:
  * - Conexión real con red Solana
  * - Balance real de SOL
@@ -12701,16 +12965,19 @@ export function useSolanaCluster() {
  * - Manejo de errores
  */
 
-import { useState, useEffect, useCallback } from 'react';
-import { useWallet } from '@solana/wallet-adapter-react';
-import { LAMPORTS_PER_SOL, PublicKey, Connection } from '@solana/web3.js';
+import { useState, useEffect, useCallback } from "react";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { LAMPORTS_PER_SOL, PublicKey, Connection } from "@solana/web3.js";
 
 export function useSolanaConnection() {
   const { publicKey, connected, connecting } = useWallet();
-  
-  // Use testnet endpoint directly
-  const connection = new Connection('https://api.testnet.solana.com', 'confirmed');
-  
+
+  // Use devnet endpoint directly
+  const connection = new Connection(
+    "https://api.devnet.solana.com",
+    "confirmed",
+  );
+
   const [balance, setBalance] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -12728,28 +12995,27 @@ export function useSolanaConnection() {
     setError(null);
 
     try {
-      console.log('🔍 Fetching balance for:', publicKey.toBase58());
-      
+      console.log("🔍 Fetching balance for:", publicKey.toBase58());
+
       // Obtener balance real desde la blockchain
       const balance = await connection.getBalance(publicKey);
       const solBalance = balance / LAMPORTS_PER_SOL;
-      
-      console.log('💰 Balance fetched:', solBalance, 'SOL');
+
+      console.log("💰 Balance fetched:", solBalance, "SOL");
       setBalance(solBalance);
-      
+
       // Obtener información de la red
       const slot = await connection.getSlot();
       const blockHeight = await connection.getBlockHeight();
-      
+
       setNetworkInfo({
         slot,
         blockHeight,
-        rpcEndpoint: connection.rpcEndpoint
+        rpcEndpoint: connection.rpcEndpoint,
       });
-      
     } catch (err: any) {
-      console.error('❌ Error fetching balance:', err);
-      setError(err.message || 'Failed to fetch balance');
+      console.error("❌ Error fetching balance:", err);
+      setError(err.message || "Failed to fetch balance");
     } finally {
       setLoading(false);
     }
@@ -12763,51 +13029,32 @@ export function useSolanaConnection() {
       const accountInfo = await connection.getAccountInfo(publicKey);
       return accountInfo;
     } catch (err) {
-      console.error('Error fetching account info:', err);
+      console.error("Error fetching account info:", err);
       return null;
     }
   }, [connection, publicKey, connected]);
-
-  // Actualizar balance cuando se conecta el wallet
-  useEffect(() => {
-    if (connected && publicKey) {
-      fetchBalance();
-    } else {
-      setBalance(0);
-      setError(null);
-      setNetworkInfo(null);
-    }
-  }, [connected, publicKey, fetchBalance]);
-
-  // Auto-refresh cada 30 segundos
-  useEffect(() => {
-    if (!connected) return;
-
-    const interval = setInterval(fetchBalance, 30000);
-    return () => clearInterval(interval);
-  }, [connected, fetchBalance]);
 
   return {
     // Estado de conexión
     connected,
     connecting,
     publicKey,
-    
+
     // Balance
     balance,
     loading,
     error,
-    
+
     // Información de red
     networkInfo,
-    
+
     // Funciones
     refresh: fetchBalance,
     getAccountInfo: fetchAccountInfo,
-    
+
     // Información de conexión
     rpcEndpoint: connection.rpcEndpoint,
-    commitment: connection.commitment
+    commitment: connection.commitment,
   };
 }
 ```
@@ -15276,52 +15523,67 @@ export function useMusicPlayer() {
 
 ## File: contexts/solana-wallet-context.tsx
 ```typescript
-'use client'
+"use client";
 
-import React, { useMemo, useEffect, useState } from 'react'
-import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react'
-import { WalletModalProvider } from '@solana/wallet-adapter-react-ui'
-import { PhantomWalletAdapter, SolflareWalletAdapter, TorusWalletAdapter } from '@solana/wallet-adapter-wallets'
+import React, { useMemo, useEffect, useState } from "react";
+import {
+  ConnectionProvider,
+  WalletProvider,
+} from "@solana/wallet-adapter-react";
+import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
+import {
+  PhantomWalletAdapter,
+  SolflareWalletAdapter,
+  TorusWalletAdapter,
+} from "@solana/wallet-adapter-wallets";
 
 // Import wallet adapter CSS
-import '@solana/wallet-adapter-react-ui/styles.css'
+import "@solana/wallet-adapter-react-ui/styles.css";
 
-export function SolanaWalletProvider({ children }: { children: React.ReactNode }) {
-  const [mounted, setMounted] = useState(false)
-  const [currentCluster, setCurrentCluster] = useState<'mainnet-beta' | 'testnet' | 'devnet'>('testnet')
-  const [currentEndpoint, setCurrentEndpoint] = useState<string>('https://api.testnet.solana.com')
-  
+export function SolanaWalletProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [mounted, setMounted] = useState(false);
+  const [currentCluster, setCurrentCluster] = useState<
+    "mainnet-beta" | "testnet" | "devnet"
+  >("devnet");
+  const [currentEndpoint, setCurrentEndpoint] = useState<string>(
+    "https://api.devnet.solana.com",
+  );
+
   // Cluster endpoints configuration
   const clusterEndpoints = {
-    'mainnet-beta': [
-      'https://api.mainnet-beta.solana.com',
-      'https://rpc.ankr.com/solana',
-      'https://solana-api.projectserum.com'
+    "mainnet-beta": [
+      "https://api.mainnet-beta.solana.com",
+      "https://rpc.ankr.com/solana",
+      "https://solana-api.projectserum.com",
     ],
-    'testnet': [
-      'https://api.testnet.solana.com',
-      'https://testnet.helius-rpc.com/?api-key=demo'
+    testnet: [
+      "https://api.testnet.solana.com",
+      "https://testnet.helius-rpc.com/?api-key=demo",
     ],
-    'devnet': [
-      'https://api.devnet.solana.com',
-      'https://devnet.helius-rpc.com/?api-key=demo'
-    ]
-  }
-  
+    devnet: [
+      "https://api.devnet.solana.com",
+      "https://devnet.helius-rpc.com/?api-key=demo",
+    ],
+  };
+
   // Use a working endpoint directly
   useEffect(() => {
-    // Try testnet first as it's more reliable for development
-    const testnetEndpoint = 'https://api.testnet.solana.com'
-    console.log('🔗 Setting Solana endpoint to:', testnetEndpoint)
-    setCurrentEndpoint(testnetEndpoint)
-    setCurrentCluster('testnet')
-  }, [])
-  
+    // Use devnet for development
+    const devnetEndpoint = "https://api.devnet.solana.com";
+    console.log("🔗 Setting Solana endpoint to:", devnetEndpoint);
+    setCurrentEndpoint(devnetEndpoint);
+    setCurrentCluster("devnet");
+  }, []);
+
   // Use the best available endpoint
   const endpoint = useMemo(() => {
-    console.log('🔗 Using Solana endpoint:', currentEndpoint);
+    console.log("🔗 Using Solana endpoint:", currentEndpoint);
     return currentEndpoint;
-  }, [currentEndpoint])
+  }, [currentEndpoint]);
 
   const wallets = useMemo(
     () => [
@@ -15329,26 +15591,24 @@ export function SolanaWalletProvider({ children }: { children: React.ReactNode }
       new SolflareWalletAdapter(),
       new TorusWalletAdapter(),
     ],
-    []
-  )
+    [],
+  );
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   if (!mounted) {
-    return <>{children}</>
+    return <>{children}</>;
   }
 
   return (
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets} autoConnect>
-        <WalletModalProvider>
-          {children}
-        </WalletModalProvider>
+        <WalletModalProvider>{children}</WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
-  )
+  );
 }
 ```
 
@@ -17726,6 +17986,44 @@ export function useViewRenderer(
 
   return { viewType: getViewType() };
 }
+```
+
+## File: hooks/use-solana-umi.ts
+```typescript
+import { useMemo } from "react";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
+import { walletAdapterIdentity } from "@metaplex-foundation/umi-signer-wallet-adapters";
+import { mplTokenMetadata } from "@metaplex-foundation/mpl-token-metadata";
+import { clusterApiUrl } from "@solana/web3.js";
+
+// Define your desired Solana cluster
+const SOLANA_CLUSTER = "devnet";
+const ENDPOINT = clusterApiUrl(SOLANA_CLUSTER);
+
+/**
+ * Custom hook to get a Umi instance configured for the connected wallet.
+ */
+export const useSolanaUmi = () => {
+  const { connection } = useConnection();
+  const wallet = useWallet();
+
+  const umi = useMemo(() => {
+    // Create a new Umi instance
+    const umiInstance = createUmi(connection?.rpcEndpoint || ENDPOINT).use(
+      mplTokenMetadata(),
+    );
+
+    // If the wallet is connected, attach it as the identity
+    if (wallet.connected && wallet.publicKey) {
+      umiInstance.use(walletAdapterIdentity(wallet));
+    }
+
+    return umiInstance;
+  }, [connection, wallet]);
+
+  return umi;
+};
 ```
 
 ## File: hooks/use-toast.ts
@@ -21478,6 +21776,10 @@ export interface MusicPlayer {
   "dependencies": {
     "@coral-xyz/anchor": "^0.32.1",
     "@hookform/resolvers": "^3.9.1",
+    "@metaplex-foundation/mpl-token-metadata": "^3.4.0",
+    "@metaplex-foundation/umi": "^1.4.1",
+    "@metaplex-foundation/umi-bundle-defaults": "^1.4.1",
+    "@metaplex-foundation/umi-signer-wallet-adapters": "^1.4.1",
     "@radix-ui/react-accordion": "1.2.2",
     "@radix-ui/react-alert-dialog": "1.1.4",
     "@radix-ui/react-aspect-ratio": "1.1.1",

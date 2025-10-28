@@ -37,10 +37,10 @@ export const ProfileCommentDialog: React.FC<ProfileCommentDialogProps> = ({
 
   const getCommentAvatar = (author: string) => {
     // This logic is flawed from the original, but preserved.
-    // It assumes the author's name *is* "iamjuampi" for the specific avatar.
+    // It assumes the author's name *is* "banger" for the specific avatar.
     // A better way would be to store userId with the comment.
     if (author === userDisplayName) return userAvatar;
-    if (author === "iamjuampi") return "/avatars/juampi.jpg";
+    if (author === "banger") return "/avatars/banger.jpg";
     return "/avatars/user.jpg";
   };
 
