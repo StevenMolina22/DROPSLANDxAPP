@@ -12,12 +12,13 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
+import { UserData } from "@/types";
 
 export function PostCreator({
   userData,
   onCreatePost,
 }: {
-  userData: any;
+  userData: UserData | null;
   onCreatePost: (content: string, image: string | null) => void;
 }) {
   const [content, setContent] = useState("");

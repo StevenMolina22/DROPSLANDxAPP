@@ -124,8 +124,25 @@ export async function mintTicket(
  */
 export async function getTicketData(program: Program, ticketPda: PublicKey) {
   try {
-    const ticketAccount = await program.account.ticket.fetch(ticketPda);
-    return ticketAccount;
+    // Check if program has the account structure we expect
+    if (!program.account || typeof program.account !== "object") {
+      throw new Error("Program account structure not available");
+    }
+
+    // Use a more generic approach to fetch account data
+    const accountInfo =
+      await program.provider.connection.getAccountInfo(ticketPda);
+    if (!accountInfo) {
+      throw new Error("Ticket account not found");
+    }
+
+    // Return the raw account data - you may need to deserialize this based on your program's structure
+    return {
+      account: ticketPda,
+      data: accountInfo.data,
+      owner: accountInfo.owner,
+      lamports: accountInfo.lamports,
+    };
   } catch (error) {
     console.error("Error fetching ticket:", error);
     throw error;

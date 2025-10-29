@@ -53,32 +53,36 @@ if (fs.existsSync(registryPath)) {
   registry = JSON.parse(fs.readFileSync(registryPath, "utf8"));
 }
 
-for (const token of tokens) {
-  console.log(`\n🚀 Creating token: ${token.name} (${token.symbol})`);
+async function createTokens() {
+  for (const token of tokens) {
+    console.log(`\n🚀 Creating token: ${token.name} (${token.symbol})`);
 
-  const mint = generateSigner(umi);
+    const mint = generateSigner(umi);
 
-  await createFungible(umi, {
-    mint,
-    name: token.name,
-    symbol: token.symbol,
-    uri: token.uri,
-    sellerFeeBasisPoints: percentAmount(token.sellerFee),
-    decimals: some(token.decimals),
-  }).sendAndConfirm(umi);
+    await createFungible(umi, {
+      mint,
+      name: token.name,
+      symbol: token.symbol,
+      uri: token.uri,
+      sellerFeeBasisPoints: percentAmount(token.sellerFee),
+      decimals: some(token.decimals),
+    }).sendAndConfirm(umi);
 
-  console.log(`✅ Created ${token.symbol}: ${mint.publicKey.toString()}`);
+    console.log(`✅ Created ${token.symbol}: ${mint.publicKey.toString()}`);
 
-  registry.push({
-    name: token.name,
-    symbol: token.symbol,
-    mint: mint.publicKey.toString(),
-    uri: token.uri,
-    decimals: token.decimals,
-    createdAt: new Date().toISOString(),
-  });
+    registry.push({
+      name: token.name,
+      symbol: token.symbol,
+      mint: mint.publicKey.toString(),
+      uri: token.uri,
+      decimals: token.decimals,
+      createdAt: new Date().toISOString(),
+    });
+  }
+
+  // === Save registry ===
+  fs.writeFileSync(registryPath, JSON.stringify(registry, null, 2));
+  console.log(`\n📘 Registry updated at ${registryPath}`);
 }
 
-// === Save registry ===
-fs.writeFileSync(registryPath, JSON.stringify(registry, null, 2));
-console.log(`\n📘 Registry updated at ${registryPath}`);
+createTokens().catch(console.error);

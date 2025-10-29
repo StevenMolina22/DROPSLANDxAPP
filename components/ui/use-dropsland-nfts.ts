@@ -1,16 +1,16 @@
 /**
  * Hook principal para manejar NFTs de DROPSLAND
- * 
+ *
  * Funcionalidades:
  * - Profile NFTs (soulbound)
  * - Music NFTs
  * - Rewards system
  */
 
-import { useState, useCallback } from 'react';
-import { useWallet, useConnection } from '@solana/wallet-adapter-react';
-import { PublicKey } from '@solana/web3.js';
-import { 
+import { useState, useCallback } from "react";
+import { useWallet, useConnection } from "@solana/wallet-adapter-react";
+import { PublicKey } from "@solana/web3.js";
+import {
   useDropslandProgram,
   mintProfileNFT,
   mintMusicNFT,
@@ -22,8 +22,8 @@ import {
   getSolBalance,
   ProfileNFTData,
   MusicNFTData,
-  RewardData
-} from '@/lib/dropsland-program-client';
+  RewardData,
+} from "@/lib/dropsland-program-client";
 
 export function useDropslandNFTs() {
   const { connection } = useConnection();
@@ -34,141 +34,148 @@ export function useDropslandNFTs() {
   const [error, setError] = useState<string | null>(null);
 
   // 1. MINT PROFILE NFT
-  const mintProfile = useCallback(async (profileData: ProfileNFTData) => {
-    if (!connected || !publicKey || !program) {
-      throw new Error('Wallet not connected');
-    }
+  const mintProfile = useCallback(
+    async (profileData: ProfileNFTData) => {
+      if (!connected || !publicKey || !program) {
+        throw new Error("Wallet not connected");
+      }
 
-    setLoading(true);
-    setError(null);
+      setLoading(true);
+      setError(null);
 
-    try {
-      const signature = await mintProfileNFT(
-        program.program,
-        publicKey,
-        profileData
-      );
-      
-      return { success: true, signature };
-    } catch (err: any) {
-      setError(err.message);
-      return { success: false, error: err.message };
-    } finally {
-      setLoading(false);
-    }
-  }, [connected, publicKey, program]);
+      try {
+        const signature = await mintProfileNFT(
+          program.program,
+          publicKey,
+          profileData,
+        );
+
+        return { success: true, signature };
+      } catch (err: any) {
+        setError(err.message);
+        return { success: false, error: err.message };
+      } finally {
+        setLoading(false);
+      }
+    },
+    [connected, publicKey, program],
+  );
 
   // 2. MINT MUSIC NFT
-  const mintMusic = useCallback(async (musicData: MusicNFTData) => {
-    if (!connected || !publicKey || !program) {
-      throw new Error('Wallet not connected');
-    }
+  const mintMusic = useCallback(
+    async (musicData: MusicNFTData) => {
+      if (!connected || !publicKey || !program) {
+        throw new Error("Wallet not connected");
+      }
 
-    setLoading(true);
-    setError(null);
+      setLoading(true);
+      setError(null);
 
-    try {
-      const signature = await mintMusicNFT(
-        program.program,
-        publicKey,
-        musicData
-      );
-      
-      return { success: true, signature };
-    } catch (err: any) {
-      setError(err.message);
-      return { success: false, error: err.message };
-    } finally {
-      setLoading(false);
-    }
-  }, [connected, publicKey, program]);
+      try {
+        const signature = await mintMusicNFT(
+          program.program,
+          publicKey,
+          musicData,
+        );
+
+        return { success: true, signature };
+      } catch (err: any) {
+        setError(err.message);
+        return { success: false, error: err.message };
+      } finally {
+        setLoading(false);
+      }
+    },
+    [connected, publicKey, program],
+  );
 
   // 3. BUY MUSIC NFT
-  const buyMusic = useCallback(async (
-    musicMint: string,
-    artistWallet: string,
-    price: number
-  ) => {
-    if (!connected || !publicKey || !program) {
-      throw new Error('Wallet not connected');
-    }
+  const buyMusic = useCallback(
+    async (musicMint: string, artistWallet: string, price: number) => {
+      if (!connected || !publicKey || !program) {
+        throw new Error("Wallet not connected");
+      }
 
-    setLoading(true);
-    setError(null);
+      setLoading(true);
+      setError(null);
 
-    try {
-      const signature = await buyMusicNFT(
-        program.program,
-        publicKey,
-        new PublicKey(musicMint),
-        new PublicKey(artistWallet),
-        price
-      );
-      
-      return { success: true, signature };
-    } catch (err: any) {
-      setError(err.message);
-      return { success: false, error: err.message };
-    } finally {
-      setLoading(false);
-    }
-  }, [connected, publicKey, program]);
+      try {
+        const signature = await buyMusicNFT(
+          program.program,
+          publicKey,
+          new PublicKey(musicMint),
+          new PublicKey(artistWallet),
+          price,
+        );
+
+        return { success: true, signature };
+      } catch (err: any) {
+        setError(err.message);
+        return { success: false, error: err.message };
+      } finally {
+        setLoading(false);
+      }
+    },
+    [connected, publicKey, program],
+  );
 
   // 4. CREATE REWARD
-  const createArtistReward = useCallback(async (rewardData: RewardData) => {
-    if (!connected || !publicKey || !program) {
-      throw new Error('Wallet not connected');
-    }
+  const createArtistReward = useCallback(
+    async (rewardData: RewardData) => {
+      if (!connected || !publicKey || !program) {
+        throw new Error("Wallet not connected");
+      }
 
-    setLoading(true);
-    setError(null);
+      setLoading(true);
+      setError(null);
 
-    try {
-      const signature = await createReward(
-        program.program,
-        publicKey,
-        rewardData
-      );
-      
-      return { success: true, signature };
-    } catch (err: any) {
-      setError(err.message);
-      return { success: false, error: err.message };
-    } finally {
-      setLoading(false);
-    }
-  }, [connected, publicKey, program]);
+      try {
+        const signature = await createReward(
+          program.program,
+          publicKey,
+          rewardData,
+        );
+
+        return { success: true, signature };
+      } catch (err: any) {
+        setError(err.message);
+        return { success: false, error: err.message };
+      } finally {
+        setLoading(false);
+      }
+    },
+    [connected, publicKey, program],
+  );
 
   // 5. CLAIM REWARD
-  const claimArtistReward = useCallback(async (
-    artistWallet: string,
-    rewardId: number,
-    tokenMint: string
-  ) => {
-    if (!connected || !publicKey || !program) {
-      throw new Error('Wallet not connected');
-    }
+  const claimArtistReward = useCallback(
+    async (artistWallet: string, rewardId: number, tokenMint: string) => {
+      if (!connected || !publicKey || !program) {
+        throw new Error("Wallet not connected");
+      }
 
-    setLoading(true);
-    setError(null);
+      setLoading(true);
+      setError(null);
 
-    try {
-      const signature = await claimReward(
-        program.program,
-        publicKey,
-        new PublicKey(artistWallet),
-        rewardId,
-        new PublicKey(tokenMint)
-      );
-      
-      return { success: true, signature };
-    } catch (err: any) {
-      setError(err.message);
-      return { success: false, error: err.message };
-    } finally {
-      setLoading(false);
-    }
-  }, [connected, publicKey, program]);
+      try {
+        const signature = await claimReward(
+          program.program,
+          publicKey,
+          new PublicKey(artistWallet),
+          rewardId,
+          new PublicKey(tokenMint),
+        );
+
+        return { success: true, signature };
+      } catch (err: any) {
+        setError(err.message);
+        return { success: false, error: err.message };
+      } finally {
+        setLoading(false);
+      }
+    },
+    [connected, publicKey, program],
+  );
 
   // 6. CHECK PROFILE NFT
   const checkProfileNFT = useCallback(async () => {
@@ -218,7 +225,7 @@ export function useDropslandNFTs() {
     error,
     connected,
     publicKey,
-    
+
     // Funciones
     mintProfile,
     mintMusic,
@@ -228,9 +235,8 @@ export function useDropslandNFTs() {
     checkProfileNFT,
     getUserMusic,
     getBalance,
-    
+
     // Helpers
-    setError
+    setError,
   };
 }
-
