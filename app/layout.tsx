@@ -8,6 +8,7 @@ import { MusicPlayerProvider } from "@/contexts/music-player-context";
 import { SolanaWalletProvider } from "@/contexts/solana-wallet-context";
 import MiniPlayerWrapper from "@/components/music-player/mini-player-wrapper";
 import ExpandedPlayer from "@/components/music-player/expanded-player";
+import { WrappedPrivyProvider } from "@/components/privy-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,16 +35,18 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SolanaWalletProvider>
-            <AuthProvider>
-              <MusicPlayerProvider>
-                {children}
-                <MiniPlayerWrapper />
-                <ExpandedPlayer />
-              </MusicPlayerProvider>
-            </AuthProvider>
-            <Toaster />
-          </SolanaWalletProvider>
+          <WrappedPrivyProvider>
+            <SolanaWalletProvider>
+              <AuthProvider>
+                <MusicPlayerProvider>
+                  {children}
+                  <MiniPlayerWrapper />
+                  <ExpandedPlayer />
+                </MusicPlayerProvider>
+              </AuthProvider>
+              <Toaster />
+            </SolanaWalletProvider>
+          </WrappedPrivyProvider>
         </ThemeProvider>
       </body>
     </html>
