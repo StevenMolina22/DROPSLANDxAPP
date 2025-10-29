@@ -411,7 +411,7 @@ export async function getUserMusicNFTs(
       if (accountInfo.value.amount !== "0") {
         // Aquí podrías obtener metadata del NFT
         musicNFTs.push({
-          mint: account.account.data.parsed.info.mint,
+          mint: (account.account.data as any).parsed?.info?.mint,
           amount: accountInfo.value.amount,
           account: account.pubkey,
         });

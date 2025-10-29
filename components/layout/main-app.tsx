@@ -80,7 +80,12 @@ export function ViewRenderer({
         />
       );
     case "home":
-      return <HomeView onSelectArtist={handleArtistClick} />;
+      return (
+        <HomeView
+          onSelectArtist={handleArtistClick}
+          onNavigateToExplore={() => navigation.handleTabChange("search")}
+        />
+      );
     case "search":
       return <SearchView onSelectArtist={handleArtistClick} />;
     case "wallet":

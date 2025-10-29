@@ -1,16 +1,16 @@
 /**
  * Hook simplificado para manejar NFTs de Solana
- * 
+ *
  * Funcionalidades:
  * - Profile NFTs (soulbound)
  * - Music NFTs
  * - Conexión directa con el programa de Solana
  */
 
-import { useState, useCallback } from 'react';
-import { useWallet, useConnection } from '@solana/wallet-adapter-react';
-import { PublicKey } from '@solana/web3.js';
-import { 
+import { useState, useCallback } from "react";
+import { useWallet, useConnection } from "@solana/wallet-adapter-react";
+import { PublicKey } from "@solana/web3.js";
+import {
   useSolanaNFTs as useSolanaNFTsClient,
   mintProfileNFT,
   mintMusicNFT,
@@ -19,8 +19,8 @@ import {
   getUserMusicNFTs,
   getSolBalance,
   ProfileNFTData,
-  MusicNFTData
-} from '@/lib/solana-nft-client';
+  MusicNFTData,
+} from "@/lib/solana/solana-nft-client";
 
 export function useSolanaNFTs() {
   const { connection } = useConnection();
@@ -31,88 +31,93 @@ export function useSolanaNFTs() {
   const [error, setError] = useState<string | null>(null);
 
   // 1. MINT PROFILE NFT
-  const mintProfile = useCallback(async (profileData: ProfileNFTData) => {
-    if (!connected || !publicKey || !nftClient.signTransaction) {
-      throw new Error('Wallet not connected');
-    }
+  const mintProfile = useCallback(
+    async (profileData: ProfileNFTData) => {
+      if (!connected || !publicKey || !nftClient.signTransaction) {
+        throw new Error("Wallet not connected");
+      }
 
-    setLoading(true);
-    setError(null);
+      setLoading(true);
+      setError(null);
 
-    try {
-      const signature = await mintProfileNFT(
-        connection,
-        publicKey,
-        nftClient.signTransaction,
-        profileData
-      );
-      
-      return { success: true, signature };
-    } catch (err: any) {
-      setError(err.message);
-      return { success: false, error: err.message };
-    } finally {
-      setLoading(false);
-    }
-  }, [connected, publicKey, connection, nftClient.signTransaction]);
+      try {
+        const signature = await mintProfileNFT(
+          connection,
+          publicKey,
+          nftClient.signTransaction,
+          profileData,
+        );
+
+        return { success: true, signature };
+      } catch (err: any) {
+        setError(err.message);
+        return { success: false, error: err.message };
+      } finally {
+        setLoading(false);
+      }
+    },
+    [connected, publicKey, connection, nftClient.signTransaction],
+  );
 
   // 2. MINT MUSIC NFT
-  const mintMusic = useCallback(async (musicData: MusicNFTData) => {
-    if (!connected || !publicKey || !nftClient.signTransaction) {
-      throw new Error('Wallet not connected');
-    }
+  const mintMusic = useCallback(
+    async (musicData: MusicNFTData) => {
+      if (!connected || !publicKey || !nftClient.signTransaction) {
+        throw new Error("Wallet not connected");
+      }
 
-    setLoading(true);
-    setError(null);
+      setLoading(true);
+      setError(null);
 
-    try {
-      const signature = await mintMusicNFT(
-        connection,
-        publicKey,
-        nftClient.signTransaction,
-        musicData
-      );
-      
-      return { success: true, signature };
-    } catch (err: any) {
-      setError(err.message);
-      return { success: false, error: err.message };
-    } finally {
-      setLoading(false);
-    }
-  }, [connected, publicKey, connection, nftClient.signTransaction]);
+      try {
+        const signature = await mintMusicNFT(
+          connection,
+          publicKey,
+          nftClient.signTransaction,
+          musicData,
+        );
+
+        return { success: true, signature };
+      } catch (err: any) {
+        setError(err.message);
+        return { success: false, error: err.message };
+      } finally {
+        setLoading(false);
+      }
+    },
+    [connected, publicKey, connection, nftClient.signTransaction],
+  );
 
   // 3. BUY MUSIC NFT
-  const buyMusic = useCallback(async (
-    musicMint: string,
-    artistWallet: string,
-    price: number
-  ) => {
-    if (!connected || !publicKey || !nftClient.signTransaction) {
-      throw new Error('Wallet not connected');
-    }
+  const buyMusic = useCallback(
+    async (musicMint: string, artistWallet: string, price: number) => {
+      if (!connected || !publicKey || !nftClient.signTransaction) {
+        throw new Error("Wallet not connected");
+      }
 
-    setLoading(true);
-    setError(null);
+      setLoading(true);
+      setError(null);
 
-    try {
-      const signature = await buyMusicNFT(
-        connection,
-        publicKey,
-        nftClient.signTransaction,
-        new PublicKey(musicMint),
-        new PublicKey(artistWallet),
-        price
-      );
-      
-      return { success: true, signature };
-    } catch (err: any) {
-      setError(err.message);
-      return { success: false, error: err.message };
-    } finally {
-      setLoading(false);
-    }
-  }, [connected, publicKey, connection, nftClient.signTransaction]);
+      try {
+        const signature = await buyMusicNFT(
+          connection,
+          publicKey,
+          nftClient.signTransaction,
+          new PublicKey(musicMint),
+          new PublicKey(artistWallet),
+          price,
+        );
+
+        return { success: true, signature };
+      } catch (err: any) {
+        setError(err.message);
+        return { success: false, error: err.message };
+      } finally {
+        setLoading(false);
+      }
+    },
+    [connected, publicKey, connection, nftClient.signTransaction],
+  );
 
   // 4. CHECK PROFILE NFT
   const checkProfileNFT = useCallback(async () => {
@@ -162,7 +167,7 @@ export function useSolanaNFTs() {
     error,
     connected,
     publicKey,
-    
+
     // Funciones
     mintProfile,
     mintMusic,
@@ -170,8 +175,8 @@ export function useSolanaNFTs() {
     checkProfileNFT,
     getUserMusic,
     getBalance,
-    
+
     // Helpers
-    setError
+    setError,
   };
 }

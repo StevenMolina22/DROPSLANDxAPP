@@ -1,7 +1,7 @@
 import { UserData } from "@/types";
 import { UserPlus } from "lucide-react";
-import { SolanaWalletButton } from "@/components/auth/solana-wallet-button";
 import { Button } from "@/components/ui/button";
+// import { SolanaWalletButton } from "@/components//solana-wallet-button";
 
 export function Header({
   userData,
@@ -26,7 +26,7 @@ export function Header({
           alt="DROPSLAND"
           className="h-12 max-w-[180px] object-contain"
         />
-        <SolanaWalletButton />
+        {/*<SolanaWalletButton />*/}
       </div>
       <div className="flex items-center gap-2">
         {userData && isArtist() && activeTab === "profile" && (
