@@ -11,7 +11,9 @@ export function WrappedPrivyProvider({
       appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID!}
       config={{
         // optional configs here
-        embeddedWallets: { createOnLogin: "users-without-wallets" },
+        embeddedWallets: {
+          ethereum: { createOnLogin: "users-without-wallets" },
+        },
         appearance: {
           theme: "light",
           accentColor: "#00AAFF",
