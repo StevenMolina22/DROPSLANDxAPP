@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
   ArrowLeft,
@@ -18,13 +19,10 @@ import { useAuth } from "@/hooks/use-auth";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
 import { CreateTokenDialog } from "../solana/create-token-dialog";
 
-interface ArtistDashboardProps {
-  onBack: () => void;
-}
-
-export default function ArtistDashboard({ onBack }: ArtistDashboardProps) {
+export default function ArtistDashboard() {
   const [activeTab, setActiveTab] = useState("overview");
   const { userData } = useAuth();
+  const router = useRouter();
 
   // Artist data would come from the backend in a real app
   const artistData = {
@@ -41,7 +39,10 @@ export default function ArtistDashboard({ onBack }: ArtistDashboardProps) {
     <div className="flex flex-col h-full bg-gray-950">
       {/* Header */}
       <header className="bg-gray-900 px-4 py-3 border-b border-gray-800 flex items-center">
-        <button onClick={onBack} className="flex items-center text-gray-300">
+        <button
+          onClick={() => router.push("/profile")}
+          className="flex items-center text-gray-300"
+        >
           <ArrowLeft className="h-4 w-4 mr-1" />
           <span>Back</span>
         </button>

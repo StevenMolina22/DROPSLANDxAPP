@@ -13,13 +13,7 @@ import { PostCreator } from "./PostCreator";
 import { WelcomeBanner } from "./WelcomeBanner";
 import { FeaturedArtists } from "./FeaturedArtists";
 
-export default function HomeView({
-  onSelectArtist,
-  onNavigateToExplore,
-}: {
-  onSelectArtist: (artistId: string) => void;
-  onNavigateToExplore: () => void;
-}) {
+export default function HomeView() {
   const { userData, isArtist, user } = useAuth();
   const [feedItems, setFeedItems] = useState<FeedItem[]>([]);
   const [showCommentDialog, setShowCommentDialog] = useState(false);
@@ -69,12 +63,11 @@ export default function HomeView({
 
   return (
     <div className="pb-6 overflow-auto bg-gray-50 dark:bg-gray-950">
-      <FeaturedArtists onSelectArtist={onSelectArtist} />
+      <FeaturedArtists />
 
       {!isArtist() && showWelcomeBanner && (
         <WelcomeBanner
           onClose={() => setShowWelcomeBanner(false)}
-          onNavigateToExplore={onNavigateToExplore}
         />
       )}
 
@@ -113,13 +106,11 @@ export default function HomeView({
                       user={user}
                       onLike={handleLike}
                       onComment={handleComment}
-                      onSelectArtist={onSelectArtist}
                     />
                   ) : (
                     <ActivityCard
                       key={item.id}
                       activity={item.data as Activity}
-                      onSelectArtist={onSelectArtist}
                     />
                   ),
                 )

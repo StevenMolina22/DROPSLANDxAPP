@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { TrendingUp, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,17 +8,8 @@ import { useAuth } from "@/hooks/use-auth";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
 import { artistTokens, transactions } from "@/data";
 
-interface WalletViewProps {
-  onBuy: () => void;
-  onSend: () => void;
-  onReceive: () => void;
-}
-
 interface BalanceCardProps {
   balance: number;
-  onReceive: () => void;
-  onBuy: () => void;
-  onSend: () => void;
 }
 
 interface StatsCardsProps {
@@ -32,7 +24,7 @@ interface TransactionHistoryProps {
   transactions: typeof transactions;
 }
 
-function BalanceCard({ balance, onReceive, onBuy, onSend }: BalanceCardProps) {
+function BalanceCard({ balance }: BalanceCardProps) {
   return (
     <div className="px-4 py-6 bg-gradient-to-r from-black to-gray-800 text-white">
       <h1 className="text-xl font-bold mb-2">Wallet</h1>
@@ -42,28 +34,28 @@ function BalanceCard({ balance, onReceive, onBuy, onSend }: BalanceCardProps) {
       </div>
       <div className="flex gap-2 mt-4">
         <Button
+          asChild
           size="sm"
           variant="outline"
           className="border-white text-white hover:bg-white/20 bg-white/20 backdrop-blur-sm"
-          onClick={onReceive}
         >
-          Receive
+          <Link href="/wallet/receive">Receive</Link>
         </Button>
         <Button
+          asChild
           size="sm"
           variant="outline"
           className="border-white text-white hover:bg-white/20 bg-white/20 backdrop-blur-sm"
-          onClick={onBuy}
         >
-          Buy
+          <Link href="/wallet/buy">Buy</Link>
         </Button>
         <Button
+          asChild
           size="sm"
           variant="outline"
           className="border-white text-white hover:bg-white/20 bg-white/20 backdrop-blur-sm"
-          onClick={onSend}
         >
-          Send
+          <Link href="/wallet/send">Send</Link>
         </Button>
       </div>
     </div>
@@ -150,8 +142,11 @@ function ArtistTokens({ tokens }: ArtistTokensProps) {
               Compra tokens para apoyar a tus artistas favoritos y recibir
               recompensas exclusivas
             </p>
-            <Button className="mt-3 bg-yellow-600 hover:bg-yellow-700 text-white">
-              Explorar Artistas
+            <Button
+              asChild
+              className="mt-3 bg-yellow-600 hover:bg-yellow-700 text-white"
+            >
+              <Link href="/explore">Explore Artists</Link>
             </Button>
           </div>
         )}
@@ -208,21 +203,12 @@ function TransactionHistory({ transactions }: TransactionHistoryProps) {
   );
 }
 
-export default function WalletView({
-  onBuy,
-  onSend,
-  onReceive,
-}: WalletViewProps) {
+export default function WalletView() {
   const { balance, donated } = useAuth();
 
   return (
     <div className="pb-6 bg-gray-950">
-      <BalanceCard
-        balance={balance}
-        onReceive={onReceive}
-        onBuy={onBuy}
-        onSend={onSend}
-      />
+      <BalanceCard balance={balance} />
       <StatsCards donated={donated} />
       <ArtistTokens tokens={artistTokens} />
       <TransactionHistory transactions={transactions} />

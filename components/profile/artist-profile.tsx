@@ -29,13 +29,9 @@ import { Artist } from "@/types";
 
 interface ArtistProfileProps {
   artistId: string;
-  onBack: () => void;
 }
 
-export default function ArtistProfile({
-  artistId,
-  onBack,
-}: ArtistProfileProps) {
+export default function ArtistProfile({ artistId }: ArtistProfileProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [showDonateModal, setShowDonateModal] = useState(false); // <-- Add state for modal
   const { toast } = useToast();

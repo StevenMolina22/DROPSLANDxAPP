@@ -1,16 +1,12 @@
 "use client";
+
+import Link from "next/link";
 import { X } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
 
-export function WelcomeBanner({
-  onClose,
-  onNavigateToExplore,
-}: {
-  onClose: () => void;
-  onNavigateToExplore: () => void;
-}) {
+export function WelcomeBanner({ onClose }: { onClose: () => void }) {
   return (
     <div className="px-4 mt-4">
       <Card className="bg-gray-800 border-gray-700">
@@ -26,19 +22,22 @@ export function WelcomeBanner({
               </p>
               <div className="flex gap-2 mt-3">
                 <Button
+                  asChild
                   size="sm"
                   className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
                 >
-                  <BanknoteIcon className="h-5 w-5 mr-1" />
-                  Buy Tokens
+                  <Link href="/wallet/buy">
+                    <BanknoteIcon className="h-5 w-5 mr-1" />
+                    Buy Tokens
+                  </Link>
                 </Button>
                 <Button
+                  asChild
                   size="sm"
                   variant="outline"
                   className="bg-gray-700 text-white border-gray-600"
-                  onClick={onNavigateToExplore}
                 >
-                  Explore Artists
+                  <Link href="/explore">Explore Artists</Link>
                 </Button>
               </div>
             </div>

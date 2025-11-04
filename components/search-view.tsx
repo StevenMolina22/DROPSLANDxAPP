@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { Search, Star } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -10,18 +11,8 @@ import { Button } from "@/components/ui/button";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
 import { viewArtists, viewGenres, trendingTopics } from "@/data";
 
-interface SearchViewProps {
-  onSelectArtist: (artistId: string) => void;
-}
-
-export default function SearchView({ onSelectArtist }: SearchViewProps) {
+export default function SearchView() {
   const [searchQuery, setSearchQuery] = useState("");
-
-  // Function to handle artist selection with debugging
-  const handleSelectArtist = (artistId: string) => {
-    console.log("Search view - Selected artist:", artistId);
-    onSelectArtist(artistId);
-  };
 
   const filteredArtists = viewArtists.filter(
     (artist) =>
@@ -83,20 +74,26 @@ export default function SearchView({ onSelectArtist }: SearchViewProps) {
         {filteredArtists.map((artist) => (
           <Card
             key={artist.id}
-            className="overflow-hidden bg-gray-800 border-gray-700 cursor-pointer"
-            onClick={() => handleSelectArtist(artist.id)}
+            className="overflow-hidden bg-gray-800 border-gray-700"
           >
             <CardContent className="p-3">
               <div className="flex items-center gap-3">
-                <Avatar className="h-12 w-12">
-                  <AvatarImage src={artist.avatar} alt={artist.name} />
-                  <AvatarFallback>
-                    {artist.name.substring(0, 2).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
+                <Link href={`/creator/${artist.id}`}>
+                  <Avatar className="h-12 w-12">
+                    <AvatarImage src={artist.avatar} alt={artist.name} />
+                    <AvatarFallback>
+                      {artist.name.substring(0, 2).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                </Link>
                 <div className="flex-1">
                   <div className="flex items-center">
-                    <p className="font-medium text-white">{artist.name}</p>
+                    <Link
+                      href={`/creator/${artist.id}`}
+                      className="font-medium text-white hover:underline"
+                    >
+                      {artist.name}
+                    </Link>
                     {artist.featured && (
                       <Star className="h-3 w-3 text-bright-yellow ml-1" />
                     )}
@@ -110,15 +107,14 @@ export default function SearchView({ onSelectArtist }: SearchViewProps) {
                   </Badge>
                 </div>
                 <Button
+                  asChild
                   size="sm"
                   className="bg-bright-yellow hover:bg-bright-yellow-700 text-black"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleSelectArtist(artist.id);
-                  }}
                 >
-                  <BanknoteIcon className="h-6 w-6 mr-0.5" />
-                  Buy
+                  <Link href={`/creator/${artist.id}`}>
+                    <BanknoteIcon className="h-6 w-6 mr-0.5" />
+                    Buy
+                  </Link>
                 </Button>
               </div>
             </CardContent>

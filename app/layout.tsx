@@ -9,6 +9,7 @@ import { SolanaWalletProvider } from "@/contexts/solana-wallet-context";
 import MiniPlayerWrapper from "@/components/music-player/mini-player-wrapper";
 import ExpandedPlayer from "@/components/music-player/expanded-player";
 import { WrappedPrivyProvider } from "@/components/privy-provider";
+import { AppShell } from "@/components/layout/app-shell";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="dark">
       <HeadPWA />
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-gray-950`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -39,7 +40,7 @@ export default function RootLayout({
             <SolanaWalletProvider>
               <AuthProvider>
                 <MusicPlayerProvider>
-                  {children}
+                  <AppShell>{children}</AppShell>
                   <MiniPlayerWrapper />
                   <ExpandedPlayer />
                 </MusicPlayerProvider>

@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
@@ -7,32 +8,29 @@ import { formatTimeAgo } from "./formatTimeAgo";
 
 export function ActivityCard({
   activity,
-  onSelectArtist,
 }: {
   activity: Activity;
-  onSelectArtist: (artistId: string) => void;
 }) {
   return (
     <Card className="bg-gray-800 border-gray-700">
       <CardContent className="p-3">
         <div className="flex gap-3">
-          <Avatar
-            className="h-10 w-10 cursor-pointer"
-            onClick={() => onSelectArtist(activity.userId)}
-          >
-            <AvatarImage src={activity.userAvatar} alt={activity.userName} />
-            <AvatarFallback>
-              {activity.userName.substring(0, 2).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
+          <Link href={`/creator/${activity.userId}`} className="flex-shrink-0">
+            <Avatar className="h-10 w-10">
+              <AvatarImage src={activity.userAvatar} alt={activity.userName} />
+              <AvatarFallback>
+                {activity.userName.substring(0, 2).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+          </Link>
           <div className="flex-1">
             <p className="text-sm text-white">
-              <span
-                className="font-medium cursor-pointer"
-                onClick={() => onSelectArtist(activity.userId)}
+              <Link
+                href={`/creator/${activity.userId}`}
+                className="font-medium hover:underline"
               >
                 {activity.userName}
-              </span>{" "}
+              </Link>{" "}
               {activity.action}
             </p>
             {activity.message && (

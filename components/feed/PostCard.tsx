@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { Heart, MessageCircle, Share2 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
@@ -10,13 +11,11 @@ export function PostCard({
   user,
   onLike,
   onComment,
-  onSelectArtist,
 }: {
   post: ExtendedPost;
   user: string | null;
   onLike: (postId: string) => void;
   onComment: (postId: string) => void;
-  onSelectArtist: (artistId: string) => void;
 }) {
   const isLiked = user ? post.likes.includes(user) : false;
 
@@ -24,22 +23,21 @@ export function PostCard({
     <Card className="bg-gray-800 border-gray-700">
       <CardContent className="p-4">
         <div className="flex items-center mb-3">
-          <Avatar
-            className="h-8 w-8 mr-2 cursor-pointer"
-            onClick={() => onSelectArtist(post.authorId)}
-          >
-            <AvatarImage src={post.authorAvatar} alt={post.authorName} />
-            <AvatarFallback>
-              {post.authorName.substring(0, 2).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
+          <Link href={`/creator/${post.authorId}`} className="mr-2">
+            <Avatar className="h-8 w-8">
+              <AvatarImage src={post.authorAvatar} alt={post.authorName} />
+              <AvatarFallback>
+                {post.authorName.substring(0, 2).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+          </Link>
           <div>
-            <p
-              className="font-medium text-white cursor-pointer"
-              onClick={() => onSelectArtist(post.authorId)}
+            <Link
+              href={`/creator/${post.authorId}`}
+              className="font-medium text-white hover:underline"
             >
               {post.authorName}
-            </p>
+            </Link>
             <p className="text-gray-400 text-xs">
               {formatTimeAgo(post.createdAt)}
             </p>
