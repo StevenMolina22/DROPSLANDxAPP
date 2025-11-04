@@ -41,8 +41,8 @@ export function CommentDialog({
         </DialogHeader>
         <div className="space-y-4">
           <div className="max-h-[300px] overflow-y-auto space-y-3">
-            {post?.comments.map((comment, i) => (
-              <div key={i} className="flex gap-2">
+            {post?.comments.map((comment) => (
+              <div key={comment.id} className="flex gap-2">
                 <Avatar className="h-8 w-8">
                   <AvatarImage
                     src={comment.authorAvatar}

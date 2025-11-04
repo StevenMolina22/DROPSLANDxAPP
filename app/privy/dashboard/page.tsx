@@ -1,3 +1,4 @@
+"use client";
 import { usePrivy, useWallets, useSendTransaction } from "@privy-io/react-auth";
 import { ethers } from "ethers";
 
