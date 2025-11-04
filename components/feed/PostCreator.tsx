@@ -22,7 +22,7 @@ export function PostCreator({
   onCreatePost: (content: string, image: string | null) => void;
 }) {
   const [content, setContent] = useState("");
-  const [previewUrl, setPreviewUrl] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [location, setLocation] = useState("");
   const [pollOptions, setPollOptions] = useState(["", ""]);
   const [showLocationDialog, setShowLocationDialog] = useState(false);
