@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/use-auth";
-import { artists } from "@/data";
+import { artists, type ArtistProfile } from "@/data";
 import { Lock } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -25,8 +25,6 @@ import {
 } from "@/components/ui/dialog";
 import { DialogHeader } from "../ui/dialog";
 import DonateForm from "../wallet/donate-form";
-import { Artist } from "@/types";
-
 interface ArtistProfileProps {
   artistId: string;
 }
@@ -169,7 +167,7 @@ interface BuyTokenDialogProps {
   showDonateModal: boolean;
   setShowDonateModal: (show: boolean) => void;
   isLoading: boolean;
-  artist: Artist;
+  artist: ArtistProfile;
 }
 
 function BuyTokenDialog({

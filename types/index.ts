@@ -1,4 +1,6 @@
-export * from "./artist";
-export * from "./core";
+// This file should ONLY export from the SSOT files.
+
+export * from "./entities";
 export * from "./music";
-export * from "./explore";
+
+// DO NOT export from artist.ts, core.ts, or explore.ts

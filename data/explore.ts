@@ -1,6 +1,31 @@
 "use client";
-import { Creator, ExploreArtist, Genre } from "@/types/explore";
 import { Track } from "@/types";
+
+export interface ExploreCreator {
+  id: string;
+  name: string;
+  handle: string;
+  avatar: string;
+  category: string;
+  description: string;
+  blgReceived: number;
+  featured: boolean;
+}
+
+export interface ExploreArtistSummary {
+  id: string;
+  name: string;
+  avatar: string;
+  genre: string;
+  followers: number;
+}
+
+export interface ExploreGenre {
+  id: string;
+  name: string;
+  icon: string;
+  artists: number;
+}
 
 export const CATEGORIES = [
   "All",
@@ -12,7 +37,7 @@ export const CATEGORIES = [
   "Cooking",
 ];
 
-export const CREATORS: Creator[] = [
+export const CREATORS: ExploreCreator[] = [
   {
     id: "1",
     name: "Elena Rodriguez",
@@ -75,7 +100,7 @@ export const CREATORS: Creator[] = [
   },
 ];
 
-export const trendingArtists: ExploreArtist[] = [
+export const trendingArtists: ExploreArtistSummary[] = [
   {
     id: "1",
     name: "Flush",
@@ -181,7 +206,7 @@ export const popularTracks: Track[] = [
   },
 ];
 
-export const genres: Genre[] = [
+export const genres: ExploreGenre[] = [
   { id: "1", name: "Dubstep", icon: "🎵", artists: 45 },
   { id: "2", name: "Trap", icon: "🎧", artists: 32 },
   { id: "3", name: "Bass", icon: "🥁", artists: 28 },

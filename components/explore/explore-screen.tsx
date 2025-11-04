@@ -1,11 +1,10 @@
 "use client";
 import { Search, Filter } from "lucide-react";
 import Image from "next/image";
-import { CATEGORIES, CREATORS } from "@/data";
-import { Creator } from "@/types";
+import { CATEGORIES, CREATORS, type ExploreCreator } from "@/data";
 
 interface ExploreScreenProps {
-  onSelectCreator: (creator: Creator) => void;
+  onSelectCreator: (creator: ExploreCreator) => void;
 }
 
 export default function ExploreScreen({ onSelectCreator }: ExploreScreenProps) {

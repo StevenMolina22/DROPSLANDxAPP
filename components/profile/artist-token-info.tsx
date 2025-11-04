@@ -1,4 +1,4 @@
-import { Artist } from "@/types";
+import type { ArtistProfile } from "@/data/artist-profile";
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
 
@@ -7,7 +7,7 @@ export function ArtistTokenInfo({
   handleBuyToken,
   isLoading,
 }: {
-  artist: Artist;
+  artist: ArtistProfile;
   handleBuyToken: () => void;
   isLoading: boolean;
 }) {

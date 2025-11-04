@@ -1,10 +1,14 @@
-import { Artist } from "@/types";
+import type { ArtistProfile } from "@/data/artist-profile";
 import { Disc, Video, Users, Award } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import { TabsContent } from "../ui/tabs";
 import { Button } from "../ui/button";
 
-export function ArtistCertificationsTab({ artist }: { artist: Artist }) {
+export function ArtistCertificationsTab({
+  artist,
+}: {
+  artist: ArtistProfile;
+}) {
   return (
     <TabsContent value="certifications" className="mt-4 space-y-3">
       <div className="mb-3">

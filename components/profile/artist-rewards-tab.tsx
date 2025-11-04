@@ -1,4 +1,4 @@
-import { Artist } from "@/types";
+import type { ArtistProfile } from "@/data/artist-profile";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { BanknoteIcon } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Lock } from "lucide-react";
 
-export function ArtistRewardsTab({ artist }: { artist: Artist }) {
+export function ArtistRewardsTab({ artist }: { artist: ArtistProfile }) {
   return (
     <TabsContent value="rewards" className="mt-4 space-y-3">
       <div className="mb-3">

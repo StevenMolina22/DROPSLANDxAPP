@@ -1,4 +1,4 @@
-import { UserData } from "@/types";
+import { UserData, MusicPlayer, Track } from "@/types";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { PostInteractionState } from "./profile-view";
 import { CreatePostForm } from "./profile-create-post-form";
@@ -10,7 +10,6 @@ import {
   followedArtists,
   rewards,
 } from "@/data/profile-view";
-import { Certification } from "@/types";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import {
   Disc,
@@ -23,8 +22,8 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import { Badge } from "../ui/badge";
-import { MusicPlayer } from "@/types";
-import { Track } from "@/types";
+
+type ProfileCertification = (typeof certifications)[number];
 
 interface ProfileTabsProps {
   isArtist: boolean;
@@ -200,7 +199,7 @@ const ArtistRewardsTab: React.FC = () => (
 
 const CertificationsTab: React.FC = () => (
   <>
-    {certifications.map((cert: Certification) => (
+    {certifications.map((cert: ProfileCertification) => (
       <Card
         key={cert.id}
         className="overflow-hidden bg-gray-800 border-gray-700"

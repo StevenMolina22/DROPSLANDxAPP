@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/hooks/use-auth";
 import { userDataService } from "@/lib/user-data-service";
-import { FeedItem, ExtendedPost, Activity } from "@/types";
+import { FeedItem, Post, Activity } from "@/types";
 import MusicPlayer from "@/components/music-player/music-player";
 import { CommentDialog } from "./CommentDialog";
 import { ActivityCard } from "./ActivityCard";
@@ -57,6 +57,9 @@ export default function HomeView() {
       image: image || undefined,
       type: "post",
       tags: (content.match(/#(\w+)/g) || []).map((tag: string) => tag.slice(1)),
+      isExclusive: false,
+      requiredTokenId: null,
+      requiredTokenAmount: 0,
     });
     refreshFeed();
   };
@@ -102,7 +105,7 @@ export default function HomeView() {
                   item.type === "post" ? (
                     <PostCard
                       key={item.id}
-                      post={item.data as ExtendedPost}
+                      post={item.data as Post}
                       user={user}
                       onLike={handleLike}
                       onComment={handleComment}

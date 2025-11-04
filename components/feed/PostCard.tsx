@@ -3,7 +3,8 @@ import Link from "next/link";
 import { Heart, MessageCircle, Share2 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
-import { ExtendedPost } from "@/types";
+import { Badge } from "@/components/ui/badge";
+import { Post } from "@/types";
 import { formatTimeAgo } from "./formatTimeAgo";
 
 export function PostCard({
@@ -12,7 +13,7 @@ export function PostCard({
   onLike,
   onComment,
 }: {
-  post: ExtendedPost;
+  post: Post;
   user: string | null;
   onLike: (postId: string) => void;
   onComment: (postId: string) => void;
@@ -43,7 +44,14 @@ export function PostCard({
             </p>
           </div>
         </div>
-        <p className="text-sm text-gray-300 mb-3">{post.content}</p>
+        <div className="flex items-start justify-between mb-3">
+          <p className="text-sm text-gray-300">{post.content}</p>
+          {post.isExclusive && (
+            <Badge variant="secondary" className="bg-amber-500/10 text-amber-400 border-amber-400/30">
+              Exclusive
+            </Badge>
+          )}
+        </div>
         {post.image && (
           <div className="mb-3 rounded-lg overflow-hidden">
             <img src={post.image} alt="Post" className="w-full h-auto" />

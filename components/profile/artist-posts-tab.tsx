@@ -1,10 +1,10 @@
-import { Artist } from "@/types";
+import type { ArtistProfile } from "@/data/artist-profile";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { Heart, MessageCircle, Share2 } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import { TabsContent } from "../ui/tabs";
 
-export function ArtistPostsTab({ artist }: { artist: Artist }) {
+export function ArtistPostsTab({ artist }: { artist: ArtistProfile }) {
   return (
     <TabsContent value="posts" className="mt-4 space-y-4">
       {artist.posts.map((post, index) => (

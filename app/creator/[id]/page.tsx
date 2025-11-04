@@ -15,8 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DonateForm from "@/components/wallet/donate-form";
-import { artists } from "@/data";
-import { Artist } from "@/types";
+import { artists, type ArtistProfile } from "@/data";
 import { NotFoundError } from "@/components/profile/artist-not-found-error";
 
 export async function generateStaticParams() {
@@ -63,7 +62,7 @@ export default function CreatorPage({ params }: { params: { id: string } }) {
   );
 }
 
-function PostsTabs({ artist }: { artist: Artist }) {
+function PostsTabs({ artist }: { artist: ArtistProfile }) {
   return (
     <Tabs defaultValue="posts">
       <TabsList className="grid w-full grid-cols-2">
@@ -156,7 +155,7 @@ function PostsTabs({ artist }: { artist: Artist }) {
   );
 }
 
-function BannerSection({ artist }: { artist: Artist }) {
+function BannerSection({ artist }: { artist: ArtistProfile }) {
   return (
     <div className="relative h-48 md:h-64 lg:h-80 w-full">
       <Image
@@ -182,7 +181,7 @@ function BannerSection({ artist }: { artist: Artist }) {
   );
 }
 
-function ArtistProfileInfo({ artist }: { artist: Artist }) {
+function ArtistProfileInfo({ artist }: { artist: ArtistProfile }) {
   return (
     <div className="relative -mt-20 mb-6 flex flex-col items-center">
       <Avatar className="h-32 w-32">

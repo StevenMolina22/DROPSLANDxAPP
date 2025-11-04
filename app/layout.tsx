@@ -1,14 +1,14 @@
 import type React from "react";
-import "@/app/globals.css";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/hooks/use-auth";
 import { MusicPlayerProvider } from "@/contexts/music-player-context";
-import MiniPlayerWrapper from "@/components/music-player/mini-player-wrapper";
-import ExpandedPlayer from "@/components/music-player/expanded-player";
 import { WrappedPrivyProvider } from "@/components/privy-provider";
 import { AppShell } from "@/components/layout/app-shell";
+import MiniPlayerWrapper from "@/components/music-player/mini-player-wrapper";
+import ExpandedPlayer from "@/components/music-player/expanded-player";
+import "@/app/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

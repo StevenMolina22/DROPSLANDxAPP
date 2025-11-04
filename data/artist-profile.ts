@@ -1,9 +1,55 @@
 // Vamos a actualizar los datos de los artistas para que cada uno tenga contenido único
 // Reemplazaremos la constante artists con datos más personalizados
 
-import { Artist } from "@/types";
+export interface ArtistProfilePost {
+  content: string;
+  time: string;
+  likes: number;
+  comments: number;
+  image: string;
+}
 
-export const artists: Artist[] = [
+export interface ArtistExclusiveContent {
+  title: string;
+  description: string;
+  date: string;
+}
+
+export interface ArtistProfileReward {
+  title: string;
+  description: string;
+  minTokens: number;
+  subscribers: number;
+}
+
+export interface ArtistCertification {
+  id: string;
+  type: string;
+  title: string;
+  description: string;
+  date: string;
+}
+
+export interface ArtistProfile {
+  id: string;
+  name: string;
+  handle: string;
+  avatar: string;
+  coverImage: string;
+  genre: string;
+  description: string;
+  supporters: number;
+  blgReceived: number;
+  featured: boolean;
+  tokenName: string;
+  tokenPrice: number;
+  posts: ArtistProfilePost[];
+  exclusiveContent: ArtistExclusiveContent[];
+  rewards: ArtistProfileReward[];
+  certifications: ArtistCertification[];
+}
+
+export const artists: ArtistProfile[] = [
   {
     id: "iamjuampi",
     name: "iamjuampi",

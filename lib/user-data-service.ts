@@ -1,9 +1,9 @@
 import {
   UserData,
-  ExtendedPost,
+  Post,
   Activity,
   Notification,
-  Token,
+  UtilityToken,
   UserStats,
   FeedItem,
   PostComment,
@@ -11,10 +11,10 @@ import {
 
 class UserDataService {
   private users: Map<string, UserData> = new Map();
-  private posts: Map<string, ExtendedPost> = new Map();
+  private posts: Map<string, Post> = new Map();
   private activities: Map<string, Activity> = new Map();
   private notifications: Map<string, Notification[]> = new Map();
-  private tokens: Map<string, Token> = new Map();
+  private tokens: Map<string, UtilityToken> = new Map();
   private userStats: Map<string, UserStats> = new Map();
 
   constructor() {
@@ -224,7 +224,7 @@ class UserDataService {
     });
 
     // Initialize default posts
-    const defaultPosts: ExtendedPost[] = [
+    const defaultPosts: Post[] = [
       {
         id: "post1",
         authorId: "juampi",
@@ -259,6 +259,9 @@ class UserDataService {
         createdAt: "2024-01-15T09:00:00Z",
         type: "post",
         tags: ["techno", "newrelease", "ep"],
+        isExclusive: true,
+        requiredTokenId: "juampi_token",
+        requiredTokenAmount: 25,
       },
       {
         id: "post2",
@@ -283,6 +286,9 @@ class UserDataService {
         createdAt: "2024-01-16T14:00:00Z",
         type: "post",
         tags: ["studiosession", "collab", "technohouse"],
+        isExclusive: false,
+        requiredTokenId: null,
+        requiredTokenAmount: 0,
       },
       {
         id: "post3",
@@ -306,6 +312,9 @@ class UserDataService {
         createdAt: "2024-01-17T16:00:00Z",
         type: "post",
         tags: ["clubunderground", "liveset", "techno"],
+        isExclusive: false,
+        requiredTokenId: null,
+        requiredTokenAmount: 0,
       },
       {
         id: "post4",
@@ -320,6 +329,9 @@ class UserDataService {
         createdAt: "2024-01-18T12:30:00Z",
         type: "announcement",
         tags: ["electronicdreams", "festival", "techno"],
+        isExclusive: false,
+        requiredTokenId: null,
+        requiredTokenAmount: 0,
       },
       {
         id: "post5",
@@ -344,6 +356,9 @@ class UserDataService {
         createdAt: "2024-01-19T09:30:00Z",
         type: "post",
         tags: ["analogsynths", "90ssamples", "newsounds"],
+        isExclusive: false,
+        requiredTokenId: null,
+        requiredTokenAmount: 0,
       },
       {
         id: "post6",
@@ -357,6 +372,9 @@ class UserDataService {
         createdAt: "2024-01-20T15:45:00Z",
         type: "post",
         tags: ["collab", "mastering", "newtrack"],
+        isExclusive: false,
+        requiredTokenId: null,
+        requiredTokenAmount: 0,
       },
       {
         id: "post7",
@@ -381,6 +399,9 @@ class UserDataService {
         createdAt: "2024-01-21T10:00:00Z",
         type: "announcement",
         tags: ["vinyl", "limitededition", "techno"],
+        isExclusive: false,
+        requiredTokenId: null,
+        requiredTokenAmount: 0,
       },
       {
         id: "post8",
@@ -395,6 +416,9 @@ class UserDataService {
         createdAt: "2024-01-22T18:20:00Z",
         type: "post",
         tags: ["ibiza", "throwback", "housemusic"],
+        isExclusive: false,
+        requiredTokenId: null,
+        requiredTokenAmount: 0,
       },
       // Nuevos posts más recientes
       {
@@ -419,6 +443,9 @@ class UserDataService {
         createdAt: "2024-01-23T08:00:00Z",
         type: "post",
         tags: ["neonnights", "newtrack", "techno"],
+        isExclusive: false,
+        requiredTokenId: null,
+        requiredTokenAmount: 0,
       },
       {
         id: "post10",
@@ -433,6 +460,9 @@ class UserDataService {
         createdAt: "2024-01-24T14:30:00Z",
         type: "post",
         tags: ["studiovibes", "newmusic", "techno"],
+        isExclusive: false,
+        requiredTokenId: null,
+        requiredTokenAmount: 0,
       },
       {
         id: "post11",
@@ -456,6 +486,9 @@ class UserDataService {
         createdAt: "2024-01-25T10:00:00Z",
         type: "post",
         tags: ["europeantour", "berlin", "housemusic"],
+        isExclusive: false,
+        requiredTokenId: null,
+        requiredTokenAmount: 0,
       },
       {
         id: "post12",
@@ -479,6 +512,9 @@ class UserDataService {
         createdAt: "2024-01-26T15:00:00Z",
         type: "post",
         tags: ["remix", "neonnights", "techno"],
+        isExclusive: false,
+        requiredTokenId: null,
+        requiredTokenAmount: 0,
       },
       {
         id: "post13",
@@ -492,6 +528,9 @@ class UserDataService {
         createdAt: "2024-01-27T12:00:00Z",
         type: "announcement",
         tags: ["warehouseproject", "manchester", "techno"],
+        isExclusive: false,
+        requiredTokenId: null,
+        requiredTokenAmount: 0,
       },
       {
         id: "post14",
@@ -516,6 +555,9 @@ class UserDataService {
         createdAt: "2024-01-28T18:00:00Z",
         type: "post",
         tags: ["studiosession", "newtrack", "techno"],
+        isExclusive: false,
+        requiredTokenId: null,
+        requiredTokenAmount: 0,
       },
       {
         id: "post15",
@@ -529,6 +571,9 @@ class UserDataService {
         createdAt: "2024-01-29T20:00:00Z",
         type: "post",
         tags: ["podcast", "housemusic", "newepisode"],
+        isExclusive: false,
+        requiredTokenId: null,
+        requiredTokenAmount: 0,
       },
     ];
 
@@ -542,10 +587,10 @@ class UserDataService {
     console.log("Default posts added:", defaultPosts.length);
 
     // Initialize default tokens
-    const defaultTokens: Token[] = [
+    const defaultUtilityTokens: UtilityToken[] = [
       {
         id: "juampi_token",
-        name: "JUAMPI Token",
+        name: "JUAMPI UtilityToken",
         symbol: "JUAMPI",
         artistId: "juampi",
         artistName: "iamjuampi",
@@ -557,7 +602,7 @@ class UserDataService {
       },
       {
         id: "banger_token",
-        name: "BANGER Token",
+        name: "BANGER UtilityToken",
         symbol: "BANGER",
         artistId: "banger",
         artistName: "banger",
@@ -569,7 +614,7 @@ class UserDataService {
       },
     ];
 
-    defaultTokens.forEach((token) => {
+    defaultUtilityTokens.forEach((token) => {
       if (!this.tokens.has(token.id)) {
         this.tokens.set(token.id, token);
       }
@@ -665,10 +710,10 @@ class UserDataService {
 
   // Post methods
   createPost(
-    postData: Omit<ExtendedPost, "id" | "createdAt" | "likes" | "comments">,
-  ): ExtendedPost {
+    postData: Omit<Post, "id" | "createdAt" | "likes" | "comments">,
+  ): Post {
     const id = `post_${Date.now()}`;
-    const newPost: ExtendedPost = {
+    const newPost: Post = {
       ...postData,
       id,
       likes: [],
@@ -682,13 +727,13 @@ class UserDataService {
     return newPost;
   }
 
-  getPostsByUser(userId: string): ExtendedPost[] {
+  getPostsByUser(userId: string): Post[] {
     return Array.from(this.posts.values()).filter(
       (post) => post.authorId === userId,
     );
   }
 
-  getAllPosts(): ExtendedPost[] {
+  getAllPosts(): Post[] {
     return Array.from(this.posts.values());
   }
 
@@ -702,13 +747,13 @@ class UserDataService {
     const followingIds = user.following;
 
     // If user is not following anyone, show posts from featured artists
-    let postFilter = (post: ExtendedPost) =>
+    let postFilter = (post: Post) =>
       followingIds.includes(post.authorId) || post.authorId === userId;
 
     if (followingIds.length === 0) {
       // Show posts from featured artists for new users
       const featuredArtistIds = ["juampi", "banger", "nicolamarti", "axs"];
-      postFilter = (post: ExtendedPost) =>
+      postFilter = (post: Post) =>
         featuredArtistIds.includes(post.authorId) || post.authorId === userId;
     }
 
@@ -994,14 +1039,14 @@ class UserDataService {
     return comment;
   }
 
-  // Token methods
-  getTokensByArtist(artistId: string): Token[] {
+  // UtilityToken methods
+  getUtilityTokensByArtist(artistId: string): UtilityToken[] {
     return Array.from(this.tokens.values()).filter(
       (token) => token.artistId === artistId,
     );
   }
 
-  getAllTokens(): Token[] {
+  getAllUtilityTokens(): UtilityToken[] {
     return Array.from(this.tokens.values());
   }
 
@@ -1037,7 +1082,7 @@ class UserDataService {
     );
   }
 
-  searchPosts(query: string): ExtendedPost[] {
+  searchPosts(query: string): Post[] {
     const lowercaseQuery = query.toLowerCase();
     return Array.from(this.posts.values()).filter(
       (post) =>

@@ -2,7 +2,7 @@ import { userPosts } from "@/data/profile-view";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { Heart, MessageCircle, Share2 } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
-import { Post } from "@/types";
+type ProfilePost = (typeof userPosts)[number];
 
 interface PostListProps {
   userDisplayName: string;
@@ -14,7 +14,7 @@ interface PostListProps {
 }
 
 interface PostCardProps {
-  post: Post;
+  post: ProfilePost;
   index: number;
   userDisplayName: string;
   userAvatar: string;
