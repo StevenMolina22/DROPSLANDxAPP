@@ -42,7 +42,7 @@ export function PostCreator({
       return;
     }
 
-    setPreviewUrl(URL.createObjectURL(file) as any);
+    setPreviewUrl(URL.createObjectURL(file));
   };
 
   const handlePost = () => {
