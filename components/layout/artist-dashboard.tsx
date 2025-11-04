@@ -17,7 +17,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/hooks/use-auth";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
-import { CreateTokenDialog } from "../solana/create-token-dialog";
 
 export default function ArtistDashboard() {
   const [activeTab, setActiveTab] = useState("overview");
@@ -105,10 +104,6 @@ export default function ArtistDashboard() {
             Add Reward
           </Button>
         </div>
-        <div className="grid grid-cols-1 mb-6">
-          <CreateTokenDialog />
-        </div>
-
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mt-6">
           <TabsList className="grid w-full grid-cols-3 bg-gray-800">
