@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
-// import { SolanaWalletButton } from "@/components//solana-wallet-button";
 
 export function Header() {
   const { userData, isArtist, user, logout } = useAuth();
@@ -21,7 +20,6 @@ export function Header() {
           alt="DROPSLAND"
           className="h-12 max-w-[180px] object-contain"
         />
-        {/*<SolanaWalletButton />*/}
       </div>
       <div className="flex items-center gap-2">
         {showDashboardButton && (

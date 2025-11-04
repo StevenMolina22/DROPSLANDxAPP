@@ -5,7 +5,6 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/hooks/use-auth";
 import { MusicPlayerProvider } from "@/contexts/music-player-context";
-import { SolanaWalletProvider } from "@/contexts/solana-wallet-context";
 import MiniPlayerWrapper from "@/components/music-player/mini-player-wrapper";
 import ExpandedPlayer from "@/components/music-player/expanded-player";
 import { WrappedPrivyProvider } from "@/components/privy-provider";
@@ -37,16 +36,14 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <WrappedPrivyProvider>
-            <SolanaWalletProvider>
-              <AuthProvider>
-                <MusicPlayerProvider>
-                  <AppShell>{children}</AppShell>
-                  <MiniPlayerWrapper />
-                  <ExpandedPlayer />
-                </MusicPlayerProvider>
-              </AuthProvider>
-              <Toaster />
-            </SolanaWalletProvider>
+            <AuthProvider>
+              <MusicPlayerProvider>
+                <AppShell>{children}</AppShell>
+                <MiniPlayerWrapper />
+                <ExpandedPlayer />
+              </MusicPlayerProvider>
+            </AuthProvider>
+            <Toaster />
           </WrappedPrivyProvider>
         </ThemeProvider>
       </body>
