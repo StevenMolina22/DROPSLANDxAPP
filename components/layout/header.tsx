@@ -1,23 +1,18 @@
-import { UserData } from "@/types";
-import { UserPlus } from "lucide-react";
-import { SolanaWalletButton } from "@/components/auth/solana-wallet-button";
-import { Button } from "@/components/ui/button";
+"use client";
 
-export function Header({
-  userData,
-  isArtist,
-  activeTab,
-  handleOpenArtistDashboard,
-  user,
-  logout,
-}: {
-  userData: UserData | null;
-  isArtist: () => boolean;
-  activeTab: string;
-  handleOpenArtistDashboard: () => void;
-  user: string;
-  logout: () => void;
-}) {
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { UserPlus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/use-auth";
+// import { SolanaWalletButton } from "@/components//solana-wallet-button";
+
+export function Header() {
+  const { userData, isArtist, user, logout } = useAuth();
+  const pathname = usePathname();
+  const isProfileRoute = pathname?.startsWith("/profile");
+  const showDashboardButton = !!userData && isArtist() && isProfileRoute;
+
   return (
     <header className="bg-gray-900 px-4 py-4 border-b border-gray-800 flex items-center justify-between flex-col">
       <div className="flex items-center gap-3">
@@ -26,17 +21,17 @@ export function Header({
           alt="DROPSLAND"
           className="h-12 max-w-[180px] object-contain"
         />
-        <SolanaWalletButton />
+        {/*<SolanaWalletButton />*/}
       </div>
       <div className="flex items-center gap-2">
-        {userData && isArtist() && activeTab === "profile" && (
+        {showDashboardButton && (
           <Button
+            asChild
             variant="outline"
             size="sm"
             className="bg-gray-800 text-white border-gray-700"
-            onClick={handleOpenArtistDashboard}
           >
-            Dashboard
+            <Link href="/dashboard">Dashboard</Link>
           </Button>
         )}
         {!userData && user && (

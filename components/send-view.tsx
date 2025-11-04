@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ArrowLeft, Info, Search, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -14,12 +15,8 @@ import { BanknoteIcon } from "@/components/icons/banknote-icon";
 // Import the useAuth hook
 import { useAuth } from "@/hooks/use-auth";
 
-interface SendViewProps {
-  onBack: () => void;
-}
-
 // Modify the SendView function to update balance and donated value after sending
-export default function SendView({ onBack }: SendViewProps) {
+export default function SendView() {
   const [amount, setAmount] = useState(20);
   const [recipient, setRecipient] = useState("");
   const [message, setMessage] = useState("");
@@ -27,6 +24,7 @@ export default function SendView({ onBack }: SendViewProps) {
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const { toast } = useToast();
   const { balance, addToBalance, addToDonated } = useAuth(); // Get balance and functions to update it
+  const router = useRouter();
 
   const handleSend = async () => {
     if (!selectedUser) {
@@ -90,7 +88,10 @@ export default function SendView({ onBack }: SendViewProps) {
     <div className="flex flex-col h-full">
       {/* Header */}
       <header className="bg-gray-900 px-4 py-3 border-b border-gray-800 flex items-center">
-        <button onClick={onBack} className="flex items-center text-gray-300">
+        <button
+          onClick={() => router.push("/wallet")}
+          className="flex items-center text-gray-300"
+        >
           <ArrowLeft className="h-4 w-4 mr-1" />
           <span>Back</span>
         </button>

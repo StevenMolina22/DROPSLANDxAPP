@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ArrowLeft, Info } from "lucide-react";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
@@ -11,16 +12,13 @@ import { useToast } from "@/hooks/use-toast";
 // Import the useAuth hook
 import { useAuth } from "@/hooks/use-auth";
 
-interface BuyViewProps {
-  onBack: () => void;
-}
-
-export default function BuyView({ onBack }: BuyViewProps) {
+export default function BuyView() {
   const [amount, setAmount] = useState(50);
   const [isLoading, setIsLoading] = useState(false);
   const [exchangeRate] = useState(0.42); // 1 DROPS = 0.42 USD
   const { toast } = useToast();
   const { addToBalance } = useAuth();
+  const router = useRouter();
 
   const handleBuy = () => {
     setIsLoading(true);
@@ -42,7 +40,10 @@ export default function BuyView({ onBack }: BuyViewProps) {
     <div className="flex flex-col h-full">
       {/* Header */}
       <header className="bg-gray-900 px-4 py-3 border-b border-gray-800 flex items-center">
-        <button onClick={onBack} className="flex items-center text-gray-300">
+        <button
+          onClick={() => router.push("/wallet")}
+          className="flex items-center text-gray-300"
+        >
           <ArrowLeft className="h-4 w-4 mr-1" />
           <span>Back</span>
         </button>

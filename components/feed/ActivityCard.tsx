@@ -1,0 +1,59 @@
+"use client";
+import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent } from "@/components/ui/card";
+import { BanknoteIcon } from "@/components/icons/banknote-icon";
+import { Activity } from "@/types";
+import { formatTimeAgo } from "./formatTimeAgo";
+
+export function ActivityCard({
+  activity,
+}: {
+  activity: Activity;
+}) {
+  return (
+    <Card className="bg-gray-800 border-gray-700">
+      <CardContent className="p-3">
+        <div className="flex gap-3">
+          <Link href={`/creator/${activity.userId}`} className="flex-shrink-0">
+            <Avatar className="h-10 w-10">
+              <AvatarImage src={activity.userAvatar} alt={activity.userName} />
+              <AvatarFallback>
+                {activity.userName.substring(0, 2).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+          </Link>
+          <div className="flex-1">
+            <p className="text-sm text-white">
+              <Link
+                href={`/creator/${activity.userId}`}
+                className="font-medium hover:underline"
+              >
+                {activity.userName}
+              </Link>{" "}
+              {activity.action}
+            </p>
+            {activity.message && (
+              <p className="text-sm mt-1 bg-gray-700 p-2 rounded-lg text-gray-300">
+                {activity.message}
+              </p>
+            )}
+            <div className="flex items-center mt-1">
+              <p className="text-xs text-gray-400">
+                {formatTimeAgo(activity.createdAt)}
+              </p>
+              {activity.amount && activity.tokenName && (
+                <div className="flex items-center text-bright-yellow text-xs font-medium ml-2">
+                  <BanknoteIcon className="h-4 w-4 mr-1" />
+                  <span>
+                    {activity.amount} ${activity.tokenName}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}

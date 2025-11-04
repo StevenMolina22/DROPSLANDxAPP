@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ArrowLeft, Copy, Check, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,15 +10,12 @@ import { useAuth } from "@/hooks/use-auth";
 import { BanknoteIcon } from "@/components/icons/banknote-icon";
 import Image from "next/image";
 
-interface ReceiveViewProps {
-  onBack: () => void;
-}
-
-export default function ReceiveView({ onBack }: ReceiveViewProps) {
+export default function ReceiveView() {
   const { balance } = useAuth();
   const { toast } = useToast();
   const [copied, setCopied] = useState(false);
   const walletAddress = "0x1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t";
+  const router = useRouter();
 
   const copyToClipboard = () => {
     // Simplify clipboard copy to avoid API issues
@@ -42,7 +40,10 @@ export default function ReceiveView({ onBack }: ReceiveViewProps) {
     <div className="flex flex-col h-full bg-gray-950">
       {/* Header */}
       <header className="bg-gray-900 px-4 py-3 border-b border-gray-800 flex items-center">
-        <button onClick={onBack} className="flex items-center text-gray-300">
+        <button
+          onClick={() => router.push("/wallet")}
+          className="flex items-center text-gray-300"
+        >
           <ArrowLeft className="h-4 w-4 mr-1" />
           <span>Back</span>
         </button>

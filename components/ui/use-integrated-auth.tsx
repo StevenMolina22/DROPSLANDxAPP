@@ -144,7 +144,7 @@ export function useIntegratedAuth(): IntegratedAuthType {
         if (result.success) {
           // Actualizar lista de NFTs de música
           const newNFT = {
-            id: result.nftId || "music_nft_" + Date.now(),
+            id: "music_nft_" + Date.now(),
             title: musicData.title || "Music NFT",
             artist: musicData.artist || "Artist",
             price: musicData.price || 0.1,
@@ -170,8 +170,8 @@ export function useIntegratedAuth(): IntegratedAuthType {
 
     try {
       console.log("🔍 Checking Profile NFT...");
-      const result = await solanaNFTs.getProfileNFT();
-      const hasNFT = result && result.success;
+      const result = await solanaNFTs.checkProfileNFT();
+      const hasNFT = typeof result === "boolean" ? result : false;
       setHasProfileNFT(hasNFT);
       return hasNFT;
     } catch (error: any) {
@@ -189,9 +189,9 @@ export function useIntegratedAuth(): IntegratedAuthType {
     try {
       console.log("🎵 Getting user music NFTs...");
       const result = await solanaNFTs.getUserMusic();
-      if (result && result.success) {
-        setUserMusicNFTs(result.nfts || []);
-        return result.nfts || [];
+      if (Array.isArray(result)) {
+        setUserMusicNFTs(result);
+        return result;
       }
       return [];
     } catch (error: any) {
@@ -360,10 +360,14 @@ export function useIntegratedAuth(): IntegratedAuthType {
     createNFIDUser: auth.createNFIDUser,
     updateUserProfile: auth.updateUserProfile,
     updateBackendProfile: auth.updateBackendProfile,
-    updateBackendUsername: auth.updateBackendUsername,
-    updateBackendHandle: auth.updateBackendHandle,
-    updateBackendProfileImage: auth.updateBackendProfileImage,
-    updateBackendCoverImage: auth.updateBackendCoverImage,
+    updateBackendUsername: (username: string) =>
+      auth.updateBackendProfile(username),
+    updateBackendHandle: (handle: string) =>
+      auth.updateBackendProfile(undefined, handle),
+    updateBackendProfileImage: (profileImage: string) =>
+      auth.updateBackendProfile(undefined, undefined, profileImage),
+    updateBackendCoverImage: (coverImage: string) =>
+      auth.updateBackendProfile(undefined, undefined, undefined, coverImage),
 
     // Funcionalidad de Solana (añadida)
     solanaConnected,
@@ -379,9 +383,5 @@ export function useIntegratedAuth(): IntegratedAuthType {
     checkProfileNFT,
     getUserMusicNFTs,
     getSolanaBalance,
-    sendTokens,
-    buyTokens,
-    buyArtistToken,
-    mintTicket,
   };
 }

@@ -1,16 +1,8 @@
 import React, { useState } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
-import {
-  createFungible,
-  mplTokenMetadata,
-} from "@metaplex-foundation/mpl-token-metadata";
-import {
-  generateSigner,
-  percentAmount,
-  some,
-  PublicKey,
-} from "@metaplex-foundation/umi";
-import { useSolanaUmi } from "@/hooks/use-solana-umi"; // Adjust path as needed
+import { createFungible } from "@metaplex-foundation/mpl-token-metadata";
+import { generateSigner, percentAmount, some } from "@metaplex-foundation/umi";
+import { useSolanaUmi } from "@/hooks/solana/use-solana-umi"; // Adjust path as needed
 
 import { Button } from "@/components/ui/button";
 import {
